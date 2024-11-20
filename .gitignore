@@ -12,6 +12,8 @@ ui/*/index.html
 dist
 binary_dist
 sim/web/__debug_bin
+/wowsimclassiccli*
+/wowsimclassic*
 /wowsimsodcli*
 /wowsimsod*
 chromedriver*
@@ -24,6 +26,7 @@ google-chrome*
 /classic/
 /sod/
 *.code-workspace
+wowsimclassic
 wowsimsod
 
 # old result file
@@ -36,6 +39,9 @@ TestAPL.results
 tmp/
 
 # lib
+wowsimclassic*.so
+wowsimclassic*.dll
+wowsimclassic*.h
 wowsimsod*.so
 wowsimsod*.dll
 wowsimsod*.h
