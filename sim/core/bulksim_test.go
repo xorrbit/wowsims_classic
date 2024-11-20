@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/wowsims/sod/sim/core/proto"
-	"github.com/wowsims/sod/sim/core/simsignals"
+	"github.com/wowsims/classic/sim/core/proto"
+	"github.com/wowsims/classic/sim/core/simsignals"
 	"google.golang.org/protobuf/encoding/protojson"
 )
 

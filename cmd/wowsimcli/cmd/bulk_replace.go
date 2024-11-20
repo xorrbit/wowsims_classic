@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
-	"github.com/wowsims/sod/sim/core"
-	"github.com/wowsims/sod/sim/core/proto"
+	"github.com/wowsims/classic/sim/core"
+	"github.com/wowsims/classic/sim/core/proto"
 	"google.golang.org/protobuf/encoding/protojson"
 )
 

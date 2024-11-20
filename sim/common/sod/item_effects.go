@@ -3,7 +3,7 @@ package sod
 import (
 	"time"
 
-	"github.com/wowsims/sod/sim/core"
+	"github.com/wowsims/classic/sim/core"
 )
 
 // Ordered by ID

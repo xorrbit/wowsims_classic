@@ -1,7 +1,7 @@
 package shaman
 
 import (
-	"github.com/wowsims/sod/sim/core"
+	"github.com/wowsims/classic/sim/core"
 )
 
 // This could be value or bitflag if we ended up needing multiple flags at the same time.

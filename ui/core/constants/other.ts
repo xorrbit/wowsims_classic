@@ -20,8 +20,8 @@ export const CURRENT_PHASE = Phase.Phase3;
 
 export const LEVEL_BRACKETS = [25, 40, 50, 60];
 
-// Github pages serves our site under the /sod directory (because the repo name is wotlk)
-export const REPO_NAME = 'sod';
+// Github pages serves our site under the /classic directory
+export const REPO_NAME = 'classic';
 
 // Get 'elemental_shaman', the pathname part after the repo name
 const pathnameParts = window.location.pathname.split('/');

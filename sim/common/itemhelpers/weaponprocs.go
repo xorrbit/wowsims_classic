@@ -3,7 +3,7 @@ package itemhelpers
 import (
 	"fmt"
 
-	"github.com/wowsims/sod/sim/core"
+	"github.com/wowsims/classic/sim/core"
 )
 
 // Create a simple weapon proc that deals damage.

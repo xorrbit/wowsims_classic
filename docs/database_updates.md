@@ -1,26 +1,26 @@
 # Database Updates
 
-This doc outlines the various methods for updating database data in WoWSims Season of Discovery.
+This doc outlines the various methods for updating database data in WoWSims Classic.
 
 ## Introduction
 
 WoWSims uses a number of JSON database files to store our data.
-These can be found in [assets/database/](https://github.com/wowsims/sod/tree/master/assets/database):
+These can be found in [assets/database/](https://github.com/wowsims/classic/tree/master/assets/database):
 
--   [db.json](https://github.com/wowsims/sod/blob/master/assets/database/db.json) - Our primary database file. This is where we store the majority of our item, spell, and other data used in the sims.
--   [leftover_db.json](https://github.com/wowsims/sod/blob/master/assets/database/leftover_db.json) - This is a leftover database file where items filtered out for having invalid data (determined in `main.go`) are placed.
+-   [db.json](https://github.com/wowsims/classic/blob/master/assets/database/db.json) - Our primary database file. This is where we store the majority of our item, spell, and other data used in the sims.
+-   [leftover_db.json](https://github.com/wowsims/classic/blob/master/assets/database/leftover_db.json) - This is a leftover database file where items filtered out for having invalid data (determined in `main.go`) are placed.
 
 We also store scraped data from external sources like Wowhead, Atlasloot, etc. in order to build database data in the first place.
-These can be found in [assets/db_inputs/](https://github.com/wowsims/sod/tree/master/assets/db_inputs):
+These can be found in [assets/db_inputs/](https://github.com/wowsims/classic/tree/master/assets/db_inputs):
 
--   [atlasloot_db.json](https://github.com/wowsims/sod/blob/master/assets/db_inputs/atlasloot_db.json) - Scraped data from the AtlasLoot addon's GitHub repo. This is primarily used for item source data and faction restrictions.
--   [wago_db2_items.csv](https://github.com/wowsims/sod/blob/master/assets/db_inputs/wago_db2_items.csv) - Scraped item data from Wago DB. This is currently used for additional item set and faction restriction information.
--   [wowhead_gearplannerdb.txt](https://github.com/wowsims/sod/blob/master/assets/db_inputs/wowhead_gearplannerdb.txt) - Scraped item data from Wowhead Gear Planner. This is one of our primary sources of item data along with Wowhead item tooltips.
--   [wowhead_item_tooltips.csv](https://github.com/wowsims/sod/blob/master/assets/db_inputs/wowhead_item_tooltips.csv) - Scraped item tooltips from Wowhead. We store the full tooltip along with the item IDs.
--   [wowhead_rune_tooltips.csv](https://github.com/wowsims/sod/blob/master/assets/db_inputs/wowhead_rune_tooltips.csv) - Scraped rune tooltips from Wowhead. We store the full tooltip along with the rune engraving spell IDs.
--   [wowhead_spell_tooltips.csv](https://github.com/wowsims/sod/blob/master/assets/db_inputs/wowhead_spell_tooltips.csv) - Scraped spell tooltips from Wowhead. We store the full tooltip along with the spell IDs.
+-   [atlasloot_db.json](https://github.com/wowsims/classic/blob/master/assets/db_inputs/atlasloot_db.json) - Scraped data from the AtlasLoot addon's GitHub repo. This is primarily used for item source data and faction restrictions.
+-   [wago_db2_items.csv](https://github.com/wowsims/classic/blob/master/assets/db_inputs/wago_db2_items.csv) - Scraped item data from Wago DB. This is currently used for additional item set and faction restriction information.
+-   [wowhead_gearplannerdb.txt](https://github.com/wowsims/classic/blob/master/assets/db_inputs/wowhead_gearplannerdb.txt) - Scraped item data from Wowhead Gear Planner. This is one of our primary sources of item data along with Wowhead item tooltips.
+-   [wowhead_item_tooltips.csv](https://github.com/wowsims/classic/blob/master/assets/db_inputs/wowhead_item_tooltips.csv) - Scraped item tooltips from Wowhead. We store the full tooltip along with the item IDs.
+-   [wowhead_rune_tooltips.csv](https://github.com/wowsims/classic/blob/master/assets/db_inputs/wowhead_rune_tooltips.csv) - Scraped rune tooltips from Wowhead. We store the full tooltip along with the rune engraving spell IDs.
+-   [wowhead_spell_tooltips.csv](https://github.com/wowsims/classic/blob/master/assets/db_inputs/wowhead_spell_tooltips.csv) - Scraped spell tooltips from Wowhead. We store the full tooltip along with the spell IDs.
 
-The entry point for running database scripts is [tools/database/gen_db/main.go](https://github.com/wowsims/sod/blob/master/tools/database/gen_db/main.go).
+The entry point for running database scripts is [tools/database/gen_db/main.go](https://github.com/wowsims/classic/blob/master/tools/database/gen_db/main.go).
 This file is executed by running the `make items` command, or by running one of a set of commands listed in the comments of `gen_db/main.go`.
 
 -   `go run ./tools/database/gen_db -outDir=assets -gen=atlasloot`
@@ -45,16 +45,15 @@ After performing any of these commands, you should then use `make items` in orde
 In addition to our db inputs, we can also define overrides for both adding and removing data.
 We have three different overrides files:
 
--   [tools/database/overrides.go]https://github.com/wowsims/sod/blob/master/tools/database/overrides.go has several different types of overrides for items, including allowlists and denylists.
--   [tools/database/enchant_overrides.go](https://github.com/wowsims/sod/blob/master/tools/database/enchant_overrides.go) has all of our enchant data and is where new enchant entries should be added
--   [tools/database/rune_overrides.go](https://github.com/wowsims/sod/blob/master/tools/database/rune_overrides.go) has overrides related to runes, including overrides that fix some rune information scraped from wowhead, and a way to block runes from the sim until they can be implemented.
+-   [tools/database/overrides.go]https://github.com/wowsims/classic/blob/master/tools/database/overrides.go has several different types of overrides for items, including allowlists and denylists.
+-   [tools/database/enchant_overrides.go](https://github.com/wowsims/classic/blob/master/tools/database/enchant_overrides.go) has all of our enchant data and is where new enchant entries should be added
+-   [tools/database/rune_overrides.go](https://github.com/wowsims/classic/blob/master/tools/database/rune_overrides.go) has overrides related to runes, including overrides that fix some rune information scraped from wowhead, and a way to block runes from the sim until they can be implemented.
 
 These overrides should be used sparingly when possible, but are often a necessary part of filtering data in the sim's database.
 
 ## Updating the Item Database
 
-With the frequent patch cadence of SoD we often need to pull in new and updated item data.
-This typically involves performing several commands to update the multiple sources of item data.
+This involves performing several commands to update the multiple sources of item data.
 
 1. Run the Wowhead Gear Planner scraper
 2. Run the Wowhead Item Tooltip scraper with the range of IDs you want to add/update, deleting any existing entries in that range if there are any.

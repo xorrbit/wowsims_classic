@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/wowsims/sod/sim/core"
+	"github.com/wowsims/classic/sim/core"
 )
 
 // Seal of Command is a spell consisting of:

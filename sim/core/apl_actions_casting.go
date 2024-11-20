@@ -3,7 +3,7 @@ package core
 import (
 	"fmt"
 
-	"github.com/wowsims/sod/sim/core/proto"
+	"github.com/wowsims/classic/sim/core/proto"
 )
 
 type APLActionCastSpell struct {

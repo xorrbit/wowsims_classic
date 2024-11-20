@@ -4,8 +4,8 @@ import (
 	"math"
 	"time"
 
-	"github.com/wowsims/sod/sim/core"
-	"github.com/wowsims/sod/sim/core/proto"
+	"github.com/wowsims/classic/sim/core"
+	"github.com/wowsims/classic/sim/core/proto"
 )
 
 // TODO: Classic verify numbers / snapshot / travel time

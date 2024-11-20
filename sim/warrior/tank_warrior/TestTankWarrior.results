@@ -97,45 +97,10 @@ stat_weights_results: {
  }
 }
 dps_results: {
- key: "TestTankWarrior-Phase4-Lvl60-AllItems-BanishedMartyr'sFullPlate"
- value: {
-  dps: 1627.91061
-  tps: 3592.61256
- }
-}
-dps_results: {
  key: "TestTankWarrior-Phase4-Lvl60-AllItems-BattlegearofHeroism"
  value: {
   dps: 922.6751
   tps: 1885.5839
- }
-}
-dps_results: {
- key: "TestTankWarrior-Phase4-Lvl60-AllItems-BloodGuard'sPlate"
- value: {
-  dps: 930.31682
-  tps: 1937.83748
- }
-}
-dps_results: {
- key: "TestTankWarrior-Phase4-Lvl60-AllItems-EmeraldDreamPlate"
- value: {
-  dps: 919.51802
-  tps: 1924.88197
- }
-}
-dps_results: {
- key: "TestTankWarrior-Phase4-Lvl60-AllItems-Knight-Lieutenant'sPlate"
- value: {
-  dps: 930.31682
-  tps: 1937.83748
- }
-}
-dps_results: {
- key: "TestTankWarrior-Phase4-Lvl60-AllItems-WailingBerserker'sPlateArmor"
- value: {
-  dps: 1712.37908
-  tps: 3714.84855
  }
 }
 dps_results: {

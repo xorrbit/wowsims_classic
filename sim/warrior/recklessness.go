@@ -3,8 +3,8 @@ package warrior
 import (
 	"time"
 
-	"github.com/wowsims/sod/sim/core"
-	"github.com/wowsims/sod/sim/core/stats"
+	"github.com/wowsims/classic/sim/core"
+	"github.com/wowsims/classic/sim/core/stats"
 )
 
 // Recklessness now increases critical strike chance by 50% (was 100%) and the duration is reduced to 12 seconds, but the cooldown is reduced to 5 minutes.

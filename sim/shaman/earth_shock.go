@@ -1,8 +1,8 @@
 package shaman
 
 import (
-	"github.com/wowsims/sod/sim/core"
-	"github.com/wowsims/sod/sim/core/proto"
+	"github.com/wowsims/classic/sim/core"
+	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const EarthShockRanks = 7

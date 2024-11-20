@@ -3,8 +3,8 @@ package paladin
 import (
 	"time"
 
-	"github.com/wowsims/sod/sim/core"
-	"github.com/wowsims/sod/sim/core/proto"
+	"github.com/wowsims/classic/sim/core"
+	"github.com/wowsims/classic/sim/core/proto"
 )
 
 // The Arcane Shot of a Hunter, and the Hammer of Wrath and Avenger's Shield talent of a

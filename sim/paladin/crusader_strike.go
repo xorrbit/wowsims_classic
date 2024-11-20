@@ -3,8 +3,8 @@ package paladin
 import (
 	"time"
 
-	"github.com/wowsims/sod/sim/core"
-	"github.com/wowsims/sod/sim/core/proto"
+	"github.com/wowsims/classic/sim/core"
+	"github.com/wowsims/classic/sim/core/proto"
 )
 
 // Crusader Strike is an ap-normalised instant attack that has a weapon damage % modifier with a 0.75 coefficient.

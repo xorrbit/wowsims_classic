@@ -3,9 +3,9 @@ package warlock
 import (
 	"time"
 
-	"github.com/wowsims/sod/sim/core"
-	"github.com/wowsims/sod/sim/core/proto"
-	"github.com/wowsims/sod/sim/core/stats"
+	"github.com/wowsims/classic/sim/core"
+	"github.com/wowsims/classic/sim/core/proto"
+	"github.com/wowsims/classic/sim/core/stats"
 )
 
 // Immolation Aura now triggers from being attacked rather than as a periodic effect. This cannot occur more than once per second, and does not require the attack to hit.

@@ -3,9 +3,9 @@ package item_sets
 import (
 	"time"
 
-	"github.com/wowsims/sod/sim/common/guardians"
-	"github.com/wowsims/sod/sim/core"
-	"github.com/wowsims/sod/sim/core/stats"
+	"github.com/wowsims/classic/sim/common/guardians"
+	"github.com/wowsims/classic/sim/core"
+	"github.com/wowsims/classic/sim/core/stats"
 )
 
 ///////////////////////////////////////////////////////////////////////////

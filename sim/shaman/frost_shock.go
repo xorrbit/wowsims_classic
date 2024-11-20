@@ -1,7 +1,7 @@
 package shaman
 
 import (
-	"github.com/wowsims/sod/sim/core"
+	"github.com/wowsims/classic/sim/core"
 )
 
 const FrostShockRanks = 4

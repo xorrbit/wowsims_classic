@@ -3,8 +3,8 @@ package guardians
 import (
 	"slices"
 
-	"github.com/wowsims/sod/sim/core"
-	"github.com/wowsims/sod/sim/core/stats"
+	"github.com/wowsims/classic/sim/core"
+	"github.com/wowsims/classic/sim/core/stats"
 )
 
 // https://www.wowhead.com/classic/item-set=1779/core-hounds-call
