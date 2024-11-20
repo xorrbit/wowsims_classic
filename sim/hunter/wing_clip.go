@@ -1,7 +1,7 @@
 package hunter
 
 import (
-	"github.com/wowsims/sod/sim/core"
+	"github.com/wowsims/classic/sim/core"
 )
 
 func (hunter *Hunter) getWingClipConfig(rank int) core.SpellConfig {

@@ -1,10 +1,10 @@
 package druid
 
 import (
-	"github.com/wowsims/sod/sim/common/sod"
-	"github.com/wowsims/sod/sim/core"
-	"github.com/wowsims/sod/sim/core/proto"
-	"github.com/wowsims/sod/sim/core/stats"
+	"github.com/wowsims/classic/sim/common/sod"
+	"github.com/wowsims/classic/sim/core"
+	"github.com/wowsims/classic/sim/core/proto"
+	"github.com/wowsims/classic/sim/core/stats"
 )
 
 type DruidForm uint8

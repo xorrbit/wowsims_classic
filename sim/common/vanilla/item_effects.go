@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/wowsims/sod/sim/common/itemhelpers"
-	"github.com/wowsims/sod/sim/core"
-	"github.com/wowsims/sod/sim/core/proto"
-	"github.com/wowsims/sod/sim/core/stats"
+	"github.com/wowsims/classic/sim/common/itemhelpers"
+	"github.com/wowsims/classic/sim/core"
+	"github.com/wowsims/classic/sim/core/proto"
+	"github.com/wowsims/classic/sim/core/stats"
 )
 
 // Ordered by ID

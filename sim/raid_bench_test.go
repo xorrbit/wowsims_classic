@@ -1,7 +1,7 @@
 package sim
 
 import (
-	"github.com/wowsims/sod/sim/core/proto"
+	"github.com/wowsims/classic/sim/core/proto"
 )
 
 // 1 moonkin, 1 ele shaman, 1 spriest, 2x arcane

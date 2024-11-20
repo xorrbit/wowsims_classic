@@ -4,9 +4,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/wowsims/sod/sim/core/proto"
-	"github.com/wowsims/sod/sim/core/simsignals"
-	"github.com/wowsims/sod/sim/core/stats"
+	"github.com/wowsims/classic/sim/core/proto"
+	"github.com/wowsims/classic/sim/core/simsignals"
+	"github.com/wowsims/classic/sim/core/stats"
 )
 
 func init() {

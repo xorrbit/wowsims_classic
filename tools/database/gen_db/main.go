@@ -11,12 +11,12 @@ import (
 	"slices"
 	"strconv"
 
-	"github.com/wowsims/sod/sim"
-	"github.com/wowsims/sod/sim/core"
-	"github.com/wowsims/sod/sim/core/proto"
-	_ "github.com/wowsims/sod/sim/encounters" // Needed for preset encounters.
-	"github.com/wowsims/sod/tools"
-	"github.com/wowsims/sod/tools/database"
+	"github.com/wowsims/classic/sim"
+	"github.com/wowsims/classic/sim/core"
+	"github.com/wowsims/classic/sim/core/proto"
+	_ "github.com/wowsims/classic/sim/encounters" // Needed for preset encounters.
+	"github.com/wowsims/classic/tools"
+	"github.com/wowsims/classic/tools/database"
 )
 
 // To do a full re-scrape, delete the previous output file first.

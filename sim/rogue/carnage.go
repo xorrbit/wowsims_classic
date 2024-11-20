@@ -3,8 +3,8 @@ package rogue
 import (
 	"math"
 
-	"github.com/wowsims/sod/sim/core"
-	"github.com/wowsims/sod/sim/core/proto"
+	"github.com/wowsims/classic/sim/core"
+	"github.com/wowsims/classic/sim/core/proto"
 )
 
 func carnageMultiplier(spell *core.Spell, _ *core.AttackTable) float64 {

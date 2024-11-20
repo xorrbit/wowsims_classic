@@ -4,7 +4,7 @@ import (
 	"slices"
 	"time"
 
-	"github.com/wowsims/sod/sim/core"
+	"github.com/wowsims/classic/sim/core"
 )
 
 type PoolingAction struct {

@@ -3,7 +3,7 @@ package warlock
 import (
 	"time"
 
-	"github.com/wowsims/sod/sim/core"
+	"github.com/wowsims/classic/sim/core"
 )
 
 const DeathCoilRanks = 3

@@ -3,8 +3,8 @@ package druid
 import (
 	"time"
 
-	item_sets "github.com/wowsims/sod/sim/common/sod/items_sets"
-	"github.com/wowsims/sod/sim/core"
+	item_sets "github.com/wowsims/classic/sim/common/sod/items_sets"
+	"github.com/wowsims/classic/sim/core"
 )
 
 const StarfireRanks = 7

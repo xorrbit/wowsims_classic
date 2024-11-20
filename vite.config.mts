@@ -8,13 +8,13 @@ import { ConfigEnv, defineConfig, PluginOption, UserConfigExport } from 'vite';
 import { checker } from 'vite-plugin-checker';
 
 export const BASE_PATH = path.resolve(__dirname, 'ui');
-export const OUT_DIR = path.join(__dirname, 'dist', 'sod');
+export const OUT_DIR = path.join(__dirname, 'dist', 'classic');
 
 function serveExternalAssets() {
 	const workerMappings = {
-		'/sod/sim_worker.js': '/sod/local_worker.js',
-		'/sod/net_worker.js': '/sod/net_worker.js',
-		'/sod/lib.wasm': '/sod/lib.wasm',
+		'/classic/sim_worker.js': '/classic/local_worker.js',
+		'/classic/net_worker.js': '/classic/net_worker.js',
+		'/classic/lib.wasm': '/classic/lib.wasm',
 	};
 
 	return {
@@ -25,15 +25,15 @@ function serveExternalAssets() {
 
 				if (Object.keys(workerMappings).includes(url)) {
 					const targetPath = workerMappings[url as keyof typeof workerMappings];
-					const assetsPath = path.resolve(__dirname, './dist/sod');
-					const requestedPath = path.join(assetsPath, targetPath.replace('/sod/', ''));
+					const assetsPath = path.resolve(__dirname, './dist/classic');
+					const requestedPath = path.join(assetsPath, targetPath.replace('/classic/', ''));
 					serveFile(res, requestedPath);
 					return;
 				}
 
-				if (url.includes('/sod/assets')) {
+				if (url.includes('/classic/assets')) {
 					const assetsPath = path.resolve(__dirname, './assets');
-					const assetRelativePath = url.split('/sod/assets')[1];
+					const assetRelativePath = url.split('/classic/assets')[1];
 					const requestedPath = path.join(assetsPath, assetRelativePath);
 
 					serveFile(res, requestedPath);
@@ -87,7 +87,7 @@ function determineContentType(filePath: string) {
 
 export const getBaseConfig = ({ command, mode }: ConfigEnv) =>
 	({
-		base: '/sod/',
+		base: '/classic/',
 		root: path.join(__dirname, 'ui'),
 		build: {
 			outDir: OUT_DIR,

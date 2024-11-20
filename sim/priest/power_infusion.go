@@ -2,7 +2,7 @@ package priest
 
 // "time"
 
-// "github.com/wowsims/sod/sim/core"
+// "github.com/wowsims/classic/sim/core"
 
 func (priest *Priest) registerPowerInfusionCD() {
 	if !priest.Talents.PowerInfusion {

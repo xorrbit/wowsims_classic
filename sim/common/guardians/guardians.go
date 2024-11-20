@@ -1,6 +1,6 @@
 package guardians
 
-import "github.com/wowsims/sod/sim/core"
+import "github.com/wowsims/classic/sim/core"
 
 func ConstructGuardians(character *core.Character) {
 	constructEmeralDragonWhelps(character)

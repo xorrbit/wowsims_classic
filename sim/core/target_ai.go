@@ -3,7 +3,7 @@ package core
 import (
 	"log"
 
-	"github.com/wowsims/sod/sim/core/proto"
+	"github.com/wowsims/classic/sim/core/proto"
 )
 
 type TargetAI interface {
