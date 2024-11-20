@@ -58,7 +58,7 @@ export enum SimSettingCategories {
 	UISettings, // # iterations, EP weights, filters, etc
 }
 
-const WASM_CONCURRENCY_STORAGE_KEY = `sod_wasmconcurrency`;
+const WASM_CONCURRENCY_STORAGE_KEY = `classic_wasmconcurrency`;
 
 // Core Sim module which deals only with api types, no UI-related stuff.
 export class Sim {

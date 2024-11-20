@@ -15,7 +15,7 @@ export class SocialLinks extends Component {
 
 	static buildGitHubLink(): Element {
 		const anchor = (
-			<a href="https://github.com/wowsims/sod" target="_blank" className="github-link link-alt" dataset={{ tippyContent: 'Contribute on GitHub' }}>
+			<a href="https://github.com/wowsims/classic" target="_blank" className="github-link link-alt" dataset={{ tippyContent: 'Contribute on GitHub' }}>
 				<i className="fab fa-github fa-lg" />
 			</a>
 		);
