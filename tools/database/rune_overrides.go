@@ -6,7 +6,7 @@ import (
 
 // Overrides for runes as needed
 // Regen db with "go run ./tools/database/gen_db -outDir=assets -gen=db"
-// And ensure db files are copied from assets/db into dist/sod/database
+// And ensure db files are copied from assets/db into dist/classic/database
 var RuneOverrides = []*proto.UIRune{
 	// Ring rune tooltips lack the relevant class restrictions so manually override the class allowlists
 	// Ring - Arcane Specialization

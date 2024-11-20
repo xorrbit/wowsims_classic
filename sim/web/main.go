@@ -54,7 +54,7 @@ func main() {
 	fmt.Printf("Version: %s\n", Version)
 	if !*skipVersionCheck && Version != "development" {
 		go func() {
-			resp, err := http.Get("https://api.github.com/repos/wowsims/sod/releases/latest")
+			resp, err := http.Get("https://api.github.com/repos/wowsims/classic/releases/latest")
 			if err != nil {
 				return
 			}
@@ -304,7 +304,7 @@ func (s *server) runServer(useFS bool, host string, launchBrowser bool, simName 
 	})
 	http.HandleFunc("/", func(resp http.ResponseWriter, req *http.Request) {
 		if req.URL.Path == "/" {
-			http.Redirect(resp, req, "/sod/", http.StatusPermanentRedirect)
+			http.Redirect(resp, req, "/classic/", http.StatusPermanentRedirect)
 			return
 		}
 		resp.Header().Add("Cache-Control", "no-cache")
@@ -326,7 +326,7 @@ func (s *server) runServer(useFS bool, host string, launchBrowser bool, simName 
 		if strings.HasPrefix(host, ":") {
 			host = "localhost" + host
 		}
-		url := fmt.Sprintf("http://%s/sod/%s", host, simName)
+		url := fmt.Sprintf("http://%s/classic/%s", host, simName)
 		log.Printf("Launching interface on %s", url)
 		go func() {
 			err := browser.OpenURL(url)

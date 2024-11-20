@@ -262,7 +262,7 @@ export const titleIcons: Record<Spec, string> = {
 	[Spec.SpecTankWarrior]: 'https://wow.zamimg.com/images/wow/icons/large/ability_warrior_defensivestance.jpg',
 };
 
-export const raidSimIcon = '/sod/assets/img/raid_icon.png';
+export const raidSimIcon = '/classic/assets/img/raid_icon.png';
 export const raidSimLabel = 'Full Raid Sim';
 
 // Converts '1231321-12313123-0' to [40, 21, 0].
@@ -1164,27 +1164,27 @@ export function isMeleeDpsSpec(spec: Spec): boolean {
 // Prefixes used for storing browser data for each site. Even if a Spec is
 // renamed, DO NOT change these values or people will lose their saved data.
 export const specToLocalStorageKey: Record<Spec, string> = {
-	[Spec.SpecBalanceDruid]: '__sod_balance_druid',
-	[Spec.SpecFeralDruid]: '__sod_feral_druid',
-	[Spec.SpecFeralTankDruid]: '__sod_feral_tank_druid',
-	[Spec.SpecRestorationDruid]: '__sod_restoration_druid',
-	[Spec.SpecElementalShaman]: '__sod_elemental_shaman',
-	[Spec.SpecEnhancementShaman]: '__sod_enhacement_shaman',
-	[Spec.SpecRestorationShaman]: '__sod_restoration_shaman',
-	[Spec.SpecWardenShaman]: '__sod_warden_shaman',
-	[Spec.SpecHunter]: '__sod_hunter',
-	[Spec.SpecMage]: '__sod_mage',
-	[Spec.SpecHolyPaladin]: '__sod_holy_paladin',
-	[Spec.SpecProtectionPaladin]: '__sod_protection_paladin',
-	[Spec.SpecRetributionPaladin]: '__sod_retribution_paladin',
-	[Spec.SpecRogue]: '__sod_rogue',
-	[Spec.SpecTankRogue]: '__sod_tank_rogue',
-	[Spec.SpecHealingPriest]: '__sod_healing_priest',
-	[Spec.SpecShadowPriest]: '__sod_shadow_priest',
-	[Spec.SpecWarlock]: '__sod_warlock',
-	[Spec.SpecTankWarlock]: '__sod_tank_warlock',
-	[Spec.SpecWarrior]: '__sod_warrior',
-	[Spec.SpecTankWarrior]: '__sod_tank_warrior',
+	[Spec.SpecBalanceDruid]: '__classic_balance_druid',
+	[Spec.SpecFeralDruid]: '__classic_feral_druid',
+	[Spec.SpecFeralTankDruid]: '__classic_feral_tank_druid',
+	[Spec.SpecRestorationDruid]: '__classic_restoration_druid',
+	[Spec.SpecElementalShaman]: '__classic_elemental_shaman',
+	[Spec.SpecEnhancementShaman]: '__classic_enhacement_shaman',
+	[Spec.SpecRestorationShaman]: '__classic_restoration_shaman',
+	[Spec.SpecWardenShaman]: '__classic_warden_shaman',
+	[Spec.SpecHunter]: '__classic_hunter',
+	[Spec.SpecMage]: '__classic_mage',
+	[Spec.SpecHolyPaladin]: '__classic_holy_paladin',
+	[Spec.SpecProtectionPaladin]: '__classic_protection_paladin',
+	[Spec.SpecRetributionPaladin]: '__classic_retribution_paladin',
+	[Spec.SpecRogue]: '__classic_rogue',
+	[Spec.SpecTankRogue]: '__classic_tank_rogue',
+	[Spec.SpecHealingPriest]: '__classic_healing_priest',
+	[Spec.SpecShadowPriest]: '__classic_shadow_priest',
+	[Spec.SpecWarlock]: '__classic_warlock',
+	[Spec.SpecTankWarlock]: '__classic_tank_warlock',
+	[Spec.SpecWarrior]: '__classic_warrior',
+	[Spec.SpecTankWarrior]: '__classic_tank_warrior',
 };
 
 // Returns a copy of playerOptions, with the class field set.
