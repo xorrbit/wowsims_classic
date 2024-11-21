@@ -115,7 +115,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecTankRogue, {
 		BuffDebuffInputs.SpellCritBuff,
 		BuffDebuffInputs.SpellShadowWeavingDebuff,
 		BuffDebuffInputs.NatureSpellDamageDebuff,
-		BuffDebuffInputs.MekkatorqueFistDebuff,
 		BuffDebuffInputs.SpellScorchDebuff,
 		BuffDebuffInputs.PowerInfusion,
 	],

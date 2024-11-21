@@ -1,12 +1,12 @@
 character_stats_results: {
  key: "TestAssassination-Phase2-Lvl40-CharacterStats-Default"
  value: {
-  final_stats: 80.3
-  final_stats: 119.9
-  final_stats: 156.2
-  final_stats: 59.4
-  final_stats: 80.85
-  final_stats: 42
+  final_stats: 111.32
+  final_stats: 156.86
+  final_stats: 228.39575
+  final_stats: 87.285
+  final_stats: 112.90125
+  final_stats: 0
   final_stats: 0
   final_stats: 0
   final_stats: 0
@@ -15,27 +15,27 @@ character_stats_results: {
   final_stats: 0
   final_stats: 24
   final_stats: 0
-  final_stats: 7
+  final_stats: 21
   final_stats: 0
   final_stats: 0
-  final_stats: 598.2
+  final_stats: 886.18
   final_stats: 0
-  final_stats: 14.66644
-  final_stats: 0
-  final_stats: 0
-  final_stats: 0
+  final_stats: 26.72142
   final_stats: 0
   final_stats: 0
   final_stats: 0
-  final_stats: 502.8
-  final_stats: 339.9
+  final_stats: 0
+  final_stats: 0
+  final_stats: 0
+  final_stats: 576.72
+  final_stats: 596.86
   final_stats: 0
   final_stats: 5
   final_stats: 0
-  final_stats: 13.33288
+  final_stats: 17.44283
   final_stats: 5
   final_stats: 0
-  final_stats: 2085
+  final_stats: 2806.9575
   final_stats: 13
   final_stats: 30
   final_stats: 30
@@ -50,8 +50,8 @@ character_stats_results: {
 stat_weights_results: {
  key: "TestAssassination-Phase2-Lvl40-StatWeights-Default"
  value: {
-  weights: 0.09138
-  weights: 0.1235
+  weights: 0.10757
+  weights: 0.15682
   weights: 0
   weights: 0
   weights: 0
@@ -67,9 +67,9 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.08308
-  weights: 0.28223
-  weights: 0.50977
+  weights: 0.08503
+  weights: 0.36349
+  weights: 0.71253
   weights: 0
   weights: 0
   weights: 0
@@ -99,8 +99,8 @@ stat_weights_results: {
 dps_results: {
  key: "TestAssassination-Phase2-Lvl40-Average-Default"
  value: {
-  dps: 51.89712
-  tps: 36.84696
+  dps: 77.62275
+  tps: 55.11216
  }
 }
 dps_results: {
@@ -154,7 +154,7 @@ dps_results: {
 dps_results: {
  key: "TestAssassination-Phase2-Lvl40-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 48.35335
-  tps: 34.33088
+  dps: 72.75594
+  tps: 51.65672
  }
 }

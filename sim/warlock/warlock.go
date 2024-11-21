@@ -230,7 +230,7 @@ func NewWarlock(character *core.Character, options *proto.Player, warlockOptions
 }
 
 func (warlock *Warlock) HasRune(rune proto.WarlockRune) bool {
-	return warlock.HasRuneById(int32(rune))
+	return false // warlock.HasRuneById(int32(rune))
 }
 
 func (warlock *Warlock) baseRuneAbilityDamage() float64 {

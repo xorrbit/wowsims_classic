@@ -136,7 +136,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecRogue, {
 		BuffDebuffInputs.SpellCritBuff,
 		BuffDebuffInputs.SpellShadowWeavingDebuff,
 		BuffDebuffInputs.NatureSpellDamageDebuff,
-		BuffDebuffInputs.MekkatorqueFistDebuff,
 		BuffDebuffInputs.SpellScorchDebuff,
 		BuffDebuffInputs.PowerInfusion,
 	],
@@ -183,7 +182,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecRogue, {
 
 	autoRotation: player => {
 		// Try to find a rotation by hand rune
-		const handRuneID = player.getEquippedItem(ItemSlot.ItemSlotHands)?._rune?.id ?? 0;
+		const handRuneID = 0;
 		const preset = Presets.DefaultAPLs[player.getLevel()][handRuneID];
 
 		if (preset) return preset.rotation.rotation!;

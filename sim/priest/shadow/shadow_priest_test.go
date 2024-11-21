@@ -24,7 +24,7 @@ func TestShadow(t *testing.T) {
 			Talents:     Phase4Talents,
 			GearSet:     core.GetGearSet("../../../ui/shadow_priest/gear_sets", "blank"),
 			Rotation:    core.GetAplRotation("../../../ui/shadow_priest/apls", "phase_5"),
-			Buffs:       core.FullBuffsPhase5,
+			Buffs:       core.FullBuffs,
 			Consumes:    Phase4Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Basic", SpecOptions: PlayerOptionsBasic},
 
@@ -39,36 +39,6 @@ var Phase1Talents = "-20535000001"
 var Phase2Talents = "--5022204002501251"
 var Phase3Talents = "-0055-5022204002501251"
 var Phase4Talents = "0512301302--5002504103501251"
-
-var Phase1Consumes = core.ConsumesCombo{
-	Label: "P1-Consumes",
-	Consumes: &proto.Consumes{
-		DefaultPotion: proto.Potions_ManaPotion,
-		Food:          proto.Food_FoodSmokedSagefish,
-		MainHandImbue: proto.WeaponImbue_BlackfathomManaOil,
-	},
-}
-
-var Phase2Consumes = core.ConsumesCombo{
-	Label: "P2-Consumes",
-	Consumes: &proto.Consumes{
-		DefaultPotion:  proto.Potions_GreaterManaPotion,
-		Food:           proto.Food_FoodSagefishDelight,
-		MainHandImbue:  proto.WeaponImbue_LesserWizardOil,
-		SpellPowerBuff: proto.SpellPowerBuff_LesserArcaneElixir,
-	},
-}
-
-var Phase3Consumes = core.ConsumesCombo{
-	Label: "P3-Consumes",
-	Consumes: &proto.Consumes{
-		DefaultPotion:   proto.Potions_GreaterManaPotion,
-		Food:            proto.Food_FoodNightfinSoup,
-		MainHandImbue:   proto.WeaponImbue_LesserWizardOil,
-		SpellPowerBuff:  proto.SpellPowerBuff_ArcaneElixir,
-		ShadowPowerBuff: proto.ShadowPowerBuff_ElixirOfShadowPower,
-	},
-}
 
 var Phase4Consumes = core.ConsumesCombo{
 	Label: "P4-Consumes",

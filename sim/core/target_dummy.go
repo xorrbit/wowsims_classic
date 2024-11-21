@@ -46,7 +46,6 @@ func (td *TargetDummy) GetCharacter() *Character {
 func (td *TargetDummy) AddRaidBuffs(raidBuffs *proto.RaidBuffs)    {}
 func (td *TargetDummy) AddPartyBuffs(partyBuffs *proto.PartyBuffs) {}
 func (td *TargetDummy) ApplyTalents()                              {}
-func (td *TargetDummy) ApplyRunes()                                {}
 func (td *TargetDummy) Initialize()                                {}
 func (td *TargetDummy) Reset(sim *Simulation)                      {}
 func (td *TargetDummy) ExecuteCustomRotation(sim *Simulation)      {}

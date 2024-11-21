@@ -7,7 +7,6 @@ import {
 	AttackPowerBuff,
 	Consumes,
 	Debuffs,
-	EnchantedSigil,
 	FirePowerBuff,
 	Flask,
 	Food,
@@ -99,15 +98,12 @@ export const DefaultConsumes = Consumes.create({
 	attackPowerBuff: AttackPowerBuff.JujuMight,
 	defaultPotion: Potions.MajorManaPotion,
 	dragonBreathChili: true,
-	enchantedSigil: EnchantedSigil.FlowingWatersSigil,
 	firePowerBuff: FirePowerBuff.ElixirOfGreaterFirepower,
 	flask: Flask.FlaskOfTheTitans,
 	food: Food.FoodBlessSunfruit,
 	healthElixir: HealthElixir.ElixirOfFortitude,
 	mainHandImbue: WeaponImbue.RockbiterWeapon,
 	manaRegenElixir: ManaRegenElixir.MagebloodPotion,
-	mildlyIrradiatedRejuvPot: true,
-	offHandImbue: WeaponImbue.ConductiveShieldCoating,
 	spellPowerBuff: SpellPowerBuff.GreaterArcaneElixir,
 	strengthBuff: StrengthBuff.JujuPower,
 	zanzaBuff: ZanzaBuff.ROIDS,
@@ -115,10 +111,7 @@ export const DefaultConsumes = Consumes.create({
 
 export const DefaultRaidBuffs = RaidBuffs.create({
 	arcaneBrilliance: true,
-	aspectOfTheLion: true,
 	battleShout: TristateEffect.TristateEffectImproved,
-	commandingShout: true,
-	demonicPact: 110,
 	divineSpirit: true,
 	fireResistanceAura: true,
 	fireResistanceTotem: true,
@@ -128,7 +121,6 @@ export const DefaultRaidBuffs = RaidBuffs.create({
 	manaSpringTotem: TristateEffect.TristateEffectRegular,
 	powerWordFortitude: TristateEffect.TristateEffectImproved,
 	strengthOfEarthTotem: TristateEffect.TristateEffectImproved,
-	vampiricTouch: 300,
 });
 
 export const DefaultIndividualBuffs = IndividualBuffs.create({
@@ -139,7 +131,6 @@ export const DefaultIndividualBuffs = IndividualBuffs.create({
 	slipkiksSavvy: true,
 	songflowerSerenade: true,
 	spiritOfZandalar: true,
-	valorOfAzeroth: true,
 	warchiefsBlessing: true,
 });
 
@@ -147,12 +138,8 @@ export const DefaultDebuffs = Debuffs.create({
 	curseOfRecklessness: true,
 	exposeArmor: TristateEffect.TristateEffectImproved,
 	faerieFire: true,
-	homunculi: 70, // 70% average uptime default
-	improvedFaerieFire: true,
 	improvedScorch: true,
 	insectSwarm: true,
-	markOfChaos: true,
-	occultPoison: true,
 	stormstrike: true,
 	sunderArmor: true,
 });

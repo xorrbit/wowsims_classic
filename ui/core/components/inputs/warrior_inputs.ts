@@ -34,11 +34,6 @@ export const StancePicker = <SpecType extends WarriorSpecs>() =>
 			{ value: WarriorStance.WarriorStanceBattle, actionId: () => ActionId.fromSpellId(2457) },
 			{ value: WarriorStance.WarriorStanceDefensive, actionId: () => ActionId.fromSpellId(71) },
 			{ value: WarriorStance.WarriorStanceBerserker, actionId: player => player.getMatchingSpellActionId([{ id: 2458, minLevel: 30 }]) },
-			{
-				value: WarriorStance.WarriorStanceGladiator,
-				actionId: player => player.getMatchingSpellActionId([{ id: 412513, minLevel: 45 }]),
-				showWhen: player => player.hasRune(ItemSlot.ItemSlotFeet, WarriorRune.RuneGladiatorStance),
-			},
 		],
 		changeEmitter: player => TypedEvent.onAny([player.specOptionsChangeEmitter, player.gearChangeEmitter]),
 		tooltip: 'Starting Stance<br />If blank, automatically chooses a stance based on your talents and runes.',

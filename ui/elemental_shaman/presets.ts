@@ -4,7 +4,6 @@ import {
 	AttackPowerBuff,
 	Consumes,
 	Debuffs,
-	EnchantedSigil,
 	FirePowerBuff,
 	Flask,
 	Food,
@@ -96,14 +95,12 @@ export const DefaultOptions = ElementalShamanOptions.create({});
 export const DefaultConsumes = Consumes.create({
 	attackPowerBuff: AttackPowerBuff.JujuMight,
 	defaultPotion: Potions.MajorManaPotion,
-	enchantedSigil: EnchantedSigil.FlowingWatersSigil,
 	firePowerBuff: FirePowerBuff.ElixirOfGreaterFirepower,
 	flask: Flask.FlaskOfSupremePower,
 	food: Food.FoodRunnTumTuberSurprise,
 	mainHandImbue: WeaponImbue.FlametongueWeapon,
 	manaRegenElixir: ManaRegenElixir.MagebloodPotion,
-	mildlyIrradiatedRejuvPot: true,
-	offHandImbue: WeaponImbue.MagnificentTrollshine,
+	//offHandImbue: WeaponImbue.MagnificentTrollshine,
 	spellPowerBuff: SpellPowerBuff.GreaterArcaneElixir,
 	strengthBuff: StrengthBuff.JujuPower,
 	zanzaBuff: ZanzaBuff.CerebralCortexCompound,
@@ -111,36 +108,27 @@ export const DefaultConsumes = Consumes.create({
 
 export const DefaultRaidBuffs = RaidBuffs.create({
 	arcaneBrilliance: true,
-	aspectOfTheLion: true,
-	demonicPact: 110,
 	divineSpirit: true,
 	giftOfTheWild: TristateEffect.TristateEffectImproved,
 	manaSpringTotem: TristateEffect.TristateEffectRegular,
 	moonkinAura: true,
 	strengthOfEarthTotem: TristateEffect.TristateEffectImproved,
-	vampiricTouch: 300,
 });
 
 export const DefaultIndividualBuffs = IndividualBuffs.create({
 	fengusFerocity: true,
-	mightOfStormwind: true,
 	rallyingCryOfTheDragonslayer: true,
 	saygesFortune: SaygesFortune.SaygesDamage,
 	slipkiksSavvy: true,
 	songflowerSerenade: true,
 	spiritOfZandalar: true,
-	valorOfAzeroth: true,
 	warchiefsBlessing: true,
 });
 
 export const DefaultDebuffs = Debuffs.create({
 	curseOfRecklessness: true,
 	faerieFire: true,
-	homunculi: 70, // 70% average uptime default
-	improvedFaerieFire: true,
 	improvedScorch: true,
-	markOfChaos: true,
-	occultPoison: true,
 	stormstrike: true,
 	sunderArmor: true,
 });

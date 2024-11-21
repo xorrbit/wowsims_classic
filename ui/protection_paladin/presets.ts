@@ -8,7 +8,6 @@ import {
 	Conjured,
 	Consumes,
 	Debuffs,
-	EnchantedSigil,
 	Explosive,
 	FirePowerBuff,
 	Flask,
@@ -116,8 +115,8 @@ export const DefaultConsumes = Consumes.create({
 	flask: Flask.FlaskOfTheTitans,
 	firePowerBuff: FirePowerBuff.ElixirOfGreaterFirepower,
 	fillerExplosive: Explosive.ExplosiveDenseDynamite,
-	mainHandImbue: WeaponImbue.WildStrikes,
-	offHandImbue: WeaponImbue.MagnificentTrollshine,
+	//mainHandImbue: WeaponImbue.WildStrikes,
+	//offHandImbue: WeaponImbue.MagnificentTrollshine,
 
 	spellPowerBuff: SpellPowerBuff.GreaterArcaneElixir,
 	strengthBuff: StrengthBuff.JujuPower,
@@ -136,36 +135,25 @@ export const DefaultIndividualBuffs = IndividualBuffs.create({
 	slipkiksSavvy: true,
 	songflowerSerenade: true,
 	spiritOfZandalar: true,
-	valorOfAzeroth: true,
-	mightOfStormwind: true,
 });
 
 export const DefaultRaidBuffs = RaidBuffs.create({
-	hornOfLordaeron: true,
 	powerWordFortitude: TristateEffect.TristateEffectImproved,
 	arcaneBrilliance: true,
 	battleShout: TristateEffect.TristateEffectImproved,
 	divineSpirit: true,
 	giftOfTheWild: TristateEffect.TristateEffectImproved,
 	sanctityAura: true,
-	demonicPact: 110,
-	aspectOfTheLion: true,
-	vampiricTouch: 300,
 });
 
 export const DefaultDebuffs = Debuffs.create({
 	curseOfRecklessness: true,
-	homunculi: 70, // 70% average uptime default
 	faerieFire: true,
 	giftOfArthas: true,
 	exposeArmor: TristateEffect.TristateEffectImproved,
 	judgementOfWisdom: true,
 	judgementOfTheCrusader: TristateEffect.TristateEffectImproved,
-	improvedFaerieFire: true,
 	improvedScorch: true,
-	markOfChaos: true,
-	occultPoison: true,
-	mangle: true,
 });
 
 export const OtherDefaults = {

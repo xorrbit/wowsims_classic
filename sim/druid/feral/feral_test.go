@@ -24,7 +24,7 @@ func TestFeral(t *testing.T) {
 			Talents:     Phase4Talents,
 			GearSet:     core.GetGearSet("../../../ui/feral_druid/gear_sets", "blank"),
 			Rotation:    core.GetAplRotation("../../../ui/feral_druid/apls", "phase_5"),
-			Buffs:       core.FullBuffsPhase5,
+			Buffs:       core.FullBuffs,
 			Consumes:    Phase4Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Default", SpecOptions: PlayerOptionsMonoCat},
 			OtherSpecOptions: []core.SpecOptionsCombo{
@@ -74,45 +74,6 @@ var PlayerOptionsFlowerCatAoe = &proto.Player_FeralDruid{
 	},
 }
 
-var Phase1Consumes = core.ConsumesCombo{
-	Label: "P1-Consumes",
-	Consumes: &proto.Consumes{
-		AgilityElixir:   proto.AgilityElixir_ElixirOfLesserAgility,
-		DefaultConjured: proto.Conjured_ConjuredMinorRecombobulator,
-		DefaultPotion:   proto.Potions_ManaPotion,
-		Food:            proto.Food_FoodSmokedSagefish,
-		MainHandImbue:   proto.WeaponImbue_WildStrikes,
-		StrengthBuff:    proto.StrengthBuff_ElixirOfOgresStrength,
-	},
-}
-
-var Phase2Consumes = core.ConsumesCombo{
-	Label: "P2-Consumes",
-	Consumes: &proto.Consumes{
-		AgilityElixir:     proto.AgilityElixir_ElixirOfAgility,
-		DefaultPotion:     proto.Potions_GreaterManaPotion,
-		DragonBreathChili: true,
-		Food:              proto.Food_FoodSagefishDelight,
-		MainHandImbue:     proto.WeaponImbue_WildStrikes,
-		StrengthBuff:      proto.StrengthBuff_ElixirOfOgresStrength,
-	},
-}
-
-var Phase3Consumes = core.ConsumesCombo{
-	Label: "P3-Consumes",
-	Consumes: &proto.Consumes{
-		AgilityElixir:     proto.AgilityElixir_ElixirOfTheMongoose,
-		DefaultPotion:     proto.Potions_MajorManaPotion,
-		DragonBreathChili: true,
-		Food:              proto.Food_FoodSmokedDesertDumpling,
-		MainHandImbue:     proto.WeaponImbue_WildStrikes,
-		MiscConsumes: &proto.MiscConsumes{
-			Catnip: true,
-		},
-		StrengthBuff: proto.StrengthBuff_ElixirOfGiants,
-	},
-}
-
 var Phase4Consumes = core.ConsumesCombo{
 	Label: "P4-Consumes",
 	Consumes: &proto.Consumes{
@@ -124,10 +85,8 @@ var Phase4Consumes = core.ConsumesCombo{
 		Flask:             proto.Flask_FlaskOfDistilledWisdom,
 		Food:              proto.Food_FoodSmokedDesertDumpling,
 		MainHandImbue:     proto.WeaponImbue_ElementalSharpeningStone,
-		MiscConsumes: &proto.MiscConsumes{
-			Catnip: true,
-		},
-		StrengthBuff: proto.StrengthBuff_JujuPower,
+		MiscConsumes:      &proto.MiscConsumes{},
+		StrengthBuff:      proto.StrengthBuff_JujuPower,
 	},
 }
 

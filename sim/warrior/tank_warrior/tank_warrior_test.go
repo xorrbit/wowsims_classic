@@ -24,7 +24,7 @@ func TestTankWarrior(t *testing.T) {
 			Talents:     P4Talents,
 			GearSet:     core.GetGearSet("../../../ui/tank_warrior/gear_sets", "placeholder"),
 			Rotation:    core.GetAplRotation("../../../ui/tank_warrior/apls", "phase_4"),
-			Buffs:       core.FullBuffsPhase4,
+			Buffs:       core.FullBuffs,
 			Consumes:    Phase4Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Arms", SpecOptions: PlayerOptionsBasic},
 
@@ -57,7 +57,7 @@ var Phase4Consumes = core.ConsumesCombo{
 		DragonBreathChili: true,
 		Flask:             proto.Flask_FlaskOfTheTitans,
 		Food:              proto.Food_FoodSmokedDesertDumpling,
-		MainHandImbue:     proto.WeaponImbue_WildStrikes,
+		MainHandImbue:     proto.WeaponImbue_Windfury,
 		StrengthBuff:      proto.StrengthBuff_JujuPower,
 	},
 }

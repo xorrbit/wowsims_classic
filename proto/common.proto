@@ -127,7 +127,7 @@ enum Stat {
 // between the UI and backend.
 //
 // It's also OK to include things here which aren't in the PseudoStats struct.
-// NextIndex: 32
+// NextIndex: 31
 enum PseudoStat {
 	PseudoStatMainHandDps = 0;
 	PseudoStatOffHandDps = 1;
@@ -135,7 +135,7 @@ enum PseudoStat {
 	PseudoStatBlockValueMultiplier = 3;
 	PseudoStatDodge = 4;
 	PseudoStatParry = 5;
-	BonusPhysicalDamage = 31;
+	BonusPhysicalDamage = 30;
 
 	// Melee Weapon Skill
 	PseudoStatUnarmedSkill = 6;
@@ -168,9 +168,6 @@ enum PseudoStat {
 	PseudoStatMeleeSpeedMultiplier = 27;
 	PseudoStatRangedSpeedMultiplier = 28;
 	PseudoStatBlockValuePerStrength = 29;
-
-	// Special Pseudostats
-	TimewornBonus = 30;
 }
 
 message UnitStats {
@@ -316,7 +313,6 @@ enum TristateEffect {
 enum SapperExplosive {
 	SapperUnknown = 0;
 	SapperGoblinSapper = 1;
-	SapperFumigator = 2;
 }
 
 enum Explosive {
@@ -324,10 +320,7 @@ enum Explosive {
 	ExplosiveSolidDynamite = 1;
 	ExplosiveDenseDynamite = 2;
 	ExplosiveThoriumGrenade = 3;
-	ExplosiveEzThroRadiationBomb = 4;
-	ExplosiveHighYieldRadiationBomb = 5;
-	ExplosiveGoblinLandMine = 6;
-	ExplosiveObsidianBomb = 7;
+	ExplosiveGoblinLandMine = 4;
 }
 
 // NextIndex: 28
@@ -374,19 +367,9 @@ enum Conjured {
 	ConjuredDemonicRune = 2;
 	ConjuredRogueThistleTea = 3;
 
-	ConjuredHealthstone = 7;
-	ConjuredGreaterHealthstone = 8;
-	ConjuredMajorHealthstone = 9;
-
-	ConjuredDruidCatnip = 4 [deprecated = true];
-}
-
-enum EnchantedSigil {
-	UnknownSigil = 0;
-	InnovationSigil = 1;
-	LivingDreamsSigil = 2;
-	FlowingWatersSigil = 3;
-	WrathOfTheStormSigil = 4;
+	ConjuredHealthstone = 4;
+	ConjuredGreaterHealthstone = 5;
+	ConjuredMajorHealthstone = 6;
 }
 
 enum Flask {
@@ -395,12 +378,6 @@ enum Flask {
 	FlaskOfDistilledWisdom = 2;
 	FlaskOfSupremePower = 3;
 	FlaskOfChromaticResistance = 4;
-	FlaskOfRestlessDreams = 5;
-	FlaskOfEverlastingNightmares = 6;
-	FlaskOfMadness = 7;
-	FlaskOfUnyieldingSorrow = 8;
-	FlaskOfAncientKnowledge = 9;
-	FlaskOfTheOldGods = 10;
 }
 
 enum Alcohol {
@@ -419,7 +396,6 @@ enum AgilityElixir {
 	ElixirOfLesserAgility = 3;
 	ScrollOfAgility = 4;
 	ElixirOfAgility = 5;
-	ElixirOfTheHoneyBadger = 6;
 }
 
 enum ArmorElixir {
@@ -429,7 +405,6 @@ enum ArmorElixir {
 	ElixirOfDefense = 3;
 	ElixirOfMinorDefense = 4;
 	ScrollOfProtection = 5;
-	ElixirOfTheIronside = 6;
 }
 
 enum HealthElixir {
@@ -462,7 +437,6 @@ enum SpellPowerBuff {
 	ArcaneElixir = 1;
 	GreaterArcaneElixir = 2;
 	LesserArcaneElixir = 3;
-	ElixirOfTheMageLord = 4;
 }
 
 enum ShadowPowerBuff {
@@ -491,26 +465,15 @@ enum ZanzaBuff {
 	CerebralCortexCompound = 6;
 	GizzardGum = 7;
 	LungJuiceCocktail = 8;
-	AtalaiMojoOfWar = 9;
-	AtalaiMojoOfForbiddenMagic = 10;
-	AtalaiMojoOfLife = 11;
-}
-
-enum AtalaiMojo {
-	AtalaiMojoUnknown = 0;
-	MojoOfWar = 1;
-	MojoOfForbiddenMagic = 2;
-	MojoOfLife = 3;
 }
 
 message MiscConsumes {
 	bool bogling_root = 1;
 	bool elixir_of_coalesced_regret = 2;
-	bool catnip = 3;
-	bool juju_ember = 4;
-	bool juju_chill = 5;
-	bool juju_escape = 6;
-	bool juju_flurry = 7;
+	bool juju_ember = 3;
+	bool juju_chill = 4;
+	bool juju_escape = 5;
+	bool juju_flurry = 6;
 }
 
 message PetMiscConsumes {
@@ -536,18 +499,15 @@ enum WeaponImbue {
 	LesserWizardOil = 14;
 	WizardOil = 20;
 	BrilliantWizardOil = 2;
-	EnchantedRepellent = 30;
 
 	MinorManaOil = 15;
 	LesserManaOil = 16;
 	BrilliantManaOil = 1;
-	BlackfathomManaOil = 5;
 
 	// Sharpening Stones
 	SolidSharpeningStone = 17;
 	DenseSharpeningStone = 3;
 	ElementalSharpeningStone = 4;
-	BlackfathomSharpeningStone = 6;
 
 	// Weightstones
 	SolidWeightstone = 18;
@@ -558,7 +518,6 @@ enum WeaponImbue {
 	FrostOil = 22;
 
 	// Windfury Imbues
-	WildStrikes = 7;
 	Windfury = 8;
 
 	// Shaman imbues
@@ -568,15 +527,9 @@ enum WeaponImbue {
 	WindfuryWeapon = 12;
 
 	// Rogue imbues
-	InstantPoison = 23;
-	DeadlyPoison = 24;
-	WoundPoison = 25;
-	OccultPoison = 27;
-	SebaciousPoison = 28;
-
-	// Shield Oil
-	ConductiveShieldCoating = 26;
-	MagnificentTrollshine = 29;
+	InstantPoison = 5;
+	DeadlyPoison = 6;
+	WoundPoison = 7;
 }
 
 // NextIndex: 13
@@ -605,7 +558,7 @@ enum SaygesFortune {
 }
 
 // Buffs that affect the entire raid.
-// NextIndex: 44
+// NextIndex: 36
 message RaidBuffs {
 	// +Stats
 	TristateEffect gift_of_the_wild = 1;
@@ -640,17 +593,16 @@ message RaidBuffs {
 	// mp5
 	TristateEffect mana_spring_totem = 14;
 	TristateEffect blessing_of_wisdom = 15;
-	int32 vampiric_touch = 41;
 
 	// Resistances
 	bool shadow_protection = 16;
-	bool shadow_resistance_aura = 39;
+	bool shadow_resistance_aura = 35;
 	bool nature_resistance_totem = 17;
 	bool aspect_of_the_wild = 18;
 	bool frost_resistance_aura = 19;
 	bool frost_resistance_totem = 20;
 	bool fire_resistance_totem = 21;
-	bool fire_resistance_aura = 35;
+	bool fire_resistance_aura = 32;
 
 	// Scroll
 	bool scroll_of_protection = 26;
@@ -660,22 +612,13 @@ message RaidBuffs {
 	bool scroll_of_intellect = 30;
 	bool scroll_of_spirit = 31;
 
-	// SoD Runes
-	int32 demonic_pact = 32;
-	bool horn_of_lordaeron = 33;
-	bool aspect_of_the_lion = 34;
-	bool commanding_shout = 38;
-
 	// Miscellaneous
 	TristateEffect thorns = 22;
 	TristateEffect devotion_aura = 23;
 	TristateEffect stoneskin_totem = 24;
 	TristateEffect retribution_aura = 25;
-	bool sanctity_aura = 36;
-	int32 battle_squawk = 37;
-	bool improved_stoneskin_windwall = 40;
-	bool flowing_waters_sigil = 42;
-	bool spirit_of_the_alpha = 43;
+	bool sanctity_aura = 33;
+	int32 battle_squawk = 34;
 }
 
 // Buffs that affect a single party.
@@ -689,9 +632,9 @@ message PartyBuffs {
 }
 
 // These are usually individual actions taken by other Characters.
-// NextIndex: 22
+// NextIndex: 16
 message IndividualBuffs {
-	reserved 20;
+	reserved 15;
 	reserved "dragonslayer_buff";
 
 	bool blessing_of_kings = 1;
@@ -703,91 +646,72 @@ message IndividualBuffs {
 
 	// World Buffs
 	bool rallying_cry_of_the_dragonslayer = 7;
-	bool valor_of_azeroth = 21;
 
 	SaygesFortune sayges_fortune = 8;
 	bool spirit_of_zandalar = 9;
 	bool songflower_serenade = 10;
 	bool warchiefs_blessing = 11;
-	bool might_of_stormwind = 19;
 
 	// Dire Maul Buffs
 	bool fengus_ferocity = 12;
 	bool moldars_moxie = 13;
 	bool slipkiks_savvy = 14;
-
-	// New SoD Buffs
-	bool boon_of_blackfathom = 15;
-	bool ashenvale_pvp_buff = 16;
-	bool spark_of_inspiration = 17;
-	bool fervor_of_the_temple_explorer = 18;
 }
 
 // NextIndex: 34
 message Consumes {
 	Flask flask = 1;
 	Food food = 2;
-	AgilityElixir agility_elixir = 5;
-	ManaRegenElixir mana_regen_elixir = 6;
-	StrengthBuff strength_buff = 7;
-	AttackPowerBuff attack_power_buff = 8;
-	SpellPowerBuff spell_power_buff = 9;
-	ShadowPowerBuff shadow_power_buff = 10;
-	FirePowerBuff fire_power_buff = 11;
-	FrostPowerBuff frost_power_buff = 12;
-	SapperExplosive sapper_explosive = 34;
-	Explosive filler_explosive = 14;
-	WeaponImbue main_hand_imbue = 15;
-	WeaponImbue off_hand_imbue = 16;
-	Potions default_potion = 17;
-	Conjured default_conjured = 18;
-	EnchantedSigil enchanted_sigil = 20;
-	bool mildly_irradiated_rejuv_pot = 21;
-	int32 pet_agility_consumable = 22;
-	int32 pet_strength_consumable = 23;
-	int32 pet_attack_power_consumable = 31;
-	PetMiscConsumes pet_misc_consumes = 33;
-	bool dragon_breath_chili = 24;
-	MiscConsumes misc_consumes = 26;
-	ZanzaBuff zanza_buff = 27;
-	ArmorElixir armor_elixir = 28;
-	HealthElixir health_elixir = 29;
-	Alcohol alcohol = 30;
-	MageScroll mage_scroll = 32;
-
-	AtalaiMojo atalai_mojo = 25 [deprecated=true];
-	bool bogling_root = 19 [deprecated=true];
+	AgilityElixir agility_elixir = 3;
+	ManaRegenElixir mana_regen_elixir = 4;
+	StrengthBuff strength_buff = 5;
+	AttackPowerBuff attack_power_buff = 6;
+	SpellPowerBuff spell_power_buff = 7;
+	ShadowPowerBuff shadow_power_buff = 8;
+	FirePowerBuff fire_power_buff = 9;
+	FrostPowerBuff frost_power_buff = 10;
+	Explosive filler_explosive = 11;
+	WeaponImbue main_hand_imbue = 12;
+	WeaponImbue off_hand_imbue = 13;
+	Potions default_potion = 14;
+	Conjured default_conjured = 15;
+	bool bogling_root = 16 [deprecated=true];
+	int32 pet_agility_consumable = 17;
+	int32 pet_strength_consumable = 18;
+	bool dragon_breath_chili = 19;
+	MiscConsumes misc_consumes = 20;
+	ZanzaBuff zanza_buff = 21;
+	ArmorElixir armor_elixir = 22;
+	HealthElixir health_elixir = 23;
+	Alcohol alcohol = 24;
+	int32 pet_attack_power_consumable = 25;
+	MageScroll mage_scroll = 26;
+	PetMiscConsumes pet_misc_consumes = 27;
+	SapperExplosive sapper_explosive = 28;
 }
 
-// NextIndex: 41
+// NextIndex: 26
 message Debuffs {
 	bool judgement_of_wisdom = 1;
 	bool judgement_of_light = 2;
-	TristateEffect judgement_of_the_crusader = 33;
+	TristateEffect judgement_of_the_crusader = 25;
 	bool faerie_fire = 3;
 
 	// Warlock Spell DamageCurses
 	bool curse_of_elements = 4;
 	bool curse_of_shadow = 5;
-	bool mark_of_chaos = 37;
-
-	// Bonus Spell Damage
-	bool occult_poison = 38;
 
 	bool winters_chill = 6;
 
 	bool improved_shadow_bolt = 7;
 
 	bool improved_scorch = 8;
-	bool shadow_weaving = 26;
-	bool stormstrike = 27;
-	bool dreamstate = 28;
+	bool shadow_weaving = 22;
+	bool stormstrike = 23;
 
 	// Major armor
 	TristateEffect expose_armor = 10;
 	bool sunder_armor = 11;
-	int32 homunculi = 22; // between 0 and 100, represents average uptime percentage
-	TristateEffect sebacious_poison = 39;
 
 	TristateEffect curse_of_weakness = 12;
 	bool curse_of_recklessness = 13;
@@ -796,32 +720,17 @@ message Debuffs {
 	TristateEffect demoralizing_shout = 15;
 
 	TristateEffect thunder_clap = 16;
-	bool waylay = 34;
-	bool thunderfury = 40;
+	bool thunderfury = 24;
 
 	bool insect_swarm = 17;
 	bool scorpid_sting = 18;
-	bool vampiric_embrace = 19;
 
-	TristateEffect hunters_mark = 20;
-
-	// ArP items
-
-	// Bleed
-	bool mangle = 25;
+	TristateEffect hunters_mark = 19;
 
 	// Misc Debuffs
 	bool gift_of_arthas = 9;
-	bool curse_of_vulnerability = 23;
-	bool crystal_yield = 21;
-	int32 ancient_corrosive_poison = 24; // between 0 and 100, represents average uptime percentage
-	bool mekkatorque_fist_debuff = 29;
-	bool serpents_striker_fist_debuff = 30;
-	bool improved_faerie_fire = 36; // Provided by Tier 1 Feral set bonus
-	bool melee_hunter_dodge_debuff = 41; // Provided by Tier 1 Melee Hunter set bonus
-
-	TristateEffect curse_of_elements_new = 31 [deprecated=true];
-	TristateEffect curse_of_shadow_new = 32  [deprecated=true];
+	bool curse_of_vulnerability = 21;
+	bool crystal_yield = 20;
 }
 
 enum MobType {
@@ -919,7 +828,6 @@ message ItemSpec {
 	int32 id = 2;
 	int32 random_suffix = 6;
 	int32 enchant = 3;
-	int32 rune = 5;
 }
 
 message EquipmentSpec {
@@ -930,11 +838,10 @@ message SimDatabase {
 	repeated SimItem items = 1;
 	repeated ItemRandomSuffix random_suffixes = 5;
 	repeated SimEnchant enchants = 2;
-	repeated SimRune runes = 4;
 }
 
 // Contains only the Item info needed by the sim.
-// NextIndex: 21
+// NextIndex: 20
 message SimItem {
 	int32 id = 1;
 	int32 requires_level = 16;
@@ -952,13 +859,11 @@ message SimItem {
 	double weapon_damage_min = 11;
 	double weapon_damage_max = 12;
 	double weapon_speed = 13;
-	double bonus_physical_damage = 20;
+	double bonus_physical_damage = 19;
 
 	string set_name = 14;
 	int32 set_id = 18;
 	repeated double weapon_skills = 15;
-
-	bool timeworn = 19;
 }
 
 // Extra enum for describing which items are eligible for an enchant, when
@@ -975,10 +880,6 @@ enum EnchantType {
 message SimEnchant {
 	int32 effect_id = 1;
 	repeated double stats = 2;
-}
-
-message SimRune {
-	int32 id = 1;
 }
 
 message UnitReference {
@@ -1094,24 +995,4 @@ message ItemSwap {
 
 message Duration {
 	double ms = 1;
-}
-
-enum RingRune {
-	RuneRingNone = 0;
-
-	RuneRingArcaneSpecialization		= 442893;
-	RuneRingAxeSpecialization			= 442876;
-	RuneRingDaggerSpecialization		= 442887;
-	RuneRingDefenseSpecialization		= 459312;
-	RuneRingFeralCombatSpecialization	= 453622;
-	RuneRingFireSpecialization			= 442894;
-	RuneRingFistWeaponSpecialization	= 442890;
-	RuneRingFrostSpecialization			= 442895;
-	RuneRingHolySpecialization			= 442898;
-	RuneRingMaceSpecialization			= 442881;
-	RuneRingNatureSpecialization		= 442896;
-	RuneRingPoleWeaponSpecialization	= 442892;
-	RuneRingRangedWeaponSpecialization	= 442891;
-	RuneRingShadowSpecialization		= 442897;
-	RuneRingSwordSpecialization			= 442813;
 }

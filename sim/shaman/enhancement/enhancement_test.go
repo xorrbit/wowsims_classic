@@ -27,7 +27,7 @@ func TestEnhancement(t *testing.T) {
 			// 	core.GetGearSet("../../../ui/enhancement_shaman/gear_sets", "phase_5_2h"),
 			// },
 			Rotation:    core.GetAplRotation("../../../ui/enhancement_shaman/apls", "phase_5"),
-			Buffs:       core.FullBuffsPhase5,
+			Buffs:       core.FullBuffs,
 			Consumes:    Phase4ConsumesWFWF,
 			SpecOptions: core.SpecOptionsCombo{Label: "Sync Auto", SpecOptions: PlayerOptionsSyncAuto},
 			OtherSpecOptions: []core.SpecOptionsCombo{
@@ -66,78 +66,6 @@ var optionsSyncAuto = &proto.EnhancementShaman_Options{
 	SyncType: proto.ShamanSyncType_Auto,
 }
 
-var Phase1Consumes = core.ConsumesCombo{
-	Label: "P1-Consumes",
-	Consumes: &proto.Consumes{
-		AgilityElixir: proto.AgilityElixir_ElixirOfLesserAgility,
-		DefaultPotion: proto.Potions_ManaPotion,
-		FirePowerBuff: proto.FirePowerBuff_ElixirOfFirepower,
-		MainHandImbue: proto.WeaponImbue_RockbiterWeapon,
-		OffHandImbue:  proto.WeaponImbue_RockbiterWeapon,
-		StrengthBuff:  proto.StrengthBuff_ElixirOfOgresStrength,
-	},
-}
-
-var Phase2ConsumesWFWF = core.ConsumesCombo{
-	Label: "P2-Consumes WF/WF",
-	Consumes: &proto.Consumes{
-		AgilityElixir:     proto.AgilityElixir_ElixirOfAgility,
-		DefaultPotion:     proto.Potions_ManaPotion,
-		DragonBreathChili: true,
-		FirePowerBuff:     proto.FirePowerBuff_ElixirOfFirepower,
-		Food:              proto.Food_FoodSagefishDelight,
-		MainHandImbue:     proto.WeaponImbue_WindfuryWeapon,
-		OffHandImbue:      proto.WeaponImbue_WindfuryWeapon,
-		SpellPowerBuff:    proto.SpellPowerBuff_LesserArcaneElixir,
-		StrengthBuff:      proto.StrengthBuff_ElixirOfOgresStrength,
-	},
-}
-
-var Phase2ConsumesWFFT = core.ConsumesCombo{
-	Label: "P2-Consumes WF/FT",
-	Consumes: &proto.Consumes{
-		AgilityElixir:     proto.AgilityElixir_ElixirOfAgility,
-		DefaultPotion:     proto.Potions_ManaPotion,
-		DragonBreathChili: true,
-		FirePowerBuff:     proto.FirePowerBuff_ElixirOfFirepower,
-		Food:              proto.Food_FoodSagefishDelight,
-		MainHandImbue:     proto.WeaponImbue_WindfuryWeapon,
-		OffHandImbue:      proto.WeaponImbue_FlametongueWeapon,
-		SpellPowerBuff:    proto.SpellPowerBuff_LesserArcaneElixir,
-		StrengthBuff:      proto.StrengthBuff_ScrollOfStrength,
-	},
-}
-
-var Phase3ConsumesWFWF = core.ConsumesCombo{
-	Label: "P3-Consumes WF/WF",
-	Consumes: &proto.Consumes{
-		AgilityElixir:     proto.AgilityElixir_ElixirOfAgility,
-		DefaultPotion:     proto.Potions_ManaPotion,
-		DragonBreathChili: true,
-		FirePowerBuff:     proto.FirePowerBuff_ElixirOfFirepower,
-		Food:              proto.Food_FoodSagefishDelight,
-		MainHandImbue:     proto.WeaponImbue_WindfuryWeapon,
-		OffHandImbue:      proto.WeaponImbue_WindfuryWeapon,
-		SpellPowerBuff:    proto.SpellPowerBuff_LesserArcaneElixir,
-		StrengthBuff:      proto.StrengthBuff_ElixirOfOgresStrength,
-	},
-}
-
-var Phase3ConsumesWFFT = core.ConsumesCombo{
-	Label: "P3-Consumes WF/FT",
-	Consumes: &proto.Consumes{
-		AgilityElixir:     proto.AgilityElixir_ElixirOfAgility,
-		DefaultPotion:     proto.Potions_ManaPotion,
-		DragonBreathChili: true,
-		FirePowerBuff:     proto.FirePowerBuff_ElixirOfFirepower,
-		Food:              proto.Food_FoodSagefishDelight,
-		MainHandImbue:     proto.WeaponImbue_WindfuryWeapon,
-		OffHandImbue:      proto.WeaponImbue_FlametongueWeapon,
-		SpellPowerBuff:    proto.SpellPowerBuff_LesserArcaneElixir,
-		StrengthBuff:      proto.StrengthBuff_ScrollOfStrength,
-	},
-}
-
 var Phase4ConsumesWFWF = core.ConsumesCombo{
 	Label: "P4-Consumes WF/WF",
 	Consumes: &proto.Consumes{
@@ -150,23 +78,6 @@ var Phase4ConsumesWFWF = core.ConsumesCombo{
 		Food:              proto.Food_FoodBlessSunfruit,
 		MainHandImbue:     proto.WeaponImbue_WindfuryWeapon,
 		OffHandImbue:      proto.WeaponImbue_WindfuryWeapon,
-		SpellPowerBuff:    proto.SpellPowerBuff_GreaterArcaneElixir,
-		StrengthBuff:      proto.StrengthBuff_JujuPower,
-	},
-}
-
-var Phase4ConsumesWFFT = core.ConsumesCombo{
-	Label: "P4-Consumes WF/FT",
-	Consumes: &proto.Consumes{
-		AttackPowerBuff:   proto.AttackPowerBuff_JujuMight,
-		AgilityElixir:     proto.AgilityElixir_ElixirOfTheMongoose,
-		DefaultPotion:     proto.Potions_MajorManaPotion,
-		DragonBreathChili: true,
-		FirePowerBuff:     proto.FirePowerBuff_ElixirOfGreaterFirepower,
-		Flask:             proto.Flask_FlaskOfSupremePower,
-		Food:              proto.Food_FoodBlessSunfruit,
-		MainHandImbue:     proto.WeaponImbue_WindfuryWeapon,
-		OffHandImbue:      proto.WeaponImbue_FlametongueWeapon,
 		SpellPowerBuff:    proto.SpellPowerBuff_GreaterArcaneElixir,
 		StrengthBuff:      proto.StrengthBuff_JujuPower,
 	},

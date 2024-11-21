@@ -1,7 +1,7 @@
 import * as InputHelpers from '../core/components/input_helpers.js';
 import { Player } from '../core/player.js';
 import { ItemSlot, Spec } from '../core/proto/common.js';
-import { PaladinRune, PaladinSeal, PaladinAura, Blessings } from '../core/proto/paladin.js';
+import { Blessings,PaladinAura, PaladinRune, PaladinSeal } from '../core/proto/paladin.js';
 import { ActionId } from '../core/proto_utils/action_id.js';
 import { TypedEvent } from '../core/typed_event.js';
 // Configuration for spec-specific UI elements on the settings tab.
@@ -41,8 +41,7 @@ export const BlessingSelection = InputHelpers.makeSpecOptionsEnumIconInput<Spec.
 
 export const RighteousFuryToggle = InputHelpers.makeSpecOptionsBooleanIconInput<Spec.SpecProtectionPaladin>({
 	fieldName: 'righteousFury',
-	actionId: (player: Player<Spec.SpecProtectionPaladin>) =>
-		player.hasRune(ItemSlot.ItemSlotHands, PaladinRune.RuneHandsHandOfReckoning) ? ActionId.fromSpellId(407627) : ActionId.fromSpellId(25780),
+	actionId: (_player: Player<Spec.SpecProtectionPaladin>) => ActionId.fromSpellId(25780),
 	changeEmitter: (player: Player<Spec.SpecProtectionPaladin>) => TypedEvent.onAny([player.gearChangeEmitter, player.specOptionsChangeEmitter]),
 });
 

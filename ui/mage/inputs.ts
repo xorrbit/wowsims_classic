@@ -12,11 +12,6 @@ export const Armor = InputHelpers.makeSpecOptionsEnumIconInput<Spec.SpecMage, Ar
 	values: [
 		{ value: ArmorType.NoArmor, tooltip: 'No Armor' },
 		{
-			actionId: () => ActionId.fromSpellId(428741),
-			value: ArmorType.MoltenArmor,
-			showWhen: player => player.hasRune(ItemSlot.ItemSlotWrist, MageRune.RuneBracersMoltenArmor),
-		},
-		{
 			actionId: player =>
 				player.getMatchingSpellActionId([
 					{ id: 6117, minLevel: 34, maxLevel: 45 },

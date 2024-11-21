@@ -1,6 +1,6 @@
 import { MAX_CHARACTER_LEVEL } from '../constants/mechanics.js';
 import { Class, EquipmentSpec, ItemRandomSuffix, ItemSlot, ItemSpec, ItemSwap, PresetEncounter, PresetTarget, SimDatabase } from '../proto/common.js';
-import { IconData, UIDatabase, UIEnchant as Enchant, UIFaction as Faction, UIItem as Item, UINPC as Npc, UIRune as Rune, UIZone as Zone } from '../proto/ui.js';
+import { IconData, UIDatabase, UIEnchant as Enchant, UIFaction as Faction, UIItem as Item, UINPC as Npc, UIZone as Zone } from '../proto/ui.js';
 import { distinct } from '../utils.js';
 import { EquippedItem } from './equipped_item.js';
 import { Gear, ItemSwapGear } from './gear.js';
@@ -64,8 +64,6 @@ export class Database {
 	private readonly items = new Map<number, Item>();
 	private readonly randomSuffixes = new Map<number, ItemRandomSuffix>();
 	private readonly enchantsBySlot: Partial<Record<ItemSlot, Enchant[]>> = {};
-	private readonly runesBySlotByClass: Partial<Record<ItemSlot, Partial<Record<Class, Rune[]>>>> = {};
-	private readonly runesById: Record<number, Rune> = {};
 	private readonly zones = new Map<number, Zone>();
 	private readonly npcs = new Map<number, Npc>();
 	private readonly factions = new Map<number, Faction>();
@@ -90,22 +88,6 @@ export class Database {
 					this.enchantsBySlot[slot] = [];
 				}
 				this.enchantsBySlot[slot]!.push(enchant);
-			});
-		});
-		db.runes.forEach(rune => {
-			this.runesById[rune.id] = rune;
-
-			const slots = itemTypeToSlotsMap[rune.type];
-			slots?.forEach(slot => {
-				if (!this.runesBySlotByClass[slot]) {
-					this.runesBySlotByClass[slot] = {};
-				}
-				rune.classAllowlist.forEach(klass => {
-					if (!this.runesBySlotByClass[slot]![klass]) {
-						this.runesBySlotByClass[slot]![klass] = [];
-					}
-					this.runesBySlotByClass[slot]![klass]!.push(rune);
-				});
 			});
 		});
 
@@ -153,20 +135,6 @@ export class Database {
 		return this.enchantsBySlot[slot] || [];
 	}
 
-	getRunes(slot: ItemSlot, klass: Class): Array<Rune> {
-		if (!this.runesBySlotByClass[slot]) return [];
-
-		return this.runesBySlotByClass[slot]![klass] || [];
-	}
-
-	getRuneById(runeID: number): Rune {
-		return this.runesById[runeID];
-	}
-
-	hasRuneBySlot(slot: ItemSlot, klass: Class): boolean {
-		return !!(this.runesBySlotByClass[slot] && this.runesBySlotByClass[slot]![klass]);
-	}
-
 	getNpc(npcId: number): Npc | null {
 		return this.npcs.get(npcId) || null;
 	}
@@ -194,17 +162,12 @@ export class Database {
 			}
 		}
 
-		let rune: Rune | null = null;
-		if (itemSpec.rune && !!this.runesById[itemSpec.rune]) {
-			rune = this.runesById[itemSpec.rune];
-		}
-
 		let randomSuffix: ItemRandomSuffix | null = null;
 		if (itemSpec.randomSuffix && !!this.getRandomSuffixById(itemSpec.randomSuffix)) {
 			randomSuffix = this.getRandomSuffixById(itemSpec.randomSuffix)!;
 		}
 
-		return new EquippedItem({ item, enchant, rune, randomSuffix });
+		return new EquippedItem({ item, enchant, randomSuffix });
 	}
 
 	lookupEquipmentSpec(equipSpec: EquipmentSpec): Gear {

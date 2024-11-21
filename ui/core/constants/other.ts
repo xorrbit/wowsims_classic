@@ -36,7 +36,7 @@ export const GLOBAL_DISPLAY_STATS = [
 ];
 
 export const GLOBAL_DISPLAY_PSEUDO_STATS = [
-	PseudoStat.TimewornBonus,
+	
 ];
 
 export const GLOBAL_EP_STATS = [

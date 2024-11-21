@@ -61,23 +61,6 @@ export const PetUptime = InputHelpers.makeSpecOptionsNumberInput<Spec.SpecHunter
 	percent: true,
 });
 
-export const NewRaptorStrike = InputHelpers.makeSpecOptionsBooleanInput<Spec.SpecHunter>({
-	fieldName: 'newRaptorStrike',
-	label: 'New Raptor Strike',
-	labelTooltip: 'New Raptor Strike with removed same weapon type 30% damage bonus.',
-	showWhen: player => player.getEquippedItem(ItemSlot.ItemSlotFeet)?.rune?.id == HunterRune.RuneBootsDualWieldSpecialization,
-	changeEmitter: (player: Player<Spec.SpecHunter>) => TypedEvent.onAny([player.gearChangeEmitter, player.specOptionsChangeEmitter]),
-});
-
-export const SniperTrainingUptime = InputHelpers.makeSpecOptionsNumberInput<Spec.SpecHunter>({
-	fieldName: 'sniperTrainingUptime',
-	label: 'Sniper Training Uptime (%)',
-	labelTooltip: 'Percent of the fight duration for which you will have the buff.',
-	percent: true,
-	showWhen: player => player.getEquippedItem(ItemSlot.ItemSlotLegs)?.rune?.id == HunterRune.RuneLegsSniperTraining,
-	changeEmitter: (player: Player<Spec.SpecHunter>) => TypedEvent.onAny([player.gearChangeEmitter, player.specOptionsChangeEmitter]),
-});
-
 export const PetAttackSpeedInput = InputHelpers.makeSpecOptionsEnumInput<Spec.SpecHunter>({
 	fieldName: 'petAttackSpeed',
 	label: 'Pet Attack Speed',

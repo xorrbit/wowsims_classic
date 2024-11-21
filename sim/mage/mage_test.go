@@ -24,7 +24,7 @@ func TestArcane(t *testing.T) {
 			Talents:     Phase5TalentsArcane,
 			GearSet:     core.GetGearSet("../../ui/mage/gear_sets", "blank"),
 			Rotation:    core.GetAplRotation("../../ui/mage/apls", "p5_spellfrost"),
-			Buffs:       core.FullBuffsPhase5,
+			Buffs:       core.FullBuffs,
 			Consumes:    Phase5Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Arcane", SpecOptions: PlayerOptionsArcane},
 
@@ -47,7 +47,7 @@ func TestFire(t *testing.T) {
 			Talents:     Phase5TalentsFire,
 			GearSet:     core.GetGearSet("../../ui/mage/gear_sets", "blank"),
 			Rotation:    core.GetAplRotation("../../ui/mage/apls", "p5_fire"),
-			Buffs:       core.FullBuffsPhase5,
+			Buffs:       core.FullBuffs,
 			Consumes:    Phase5Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Fire", SpecOptions: PlayerOptionsFire},
 
@@ -70,7 +70,7 @@ func TestFrost(t *testing.T) {
 			Talents:     phase5talentsfrost,
 			GearSet:     core.GetGearSet("../../ui/mage/gear_sets", "blank"),
 			Rotation:    core.GetAplRotation("../../ui/mage/apls", "p5_spellfrost"),
-			Buffs:       core.FullBuffsPhase5,
+			Buffs:       core.FullBuffs,
 			Consumes:    Phase5Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Frost", SpecOptions: PlayerOptionsFrost},
 
@@ -120,53 +120,6 @@ var PlayerOptionsFrost = &proto.Player_Mage{
 		Options: &proto.Mage_Options{
 			Armor: proto.Mage_Options_IceArmor,
 		},
-	},
-}
-
-var Phase1Consumes = core.ConsumesCombo{
-	Label: "P1-Consumes",
-	Consumes: &proto.Consumes{
-		DefaultPotion: proto.Potions_ManaPotion,
-		FirePowerBuff: proto.FirePowerBuff_ElixirOfFirepower,
-		Food:          proto.Food_FoodSmokedSagefish,
-		MainHandImbue: proto.WeaponImbue_BlackfathomManaOil,
-	},
-}
-
-var Phase2Consumes = core.ConsumesCombo{
-	Label: "P2-Consumes",
-	Consumes: &proto.Consumes{
-		DefaultPotion:  proto.Potions_GreaterManaPotion,
-		FirePowerBuff:  proto.FirePowerBuff_ElixirOfFirepower,
-		FrostPowerBuff: proto.FrostPowerBuff_ElixirOfFrostPower,
-		Food:           proto.Food_FoodSagefishDelight,
-		MainHandImbue:  proto.WeaponImbue_LesserWizardOil,
-		SpellPowerBuff: proto.SpellPowerBuff_LesserArcaneElixir,
-	},
-}
-
-var Phase3Consumes = core.ConsumesCombo{
-	Label: "P3-Consumes",
-	Consumes: &proto.Consumes{
-		DefaultPotion:  proto.Potions_MajorManaPotion,
-		FirePowerBuff:  proto.FirePowerBuff_ElixirOfGreaterFirepower,
-		FrostPowerBuff: proto.FrostPowerBuff_ElixirOfFrostPower,
-		Food:           proto.Food_FoodNightfinSoup,
-		MainHandImbue:  proto.WeaponImbue_WizardOil,
-		SpellPowerBuff: proto.SpellPowerBuff_ArcaneElixir,
-	},
-}
-
-var Phase4Consumes = core.ConsumesCombo{
-	Label: "P4-Consumes",
-	Consumes: &proto.Consumes{
-		DefaultPotion:  proto.Potions_MajorManaPotion,
-		Flask:          proto.Flask_FlaskOfSupremePower,
-		FirePowerBuff:  proto.FirePowerBuff_ElixirOfGreaterFirepower,
-		FrostPowerBuff: proto.FrostPowerBuff_ElixirOfFrostPower,
-		Food:           proto.Food_FoodRunnTumTuberSurprise,
-		MainHandImbue:  proto.WeaponImbue_WizardOil,
-		SpellPowerBuff: proto.SpellPowerBuff_GreaterArcaneElixir,
 	},
 }
 

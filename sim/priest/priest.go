@@ -169,7 +169,7 @@ func New(character *core.Character, talents string) *Priest {
 }
 
 func (priest *Priest) HasRune(rune proto.PriestRune) bool {
-	return priest.HasRuneById(int32(rune))
+	return false // priest.HasRuneById(int32(rune))
 }
 
 func (priest *Priest) baseRuneAbilityDamage() float64 {

@@ -71,11 +71,6 @@ export const PetInput = <SpecType extends WarlockSpecs>() =>
 			{ actionId: () => ActionId.fromSpellId(697), value: Summon.Voidwalker },
 			{ actionId: () => ActionId.fromSpellId(712), value: Summon.Succubus },
 			{ actionId: () => ActionId.fromSpellId(691), value: Summon.Felhunter },
-			{
-				actionId: () => ActionId.fromSpellId(427733),
-				value: Summon.Felguard,
-				showWhen: player => player.getEquippedItem(ItemSlot.ItemSlotWrist)?.rune?.id == WarlockRune.RuneBracerSummonFelguard,
-			},
 		],
 		changeEmitter: (player: Player<SpecType>) => player.changeEmitter,
 	});

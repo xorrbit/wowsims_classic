@@ -264,6 +264,5 @@ func toItem(itemSpec *proto.ItemSpec) Item {
 		ID: itemSpec.Id,
 
 		Enchant: itemSpec.Enchant,
-		Rune:    itemSpec.Rune,
 	})
 }

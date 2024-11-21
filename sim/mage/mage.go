@@ -212,7 +212,7 @@ func NewMage(character *core.Character, options *proto.Player) *Mage {
 }
 
 func (mage *Mage) HasRune(rune proto.MageRune) bool {
-	return mage.HasRuneById(int32(rune))
+	return false // mage.HasRuneById(int32(rune))
 }
 
 func (mage *Mage) baseRuneAbilityDamage() float64 {

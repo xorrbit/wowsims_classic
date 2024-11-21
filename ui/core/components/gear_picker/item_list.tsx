@@ -8,7 +8,7 @@ import { setItemQualityCssClass } from '../../css_utils';
 import { IndividualSimUI } from '../../individual_sim_ui';
 import { Player } from '../../player';
 import { Class, ItemQuality, ItemRandomSuffix, ItemSlot, ItemSpec } from '../../proto/common';
-import { DatabaseFilters, RepSource, UIEnchant, UIFaction, UIItem, UIItem_FactionRestriction, UIRune } from '../../proto/ui';
+import { DatabaseFilters, RepSource, UIEnchant, UIFaction, UIItem, UIItem_FactionRestriction } from '../../proto/ui';
 import { ActionId } from '../../proto_utils/action_id';
 import { getUniqueEnchantString } from '../../proto_utils/enchants';
 import { EquippedItem } from '../../proto_utils/equipped_item';
@@ -47,7 +47,7 @@ export interface GearData {
 	changeEvent: TypedEvent<any>;
 }
 
-export type ItemListType = UIItem | UIEnchant | UIRune | ItemRandomSuffix;
+export type ItemListType = UIItem | UIEnchant | ItemRandomSuffix;
 enum ItemListSortBy {
 	EP,
 	ILVL,
@@ -190,9 +190,7 @@ export default class ItemList<T extends ItemListType> {
 
 		//makePhaseSelector(this.tabContent.getElementsByClassName('selector-modal-phase-selector')[0] as HTMLElement, player.sim);
 
-		if (this.label !== SelectorModalTabs.Runes) {
-			makeShowEPValuesSelector(showEpValuesRef.value!, player.sim);
-		}
+		makeShowEPValuesSelector(showEpValuesRef.value!, player.sim);
 
 		if (label === SelectorModalTabs.Items) {
 			const filtersMenu = new FiltersMenu(parent, player, currentSlot);
@@ -240,9 +238,6 @@ export default class ItemList<T extends ItemListType> {
 				case SelectorModalTabs.Enchants:
 					removeButton.textContent = 'Remove Enchant';
 					break;
-				case SelectorModalTabs.Runes:
-					removeButton.textContent = 'Remove Rune';
-					break;
 			}
 		}
 
@@ -268,7 +263,6 @@ export default class ItemList<T extends ItemListType> {
 				return (item as UIEnchant).effectId;
 			case SelectorModalTabs.Items:
 			case SelectorModalTabs.RandomSuffixes:
-			case SelectorModalTabs.Runes:
 				return (item as UIItem | ItemRandomSuffix).id;
 			default:
 				return null;
@@ -402,7 +396,7 @@ export default class ItemList<T extends ItemListType> {
 	public hideOrShowEPValues() {
 		const labels = this.tabContent.getElementsByClassName('ep-label');
 		const container = this.tabContent.getElementsByClassName('selector-modal-list');
-		const show = this.label != SelectorModalTabs.Runes && this.player.sim.getShowEPValues();
+		const show = this.player.sim.getShowEPValues();
 		const display = show ? '' : 'none';
 
 		for (const label of labels) {
@@ -486,10 +480,6 @@ export default class ItemList<T extends ItemListType> {
 				case SelectorModalTabs.Enchants:
 					favMethodName = 'favoriteEnchants';
 					favId = getUniqueEnchantString(itemData.item as unknown as UIEnchant);
-					break;
-				case SelectorModalTabs.Runes:
-					favMethodName = 'favoriteRunes';
-					favId = itemData.id;
 					break;
 				case SelectorModalTabs.RandomSuffixes:
 					favMethodName = 'favoriteRandomSuffixes';
@@ -587,8 +577,6 @@ export default class ItemList<T extends ItemListType> {
 			return this.currentFilters.favoriteItems.includes(itemData.id);
 		} else if (this.label === SelectorModalTabs.Enchants) {
 			return this.currentFilters.favoriteEnchants.includes(getUniqueEnchantString(itemData.item as unknown as UIEnchant));
-		} else if (this.label === SelectorModalTabs.Runes) {
-			return this.currentFilters.favoriteRunes.includes(itemData.id);
 		} else if (this.label === SelectorModalTabs.RandomSuffixes) {
 			return this.currentFilters.favoriteRandomSuffixes.includes(itemData.id);
 		}

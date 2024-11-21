@@ -34,7 +34,7 @@ func TestAbort(t *testing.T) {
 	}
 
 	rsr := &proto.RaidSimRequest{
-		Raid: core.SinglePlayerRaidProto(player, core.FullPartyBuffs, core.FullRaidBuffsPhase4, core.FullDebuffsPhase4),
+		Raid: core.SinglePlayerRaidProto(player, core.FullPartyBuffs, core.FullRaidBuffs, core.FullDebuffs),
 		Encounter: &proto.Encounter{
 			Duration: 300,
 			Targets: []*proto.Target{
@@ -134,9 +134,9 @@ func TestAbort(t *testing.T) {
 	t.Run("StatWeightsAsync", func(t *testing.T) {
 		swr := &proto.StatWeightsRequest{
 			Player:     player,
-			RaidBuffs:  core.FullRaidBuffsPhase4,
+			RaidBuffs:  core.FullRaidBuffs,
 			PartyBuffs: core.FullPartyBuffs,
-			Debuffs:    core.FullDebuffsPhase4,
+			Debuffs:    core.FullDebuffs,
 			Encounter:  core.MakeSingleTargetEncounter(60, 0),
 			SimOptions: core.StatWeightsDefaultSimTestOptions,
 			Tanks:      make([]*proto.UnitReference, 0),

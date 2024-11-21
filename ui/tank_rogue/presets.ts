@@ -1,20 +1,17 @@
 import { Phase } from '../core/constants/other.js';
 import * as PresetUtils from '../core/preset_utils.js';
-import { Player } from '../core/proto/api';
 import {
 	AgilityElixir,
 	AttackPowerBuff,
 	Conjured,
 	Consumes,
 	Debuffs,
-	EnchantedSigil,
 	Flask,
 	Food,
 	IndividualBuffs,
 	Profession,
 	RaidBuffs,
 	SaygesFortune,
-	SpellPowerBuff,
 	StrengthBuff,
 	TristateEffect,
 	WeaponImbue,
@@ -22,7 +19,6 @@ import {
 } from '../core/proto/common.js';
 import { RogueOptions } from '../core/proto/rogue.js';
 import { SavedTalents } from '../core/proto/ui.js';
-import { playerPresets } from '../raid/presets';
 import MutilateApl from './apls/mutilate.apl.json';
 import P3MutilateApl from './apls/Mutilate_DPS_50.apl.json';
 import MutilateIEAApl from './apls/mutilate_IEA.apl.json';
@@ -198,19 +194,16 @@ export const DefaultConsumes = Consumes.create({
 	agilityElixir: AgilityElixir.ElixirOfTheMongoose,
 	attackPowerBuff: AttackPowerBuff.JujuMight,
 	defaultConjured: Conjured.ConjuredRogueThistleTea,
-	enchantedSigil: EnchantedSigil.FlowingWatersSigil,
 	flask: Flask.FlaskOfTheTitans,
 	food: Food.FoodGrilledSquid,
-	mainHandImbue: WeaponImbue.WildStrikes,
+	mainHandImbue: WeaponImbue.Windfury,
 	offHandImbue: WeaponImbue.DeadlyPoison,
 	strengthBuff: StrengthBuff.JujuPower,
 	zanzaBuff: ZanzaBuff.GroundScorpokAssay,
 });
 
 export const DefaultRaidBuffs = RaidBuffs.create({
-	aspectOfTheLion: true,
 	battleShout: TristateEffect.TristateEffectImproved,
-	demonicPact: 80,
 	fireResistanceAura: true,
 	fireResistanceTotem: true,
 	giftOfTheWild: TristateEffect.TristateEffectImproved,
@@ -223,25 +216,18 @@ export const DefaultIndividualBuffs = IndividualBuffs.create({
 	blessingOfKings: true,
 	blessingOfMight: TristateEffect.TristateEffectImproved,
 	fengusFerocity: true,
-	mightOfStormwind: true,
 	rallyingCryOfTheDragonslayer: true,
 	saygesFortune: SaygesFortune.SaygesDamage,
 	slipkiksSavvy: true,
 	songflowerSerenade: true,
-	valorOfAzeroth: true,
 	warchiefsBlessing: true,
 	spiritOfZandalar: true,
 });
 
 export const DefaultDebuffs = Debuffs.create({
 	curseOfRecklessness: true,
-	dreamstate: true,
 	faerieFire: true,
-	homunculi: 100,
-	improvedFaerieFire: true,
 	improvedScorch: true,
-	mangle: true,
-	markOfChaos: true,
 	sunderArmor: true,
 });
 

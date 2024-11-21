@@ -24,7 +24,7 @@ func TestBalance(t *testing.T) {
 			Talents:     Phase4Talents,
 			GearSet:     core.GetGearSet("../../../ui/balance_druid/gear_sets", "blank"),
 			Rotation:    core.GetAplRotation("../../../ui/balance_druid/apls", "phase_5"),
-			Buffs:       core.FullBuffsPhase5,
+			Buffs:       core.FullBuffs,
 			Consumes:    Phase5Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Default", SpecOptions: PlayerOptionsAdaptive},
 
@@ -39,47 +39,6 @@ var Phase1Talents = "50005003021"
 var Phase2Talents = "5000500302541051"
 var Phase3Talents = "5000550012551351--3"
 var Phase4Talents = "5000550012551251--5005031"
-
-var Phase1Consumes = core.ConsumesCombo{
-	Label: "P1-Consumes",
-	Consumes: &proto.Consumes{
-		DefaultPotion: proto.Potions_ManaPotion,
-		Food:          proto.Food_FoodSmokedSagefish,
-		MainHandImbue: proto.WeaponImbue_BlackfathomManaOil,
-	},
-}
-
-var Phase2Consumes = core.ConsumesCombo{
-	Label: "P2-Consumes",
-	Consumes: &proto.Consumes{
-		DefaultPotion:  proto.Potions_GreaterManaPotion,
-		Food:           proto.Food_FoodSagefishDelight,
-		MainHandImbue:  proto.WeaponImbue_LesserWizardOil,
-		SpellPowerBuff: proto.SpellPowerBuff_LesserArcaneElixir,
-	},
-}
-
-var Phase3Consumes = core.ConsumesCombo{
-	Label: "P3-Consumes",
-	Consumes: &proto.Consumes{
-		DefaultConjured: proto.Conjured_ConjuredDruidCatnip,
-		DefaultPotion:   proto.Potions_MajorManaPotion,
-		Food:            proto.Food_FoodNightfinSoup,
-		MainHandImbue:   proto.WeaponImbue_LesserWizardOil,
-		SpellPowerBuff:  proto.SpellPowerBuff_ArcaneElixir,
-	},
-}
-
-var Phase4Consumes = core.ConsumesCombo{
-	Label: "P4-Consumes",
-	Consumes: &proto.Consumes{
-		DefaultPotion:  proto.Potions_MajorManaPotion,
-		Flask:          proto.Flask_FlaskOfSupremePower,
-		Food:           proto.Food_FoodNightfinSoup,
-		MainHandImbue:  proto.WeaponImbue_WizardOil,
-		SpellPowerBuff: proto.SpellPowerBuff_GreaterArcaneElixir,
-	},
-}
 
 var Phase5Consumes = core.ConsumesCombo{
 	Label: "P5-Consumes",

@@ -327,7 +327,7 @@ type WarriorAgent interface {
 }
 
 func (warrior *Warrior) HasRune(rune proto.WarriorRune) bool {
-	return warrior.HasRuneById(int32(rune))
+	return false // warrior.HasRuneById(int32(rune))
 }
 
 func (warrior *Warrior) IsEnraged() bool {

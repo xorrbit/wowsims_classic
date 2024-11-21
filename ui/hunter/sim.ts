@@ -1,7 +1,6 @@
 import * as BuffDebuffInputs from '../core/components/inputs/buffs_debuffs';
 import * as ConsumablesInputs from '../core/components/inputs/consumables.js';
 import * as OtherInputs from '../core/components/other_inputs.js';
-import * as Mechanics from '../core/constants/mechanics.js';
 import { Phase } from '../core/constants/other.js';
 import { IndividualSimUI, registerSpecConfig } from '../core/individual_sim_ui.js';
 import { Player } from '../core/player.js';
@@ -129,7 +128,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecHunter, {
 			//HunterInputs.NewRaptorStrike,
 			HunterInputs.PetAttackSpeedInput,
 			HunterInputs.PetUptime,
-			HunterInputs.SniperTrainingUptime,
 			OtherInputs.DistanceFromTarget,
 			OtherInputs.TankAssignment,
 			OtherInputs.InFrontOfTarget,
@@ -166,10 +164,10 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecHunter, {
 
 	autoRotation: player => {
 		const level = player.getLevel();
-		const isMelee =
-			player.hasRune(ItemSlot.ItemSlotWaist, HunterRune.RuneBeltMeleeSpecialist) ||
-			player.hasRune(ItemSlot.ItemSlotFeet, HunterRune.RuneBootsDualWieldSpecialization) ||
-			player.hasRune(ItemSlot.ItemSlotFeet, HunterRune.RuneBootsWyvernStrike);
+		const isMelee = false;
+			//player.hasRune(ItemSlot.ItemSlotWaist, HunterRune.RuneBeltMeleeSpecialist) ||
+			//player.hasRune(ItemSlot.ItemSlotFeet, HunterRune.RuneBootsDualWieldSpecialization) ||
+			//player.hasRune(ItemSlot.ItemSlotFeet, HunterRune.RuneBootsWyvernStrike);
 
 		if (isMelee) {
 			switch (level) {

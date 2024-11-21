@@ -22,7 +22,7 @@ func TestCombat(t *testing.T) {
 			Talents:     CombatDagger40Talents,
 			GearSet:     core.GetGearSet("../../../ui/rogue/gear_sets", "blank"),
 			Rotation:    core.GetAplRotation("../../../ui/rogue/apls", "mutilate"),
-			Buffs:       core.FullBuffsPhase2,
+			Buffs:       core.FullBuffs,
 			Consumes:    Phase2Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "No Poisons", SpecOptions: DefaultCombatRogue},
 
@@ -44,7 +44,7 @@ func TestAssassination(t *testing.T) {
 			Talents:     Assassination40Talents,
 			GearSet:     core.GetGearSet("../../../ui/rogue/gear_sets", "blank"),
 			Rotation:    core.GetAplRotation("../../../ui/rogue/apls", "mutilate"),
-			Buffs:       core.FullBuffsPhase2,
+			Buffs:       core.FullBuffs,
 			Consumes:    Phase2Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "No Poisons", SpecOptions: DefaultAssassinationRogue},
 
@@ -97,21 +97,11 @@ var DefaultCombatRogue = &proto.Player_Rogue{
 
 var DefaultDeadlyBrewOptions = &proto.RogueOptions{}
 
-var Phase1Consumes = core.ConsumesCombo{
-	Label: "P1-Consumes",
-	Consumes: &proto.Consumes{
-		AgilityElixir: proto.AgilityElixir_ElixirOfLesserAgility,
-		MainHandImbue: proto.WeaponImbue_WildStrikes,
-		OffHandImbue:  proto.WeaponImbue_BlackfathomSharpeningStone,
-		StrengthBuff:  proto.StrengthBuff_ElixirOfOgresStrength,
-	},
-}
-
 var Phase2Consumes = core.ConsumesCombo{
 	Label: "P2-Consumes",
 	Consumes: &proto.Consumes{
 		AgilityElixir: proto.AgilityElixir_ElixirOfAgility,
-		MainHandImbue: proto.WeaponImbue_WildStrikes,
+		MainHandImbue: proto.WeaponImbue_Windfury,
 		OffHandImbue:  proto.WeaponImbue_SolidSharpeningStone,
 		StrengthBuff:  proto.StrengthBuff_ElixirOfOgresStrength,
 	},

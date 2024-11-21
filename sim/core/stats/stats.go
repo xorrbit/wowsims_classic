@@ -468,9 +468,6 @@ type PseudoStats struct {
 	FeralCombatEnabled bool
 	FeralCombatSkill   float64
 
-	// Tracks the number of Timeworn items equipped for Bronze Signet bonuses
-	TimewornBonus int32
-
 	///////////////////////////////////////////////////
 	// Effects that apply when this unit is the target.
 	///////////////////////////////////////////////////

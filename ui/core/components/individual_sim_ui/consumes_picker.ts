@@ -27,7 +27,6 @@ export class ConsumesPicker extends Component {
 			this.buildSpellPowerBuffPickers();
 			this.buildMiscConsumesPickers();
 			this.buildEngPickers();
-			this.buildEnchPicker();
 			this.buildPetPicker();
 		});
 	}
@@ -50,7 +49,6 @@ export class ConsumesPicker extends Component {
 		const pickers = [
 			buildIconInput(potionsElem, this.simUI.player, potionsOptions),
 			buildIconInput(potionsElem, this.simUI.player, conjuredOptions),
-			buildIconInput(potionsElem, this.simUI.player, ConsumablesInputs.MildlyIrradiatedRejuvPotion),
 		];
 
 		TypedEvent.onAny([this.simUI.player.levelChangeEmitter, this.simUI.player.professionChangeEmitter]).on(() => this.updateRow(row, pickers));
@@ -280,30 +278,6 @@ export class ConsumesPicker extends Component {
 			buildIconInput(engiConsumesElem, this.simUI.player, sapperOptions),
 			buildIconInput(engiConsumesElem, this.simUI.player, explosiveOptions),
 		];
-
-		TypedEvent.onAny([this.simUI.player.levelChangeEmitter, this.simUI.player.professionChangeEmitter]).on(() => this.updateRow(row, pickers));
-		this.updateRow(row, pickers);
-	}
-
-	private buildEnchPicker() {
-		const fragment = document.createElement('fragment');
-		fragment.innerHTML = `
-			<div class="consumes-row input-root input-inline">
-				<label class="form-label">Enchanting</label>
-				<div class="consumes-row-inputs consumes-ench">
-						</div>
-			</div>
-    	`;
-
-		const row = this.rootElem.appendChild(fragment.children[0] as HTMLElement);
-		const enchConsumesElem = this.rootElem.querySelector('.consumes-ench') as HTMLElement;
-
-		const enchantedSigilOptions = ConsumablesInputs.makeEncanthedSigilInput(
-			relevantStatOptions(ConsumablesInputs.ENCHANTED_SIGIL_CONFIG, this.simUI),
-			'Enchanted Sigils',
-		);
-
-		const pickers = [buildIconInput(enchConsumesElem, this.simUI.player, enchantedSigilOptions)];
 
 		TypedEvent.onAny([this.simUI.player.levelChangeEmitter, this.simUI.player.professionChangeEmitter]).on(() => this.updateRow(row, pickers));
 		this.updateRow(row, pickers);

@@ -876,7 +876,7 @@ const valueKindFactories: { [f in NonNullable<APLValueKind>]: ValueKindConfig<AP
 		],
 	}),
 
-	// Runes
+	// Runes // TODO: remove once APLs for classes are updated
 	runeIsEquipped: inputBuilder({
 		label: 'Rune Equipped',
 		submenu: ['Rune'],

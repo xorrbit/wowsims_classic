@@ -94,7 +94,7 @@ type Rogue struct {
 	ExposeArmor  *core.Spell
 	Rupture      *core.Spell
 	SliceAndDice *core.Spell
-	Finishers       []*core.Spell
+	Finishers    []*core.Spell
 
 	Evasion    *core.Spell
 	BladeDance *core.Spell
@@ -251,7 +251,7 @@ type RogueAgent interface {
 }
 
 func (rogue *Rogue) HasRune(rune proto.RogueRune) bool {
-	return rogue.HasRuneById(int32(rune))
+	return false // rogue.HasRuneById(int32(rune))
 }
 
 func (rogue *Rogue) baseRuneAbilityDamage() float64 {

@@ -66,12 +66,9 @@ type Item struct {
 	SetID               int32  // 0 if not part of a set.
 	WeaponSkills        stats.WeaponSkills
 
-	Timeworn bool
-
 	// Modified for each instance of the item.
 	RandomSuffix RandomSuffix
 	Enchant      Enchant
-	Rune         int32
 
 	//Internal use
 	TempEnchant int32
@@ -96,7 +93,6 @@ func ItemFromProto(pData *proto.SimItem) Item {
 		SetName:             pData.SetName,
 		SetID:               pData.SetId,
 		WeaponSkills:        stats.WeaponSkillsFloatArray(pData.WeaponSkills),
-		Timeworn:            pData.Timeworn,
 	}
 }
 
@@ -109,8 +105,6 @@ func (item *Item) ToItemSpecProto() *proto.ItemSpec {
 		Id:           item.ID,
 		RandomSuffix: item.RandomSuffix.ID,
 		Enchant:      item.Enchant.EffectID,
-
-		Rune: item.Rune,
 	}
 }
 
@@ -140,21 +134,10 @@ func EnchantFromProto(pData *proto.SimEnchant) Enchant {
 	}
 }
 
-type Rune struct {
-	ID int32
-}
-
-func RuneFromProto(pData *proto.SimRune) Rune {
-	return Rune{
-		ID: pData.Id,
-	}
-}
-
 type ItemSpec struct {
 	ID           int32
 	RandomSuffix int32
 	Enchant      int32
-	Rune         int32
 }
 
 type Equipment [proto.ItemSlot_ItemSlotRanged + 1]Item
@@ -249,7 +232,6 @@ func ProtoToEquipmentSpec(es *proto.EquipmentSpec) EquipmentSpec {
 			ID:           item.Id,
 			RandomSuffix: item.RandomSuffix,
 			Enchant:      item.Enchant,
-			Rune:         item.Rune,
 		}
 	}
 	return coreEquip
@@ -277,13 +259,6 @@ func NewItem(itemSpec ItemSpec) Item {
 		}
 		// else {
 		// 	panic(fmt.Sprintf("No enchant with id: %d", itemSpec.Enchant))
-		// }
-	}
-
-	if itemSpec.Rune != 0 {
-		item.Rune = itemSpec.Rune
-		// if rune, ok := RuneBySpellID[itemSpec.Rune]; ok {
-		// 	item.Rune = rune.ID
 		// }
 	}
 
@@ -337,16 +312,6 @@ func (equipment *Equipment) BaseStats() stats.Stats {
 		equipStats = equipStats.Add(item.RandomSuffix.Stats)
 	}
 	return equipStats
-}
-
-func (equipment *Equipment) GetRuneIds() []int32 {
-	out := make([]int32, len(equipment))
-	for _, v := range equipment {
-		if v.Rune != 0 {
-			out = append(out, v.Rune)
-		}
-	}
-	return out
 }
 
 func ItemTypeToSlot(it proto.ItemType) proto.ItemSlot {

@@ -3,8 +3,8 @@ import tippy from 'tippy.js';
 import { ref } from 'tsx-vanilla';
 
 import { Player } from '../../player';
-import { ItemQuality, ItemRandomSuffix, ItemSlot } from '../../proto/common';
-import { UIEnchant, UIItem, UIRune } from '../../proto/ui';
+import { ItemRandomSuffix, ItemSlot } from '../../proto/common';
+import { UIEnchant, UIItem } from '../../proto/ui';
 import { ActionId } from '../../proto_utils/action_id';
 import { EquippedItem } from '../../proto_utils/equipped_item';
 import { slotNames } from '../../proto_utils/names';
@@ -21,7 +21,6 @@ export enum SelectorModalTabs {
 	Enchants = 'Enchant',
 	Items = 'Item',
 	RandomSuffixes = 'Random Suffix',
-	Runes = 'Rune',
 }
 
 export interface SelectorModalConfig {
@@ -30,7 +29,6 @@ export interface SelectorModalConfig {
 	equippedItem: EquippedItem | null;
 	eligibleItems: Array<UIItem>;
 	eligibleEnchants: Array<UIEnchant>;
-	eligibleRunes: Array<UIRune>;
 	gearData: GearData;
 }
 
@@ -126,10 +124,8 @@ export default class SelectorModal extends BaseModal {
 
 		const eligibleItems = this.player.getItems(selectedSlot);
 		const eligibleEnchants = this.player.getEnchants(selectedSlot);
-		const eligibleRunes = this.player.getRunes(selectedSlot);
 		// If the enchant tab is selected but the item has no eligible enchants, default to items
-		// If the rune tab is selected but the item has no eligible runes, default to items
-		if ((selectedTab === SelectorModalTabs.Enchants && !eligibleEnchants.length) || (selectedTab === SelectorModalTabs.Runes && !eligibleRunes.length)) {
+		if (selectedTab === SelectorModalTabs.Enchants && !eligibleEnchants.length) {
 			selectedTab = SelectorModalTabs.Items;
 		}
 
@@ -201,41 +197,6 @@ export default class SelectorModal extends BaseModal {
 					const equippedItem = gearData.getEquippedItem();
 					if (equippedItem) {
 						gearData.equipItem(eventID, equippedItem.withEnchant(null));
-					}
-				},
-			});
-		}
-
-		const hasRuneTab = !this.disabledTabs?.includes(SelectorModalTabs.Runes);
-		if (hasRuneTab) {
-			this.addTab<UIRune>({
-				id: sanitizeId(`${this.options.id}-${SelectorModalTabs.Runes}`),
-				label: SelectorModalTabs.Runes,
-				gearData,
-				itemData: eligibleRunes.map(rune => {
-					return {
-						item: rune,
-						id: rune.id,
-						actionId: ActionId.fromSpellId(rune.id),
-						name: rune.name,
-						quality: ItemQuality.ItemQualityCommon,
-						phase: 1,
-						baseEP: 1,
-						ignoreEPFilter: true,
-						onEquip: (eventID, rune: UIRune) => {
-							const equippedItem = gearData.getEquippedItem();
-							if (equippedItem) {
-								gearData.equipItem(eventID, equippedItem.withRune(rune));
-							}
-						},
-					};
-				}),
-				computeEP: () => 1,
-				equippedToItemFn: (equippedItem: EquippedItem | null) => equippedItem?.rune,
-				onRemove: (eventID: number) => {
-					const equippedItem = gearData.getEquippedItem();
-					if (equippedItem) {
-						gearData.equipItem(eventID, equippedItem.withRune(null));
 					}
 				},
 			});
@@ -485,8 +446,8 @@ export default class SelectorModal extends BaseModal {
 	}
 
 	private removeTabs(labelSubstring: string) {
-		const tabElems = [...this.tabsElem.querySelectorAll<HTMLElement>('.selector-modal-item-tab')].filter(tab =>
-			tab.dataset?.label?.includes(labelSubstring),
+		const tabElems = [...this.tabsElem.querySelectorAll<HTMLElement>('.selector-modal-item-tab')].filter(
+			tab => tab.dataset?.label?.includes(labelSubstring),
 		);
 		const contentElems = tabElems.map(tabElem => document.querySelector(tabElem.dataset.bsTarget!)).filter(tabElem => Boolean(tabElem));
 

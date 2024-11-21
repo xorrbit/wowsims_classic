@@ -24,7 +24,7 @@ func TestDualWieldWarrior(t *testing.T) {
 			Talents:     P4FuryTalents,
 			GearSet:     core.GetGearSet("../../../ui/warrior/gear_sets", "blank"),
 			Rotation:    core.GetAplRotation("../../../ui/warrior/apls", "phase_5_dw"),
-			Buffs:       core.FullBuffsPhase5,
+			Buffs:       core.FullBuffs,
 			Consumes:    Phase4Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Fury", SpecOptions: PlayerOptionsFury},
 
@@ -47,7 +47,7 @@ func TestTwoHandedWarrior(t *testing.T) {
 			Talents:     P4FuryTalents,
 			GearSet:     core.GetGearSet("../../../ui/warrior/gear_sets", "blank"),
 			Rotation:    core.GetAplRotation("../../../ui/warrior/apls", "phase_5_2h"),
-			Buffs:       core.FullBuffsPhase5,
+			Buffs:       core.FullBuffs,
 			Consumes:    Phase4Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Arms", SpecOptions: PlayerOptionsArms},
 
@@ -63,41 +63,6 @@ var P2FuryTalents = "-05050005405010051"
 var P3ArmsTalents = "303050213520105001-0505"
 var P4FuryTalents = "20305020302-05050005525010051"
 
-var Phase1Consumes = core.ConsumesCombo{
-	Label: "P1-Consumes",
-	Consumes: &proto.Consumes{
-		AgilityElixir: proto.AgilityElixir_ElixirOfLesserAgility,
-		MainHandImbue: proto.WeaponImbue_WildStrikes,
-		OffHandImbue:  proto.WeaponImbue_BlackfathomSharpeningStone,
-		StrengthBuff:  proto.StrengthBuff_ElixirOfOgresStrength,
-	},
-}
-
-var Phase2Consumes = core.ConsumesCombo{
-	Label: "P2-Consumes",
-	Consumes: &proto.Consumes{
-		AgilityElixir:     proto.AgilityElixir_ElixirOfAgility,
-		DragonBreathChili: true,
-		Food:              proto.Food_FoodSagefishDelight,
-		MainHandImbue:     proto.WeaponImbue_WildStrikes,
-		OffHandImbue:      proto.WeaponImbue_SolidSharpeningStone,
-		StrengthBuff:      proto.StrengthBuff_ElixirOfOgresStrength,
-	},
-}
-
-var Phase3Consumes = core.ConsumesCombo{
-	Label: "P3-Consumes",
-	Consumes: &proto.Consumes{
-		AgilityElixir:     proto.AgilityElixir_ElixirOfTheMongoose,
-		DragonBreathChili: true,
-		Food:              proto.Food_FoodGrilledSquid,
-		MainHandImbue:     proto.WeaponImbue_WildStrikes,
-		OffHandImbue:      proto.WeaponImbue_SolidSharpeningStone,
-		StrengthBuff:      proto.StrengthBuff_ElixirOfOgresStrength,
-		DefaultPotion:     proto.Potions_MightyRagePotion,
-	},
-}
-
 var Phase4Consumes = core.ConsumesCombo{
 	Label: "P4-Consumes",
 	Consumes: &proto.Consumes{
@@ -106,7 +71,7 @@ var Phase4Consumes = core.ConsumesCombo{
 		DefaultPotion:     proto.Potions_MightyRagePotion,
 		DragonBreathChili: true,
 		Food:              proto.Food_FoodSmokedDesertDumpling,
-		MainHandImbue:     proto.WeaponImbue_WildStrikes,
+		MainHandImbue:     proto.WeaponImbue_Windfury,
 		OffHandImbue:      proto.WeaponImbue_ElementalSharpeningStone,
 		StrengthBuff:      proto.StrengthBuff_JujuPower,
 	},

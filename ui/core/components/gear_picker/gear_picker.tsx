@@ -15,8 +15,6 @@ import { GearData } from './item_list';
 import SelectorModal, { SelectorModalTabs } from './selector_modal';
 import { getEmptySlotIconUrl } from './utils';
 
-const emptyRuneImageURL = 'https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_empty.jpg';
-
 export default class GearPicker extends Component {
 	// ItemSlot is used as the index
 	readonly itemPickers: Array<ItemPicker>;
@@ -66,45 +64,35 @@ export class ItemRenderer extends Component {
 	private readonly player: Player<any>;
 
 	readonly iconElem: HTMLAnchorElement;
-	readonly runeIconElem: HTMLImageElement;
 	readonly nameElem: HTMLAnchorElement;
 	readonly ilvlElem: HTMLSpanElement;
 	readonly enchantElem: HTMLAnchorElement;
-	readonly runeElem: HTMLAnchorElement;
 
 	constructor(parent: HTMLElement, root: HTMLElement, player: Player<any>) {
 		super(parent, 'item-picker-root', root);
 		this.player = player;
 
 		const iconElem = ref<HTMLAnchorElement>();
-		const runeIconElem = ref<HTMLImageElement>();
 		const nameElem = ref<HTMLAnchorElement>();
 		const ilvlElem = ref<HTMLSpanElement>();
 		const enchantElem = ref<HTMLAnchorElement>();
-		const runeElem = ref<HTMLAnchorElement>();
 		this.rootElem.appendChild(
 			<>
 				<div className="item-picker-icon-wrapper">
 					<span className="item-picker-ilvl" ref={ilvlElem} />
 					<a ref={iconElem} className="item-picker-icon" href="javascript:void(0)" attributes={{ role: 'button' }}></a>
-					<div className="item-picker-rune-container">
-						<img ref={runeIconElem} className="item-picker-rune-icon hide" />
-					</div>
 				</div>
 				<div className="item-picker-labels-container">
 					<a ref={nameElem} className="item-picker-name" href="javascript:void(0)" attributes={{ role: 'button' }}></a>
 					<a ref={enchantElem} className="item-picker-enchant hide" href="javascript:void(0)" attributes={{ role: 'button' }}></a>
-					<a ref={runeElem} className="item-picker-rune hide" href="javascript:void(0)" attributes={{ role: 'button' }}></a>
 				</div>
 			</>,
 		);
 
 		this.iconElem = iconElem.value!;
-		this.runeIconElem = runeIconElem.value!;
 		this.nameElem = nameElem.value!;
 		this.ilvlElem = ilvlElem.value!;
 		this.enchantElem = enchantElem.value!;
-		this.runeElem = runeElem.value!;
 	}
 
 	clear() {
@@ -115,17 +103,12 @@ export class ItemRenderer extends Component {
 		this.enchantElem.removeAttribute('data-wowhead');
 		this.enchantElem.removeAttribute('href');
 		this.enchantElem.classList.add('hide');
-		this.runeElem.removeAttribute('data-wowhead');
-		this.runeElem.removeAttribute('href');
-		this.runeElem.classList.add('hide');
 
 		this.iconElem.style.backgroundImage = '';
-		this.runeIconElem.src = emptyRuneImageURL;
 
 		this.nameElem.innerText = '';
 		this.ilvlElem.innerText = '';
 		this.enchantElem.innerText = '';
-		this.runeElem.innerText = '';
 	}
 
 	update(newItem: EquippedItem) {
@@ -169,24 +152,6 @@ export class ItemRenderer extends Component {
 		} else {
 			this.enchantElem.classList.add('hide');
 		}
-
-		const isRuneSlot = itemTypeToSlotsMap[newItem._item.type]?.some(slot => this.player.sim.db.hasRuneBySlot(slot, this.player.getClass()));
-		if (isRuneSlot) {
-			this.runeIconElem.classList.remove('hide');
-
-			if (newItem.rune) {
-				ActionId.fromSpellId(newItem.rune.id)
-					.fill()
-					.then(filledId => (this.runeIconElem.src = filledId.iconUrl));
-				this.runeElem.classList.remove('hide');
-				this.runeElem.textContent = newItem.rune.name;
-				this.runeElem.href = ActionId.makeSpellUrl(newItem.rune.id);
-				this.runeElem.dataset.wowhead = `domain=classic&spell=${newItem.rune.id}`;
-				this.runeElem.dataset.whtticon = 'false';
-			} else {
-				this.runeIconElem.src = emptyRuneImageURL;
-			}
-		}
 	}
 }
 
@@ -224,15 +189,10 @@ export class ItemPicker extends Component {
 				event.preventDefault();
 				this.openSelectorModal(SelectorModalTabs.Enchants);
 			};
-			const openRuneSelector = (event: Event) => {
-				event.preventDefault();
-				this.openSelectorModal(SelectorModalTabs.Runes);
-			};
 
 			this.itemElem.iconElem.addEventListener('click', openGearSelector);
 			this.itemElem.nameElem.addEventListener('click', openGearSelector);
 			this.itemElem.enchantElem.addEventListener('click', openEnchantSelector);
-			this.itemElem.runeElem.addEventListener('click', openRuneSelector);
 		});
 
 		player.gearChangeEmitter.on(() => {

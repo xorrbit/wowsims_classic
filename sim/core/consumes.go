@@ -25,11 +25,9 @@ func applyConsumeEffects(agent Agent) {
 	applySpellBuffConsumes(character, consumes)
 	applyZanzaBuffConsumes(character, consumes)
 	applyMiscConsumes(character, consumes.MiscConsumes)
-	applyEnchantingConsumes(character, consumes)
 
 	registerPotionCD(agent, consumes)
 	registerConjuredCD(agent, consumes)
-	registerMildlyIrradiatedRejuvCD(agent, consumes)
 	registerExplosivesCD(agent, consumes)
 }
 
@@ -53,21 +51,6 @@ func applyFlaskConsumes(character *Character, consumes *proto.Consumes) {
 		character.AddStats(stats.Stats{
 			stats.Mana: 2000,
 		})
-	case proto.Flask_FlaskOfUnyieldingSorrow:
-		character.AddStats(stats.Stats{
-			stats.SpellDamage:  27,
-			stats.HealingPower: 80,
-			stats.MP5:          12,
-		})
-	case proto.Flask_FlaskOfAncientKnowledge:
-		character.AddStats(stats.Stats{
-			stats.SpellPower: 180,
-		})
-	case proto.Flask_FlaskOfTheOldGods:
-		character.AddStats(stats.Stats{
-			stats.Stamina: 100,
-			stats.Defense: 10,
-		})
 	case proto.Flask_FlaskOfSupremePower:
 		character.AddStats(stats.Stats{
 			stats.SpellPower: 150,
@@ -78,23 +61,6 @@ func applyFlaskConsumes(character *Character, consumes *proto.Consumes) {
 		})
 	case proto.Flask_FlaskOfChromaticResistance:
 		character.AddResistances(25)
-	case proto.Flask_FlaskOfRestlessDreams:
-		character.AddStats(stats.Stats{
-			// +30 Spell Damage, +45 Healing Power, +12 MP5
-			stats.SpellDamage:  30,
-			stats.HealingPower: 15,
-			stats.MP5:          12,
-		})
-	case proto.Flask_FlaskOfEverlastingNightmares:
-		character.AddStats(stats.Stats{
-			stats.AttackPower:       45,
-			stats.RangedAttackPower: 45,
-		})
-	case proto.Flask_FlaskOfMadness:
-		character.AddStats(stats.Stats{
-			stats.AttackPower:       50,
-			stats.RangedAttackPower: 50,
-		})
 	}
 }
 
@@ -138,11 +104,6 @@ func addImbueStats(character *Character, imbue proto.WeaponImbue, isMh bool, sha
 				stats.SpellPower: 36,
 				stats.SpellCrit:  1 * SpellCritRatingPerCritChance,
 			})
-		case proto.WeaponImbue_EnchantedRepellent:
-			character.AddStats(stats.Stats{
-				stats.SpellPower: 45,
-				stats.SpellCrit:  1 * SpellCritRatingPerCritChance,
-			})
 
 		// Mana Oils
 		case proto.WeaponImbue_MinorManaOil:
@@ -157,20 +118,6 @@ func addImbueStats(character *Character, imbue proto.WeaponImbue, isMh bool, sha
 			character.AddStats(stats.Stats{
 				stats.MP5:          12,
 				stats.HealingPower: 25,
-			})
-		case proto.WeaponImbue_BlackfathomManaOil:
-			character.AddStats(stats.Stats{
-				stats.MP5:      12,
-				stats.SpellHit: 2 * SpellHitRatingPerHitChance,
-			})
-
-		// Shield Oil
-		case proto.WeaponImbue_ConductiveShieldCoating:
-			character.AddStat(stats.SpellPower, 24)
-		case proto.WeaponImbue_MagnificentTrollshine:
-			character.AddStats(stats.Stats{
-				stats.SpellPower: 36,
-				stats.SpellCrit:  1 * CritRatingPerCritChance,
 			})
 
 		// Sharpening Stones
@@ -192,10 +139,6 @@ func addImbueStats(character *Character, imbue proto.WeaponImbue, isMh bool, sha
 			character.AddStats(stats.Stats{
 				stats.MeleeCrit: 2 * CritRatingPerCritChance,
 			})
-		case proto.WeaponImbue_BlackfathomSharpeningStone:
-			character.AddStats(stats.Stats{
-				stats.MeleeHit: 2 * MeleeHitRatingPerHitChance,
-			})
 
 		// Weightstones
 		case proto.WeaponImbue_SolidWeightstone:
@@ -214,11 +157,6 @@ func addImbueStats(character *Character, imbue proto.WeaponImbue, isMh bool, sha
 			weapon.BaseDamageMax += 8
 
 		// Windfury
-		case proto.WeaponImbue_WildStrikes:
-			//protect against double application if wild strikes is selected by a feral in sim settings
-			if !character.HasRuneById(int32(proto.DruidRune_RuneChestWildStrikes)) {
-				ApplyWildStrikes(character)
-			}
 		case proto.WeaponImbue_Windfury:
 			ApplyWindfury(character)
 		case proto.WeaponImbue_ShadowOil:
@@ -461,12 +399,6 @@ func DragonBreathChiliAura(character *Character) *Aura {
 func applyDefensiveBuffConsumes(character *Character, consumes *proto.Consumes) {
 	if consumes.ArmorElixir != proto.ArmorElixir_ArmorElixirUnknown {
 		switch consumes.ArmorElixir {
-		case proto.ArmorElixir_ElixirOfTheIronside:
-			character.AddStats(stats.Stats{
-				stats.BonusArmor:       350,
-				stats.Defense:          5,
-				stats.NatureResistance: 15,
-			})
 		case proto.ArmorElixir_ElixirOfSuperiorDefense:
 			character.AddStats(stats.Stats{
 				stats.BonusArmor: 450,
@@ -523,12 +455,6 @@ func applyPhysicalBuffConsumes(character *Character, consumes *proto.Consumes) {
 
 	if consumes.AgilityElixir != proto.AgilityElixir_AgilityElixirUnknown {
 		switch consumes.AgilityElixir {
-		case proto.AgilityElixir_ElixirOfTheHoneyBadger:
-			character.AddStats(stats.Stats{
-				stats.Agility:          30,
-				stats.MeleeCrit:        2 * CritRatingPerCritChance,
-				stats.NatureResistance: 15,
-			})
 		case proto.AgilityElixir_ElixirOfTheMongoose:
 			character.AddStats(stats.Stats{
 				stats.Agility:   25,
@@ -589,11 +515,6 @@ func applySpellBuffConsumes(character *Character, consumes *proto.Consumes) {
 		case proto.SpellPowerBuff_GreaterArcaneElixir:
 			character.AddStats(stats.Stats{
 				stats.SpellDamage: 35,
-			})
-		case proto.SpellPowerBuff_ElixirOfTheMageLord:
-			character.AddStats(stats.Stats{
-				stats.SpellDamage:      40,
-				stats.NatureResistance: 15,
 			})
 		}
 	}
@@ -674,96 +595,6 @@ func applyZanzaBuffConsumes(character *Character, consumes *proto.Consumes) {
 		character.AddStats(stats.Stats{
 			stats.Stamina: 25,
 		})
-	case proto.ZanzaBuff_AtalaiMojoOfWar:
-		if character.Level == 50 {
-			character.AddStats(stats.Stats{
-				stats.AttackPower:       48,
-				stats.RangedAttackPower: 48,
-			})
-			ApplyAtalAiProc(character, consumes.ZanzaBuff)
-		}
-	case proto.ZanzaBuff_AtalaiMojoOfForbiddenMagic:
-		if character.Level == 50 {
-			character.AddStats(stats.Stats{
-				stats.SpellPower: 40,
-			})
-			ApplyAtalAiProc(character, consumes.ZanzaBuff)
-		}
-	case proto.ZanzaBuff_AtalaiMojoOfLife:
-		if character.Level == 50 {
-			character.AddStats(stats.Stats{
-				stats.HealingPower: 45,
-				stats.MP5:          11,
-			})
-			ApplyAtalAiProc(character, consumes.ZanzaBuff)
-		}
-	}
-}
-
-func ApplyAtalAiProc(character *Character, atalaiBuff proto.ZanzaBuff) {
-	icd := Cooldown{
-		Timer:    character.NewTimer(),
-		Duration: time.Second * 40,
-	}
-
-	switch atalaiBuff {
-	case proto.ZanzaBuff_AtalaiMojoOfWar:
-		procAuraStr := character.NewTemporaryStatsAura("Voodoo Frenzy Str Proc", ActionID{SpellID: 446335}, stats.Stats{stats.Strength: 35}, time.Second*10)
-		procAuraAgi := character.NewTemporaryStatsAura("Voodoo Frenzy Agi Proc", ActionID{SpellID: 449409}, stats.Stats{stats.Agility: 35}, time.Second*10)
-		procAuraStr.Icd = &icd
-		procAuraAgi.Icd = &icd
-
-		MakePermanent(character.RegisterAura(Aura{
-			Label: "Voodoo Frenzy",
-			OnSpellHitDealt: func(aura *Aura, sim *Simulation, spell *Spell, result *SpellResult) {
-				if !result.Landed() || !spell.ProcMask.Matches(ProcMaskMeleeOrRanged) || !icd.IsReady(sim) {
-					return
-				}
-
-				if sim.Proc(0.15, "Voodoo Frenzy") {
-					icd.Use(sim)
-
-					if aura.Unit.GetStat(stats.Strength) > aura.Unit.GetStat(stats.Agility) {
-						procAuraStr.Activate(sim)
-					} else {
-						procAuraAgi.Activate(sim)
-					}
-				}
-			},
-		}))
-	case proto.ZanzaBuff_AtalaiMojoOfForbiddenMagic:
-		procSpell := character.RegisterSpell(SpellConfig{
-			ActionID:    ActionID{SpellID: 446258},
-			SpellSchool: SpellSchoolShadow,
-			ProcMask:    ProcMaskEmpty,
-			DefenseType: DefenseTypeMagic,
-
-			DamageMultiplier: 1,
-			ThreatMultiplier: 1,
-			BonusCoefficient: 0.56,
-
-			ApplyEffects: func(sim *Simulation, target *Unit, spell *Spell) {
-				dmg := sim.Roll(204, 236)
-				spell.CalcAndDealDamage(sim, target, dmg, spell.OutcomeMagicCrit) // TODO: Verify if it rolls miss? Most procs dont so we have it like this
-			},
-		})
-
-		MakePermanent(character.RegisterAura(Aura{
-			Label: "Forbidden Magic",
-			OnSpellHitDealt: func(aura *Aura, sim *Simulation, spell *Spell, result *SpellResult) {
-				if !result.Landed() || !spell.ProcMask.Matches(ProcMaskSpellDamage) || !icd.IsReady(sim) {
-					return
-				}
-
-				if sim.Proc(0.25, "Forbidden Magic") {
-					icd.Use(sim)
-					procSpell.Cast(sim, character.CurrentTarget)
-				}
-			},
-		}))
-	case proto.ZanzaBuff_AtalaiMojoOfLife:
-		// TODO: Your heals have a chance to restore 8 Energy, 1% Mana, or 4 Rage
-		// This is also shared with the Darkmoon Card: Overgrowth trinket but unsure if they stack or not
 	}
 }
 
@@ -875,55 +706,14 @@ func applyMiscConsumes(character *Character, miscConsumes *proto.MiscConsumes) {
 }
 
 ///////////////////////////////////////////////////////////////////////////
-//                             Enchanting Consumes
-///////////////////////////////////////////////////////////////////////////
-
-func applyEnchantingConsumes(character *Character, consumes *proto.Consumes) {
-	switch consumes.EnchantedSigil {
-	case proto.EnchantedSigil_InnovationSigil:
-		character.AddStats(stats.Stats{
-			stats.AttackPower:       20,
-			stats.RangedAttackPower: 20,
-			stats.SpellPower:        20,
-		})
-	case proto.EnchantedSigil_LivingDreamsSigil:
-		character.AddStats(stats.Stats{
-			stats.AttackPower:       30,
-			stats.RangedAttackPower: 30,
-			stats.SpellPower:        30,
-		})
-	case proto.EnchantedSigil_FlowingWatersSigil:
-		for _, player := range character.Env.Raid.AllPlayerUnits {
-			player.AddStats(stats.Stats{
-				stats.AttackPower:       30,
-				stats.RangedAttackPower: 30,
-				stats.SpellPower:        30,
-			})
-		}
-	case proto.EnchantedSigil_WrathOfTheStormSigil:
-		for _, player := range character.Env.Raid.AllPlayerUnits {
-			player.AddStats(stats.Stats{
-				stats.AttackPower:       40,
-				stats.RangedAttackPower: 40,
-				stats.SpellPower:        40,
-			})
-		}
-	}
-}
-
-///////////////////////////////////////////////////////////////////////////
 //                             Engineering Explosives
 ///////////////////////////////////////////////////////////////////////////
 
 var SapperActionID = ActionID{ItemID: 10646}
-var FumigatorActionID = ActionID{ItemID: 233985}
 var SolidDynamiteActionID = ActionID{ItemID: 10507}
 var DenseDynamiteActionID = ActionID{ItemID: 18641}
 var ThoriumGrenadeActionID = ActionID{ItemID: 15993}
-var EzThroRadiationBombActionID = ActionID{ItemID: 215168}
-var HighYieldRadiationBombActionID = ActionID{ItemID: 215127}
 var GoblinLandMineActionID = ActionID{ItemID: 4395}
-var ObsidianBombActionID = ActionID{ItemID: 233986}
 
 func registerExplosivesCD(agent Agent, consumes *proto.Consumes) {
 	character := agent.GetCharacter()
@@ -936,15 +726,13 @@ func registerExplosivesCD(agent Agent, consumes *proto.Consumes) {
 	sharedTimer := character.NewTimer()
 
 	if hasSapper {
-		if consumes.SapperExplosive != proto.SapperExplosive_SapperFumigator && !character.HasProfession(proto.Profession_Engineering) {
+		if !character.HasProfession(proto.Profession_Engineering) {
 			return
 		}
 		var filler *Spell
 		switch consumes.SapperExplosive {
 		case proto.SapperExplosive_SapperGoblinSapper:
 			filler = character.newSapperSpell(sharedTimer)
-		case proto.SapperExplosive_SapperFumigator:
-			filler = character.newFumigatorSpell(sharedTimer)
 		}
 		character.AddMajorCooldown(MajorCooldown{
 			Spell:    filler,
@@ -957,24 +745,18 @@ func registerExplosivesCD(agent Agent, consumes *proto.Consumes) {
 	}
 
 	if hasFiller {
-		if consumes.FillerExplosive != proto.Explosive_ExplosiveEzThroRadiationBomb && !character.HasProfession(proto.Profession_Engineering) {
+		if !character.HasProfession(proto.Profession_Engineering) {
 			return
 		}
 
 		var filler *Spell
 		switch consumes.FillerExplosive {
-		case proto.Explosive_ExplosiveObsidianBomb:
-			filler = character.newObisidianBombSpell(sharedTimer)
 		case proto.Explosive_ExplosiveSolidDynamite:
 			filler = character.newSolidDynamiteSpell(sharedTimer)
 		case proto.Explosive_ExplosiveDenseDynamite:
 			filler = character.newDenseDynamiteSpell(sharedTimer)
 		case proto.Explosive_ExplosiveThoriumGrenade:
 			filler = character.newThoriumGrenadeSpell(sharedTimer)
-		case proto.Explosive_ExplosiveEzThroRadiationBomb:
-			filler = character.newEzThroRadiationBombSpell(sharedTimer)
-		case proto.Explosive_ExplosiveHighYieldRadiationBomb:
-			filler = character.newHighYieldRadiationBombSpell(sharedTimer)
 		case proto.Explosive_ExplosiveGoblinLandMine:
 			filler = character.newGoblinLandMineSpell(sharedTimer)
 		}
@@ -993,7 +775,7 @@ func registerExplosivesCD(agent Agent, consumes *proto.Consumes) {
 // Creates a spell object for the common explosive case.
 // TODO: create 10s delay on Goblin Landmine cast to damage
 func (character *Character) newBasicExplosiveSpellConfig(sharedTimer *Timer, actionID ActionID, school SpellSchool, minDamage float64, maxDamage float64, cooldown Cooldown, selfMinDamage float64, selfMaxDamage float64) SpellConfig {
-	isSapper := actionID.SameAction(SapperActionID) || actionID.SameAction(FumigatorActionID)
+	isSapper := actionID.SameAction(SapperActionID)
 
 	var defaultCast Cast
 	if !isSapper {
@@ -1045,13 +827,6 @@ func (character *Character) newSapperSpell(sharedTimer *Timer) *Spell {
 	return character.GetOrRegisterSpell(character.newBasicExplosiveSpellConfig(sharedTimer, SapperActionID, SpellSchoolFire, 450, 750, Cooldown{Timer: character.NewTimer(), Duration: time.Minute * 5}, 375, 625))
 }
 
-// Needs testing for Silithid interaction if in raid
-func (character *Character) newFumigatorSpell(sharedTimer *Timer) *Spell {
-	return character.GetOrRegisterSpell(character.newBasicExplosiveSpellConfig(sharedTimer, FumigatorActionID, SpellSchoolFire, 650, 950, Cooldown{Timer: character.NewTimer(), Duration: time.Minute * 5}, 475, 725))
-}
-func (character *Character) newObisidianBombSpell(sharedTimer *Timer) *Spell {
-	return character.GetOrRegisterSpell(character.newBasicExplosiveSpellConfig(sharedTimer, ObsidianBombActionID, SpellSchoolFire, 530, 670, Cooldown{}, 0, 0))
-}
 func (character *Character) newSolidDynamiteSpell(sharedTimer *Timer) *Spell {
 	return character.GetOrRegisterSpell(character.newBasicExplosiveSpellConfig(sharedTimer, SolidDynamiteActionID, SpellSchoolFire, 213, 287, Cooldown{}, 0, 0))
 }
@@ -1138,12 +913,6 @@ func (character *Character) newRadiationBombSpellConfig(sharedTimer *Timer, acti
 			}
 		},
 	}
-}
-func (character *Character) newEzThroRadiationBombSpell(sharedTimer *Timer) *Spell {
-	return character.GetOrRegisterSpell(character.newRadiationBombSpellConfig(sharedTimer, EzThroRadiationBombActionID, 112, 188, 10, Cooldown{}))
-}
-func (character *Character) newHighYieldRadiationBombSpell(sharedTimer *Timer) *Spell {
-	return character.GetOrRegisterSpell(character.newRadiationBombSpellConfig(sharedTimer, HighYieldRadiationBombActionID, 150, 250, 25, Cooldown{}))
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -1496,37 +1265,4 @@ func registerConjuredCD(agent Agent, consumes *proto.Consumes) {
 	}
 
 	character.AddMajorCooldown(mcd)
-}
-
-func registerMildlyIrradiatedRejuvCD(agent Agent, consumes *proto.Consumes) {
-	character := agent.GetCharacter()
-
-	if consumes.MildlyIrradiatedRejuvPot {
-		actionID := ActionID{ItemID: 215162}
-		healthMetrics := character.NewHealthMetrics(actionID)
-		manaMetrics := character.NewManaMetrics(actionID)
-		aura := character.NewTemporaryStatsAura("Mildly Irradiated Rejuvenation Potion", actionID, stats.Stats{stats.AttackPower: 40, stats.SpellDamage: 35}, time.Second*20)
-		character.AddMajorCooldown(MajorCooldown{
-			Type: CooldownTypeDPS,
-			Spell: character.GetOrRegisterSpell(SpellConfig{
-				ActionID: actionID,
-				Flags:    SpellFlagNoOnCastComplete,
-				Cast: CastConfig{
-					CD: Cooldown{
-						Timer:    character.NewTimer(),
-						Duration: time.Minute * 2,
-					},
-				},
-				ApplyEffects: func(sim *Simulation, _ *Unit, _ *Spell) {
-					healthGain := sim.RollWithLabel(340, 460, "Mildly Irradiated Rejuvenation Potion")
-					manaGain := sim.RollWithLabel(262, 438, "Mildly Irradiated Rejuvenation Potion")
-
-					character.GainHealth(sim, healthGain*character.PseudoStats.HealingTakenMultiplier, healthMetrics)
-					character.AddMana(sim, manaGain, manaMetrics)
-
-					aura.Activate(sim)
-				},
-			}),
-		})
-	}
 }

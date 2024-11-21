@@ -279,7 +279,7 @@ func (druid *Druid) applyWildStrikes() {
 		return
 	}
 
-	druid.WildStrikesBuffAura = core.ApplyWildStrikes(druid.GetCharacter())
+	//druid.WildStrikesBuffAura = core.ApplyWildStrikes(druid.GetCharacter())
 }
 
 func (druid *Druid) applyKingOfTheJungle() {
