@@ -23,7 +23,7 @@ func TestWardenShaman(t *testing.T) {
 			Talents:     Phase4Talents,
 			GearSet:     core.GetGearSet("../../../ui/warden_shaman/gear_sets", "blank"),
 			Rotation:    core.GetAplRotation("../../../ui/warden_shaman/apls", "phase_4_enh_tank"),
-			Buffs:       core.FullBuffsPhase4,
+			Buffs:       core.FullBuffs,
 			Consumes:    Phase4Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Default", SpecOptions: PlayerOptionsBasic},
 
@@ -53,9 +53,9 @@ var Phase4Consumes = core.ConsumesCombo{
 		Flask:             proto.Flask_FlaskOfTheTitans,
 		Food:              proto.Food_FoodBlessSunfruit,
 		MainHandImbue:     proto.WeaponImbue_WindfuryWeapon,
-		OffHandImbue:      proto.WeaponImbue_ConductiveShieldCoating,
-		SpellPowerBuff:    proto.SpellPowerBuff_GreaterArcaneElixir,
-		StrengthBuff:      proto.StrengthBuff_JujuPower,
+		//OffHandImbue:      proto.WeaponImbue_ConductiveShieldCoating,
+		SpellPowerBuff: proto.SpellPowerBuff_GreaterArcaneElixir,
+		StrengthBuff:   proto.StrengthBuff_JujuPower,
 	},
 }
 

@@ -483,7 +483,7 @@ func init() {
 	})
 
 	serpentsStrikerEffect := func(character *core.Character) *core.Spell {
-		procAuras := character.NewEnemyAuraArray(core.SerpentsStrikerFistDebuffAura)
+		//procAuras := character.NewEnemyAuraArray(core.SerpentsStrikerFistDebuffAura)
 
 		return character.RegisterSpell(core.SpellConfig{
 			ActionID:    core.ActionID{SpellID: 447894},
@@ -500,7 +500,7 @@ func init() {
 				if target.Level <= 55 {
 					spell.CalcAndDealDamage(sim, target, 50, spell.OutcomeMagicHitAndCrit)
 
-					procAuras.Get(target).Activate(sim)
+					//procAuras.Get(target).Activate(sim)
 				}
 			},
 		})

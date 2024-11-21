@@ -70,7 +70,6 @@ type Character struct {
 
 	professions [2]proto.Profession
 
-	runesMap          map[int32]bool
 	PrimaryTalentTree uint8
 
 	// Provides major cooldown management behavior.
@@ -139,13 +138,6 @@ func NewCharacter(party *Party, partyIndex int, player *proto.Player) Character 
 
 	character.Label = fmt.Sprintf("%s (#%d)", character.Name, character.Index+1)
 
-	character.runesMap = map[int32]bool{}
-	for _, v := range character.Equipment {
-		if v.Rune != 0 {
-			character.runesMap[v.Rune] = true
-		}
-	}
-
 	character.PrimaryTalentTree = GetPrimaryTalentTreeIndex(player.TalentsString)
 
 	character.Consumes = &proto.Consumes{}
@@ -190,7 +182,6 @@ func NewCharacter(party *Party, partyIndex int, player *proto.Player) Character 
 			character.PseudoStats.CrossbowsSkill += ps[proto.PseudoStat_PseudoStatCrossbowsSkill]
 			character.PseudoStats.GunsSkill += ps[proto.PseudoStat_PseudoStatGunsSkill]
 			character.PseudoStats.BonusPhysicalDamage += ps[proto.PseudoStat_BonusPhysicalDamage]
-			character.PseudoStats.TimewornBonus += int32(ps[proto.PseudoStat_TimewornBonus])
 		}
 	}
 
@@ -253,10 +244,6 @@ func (character *Character) BaseEquipStats() stats.Stats {
 	return bonusEquipStats.DotProduct(character.itemStatMultipliers)
 }
 
-func (character *Character) HasRuneById(id int32) bool {
-	return character.runesMap[id]
-}
-
 func (character *Character) applyEquipment() {
 	if character.equipStatsApplied {
 		panic("Equipment stats already applied to character!")
@@ -265,10 +252,6 @@ func (character *Character) applyEquipment() {
 	character.equipStatsApplied = true
 
 	for _, item := range character.Equipment {
-		if item.Timeworn {
-			character.PseudoStats.TimewornBonus += 1
-		}
-
 		character.PseudoStats.BonusPhysicalDamage += item.BonusPhysicalDamage
 	}
 
@@ -324,14 +307,12 @@ func (character *Character) applyAllEffects(agent Agent, raidBuffs *proto.RaidBu
 
 	character.applyEquipment()
 	character.applyWeaponSkills()
-	character.ApplyRingRunes()
 	character.applyItemEffects(agent)
 	character.applyItemSetBonusEffects(agent)
 	character.applyBuildPhaseAuras(CharacterBuildPhaseGear)
 	playerStats.GearStats = measureStats()
 
 	agent.ApplyTalents()
-	agent.ApplyRunes()
 	character.applyBuildPhaseAuras(CharacterBuildPhaseTalents)
 	playerStats.TalentsStats = measureStats()
 
@@ -641,7 +622,6 @@ func (character *Character) GetPseudoStatsProto() []float64 {
 		proto.PseudoStat_PseudoStatRangedSpeedMultiplier: float64(character.PseudoStats.RangedSpeedMultiplier),
 		proto.PseudoStat_PseudoStatBlockValuePerStrength: float64(character.PseudoStats.BlockValuePerStrength),
 
-		proto.PseudoStat_TimewornBonus:       float64(character.PseudoStats.TimewornBonus),
 		proto.PseudoStat_BonusPhysicalDamage: float64(character.PseudoStats.BonusPhysicalDamage),
 	}
 }
@@ -691,82 +671,6 @@ func (character *Character) SetShapeshift(aura *Aura) {
 		panic("Tried to set shapeshift while already shapeshifted!")
 	}
 	character.ActiveShapeShift = aura
-}
-
-func (c *Character) ApplyRingRunes() {
-	// Spell School Specializations
-	if c.HasRuneById(int32(proto.RingRune_RuneRingArcaneSpecialization)) {
-		c.PseudoStats.SchoolBonusHitChance[stats.SchoolIndexArcane] += 6
-	}
-
-	if c.HasRuneById(int32(proto.RingRune_RuneRingFireSpecialization)) {
-		c.PseudoStats.SchoolBonusHitChance[stats.SchoolIndexFire] += 6
-	}
-
-	if c.HasRuneById(int32(proto.RingRune_RuneRingFrostSpecialization)) {
-		c.PseudoStats.SchoolBonusHitChance[stats.SchoolIndexFrost] += 6
-	}
-
-	if c.HasRuneById(int32(proto.RingRune_RuneRingHolySpecialization)) {
-		c.PseudoStats.SchoolBonusHitChance[stats.SchoolIndexHoly] += 6
-	}
-
-	if c.HasRuneById(int32(proto.RingRune_RuneRingNatureSpecialization)) {
-		c.PseudoStats.SchoolBonusHitChance[stats.SchoolIndexNature] += 6
-	}
-
-	if c.HasRuneById(int32(proto.RingRune_RuneRingShadowSpecialization)) {
-		c.PseudoStats.SchoolBonusHitChance[stats.SchoolIndexShadow] += 6
-	}
-
-	// Weapon Skill Specializations
-	if c.HasRuneById(int32(proto.RingRune_RuneRingAxeSpecialization)) {
-		c.AxeSpecializationAura()
-	}
-
-	if c.HasRuneById(int32(proto.RingRune_RuneRingDaggerSpecialization)) {
-		c.DaggerSpecializationAura()
-	}
-
-	if c.HasRuneById(int32(proto.RingRune_RuneRingFistWeaponSpecialization)) {
-		c.FistWeaponSpecializationAura()
-	}
-
-	if c.HasRuneById(int32(proto.RingRune_RuneRingMaceSpecialization)) {
-		c.MaceSpecializationAura()
-	}
-
-	if c.HasRuneById(int32(proto.RingRune_RuneRingPoleWeaponSpecialization)) {
-		c.PoleWeaponSpecializationAura()
-	}
-
-	if c.HasRuneById(int32(proto.RingRune_RuneRingRangedWeaponSpecialization)) {
-		c.GunSpecializationAura()
-		c.BowSpecializationAura()
-		c.CrossbowSpecializationAura()
-		c.ThrownSpecializationAura()
-
-		// Also increases chance for Beast pets to hit by 2%
-		for _, pet := range c.Pets {
-			if !pet.IsGuardian() && pet.Unit.MobType == proto.MobType_MobTypeBeast {
-				pet.AddStat(stats.MeleeHit, 2*MeleeHitRatingPerHitChance)
-				pet.AddStat(stats.SpellHit, 2*SpellHitRatingPerHitChance)
-			}
-		}
-	}
-
-	if c.HasRuneById(int32(proto.RingRune_RuneRingSwordSpecialization)) {
-		c.SwordSpecializationAura()
-	}
-
-	if c.HasRuneById(int32(proto.RingRune_RuneRingFeralCombatSpecialization)) {
-		c.FeralCombatSpecializationAura()
-	}
-
-	// Other Specializations
-	if c.HasRuneById(int32(proto.RingRune_RuneRingDefenseSpecialization)) {
-		c.AddStat(stats.Defense, 25)
-	}
 }
 
 // Returns the talent tree (0, 1, or 2) of the tree with the most points.

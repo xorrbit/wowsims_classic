@@ -62,40 +62,12 @@ func applyDebuffEffects(target *Unit, targetIdx int, debuffs *proto.Debuffs, rai
 		}, raid)
 	}
 
-	if debuffs.OccultPoison {
-		aura := OccultPoisonDebuffAura(target, level)
-		SchedulePeriodicDebuffApplication(aura, PeriodicActionOptions{
-			Period:          time.Millisecond * 1500,
-			NumTicks:        5,
-			TickImmediately: true,
-			Priority:        ActionPriorityDOT, // High prio
-			OnAction: func(sim *Simulation) {
-				aura.Activate(sim)
-				if aura.IsActive() {
-					aura.AddStack(sim)
-				}
-			},
-		}, raid)
+	if debuffs.CurseOfElements {
+		MakePermanent(CurseOfElementsAura(target, level))
 	}
 
-	if debuffs.MekkatorqueFistDebuff {
-		MakePermanent(MekkatorqueFistDebuffAura(target, level))
-	}
-
-	if debuffs.SerpentsStrikerFistDebuff {
-		MakePermanent(SerpentsStrikerFistDebuffAura(target, level))
-	}
-
-	if debuffs.MarkOfChaos {
-		MakePermanent(MarkOfChaosDebuffAura(target))
-	} else {
-		if debuffs.CurseOfElements {
-			MakePermanent(CurseOfElementsAura(target, level))
-		}
-
-		if debuffs.CurseOfShadow {
-			MakePermanent(CurseOfShadowAura(target, level))
-		}
+	if debuffs.CurseOfShadow {
+		MakePermanent(CurseOfShadowAura(target, level))
 	}
 
 	if debuffs.ImprovedScorch && targetIdx == 0 {
@@ -132,8 +104,6 @@ func applyDebuffEffects(target *Unit, targetIdx int, debuffs *proto.Debuffs, rai
 
 	if debuffs.Stormstrike {
 		MakePermanent(StormstrikeAura(target))
-	} else if debuffs.Dreamstate {
-		MakePermanent(DreamstateAura(target))
 	}
 
 	if debuffs.GiftOfArthas {
@@ -144,33 +114,18 @@ func applyDebuffEffects(target *Unit, targetIdx int, debuffs *proto.Debuffs, rai
 		MakePermanent(CurseOfVulnerabilityAura(target))
 	}
 
-	if debuffs.Mangle {
+	/* if debuffs.Mangle {
 		MakePermanent(MangleAura(target, level))
-	}
+	} */
 
 	if debuffs.CrystalYield {
 		MakePermanent(CrystalYieldAura(target))
-	}
-
-	if debuffs.AncientCorrosivePoison > 0 {
-		ApplyFixedUptimeAura(AncientCorrosivePoisonAura(target), float64(debuffs.AncientCorrosivePoison)/100.0, GCDDefault, 1)
 	}
 
 	// Major Armor Debuffs
 	if targetIdx == 0 {
 		if debuffs.ExposeArmor != proto.TristateEffect_TristateEffectMissing {
 			aura := ExposeArmorAura(target, TernaryInt32(debuffs.ExposeArmor == proto.TristateEffect_TristateEffectRegular, 0, 2), level)
-			SchedulePeriodicDebuffApplication(aura, PeriodicActionOptions{
-				Period:   time.Second * 3,
-				NumTicks: 1,
-				OnAction: func(sim *Simulation) {
-					aura.Activate(sim)
-				},
-			}, raid)
-		}
-
-		if debuffs.SebaciousPoison != proto.TristateEffect_TristateEffectMissing {
-			aura := SebaciousPoisonAura(target, TernaryInt32(debuffs.SebaciousPoison == proto.TristateEffect_TristateEffectRegular, 0, 2), level)
 			SchedulePeriodicDebuffApplication(aura, PeriodicActionOptions{
 				Period:   time.Second * 3,
 				NumTicks: 1,
@@ -196,31 +151,14 @@ func applyDebuffEffects(target *Unit, targetIdx int, debuffs *proto.Debuffs, rai
 				},
 			}, raid)
 		}
-
-		if debuffs.Homunculi > 0 {
-			// Calculate desired downtime based on selected uptimeCount (1 count = 10% uptime, 0%-100%)
-			totalDuration := time.Second * 15
-			uptimePercent := float64(debuffs.Homunculi) / 100.0
-			ApplyFixedUptimeAura(HomunculiArmorAura(target, level), uptimePercent, totalDuration, 1)
-			ApplyFixedUptimeAura(HomunculiAttackSpeedAura(target, level), uptimePercent, totalDuration, 1)
-			ApplyFixedUptimeAura(HomunculiAttackPowerAura(target, level), uptimePercent, totalDuration, 1)
-		}
 	}
 
 	if debuffs.CurseOfRecklessness {
 		MakePermanent(CurseOfRecklessnessAura(target, level))
 	}
 
-	if debuffs.FaerieFire || debuffs.ImprovedFaerieFire {
+	if debuffs.FaerieFire {
 		MakePermanent(FaerieFireAura(target, level))
-	}
-
-	if debuffs.ImprovedFaerieFire {
-		MakePermanent(ImprovedFaerieFireAura(target))
-	}
-
-	if debuffs.MeleeHunterDodgeDebuff {
-		MakePermanent(MeleeHunterDodgeReductionAura(target, level))
 	}
 
 	if debuffs.CurseOfWeakness != proto.TristateEffect_TristateEffectMissing {
@@ -240,9 +178,6 @@ func applyDebuffEffects(target *Unit, targetIdx int, debuffs *proto.Debuffs, rai
 	// Atk spd reduction
 	if debuffs.ThunderClap != proto.TristateEffect_TristateEffectMissing {
 		MakePermanent(ThunderClapAura(target, 8205, time.Second*22, GetTristateValueInt32(debuffs.ThunderClap, 10, 16)))
-	}
-	if debuffs.Waylay {
-		MakePermanent(WaylayAura(target))
 	}
 	if debuffs.Thunderfury {
 		MakePermanent(ThunderfuryASAura(target, level))
@@ -297,7 +232,7 @@ func exclusiveNatureDamageTakenAura(unit *Unit, label string, actionID ActionID)
 
 func ExternalIsbCaster(_ *proto.Debuffs, target *Unit) {
 	isbConfig := target.Env.Raid.Parties[0].Players[0].GetCharacter().IsbConfig
-	baseStacks := TernaryInt32(isbConfig.hasShadowflameRune, ISBNumStacksShadowflame, ISBNumStacksBase)
+	baseStacks := int32(ISBNumStacksBase)
 	isbAura := ImprovedShadowBoltAura(target, 5, baseStacks)
 	isbCrit := isbConfig.casterCrit / 100.0
 	var pa *PendingAction
@@ -326,7 +261,6 @@ func ExternalIsbCaster(_ *proto.Debuffs, target *Unit) {
 }
 
 type IsbConfig struct {
-	hasShadowflameRune  bool
 	shadowBoltFrequency float64
 	casterCrit          float64
 	isbWarlocks         int32
@@ -335,7 +269,6 @@ type IsbConfig struct {
 
 func (character *Character) createIsbConfig(player *proto.Player) {
 	character.IsbConfig = IsbConfig{
-		hasShadowflameRune:  player.IsbUsingShadowflame,
 		shadowBoltFrequency: player.IsbSbFrequency,
 		casterCrit:          player.IsbCrit,
 		isbWarlocks:         player.IsbWarlocks,
@@ -354,8 +287,7 @@ func (character *Character) createIsbConfig(player *proto.Player) {
 }
 
 const (
-	ISBNumStacksBase        = 4
-	ISBNumStacksShadowflame = 30
+	ISBNumStacksBase = 4
 )
 
 func ImprovedShadowBoltAura(unit *Unit, rank int32, stackCount int32) *Aura {
@@ -555,93 +487,6 @@ func JudgementOfTheCrusaderAura(caster *Unit, target *Unit, level int32, mult fl
 			}
 		},
 	})
-}
-
-func OccultPoisonDebuffAura(target *Unit, playerLevel int32) *Aura {
-	if playerLevel < 54 {
-		panic("Occult Poison requires level 54+")
-	}
-
-	aura := target.GetOrRegisterAura(Aura{
-		Label:     "Occult Poison I",
-		ActionID:  ActionID{SpellID: 462286},
-		Duration:  time.Second * 12,
-		MaxStacks: 5,
-		OnStacksChange: func(aura *Aura, sim *Simulation, oldStacks int32, newStacks int32) {
-			multiplier := (1 + .04*float64(newStacks)) / (1 + .04*float64(oldStacks))
-
-			// Applies too all except Holy
-			aura.Unit.PseudoStats.SchoolDamageTakenMultiplier[stats.SchoolIndexArcane] *= multiplier
-			aura.Unit.PseudoStats.SchoolDamageTakenMultiplier[stats.SchoolIndexFire] *= multiplier
-			aura.Unit.PseudoStats.SchoolDamageTakenMultiplier[stats.SchoolIndexFrost] *= multiplier
-			aura.Unit.PseudoStats.SchoolDamageTakenMultiplier[stats.SchoolIndexNature] *= multiplier
-			aura.Unit.PseudoStats.SchoolDamageTakenMultiplier[stats.SchoolIndexShadow] *= multiplier
-		},
-	})
-
-	return aura
-}
-
-func MekkatorqueFistDebuffAura(target *Unit, playerLevel int32) *Aura {
-	if playerLevel < 40 {
-		panic("Mekkatorque's Arcano-Shredder requires level 40+")
-	}
-
-	spellID := 434841
-	resistance := 45.0
-	dmgMod := 1.06
-
-	aura := target.GetOrRegisterAura(Aura{
-		Label:    "Mekkatorque Debuff",
-		ActionID: ActionID{SpellID: int32(spellID)},
-		Duration: time.Second * 20,
-	})
-
-	// 0.01 priority as this overwrites the other spells of this category and does not allow them to be recast
-	spellSchoolDamageEffect(aura, stats.SchoolIndexArcane, dmgMod, 0.01, true)
-	spellSchoolDamageEffect(aura, stats.SchoolIndexFire, dmgMod, 0.01, true)
-	spellSchoolDamageEffect(aura, stats.SchoolIndexFrost, dmgMod, 0.01, true)
-	spellSchoolDamageEffect(aura, stats.SchoolIndexHoly, dmgMod, 0.01, true)
-	spellSchoolDamageEffect(aura, stats.SchoolIndexNature, dmgMod, 0.01, true)
-	spellSchoolDamageEffect(aura, stats.SchoolIndexShadow, dmgMod, 0.01, true)
-
-	spellSchoolResistanceEffect(aura, stats.SchoolIndexArcane, resistance, 0.01, true)
-	spellSchoolResistanceEffect(aura, stats.SchoolIndexFire, resistance, 0.01, true)
-	spellSchoolResistanceEffect(aura, stats.SchoolIndexFrost, resistance, 0.01, true)
-	spellSchoolResistanceEffect(aura, stats.SchoolIndexHoly, resistance, 0.01, true)
-	spellSchoolResistanceEffect(aura, stats.SchoolIndexNature, resistance, 0.01, true)
-	spellSchoolResistanceEffect(aura, stats.SchoolIndexShadow, resistance, 0.01, true)
-
-	return aura
-}
-
-// Mark of Chaos does not stack with Curse of Shadows and Elements
-func MarkOfChaosDebuffAura(target *Unit) *Aura {
-	// That's right, 10.01%. Sneaky enough to override lock curses without being much stronger
-	dmgMod := 1.1001
-	resistance := 75.01
-
-	aura := target.GetOrRegisterAura(Aura{
-		Label:    "Mark of Chaos",
-		ActionID: ActionID{SpellID: 461615},
-		Duration: time.Second, // Duration is set by the applying curse
-	})
-
-	// Applies too all except Holy
-	// 0.01 priority as this overwrites the other spells of this category and does not allow them to be recast
-	spellSchoolDamageEffect(aura, stats.SchoolIndexArcane, dmgMod, 0.01, true)
-	spellSchoolDamageEffect(aura, stats.SchoolIndexFire, dmgMod, 0.01, true)
-	spellSchoolDamageEffect(aura, stats.SchoolIndexFrost, dmgMod, 0.01, true)
-	spellSchoolDamageEffect(aura, stats.SchoolIndexNature, dmgMod, 0.01, true)
-	spellSchoolDamageEffect(aura, stats.SchoolIndexShadow, dmgMod, 0.01, true)
-
-	spellSchoolResistanceEffect(aura, stats.SchoolIndexArcane, resistance, 0.01, true)
-	spellSchoolResistanceEffect(aura, stats.SchoolIndexFire, resistance, 0.01, true)
-	spellSchoolResistanceEffect(aura, stats.SchoolIndexFrost, resistance, 0.01, true)
-	spellSchoolResistanceEffect(aura, stats.SchoolIndexNature, resistance, 0.01, true)
-	spellSchoolResistanceEffect(aura, stats.SchoolIndexShadow, resistance, 0.01, true)
-
-	return aura
 }
 
 func CurseOfElementsAura(target *Unit, playerLevel int32) *Aura {
@@ -953,89 +798,6 @@ func ExposeArmorAura(target *Unit, improvedEA int32, playerLevel int32) *Aura {
 	return aura
 }
 
-func SebaciousPoisonAura(target *Unit, improvedEA int32, playerLevel int32) *Aura {
-	if playerLevel < 60 {
-		return nil
-	}
-
-	spellID := map[int32]int32{
-		60: 439462,
-	}[playerLevel]
-
-	arpen := map[int32]float64{
-		60: 1700,
-	}[playerLevel]
-
-	arpen *= []float64{1, 1.25, 1.5}[improvedEA]
-
-	aura := target.GetOrRegisterAura(Aura{
-		Label:    "Sebacious Poison",
-		ActionID: ActionID{SpellID: spellID},
-		Duration: time.Second * 15,
-	})
-
-	aura.NewExclusiveEffect(majorArmorReductionEffectCategory, true, ExclusiveEffect{
-		Priority: arpen,
-		OnGain: func(ee *ExclusiveEffect, sim *Simulation) {
-			aura.Unit.AddStatDynamic(sim, stats.Armor, -ee.Priority)
-		},
-		OnExpire: func(ee *ExclusiveEffect, sim *Simulation) {
-			aura.Unit.AddStatDynamic(sim, stats.Armor, ee.Priority)
-		},
-	})
-
-	return aura
-}
-
-func HomunculiAttackSpeedAura(target *Unit, _ int32) *Aura {
-	multiplier := 1.1
-
-	aura := target.GetOrRegisterAura(Aura{
-		Label:    "Cripple (Homunculus)",
-		ActionID: ActionID{SpellID: 402808},
-		Duration: time.Second * 15,
-	})
-
-	AtkSpeedReductionEffect(aura, multiplier)
-	return aura
-}
-
-func HomunculiArmorAura(target *Unit, playerLevel int32) *Aura {
-	arpen := float64(185 + 35*(playerLevel-1))
-
-	aura := target.GetOrRegisterAura(Aura{
-		Label:    "Degrade (Homunculus)",
-		ActionID: ActionID{SpellID: 402818},
-		Duration: time.Second * 15,
-	})
-
-	aura.NewExclusiveEffect(majorArmorReductionEffectCategory, true, ExclusiveEffect{
-		Priority: arpen,
-		OnGain: func(ee *ExclusiveEffect, sim *Simulation) {
-			aura.Unit.AddStatDynamic(sim, stats.Armor, -ee.Priority)
-		},
-		OnExpire: func(ee *ExclusiveEffect, sim *Simulation) {
-			aura.Unit.AddStatDynamic(sim, stats.Armor, ee.Priority)
-		},
-	})
-
-	return aura
-}
-
-func HomunculiAttackPowerAura(target *Unit, playerLevel int32) *Aura {
-	ap := float64(190 + 3*(playerLevel-1))
-
-	aura := target.GetOrRegisterAura(Aura{
-		Label:    "Demoralize (Homunculus)",
-		ActionID: ActionID{SpellID: 402811},
-		Duration: time.Second * 15,
-	})
-
-	apReductionEffect(aura, ap)
-
-	return aura
-}
-
 func CurseOfRecklessnessAura(target *Unit, playerLevel int32) *Aura {
 	spellID := map[int32]int32{
 		25: 704,
@@ -1122,36 +884,6 @@ func faerieFireAuraInternal(target *Unit, label string, spellID int32, playerLev
 	})
 
 	return aura
-}
-
-func ImprovedFaerieFireAura(target *Unit) *Aura {
-	return target.GetOrRegisterAura(Aura{
-		Label:    "S03 - Item - T1 - Druid - Feral 2P Bonus",
-		ActionID: ActionID{SpellID: 455864},
-		Duration: time.Second * 40,
-		OnGain: func(aura *Aura, sim *Simulation) {
-			aura.Unit.PseudoStats.BonusMeleeHitRatingTaken += 1 * MeleeHitRatingPerHitChance
-			aura.Unit.PseudoStats.BonusSpellHitRatingTaken += 1 * SpellHitRatingPerHitChance
-		},
-		OnExpire: func(aura *Aura, sim *Simulation) {
-			aura.Unit.PseudoStats.BonusMeleeHitRatingTaken -= 1 * MeleeHitRatingPerHitChance
-			aura.Unit.PseudoStats.BonusSpellHitRatingTaken -= 1 * SpellHitRatingPerHitChance
-		},
-	})
-}
-
-func MeleeHunterDodgeReductionAura(target *Unit, _ int32) *Aura {
-	return target.GetOrRegisterAura(Aura{
-		Label:    "Stalked",
-		ActionID: ActionID{SpellID: 456393},
-		Duration: time.Second * 30,
-		OnGain: func(aura *Aura, sim *Simulation) {
-			aura.Unit.PseudoStats.DodgeReduction += 0.01
-		},
-		OnExpire: func(aura *Aura, sim *Simulation) {
-			aura.Unit.PseudoStats.DodgeReduction -= 0.01
-		},
-	})
 }
 
 func CurseOfWeaknessAura(target *Unit, points int32, playerLevel int32) *Aura {
@@ -1300,16 +1032,6 @@ func ThunderClapAura(target *Unit, spellID int32, duration time.Duration, atkSpe
 	return aura
 }
 
-func WaylayAura(target *Unit) *Aura {
-	aura := target.GetOrRegisterAura(Aura{
-		Label:    "Waylay",
-		ActionID: ActionID{SpellID: 408699},
-		Duration: time.Second * 8,
-	})
-	AtkSpeedReductionEffect(aura, 1.1)
-	return aura
-}
-
 func ThunderfuryASAura(target *Unit, _ int32) *Aura {
 	aura := target.GetOrRegisterAura(Aura{
 		Label:    "Thunderfury",
@@ -1375,49 +1097,4 @@ func CrystalYieldAura(target *Unit) *Aura {
 			aura.Unit.stats[stats.Armor] += 200
 		},
 	})
-}
-
-func AncientCorrosivePoisonAura(target *Unit) *Aura {
-	return target.GetOrRegisterAura(Aura{
-		Label:    "Ancient Corrosive Poison",
-		ActionID: ActionID{SpellID: 422996},
-		Duration: 15 * time.Second,
-		OnGain: func(aura *Aura, sim *Simulation) {
-			aura.Unit.stats[stats.Armor] -= 150
-		},
-		OnExpire: func(aura *Aura, sim *Simulation) {
-			aura.Unit.stats[stats.Armor] += 150
-		},
-	})
-}
-
-func SerpentsStrikerFistDebuffAura(target *Unit, playerLevel int32) *Aura {
-	if playerLevel < 50 {
-		panic("Serpent's Striker requires level 50+")
-	}
-
-	spellID := 447894
-	resistance := 60.0
-	dmgMod := 1.08
-
-	aura := target.GetOrRegisterAura(Aura{
-		Label:    "Serpents Striker Debuff",
-		ActionID: ActionID{SpellID: int32(spellID)},
-		Duration: time.Second * 20,
-		OnGain: func(aura *Aura, sim *Simulation) {
-			aura.Unit.AddStatsDynamic(sim, stats.Stats{
-				stats.NatureResistance: -resistance,
-			})
-		},
-		OnExpire: func(aura *Aura, sim *Simulation) {
-			aura.Unit.AddStatsDynamic(sim, stats.Stats{
-				stats.NatureResistance: resistance,
-			})
-		},
-	})
-
-	// 0.01 priority as this overwrites the other spells of this category and does not allow them to be recast
-	spellSchoolDamageEffect(aura, stats.SchoolIndexNature, dmgMod, 0.01, true)
-	spellSchoolDamageEffect(aura, stats.SchoolIndexHoly, dmgMod, 0.01, true)
-	return aura
 }

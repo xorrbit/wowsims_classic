@@ -6,7 +6,6 @@ import {
 	Conjured,
 	Consumes,
 	Debuffs,
-	EnchantedSigil,
 	FirePowerBuff,
 	Flask,
 	Food,
@@ -208,7 +207,6 @@ export const DefaultConsumes = Consumes.create({
 	alcohol: Alcohol.AlcoholKreegsStoutBeatdown,
 	defaultPotion: Potions.MajorManaPotion,
 	defaultConjured: Conjured.ConjuredDemonicRune,
-	enchantedSigil: EnchantedSigil.FlowingWatersSigil,
 	flask: Flask.FlaskOfSupremePower,
 	firePowerBuff: FirePowerBuff.ElixirOfGreaterFirepower,
 	food: Food.FoodTenderWolfSteak,
@@ -222,8 +220,6 @@ export const DefaultConsumes = Consumes.create({
 
 export const DefaultRaidBuffs = RaidBuffs.create({
 	arcaneBrilliance: true,
-	aspectOfTheLion: true,
-	demonicPact: 110,
 	divineSpirit: true,
 	fireResistanceAura: true,
 	fireResistanceTotem: true,
@@ -231,31 +227,24 @@ export const DefaultRaidBuffs = RaidBuffs.create({
 	manaSpringTotem: TristateEffect.TristateEffectRegular,
 	moonkinAura: true,
 	powerWordFortitude: TristateEffect.TristateEffectImproved,
-	vampiricTouch: 300,
 });
 
 export const DefaultIndividualBuffs = IndividualBuffs.create({
 	blessingOfKings: true,
 	blessingOfWisdom: TristateEffect.TristateEffectImproved,
-	mightOfStormwind: true,
 	moldarsMoxie: true,
 	rallyingCryOfTheDragonslayer: true,
 	saygesFortune: SaygesFortune.SaygesDamage,
 	slipkiksSavvy: true,
 	songflowerSerenade: true,
 	spiritOfZandalar: true,
-	valorOfAzeroth: true,
 	warchiefsBlessing: true,
 });
 
 export const DefaultDebuffs = Debuffs.create({
 	faerieFire: true,
-	homunculi: 100,
-	improvedFaerieFire: true,
 	improvedScorch: true,
 	judgementOfWisdom: true,
-	markOfChaos: true,
-	occultPoison: true,
 	shadowWeaving: true,
 });
 

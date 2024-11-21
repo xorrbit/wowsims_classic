@@ -8,7 +8,6 @@ import {
 	Class,
 	Conjured,
 	Consumes,
-	EnchantedSigil,
 	Explosive,
 	FirePowerBuff,
 	Flask,
@@ -159,38 +158,6 @@ export const CONJURED_CONFIG: ConsumableStatOption<Conjured>[] = [
 export const makeConjuredInput = makeConsumeInputFactory({ consumesFieldName: 'defaultConjured' });
 
 ///////////////////////////////////////////////////////////////////////////
-//                             ENCHANTING SIGIL
-///////////////////////////////////////////////////////////////////////////
-
-export const EnchantedSigilInnovation: ConsumableInputConfig<EnchantedSigil> = {
-	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 217308, minLevel: 40 }]),
-	value: EnchantedSigil.InnovationSigil,
-	showWhen: player => player.hasProfession(Profession.Enchanting),
-};
-export const EnchantedSigilLivingDreams: ConsumableInputConfig<EnchantedSigil> = {
-	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 221028, minLevel: 50 }]),
-	value: EnchantedSigil.LivingDreamsSigil,
-	showWhen: player => player.hasProfession(Profession.Enchanting),
-};
-export const EnchantedSigilFlowingWaters: ConsumableInputConfig<EnchantedSigil> = {
-	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 228978, minLevel: 50 }]),
-	value: EnchantedSigil.FlowingWatersSigil,
-};
-export const EnchantedSigilWrathOfTheStorm: ConsumableInputConfig<EnchantedSigil> = {
-	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 233995, minLevel: 50 }]),
-	value: EnchantedSigil.WrathOfTheStormSigil,
-};
-
-export const ENCHANTED_SIGIL_CONFIG: ConsumableStatOption<EnchantedSigil>[] = [
-	{ config: EnchantedSigilWrathOfTheStorm, stats: [] },
-	{ config: EnchantedSigilFlowingWaters, stats: [] },
-	{ config: EnchantedSigilLivingDreams, stats: [] },
-	{ config: EnchantedSigilInnovation, stats: [] },
-];
-
-export const makeEncanthedSigilInput = makeConsumeInputFactory({ consumesFieldName: 'enchantedSigil' });
-
-///////////////////////////////////////////////////////////////////////////
 //                                 EXPLOSIVES
 ///////////////////////////////////////////////////////////////////////////
 
@@ -198,16 +165,6 @@ export const SapperGoblinSapper: ConsumableInputConfig<SapperExplosive> = {
 	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 10646, minLevel: 50 }]),
 	showWhen: player => player.hasProfession(Profession.Engineering),
 	value: SapperExplosive.SapperGoblinSapper,
-};
-
-export const SapperFumigator: ConsumableInputConfig<SapperExplosive> = {
-	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 233985, minLevel: 60 }]),
-	value: SapperExplosive.SapperFumigator,
-};
-
-export const ExplosiveObsidianBomb: ConsumableInputConfig<Explosive> = {
-	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 233986, minLevel: 60 }]),
-	value: Explosive.ExplosiveObsidianBomb,
 };
 
 export const ExplosiveSolidDynamite: ConsumableInputConfig<Explosive> = {
@@ -234,21 +191,7 @@ export const ExplosiveThoriumGrenade: ConsumableInputConfig<Explosive> = {
 	value: Explosive.ExplosiveThoriumGrenade,
 };
 
-export const ExplosiveEzThroRadiationBomb: ConsumableInputConfig<Explosive> = {
-	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 215168, minLevel: 40 }]),
-	value: Explosive.ExplosiveEzThroRadiationBomb,
-};
-
-export const ExplosiveHighYieldRadiationBomb: ConsumableInputConfig<Explosive> = {
-	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 215127, minLevel: 40 }]),
-	showWhen: player => player.hasProfession(Profession.Engineering),
-	value: Explosive.ExplosiveHighYieldRadiationBomb,
-};
-
 export const EXPLOSIVES_CONFIG: ConsumableStatOption<Explosive>[] = [
-	{ config: ExplosiveObsidianBomb, stats: [] },
-	{ config: ExplosiveEzThroRadiationBomb, stats: [] },
-	{ config: ExplosiveHighYieldRadiationBomb, stats: [] },
 	{ config: ExplosiveSolidDynamite, stats: [] },
 	{ config: ExplosiveDenseDynamite, stats: [] },
 	{ config: ExplosiveThoriumGrenade, stats: [] },
@@ -256,7 +199,6 @@ export const EXPLOSIVES_CONFIG: ConsumableStatOption<Explosive>[] = [
 ];
 
 export const SAPPER_CONFIG: ConsumableStatOption<SapperExplosive>[] = [
-	{ config: SapperFumigator, stats: [] },
 	{ config: SapperGoblinSapper, stats: [] },
 ];
 
@@ -278,26 +220,10 @@ export const FlaskOfTheTitans: ConsumableInputConfig<Flask> = {
 	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 13510, minLevel: 51 }]),
 	value: Flask.FlaskOfTheTitans,
 };
-export const FlaskOfTheOldGods: ConsumableInputConfig<Flask> = {
-	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 233965, minLevel: 60 }]),
-	value: Flask.FlaskOfTheOldGods,
-};
-export const FlaskOfUnyieldingSorrow: ConsumableInputConfig<Flask> = {
-	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 233966, minLevel: 60 }]),
-	value: Flask.FlaskOfUnyieldingSorrow,
-};
-export const FlaskOfAncientKnowledge: ConsumableInputConfig<Flask> = {
-	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 233964, minLevel: 60 }]),
-	value: Flask.FlaskOfAncientKnowledge,
-};
 // Original lvl 50 not obtainable in Phase 3
 export const FlaskOfDistilledWisdom: ConsumableInputConfig<Flask> = {
 	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 13511, minLevel: 51 }]),
 	value: Flask.FlaskOfDistilledWisdom,
-};
-export const FlaskOfMadness: ConsumableInputConfig<Flask> = {
-	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 233962, minLevel: 60 }]),
-	value: Flask.FlaskOfMadness,
 };
 // Original lvl 50 not obtainable in Phase 3
 export const FlaskOfSupremePower: ConsumableInputConfig<Flask> = {
@@ -309,28 +235,12 @@ export const FlaskOfChromaticResistance: ConsumableInputConfig<Flask> = {
 	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 13513, minLevel: 51 }]),
 	value: Flask.FlaskOfChromaticResistance,
 };
-export const FlaskOfRestlessDreams: ConsumableInputConfig<Flask> = {
-	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 222952, minLevel: 50, maxLevel: 59 }]),
-	value: Flask.FlaskOfRestlessDreams,
-	showWhen: player => player.hasProfession(Profession.Alchemy),
-};
-export const FlaskOfEverlastingNightmares: ConsumableInputConfig<Flask> = {
-	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 221024, minLevel: 50, maxLevel: 59 }]),
-	value: Flask.FlaskOfEverlastingNightmares,
-	showWhen: player => player.hasProfession(Profession.Alchemy),
-};
 
 export const FLASKS_CONFIG: ConsumableStatOption<Flask>[] = [
 	{ config: FlaskOfTheTitans, stats: [Stat.StatStamina] },
-	{ config: FlaskOfTheOldGods, stats: [Stat.StatStamina] },
-	{ config: FlaskOfMadness, stats: [Stat.StatAttackPower] },
 	{ config: FlaskOfDistilledWisdom, stats: [Stat.StatIntellect] },
-	{ config: FlaskOfUnyieldingSorrow, stats: [Stat.StatIntellect] },
 	{ config: FlaskOfSupremePower, stats: [Stat.StatMP5, Stat.StatSpellPower] },
-	{ config: FlaskOfAncientKnowledge, stats: [Stat.StatMP5, Stat.StatSpellPower] },
 	{ config: FlaskOfChromaticResistance, stats: [] },
-	{ config: FlaskOfRestlessDreams, stats: [Stat.StatSpellPower] },
-	{ config: FlaskOfEverlastingNightmares, stats: [Stat.StatAttackPower] },
 ];
 
 export const makeFlasksInput = makeConsumeInputFactory({ consumesFieldName: 'flask' });
@@ -444,10 +354,6 @@ export const makeAlcoholInput = makeConsumeInputFactory({ consumesFieldName: 'al
 ///////////////////////////////////////////////////////////////////////////
 
 // Armor
-export const ElixirOfTheIronside: ConsumableInputConfig<ArmorElixir> = {
-	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 233969, minLevel: 60 }]),
-	value: ArmorElixir.ElixirOfTheIronside,
-};
 export const ElixirOfSuperiorDefense: ConsumableInputConfig<ArmorElixir> = {
 	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 13445, minLevel: 43 }]),
 	value: ArmorElixir.ElixirOfSuperiorDefense,
@@ -475,7 +381,6 @@ export const ScrollOfProtection: ConsumableInputConfig<ArmorElixir> = {
 	value: ArmorElixir.ScrollOfProtection,
 };
 export const ARMOR_CONSUMES_CONFIG: ConsumableStatOption<ArmorElixir>[] = [
-	{ config: ElixirOfTheIronside, stats: [Stat.StatArmor] },
 	{ config: ElixirOfSuperiorDefense, stats: [Stat.StatArmor] },
 	{ config: ElixirOfGreaterDefense, stats: [Stat.StatArmor] },
 	{ config: ElixirOfDefense, stats: [Stat.StatArmor] },
@@ -523,10 +428,6 @@ export const ATTACK_POWER_CONSUMES_CONFIG: ConsumableStatOption<AttackPowerBuff>
 export const makeAttackPowerConsumeInput = makeConsumeInputFactory({ consumesFieldName: 'attackPowerBuff' });
 
 // Agility
-export const ElixirOfTheHoneyBadger: ConsumableInputConfig<AgilityElixir> = {
-	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 233967, minLevel: 60 }]),
-	value: AgilityElixir.ElixirOfTheHoneyBadger,
-};
 export const ElixirOfTheMongoose: ConsumableInputConfig<AgilityElixir> = {
 	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 13452, minLevel: 46 }]),
 	value: AgilityElixir.ElixirOfTheMongoose,
@@ -555,7 +456,6 @@ export const ScrollOfAgility: ConsumableInputConfig<AgilityElixir> = {
 };
 
 export const AGILITY_CONSUMES_CONFIG: ConsumableStatOption<AgilityElixir>[] = [
-	{ config: ElixirOfTheHoneyBadger, stats: [Stat.StatAgility, Stat.StatMeleeCrit] },
 	{ config: ElixirOfTheMongoose, stats: [Stat.StatAgility, Stat.StatMeleeCrit] },
 	{ config: ElixirOfGreaterAgility, stats: [Stat.StatAgility] },
 	{ config: ElixirOfAgility, stats: [Stat.StatAgility] },
@@ -630,25 +530,6 @@ export const SpiritOfZanza: ConsumableInputConfig<ZanzaBuff> = {
 	value: ZanzaBuff.SpiritOfZanza,
 };
 
-// Atal'ai Potions
-export const AtalAiMojoOfWar: ConsumableInputConfig<ZanzaBuff> = {
-	actionId: () => ActionId.fromItemId(221196),
-	value: ZanzaBuff.AtalaiMojoOfWar,
-	showWhen: (player: Player<any>) => player.getLevel() == 50,
-};
-
-export const AtalAiMojoOfForbiddenMagic: ConsumableInputConfig<ZanzaBuff> = {
-	actionId: () => ActionId.fromItemId(221030),
-	value: ZanzaBuff.AtalaiMojoOfForbiddenMagic,
-	showWhen: (player: Player<any>) => player.getLevel() == 50,
-};
-
-export const AtalAiMojoOfLife: ConsumableInputConfig<ZanzaBuff> = {
-	actionId: () => ActionId.fromItemId(221311),
-	value: ZanzaBuff.AtalaiMojoOfLife,
-	showWhen: (player: Player<any>) => player.getLevel() == 50,
-};
-
 export const ZANZA_BUFF_CONSUMES_CONFIG: ConsumableStatOption<ZanzaBuff>[] = [
 	{ config: SpiritOfZanza, stats: [Stat.StatStamina, Stat.StatSpirit] },
 	{ config: ROIDS, stats: [Stat.StatStrength] },
@@ -656,29 +537,18 @@ export const ZANZA_BUFF_CONSUMES_CONFIG: ConsumableStatOption<ZanzaBuff>[] = [
 	{ config: LungJuiceCocktail, stats: [Stat.StatStamina] },
 	{ config: CerebralCortexCompound, stats: [Stat.StatIntellect] },
 	{ config: GizzardGum, stats: [Stat.StatSpirit] },
-	{ config: AtalAiMojoOfWar, stats: [Stat.StatAttackPower] },
-	{ config: AtalAiMojoOfForbiddenMagic, stats: [Stat.StatSpellPower] },
-	{ config: AtalAiMojoOfLife, stats: [Stat.StatHealingPower] },
 ];
 export const makeZanzaBuffConsumesInput = makeConsumeInputFactory({ consumesFieldName: 'zanzaBuff' });
 
-export const Catnip = makeBooleanMiscConsumeInput({
-	actionId: (player: Player<Spec>) => player.getMatchingItemActionId([{ id: 213407, minLevel: 20 }]),
-	fieldName: 'catnip',
-	showWhen: player => player.getClass() === Class.ClassDruid,
-});
 export const JujuFlurry = makeBooleanMiscConsumeInput({
 	actionId: () => ActionId.fromItemId(12450),
 	fieldName: 'jujuFlurry',
 	showWhen: player => player.getLevel() >= 55,
 });
-export const elixirOfCoalescedRegret = makeBooleanMiscConsumeInput({ actionId: () => ActionId.fromItemId(210708), fieldName: 'elixirOfCoalescedRegret' });
 export const BoglingRoot = makeBooleanMiscConsumeInput({ actionId: () => ActionId.fromItemId(5206), fieldName: 'boglingRoot' });
 
 export const MISC_OFFENSIVE_CONSUMES_CONFIG: PickerStatOptions[] = [
-	{ config: Catnip, picker: IconPicker, stats: [] },
 	{ config: JujuFlurry, picker: IconPicker, stats: [Stat.StatAttackPower] },
-	{ config: elixirOfCoalescedRegret, picker: IconPicker, stats: [] },
 	{ config: BoglingRoot, picker: IconPicker, stats: [Stat.StatAttackPower] },
 ];
 
@@ -910,21 +780,11 @@ export const POTIONS_CONFIG: ConsumableStatOption<Potions>[] = [
 
 export const makePotionsInput = makeConsumeInputFactory({ consumesFieldName: 'defaultPotion' });
 
-export const MildlyIrradiatedRejuvPotion = makeBooleanConsumeInput({
-	actionId: player => player.getMatchingItemActionId([{ id: 215162, minLevel: 35 }]),
-	fieldName: 'mildlyIrradiatedRejuvPot',
-	showWhen: player => player.hasProfession(Profession.Alchemy),
-});
-
 ///////////////////////////////////////////////////////////////////////////
 //                                 SPELL DAMAGE CONSUMES
 ///////////////////////////////////////////////////////////////////////////
 
 // Arcane
-export const ElixirOfTheMageLord: ConsumableInputConfig<SpellPowerBuff> = {
-	actionId: player => player.getMatchingItemActionId([{ id: 233968, minLevel: 60 }]),
-	value: SpellPowerBuff.ElixirOfTheMageLord,
-};
 export const GreaterArcaneElixir: ConsumableInputConfig<SpellPowerBuff> = {
 	actionId: player => player.getMatchingItemActionId([{ id: 13454, minLevel: 46 }]),
 	value: SpellPowerBuff.GreaterArcaneElixir,
@@ -939,7 +799,6 @@ export const LesserArcaneElixir: ConsumableInputConfig<SpellPowerBuff> = {
 };
 
 export const SPELL_POWER_CONFIG: ConsumableStatOption<SpellPowerBuff>[] = [
-	{ config: ElixirOfTheMageLord, stats: [Stat.StatSpellPower] },
 	{ config: GreaterArcaneElixir, stats: [Stat.StatSpellPower] },
 	{ config: ArcaneElixir, stats: [Stat.StatSpellPower] },
 	{ config: LesserArcaneElixir, stats: [Stat.StatSpellPower] },
@@ -1010,25 +869,9 @@ export const Windfury: ConsumableInputConfig<WeaponImbue> = {
 	value: WeaponImbue.Windfury,
 };
 
-// Wild Strikes
-export const WildStrikes: ConsumableInputConfig<WeaponImbue> = {
-	actionId: () => ActionId.fromSpellId(407975),
-	value: WeaponImbue.WildStrikes,
-};
-
 // Other Imbues
 
 // Wizard Oils
-export const EnchantedRepellent = (slot: ItemSlot): ConsumableInputConfig<WeaponImbue> => {
-	return {
-		actionId: player => player.getMatchingItemActionId([{ id: 233996, minLevel: 60 }]),
-		value: WeaponImbue.EnchantedRepellent,
-		showWhen: player => {
-			const weapon = player.getEquippedItem(slot);
-			return !weapon || weapon.item.weaponType != WeaponType.WeaponTypeOffHand;
-		},
-	};
-};
 export const BrilliantWizardOil = (slot: ItemSlot): ConsumableInputConfig<WeaponImbue> => {
 	return {
 		actionId: player => player.getMatchingItemActionId([{ id: 20749, minLevel: 45 }]),
@@ -1102,16 +945,6 @@ export const MinorManaOil = (slot: ItemSlot): ConsumableInputConfig<WeaponImbue>
 		},
 	};
 };
-export const BlackfathomManaOil = (slot: ItemSlot): ConsumableInputConfig<WeaponImbue> => {
-	return {
-		actionId: player => player.getMatchingItemActionId([{ id: 211848, minLevel: 25 }]),
-		value: WeaponImbue.BlackfathomManaOil,
-		showWhen: player => {
-			const weapon = player.getEquippedItem(slot);
-			return !weapon || isWeapon(weapon.item.weaponType);
-		},
-	};
-};
 
 // Sharpening Stones
 export const ElementalSharpeningStone = (slot: ItemSlot): ConsumableInputConfig<WeaponImbue> => {
@@ -1138,16 +971,6 @@ export const SolidSharpeningStone = (slot: ItemSlot): ConsumableInputConfig<Weap
 	return {
 		actionId: player => player.getMatchingItemActionId([{ id: 7964, minLevel: 35 }]),
 		value: WeaponImbue.SolidSharpeningStone,
-		showWhen: player => {
-			const weapon = player.getEquippedItem(slot);
-			return !weapon || isSharpWeaponType(weapon.item.weaponType);
-		},
-	};
-};
-export const BlackfathomSharpeningStone = (slot: ItemSlot): ConsumableInputConfig<WeaponImbue> => {
-	return {
-		actionId: () => ActionId.fromItemId(211845),
-		value: WeaponImbue.BlackfathomSharpeningStone,
 		showWhen: player => {
 			const weapon = player.getEquippedItem(slot);
 			return !weapon || isSharpWeaponType(weapon.item.weaponType);
@@ -1199,23 +1022,6 @@ export const FrostOil = (slot: ItemSlot): ConsumableInputConfig<WeaponImbue> => 
 	};
 };
 
-export const ConductiveShieldCoating = (slot: ItemSlot): ConsumableInputConfig<WeaponImbue> => {
-	return {
-		actionId: player => player.getMatchingItemActionId([{ id: 228980, minLevel: 40 }]),
-		value: WeaponImbue.ConductiveShieldCoating,
-		showWhen: player =>
-			slot === ItemSlot.ItemSlotOffHand && player.getEquippedItem(ItemSlot.ItemSlotOffHand)?.item?.weaponType === WeaponType.WeaponTypeShield,
-	};
-};
-export const MagnificentTrollshine = (slot: ItemSlot): ConsumableInputConfig<WeaponImbue> => {
-	return {
-		actionId: player => player.getMatchingItemActionId([{ id: 232611, minLevel: 45 }]),
-		value: WeaponImbue.MagnificentTrollshine,
-		showWhen: player =>
-			slot === ItemSlot.ItemSlotOffHand && player.getEquippedItem(ItemSlot.ItemSlotOffHand)?.item?.weaponType === WeaponType.WeaponTypeShield,
-	};
-};
-
 const SHAMAN_IMBUES = (slot: ItemSlot): ConsumableStatOption<WeaponImbue>[] => [
 	{ config: RockbiterWeaponImbue(slot), stats: [] },
 	{ config: FlametongueWeaponImbue(slot), stats: [] },
@@ -1233,9 +1039,6 @@ const ROGUE_IMBUES: ConsumableStatOption<WeaponImbue>[] = [
 ];
 
 const CONSUMABLES_IMBUES = (slot: ItemSlot): ConsumableStatOption<WeaponImbue>[] => [
-	{ config: EnchantedRepellent(slot), stats: [Stat.StatSpellPower] },
-	{ config: MagnificentTrollshine(slot), stats: [Stat.StatSpellPower] },
-	{ config: ConductiveShieldCoating(slot), stats: [Stat.StatSpellPower] },
 	{ config: BrilliantWizardOil(slot), stats: [Stat.StatSpellPower] },
 	{ config: WizardOil(slot), stats: [Stat.StatSpellPower] },
 	{ config: LesserWizardOil(slot), stats: [Stat.StatSpellPower] },
@@ -1244,12 +1047,10 @@ const CONSUMABLES_IMBUES = (slot: ItemSlot): ConsumableStatOption<WeaponImbue>[]
 	{ config: BrilliantManaOil(slot), stats: [Stat.StatHealingPower, Stat.StatSpellPower] },
 	{ config: LesserManaOil(slot), stats: [Stat.StatHealingPower, Stat.StatSpellPower] },
 	{ config: MinorManaOil(slot), stats: [Stat.StatHealingPower, Stat.StatSpellPower] },
-	{ config: BlackfathomManaOil(slot), stats: [Stat.StatSpellPower, Stat.StatMP5] },
 
 	{ config: ElementalSharpeningStone(slot), stats: [Stat.StatAttackPower] },
 	{ config: DenseSharpeningStone(slot), stats: [Stat.StatAttackPower] },
 	{ config: SolidSharpeningStone(slot), stats: [Stat.StatAttackPower] },
-	{ config: BlackfathomSharpeningStone(slot), stats: [Stat.StatMeleeHit] },
 
 	{ config: DenseWeightstone(slot), stats: [Stat.StatAttackPower] },
 	{ config: SolidWeightstone(slot), stats: [Stat.StatAttackPower] },
@@ -1268,7 +1069,6 @@ export const WEAPON_IMBUES_MH_CONFIG: ConsumableStatOption<WeaponImbue>[] = [
 	...ROGUE_IMBUES,
 	...SHAMAN_IMBUES(ItemSlot.ItemSlotMainHand),
 	{ config: Windfury, stats: [Stat.StatMeleeHit] },
-	{ config: WildStrikes, stats: [Stat.StatMeleeHit] },
 	...CONSUMABLES_IMBUES(ItemSlot.ItemSlotMainHand),
 ];
 

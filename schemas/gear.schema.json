@@ -11,8 +11,7 @@
 				"type": "object",
 				"properties": {
 					"id": "number",
-					"enchant": "number",
-					"rune": "number"
+					"enchant": "number"
 				}
 			}
 		}

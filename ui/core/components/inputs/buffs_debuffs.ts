@@ -48,10 +48,6 @@ export const AllStatsPercentBuff = InputHelpers.makeMultiIconInput({
 			fieldName: 'blessingOfKings',
 			showWhen: player => player.getFaction() === Faction.Alliance,
 		}),
-		makeBooleanRaidBuffInput({
-			actionId: () => ActionId.fromSpellId(409580),
-			fieldName: 'aspectOfTheLion',
-		}),
 	],
 	label: 'Stats %',
 });
@@ -237,21 +233,12 @@ export const BloodPactBuff = InputHelpers.makeMultiIconInput({
 			impId: ActionId.fromSpellId(18696),
 			fieldName: 'bloodPact',
 		}),
-		makeBooleanRaidBuffInput({
-			actionId: () => ActionId.fromSpellId(403215),
-			fieldName: 'commandingShout',
-		}),
 	],
 	label: 'Blood Pact',
 });
 
 export const PaladinPhysicalBuff = InputHelpers.makeMultiIconInput({
 	values: [
-		makeBooleanRaidBuffInput({
-			actionId: () => ActionId.fromSpellId(425600),
-			fieldName: 'hornOfLordaeron',
-			showWhen: player => player.getFaction() == Faction.Alliance,
-		}),
 		makeTristateIndividualBuffInput({
 			actionId: player =>
 				player.getMatchingSpellActionId([
@@ -419,23 +406,10 @@ export const ManaSpringTotem = withLabel(
 	}),
 	'Mana Spring Totem',
 );
-export const VampiricTouchReplenishment = withLabel(
-	makeMultistateRaidBuffInput({ actionId: () => ActionId.fromSpellId(402668), numStates: 21, fieldName: 'vampiricTouch', multiplier: 20 }),
-	'Vampiric Touch MP5',
-);
 
 export const MeleeCritBuff = withLabel(
 	makeBooleanRaidBuffInput({ actionId: player => player.getMatchingSpellActionId([{ id: 24932, minLevel: 40 }]), fieldName: 'leaderOfThePack' }),
 	'Leader of the Pack',
-);
-
-export const HordeThreatBuff = withLabel(
-	makeBooleanRaidBuffInput({
-		actionId: player => player.getMatchingSpellActionId([{ id: 408696, minLevel: 40 }]),
-		fieldName: 'spiritOfTheAlpha',
-		showWhen: player => player.getFaction() === Faction.Horde,
-	}),
-	'Spirit of The Alpha',
 );
 
 export const SpellCritBuff = withLabel(
@@ -443,16 +417,7 @@ export const SpellCritBuff = withLabel(
 	'Moonkin Aura',
 );
 
-export const SpellIncreaseBuff = withLabel(
-	makeMultistateRaidBuffInput({ actionId: () => ActionId.fromSpellId(425464), numStates: 21, fieldName: 'demonicPact', multiplier: 10 }),
-	'Demonic Pact',
-);
-
 // Misc Buffs
-export const ImprovedStoneskinWindwall = makeBooleanRaidBuffInput({
-	actionId: player => player.getMatchingSpellActionId([{ id: 457544, minLevel: 60 }]),
-	fieldName: 'improvedStoneskinWindwall',
-});
 export const RetributionAura = makeTristateRaidBuffInput({
 	actionId: player =>
 		player.getMatchingSpellActionId([
@@ -513,11 +478,7 @@ export const RallyingCryOfTheDragonslayer = makeBooleanIndividualBuffInput({
 	actionId: () => ActionId.fromSpellId(22888),
 	fieldName: 'rallyingCryOfTheDragonslayer',
 });
-export const ValorOfAzeroth = makeBooleanIndividualBuffInput({
-	actionId: () => ActionId.fromSpellId(461475),
-	fieldName: 'valorOfAzeroth',
-});
-export const DragonslayerBuffInput = InputHelpers.makeMultiIconInput({ values: [RallyingCryOfTheDragonslayer, ValorOfAzeroth], label: 'Dragonslayer Buff' });
+export const DragonslayerBuffInput = InputHelpers.makeMultiIconInput({ values: [RallyingCryOfTheDragonslayer], label: 'Dragonslayer Buff' });
 
 export const SpiritOfZandalar = withLabel(
 	makeBooleanIndividualBuffInput({
@@ -537,17 +498,9 @@ export const WarchiefsBlessing = withLabel(
 	makeBooleanIndividualBuffInput({
 		actionId: () => ActionId.fromSpellId(16609),
 		fieldName: 'warchiefsBlessing',
-		showWhen: player => player.getFaction() === Faction.Horde,
+		// showWhen: player => player.getFaction() === Faction.Horde,
 	}),
 	`Warchief's Blessing`,
-);
-export const MightOfStormwind = withLabel(
-	makeBooleanIndividualBuffInput({
-		actionId: () => ActionId.fromSpellId(460940),
-		fieldName: 'mightOfStormwind',
-		showWhen: player => player.getFaction() === Faction.Alliance,
-	}),
-	`Might Of Stormwind`,
 );
 
 export const SaygesDarkFortune = (inputs: ItemStatOption<SaygesFortune>[]) =>
@@ -589,39 +542,6 @@ export const SlipKiksSavvy = withLabel(
 	`Slip'kik's Savvy`,
 );
 
-// SoD World Buffs
-export const BoonOfBlackfathom = withLabel(
-	makeBooleanIndividualBuffInput({
-		actionId: player => player.getMatchingSpellActionId([{ id: 430947, maxLevel: 39 }]),
-		fieldName: 'boonOfBlackfathom',
-	}),
-	'Boon of Blackfathom',
-);
-
-export const AshenvalePvpBuff = withLabel(
-	makeBooleanIndividualBuffInput({
-		actionId: player => player.getMatchingSpellActionId([{ id: 430352, maxLevel: 39 }]),
-		fieldName: 'ashenvalePvpBuff',
-	}),
-	'Ashenvale PvP Buff',
-);
-
-export const SparkOfInspiration = withLabel(
-	makeBooleanIndividualBuffInput({
-		actionId: player => player.getMatchingSpellActionId([{ id: 438536, maxLevel: 49 }]),
-		fieldName: 'sparkOfInspiration',
-	}),
-	'Spark of Inspiration',
-);
-
-export const FervorOfTheTempleExplorer = withLabel(
-	makeBooleanIndividualBuffInput({
-		actionId: player => player.getMatchingSpellActionId([{ id: 446695, maxLevel: 59 }]),
-		fieldName: 'fervorOfTheTempleExplorer',
-	}),
-	'Fervor Of The Temple Explorer',
-);
-
 ///////////////////////////////////////////////////////////////////////////
 //                                 DEBUFFS
 ///////////////////////////////////////////////////////////////////////////
@@ -650,18 +570,6 @@ export const MajorArmorDebuff = InputHelpers.makeMultiIconInput({
 				]),
 			impId: ActionId.fromSpellId(14169),
 			fieldName: 'exposeArmor',
-		}),
-		makeTristateDebuffInput({
-			actionId: player => player.getMatchingSpellActionId([{ id: 439500, minLevel: 60 }]),
-			impId: ActionId.fromSpellId(14169),
-			fieldName: 'sebaciousPoison',
-		}),
-		makeMultistateMultiplierDebuffInput({
-			actionId: () => ActionId.fromSpellId(402818),
-			numStates: 11,
-			multiplier: 10,
-			reverse: true,
-			fieldName: 'homunculi',
 		}),
 	],
 	label: 'Major Armor Penetration',
@@ -738,19 +646,12 @@ export const AttackPowerDebuff = InputHelpers.makeMultiIconInput({
 			impId: ActionId.fromSpellId(16862),
 			fieldName: 'demoralizingRoar',
 		}),
-		makeMultistateMultiplierDebuffInput({
-			actionId: () => ActionId.fromSpellId(402811),
-			numStates: 11,
-			multiplier: 10,
-			reverse: true,
-			fieldName: 'homunculi',
-		}),
 	],
 	label: 'Attack Power',
 });
 
 // TODO: SoD Mangle
-export const BleedDebuff = withLabel(makeBooleanDebuffInput({ actionId: () => ActionId.fromSpellId(409828), fieldName: 'mangle' }), 'Bleed');
+//export const BleedDebuff = withLabel(makeBooleanDebuffInput({ actionId: () => ActionId.fromSpellId(409828), fieldName: 'mangle' }), 'Bleed');
 
 export const MeleeAttackSpeedDebuff = InputHelpers.makeMultiIconInput({
 	values: [
@@ -758,17 +659,6 @@ export const MeleeAttackSpeedDebuff = InputHelpers.makeMultiIconInput({
 			actionId: () => ActionId.fromSpellId(6343),
 			impId: ActionId.fromSpellId(12666),
 			fieldName: 'thunderClap',
-		}),
-		makeMultistateMultiplierDebuffInput({
-			actionId: () => ActionId.fromSpellId(402808),
-			numStates: 11,
-			multiplier: 10,
-			reverse: true,
-			fieldName: 'homunculi',
-		}),
-		makeBooleanDebuffInput({
-			actionId: () => ActionId.fromSpellId(408699),
-			fieldName: 'waylay',
 		}),
 		makeBooleanDebuffInput({
 			actionId: () => ActionId.fromSpellId(21992),
@@ -823,10 +713,6 @@ export const NatureSpellDamageDebuff = InputHelpers.makeMultiIconInput({
 			actionId: player => player.getMatchingSpellActionId([{ id: 17364, minLevel: 40 }]),
 			fieldName: 'stormstrike',
 		}),
-		makeBooleanDebuffInput({
-			actionId: () => ActionId.fromSpellId(408258),
-			fieldName: 'dreamstate',
-		}),
 	],
 	label: 'Nature Damage',
 });
@@ -838,11 +724,6 @@ export const SpellShadowWeavingDebuff = withLabel(
 	}),
 	'Shadow Weaving',
 );
-
-export const MarkOfChaos = makeBooleanDebuffInput({
-	actionId: player => player.getMatchingSpellActionId([{ id: 461615 }]),
-	fieldName: 'markOfChaos',
-});
 
 export const CurseOfElements = makeBooleanDebuffInput({
 	actionId: player =>
@@ -863,15 +744,7 @@ export const CurseOfShadow = makeBooleanDebuffInput({
 	fieldName: 'curseOfShadow',
 });
 
-export const WarlockCursesConfig = InputHelpers.makeMultiIconInput({ values: [MarkOfChaos, CurseOfElements, CurseOfShadow], label: 'Warlock Curses' });
-
-export const OccultPoison = withLabel(
-	makeBooleanDebuffInput({
-		actionId: player => player.getMatchingItemActionId([{ id: 226374, minLevel: 54 }]),
-		fieldName: 'occultPoison',
-	}),
-	'Occult Poison',
-);
+export const WarlockCursesConfig = InputHelpers.makeMultiIconInput({ values: [CurseOfElements, CurseOfShadow], label: 'Warlock Curses' });
 
 export const HuntersMark = withLabel(
 	makeTristateDebuffInput({
@@ -916,22 +789,6 @@ export const JudgementOfTheCrusader = withLabel(
 );
 
 // Misc Debuffs
-export const ImprovedFaerieFire = makeBooleanDebuffInput({
-	actionId: player => player.getMatchingSpellActionId([{ id: 455864, minLevel: 60 }]),
-	fieldName: 'improvedFaerieFire',
-});
-export const MeleeHunter2pcT1Bonus = makeBooleanDebuffInput({
-	actionId: player => player.getMatchingSpellActionId([{ id: 456393, minLevel: 60 }]),
-	fieldName: 'meleeHunterDodgeDebuff',
-});
-export const MekkatorqueFistDebuff = makeBooleanDebuffInput({
-	actionId: player => player.getMatchingItemActionId([{ id: 213409, minLevel: 40, maxLevel: 45 }]),
-	fieldName: 'mekkatorqueFistDebuff',
-});
-export const SerpentsStrikerFistDebuff = makeBooleanDebuffInput({
-	actionId: player => player.getMatchingItemActionId([{ id: 220589, minLevel: 50, maxLevel: 55 }]),
-	fieldName: 'serpentsStrikerFistDebuff',
-});
 export const JudgementOfLight = makeBooleanDebuffInput({
 	actionId: player =>
 		player.getMatchingSpellActionId([
@@ -958,13 +815,6 @@ export const GiftOfArthas = makeBooleanDebuffInput({
 export const CrystalYield = makeBooleanDebuffInput({
 	actionId: player => player.getMatchingSpellActionId([{ id: 15235, minLevel: 47 }]),
 	fieldName: 'crystalYield',
-});
-export const AncientCorrosivePoison = makeMultistateMultiplierDebuffInput({
-	actionId: () => ActionId.fromItemId(209562),
-	numStates: 11,
-	multiplier: 10,
-	reverse: true,
-	fieldName: 'ancientCorrosivePoison',
 });
 
 ///////////////////////////////////////////////////////////////////////////
@@ -1058,17 +908,8 @@ export const RAID_BUFFS_CONFIG = [
 		stats: [Stat.StatMeleeCrit],
 	},
 	// Threat Buffs
-	{
-		config: HordeThreatBuff,
-		picker: IconPicker,
-		stats: [Stat.StatArmor],
-	},
+
 	// Spell Damage Buffs
-	{
-		config: SpellIncreaseBuff,
-		picker: IconPicker,
-		stats: [Stat.StatSpellPower],
-	},
 	{
 		config: SpellCritBuff,
 		picker: IconPicker,
@@ -1084,19 +925,9 @@ export const RAID_BUFFS_CONFIG = [
 		picker: IconPicker,
 		stats: [Stat.StatMP5],
 	},
-	{
-		config: VampiricTouchReplenishment,
-		picker: IconPicker,
-		stats: [Stat.StatMP5],
-	},
 ] as PickerStatOptions[];
 
 export const MISC_BUFFS_CONFIG = [
-	{
-		config: ImprovedStoneskinWindwall,
-		picker: IconPicker,
-		stats: [Stat.StatArmor],
-	},
 	{
 		config: Thorns,
 		picker: IconPicker,
@@ -1161,36 +992,6 @@ export const WORLD_BUFFS_CONFIG = [
 		stats: [],
 	},
 	{
-		config: MightOfStormwind,
-		picker: IconPicker,
-		stats: [],
-	},
-	{
-		config: FervorOfTheTempleExplorer,
-		picker: IconPicker,
-		stats: [],
-	},
-	{
-		config: SparkOfInspiration,
-		picker: IconPicker,
-		stats: [],
-	},
-	{
-		config: BoonOfBlackfathom,
-		picker: IconPicker,
-		stats: [
-			Stat.StatMeleeCrit,
-			// TODO: Stat.StatRangedCrit,
-			Stat.StatSpellCrit,
-			Stat.StatAttackPower,
-		],
-	},
-	{
-		config: AshenvalePvpBuff,
-		picker: IconPicker,
-		stats: [Stat.StatAttackPower, Stat.StatSpellPower],
-	},
-	{
 		config: FengusFerocity,
 		picker: IconPicker,
 		stats: [Stat.StatAttackPower],
@@ -1247,11 +1048,11 @@ export const DEBUFFS_CONFIG = [
 		picker: IconPicker,
 		stats: [Stat.StatAttackPower],
 	},
-	{
+	/* {
 		config: BleedDebuff,
 		picker: IconPicker,
 		stats: [Stat.StatAttackPower, Stat.StatRangedAttackPower],
-	},
+	}, */
 
 	// Magic
 	{
@@ -1287,11 +1088,6 @@ export const DEBUFFS_CONFIG = [
 	{
 		config: WarlockCursesConfig,
 		picker: MultiIconPicker,
-		stats: [Stat.StatSpellPower],
-	},
-	{
-		config: OccultPoison,
-		picker: IconPicker,
 		stats: [Stat.StatSpellPower],
 	},
 
@@ -1333,26 +1129,6 @@ export const DEBUFFS_CONFIG = [
 export const MISC_DEBUFFS_CONFIG = [
 	// Misc Debuffs
 	{
-		config: ImprovedFaerieFire,
-		picker: IconPicker,
-		stats: [],
-	},
-	{
-		config: MeleeHunter2pcT1Bonus,
-		picker: IconPicker,
-		stats: [Stat.StatMeleeHit],
-	},
-	{
-		config: MekkatorqueFistDebuff,
-		picker: IconPicker,
-		stats: [Stat.StatSpellPower],
-	},
-	{
-		config: SerpentsStrikerFistDebuff,
-		picker: IconPicker,
-		stats: [Stat.StatNaturePower, Stat.StatHolyPower],
-	},
-	{
 		config: CurseOfVulnerability,
 		picker: IconPicker,
 		stats: [Stat.StatAttackPower, Stat.StatRangedAttackPower],
@@ -1364,11 +1140,6 @@ export const MISC_DEBUFFS_CONFIG = [
 	},
 	{
 		config: CrystalYield,
-		picker: IconPicker,
-		stats: [Stat.StatAttackPower, Stat.StatRangedAttackPower],
-	},
-	{
-		config: AncientCorrosivePoison,
 		picker: IconPicker,
 		stats: [Stat.StatAttackPower, Stat.StatRangedAttackPower],
 	},

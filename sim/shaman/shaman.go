@@ -239,7 +239,7 @@ func (shaman *Shaman) RegisterHealingSpells() {
 }
 
 func (shaman *Shaman) HasRune(rune proto.ShamanRune) bool {
-	return shaman.HasRuneById(int32(rune))
+	return false // shaman.HasRuneById(int32(rune))
 }
 
 func (shaman *Shaman) baseRuneAbilityDamage() float64 {

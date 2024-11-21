@@ -2,7 +2,6 @@ package warlock
 
 import (
 	"fmt"
-	"math"
 	"slices"
 	"time"
 
@@ -162,9 +161,9 @@ func (warlock *Warlock) applyMarkOfChaos() {
 		return
 	}
 
-	warlock.MarkOfChaosAuras = warlock.NewEnemyAuraArray(func(target *core.Unit, _ int32) *core.Aura {
-		return core.MarkOfChaosDebuffAura(target)
-	})
+	// warlock.MarkOfChaosAuras = warlock.NewEnemyAuraArray(func(target *core.Unit, _ int32) *core.Aura {
+	// 	return core.MarkOfChaosDebuffAura(target)
+	// })
 }
 
 func (warlock *Warlock) applyMarkOfChaosDebuff(sim *core.Simulation, target *core.Unit, duration time.Duration) {
@@ -465,7 +464,7 @@ func (warlock *Warlock) applyDemonicPact() {
 		return
 	}
 
-	icd := core.Cooldown{
+	/* icd := core.Cooldown{
 		Timer:    warlock.NewTimer(),
 		Duration: 1 * time.Second,
 	}
@@ -515,5 +514,5 @@ func (warlock *Warlock) applyDemonicPact() {
 
 	for _, pet := range warlock.BasePets {
 		pet.RegisterAura(dpTriggerConfig)
-	}
+	} */
 }

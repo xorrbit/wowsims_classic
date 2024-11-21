@@ -302,7 +302,7 @@ func (ds *DruidSpell) IsEqual(s *core.Spell) bool {
 }
 
 func (druid *Druid) HasRune(rune proto.DruidRune) bool {
-	return druid.HasRuneById(int32(rune))
+	return false // druid.HasRuneById(int32(rune))
 }
 
 func (druid *Druid) baseRuneAbilityDamage() float64 {

@@ -133,7 +133,7 @@ func (priest *Priest) homunculusStatInheritance() core.PetStatInheritance {
 	}
 }
 
-func (homunculus *Homunculus) newHomunculusCrippleSpell() core.SpellConfig {
+/* func (homunculus *Homunculus) newHomunculusCrippleSpell() core.SpellConfig {
 	attackSpeedAuras := homunculus.NewEnemyAuraArray(core.HomunculiAttackSpeedAura)
 
 	return core.SpellConfig{
@@ -195,17 +195,17 @@ func (homunculus *Homunculus) newHomunculusDemoralizeSpell() core.SpellConfig {
 			attackPowerAuras.Get(target).Activate(sim)
 		},
 	}
-}
+} */
 
 func (homunculus *Homunculus) Initialize() {
-	switch homunculus.npcID {
+	/* switch homunculus.npcID {
 	case 202390:
 		homunculus.PrimarySpell = homunculus.GetOrRegisterSpell(homunculus.newHomunculusCrippleSpell())
 	case 202392:
 		homunculus.PrimarySpell = homunculus.GetOrRegisterSpell(homunculus.newHomunculusDegradeSpell())
 	case 202391:
 		homunculus.PrimarySpell = homunculus.GetOrRegisterSpell(homunculus.newHomunculusDemoralizeSpell())
-	}
+	} */
 }
 
 func (homunculus *Homunculus) ExecuteCustomRotation(sim *core.Simulation) {

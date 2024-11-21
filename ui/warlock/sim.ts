@@ -174,9 +174,8 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWarlock, {
 		BuffDebuffInputs.CurseOfVulnerability,
 		BuffDebuffInputs.GiftOfArthas,
 		BuffDebuffInputs.CrystalYield,
-		BuffDebuffInputs.AncientCorrosivePoison,
 	],
-	excludeBuffDebuffInputs: [BuffDebuffInputs.BleedDebuff, BuffDebuffInputs.SpellWintersChillDebuff, ...ConsumablesInputs.FROST_POWER_CONFIG],
+	excludeBuffDebuffInputs: [BuffDebuffInputs.SpellWintersChillDebuff, ...ConsumablesInputs.FROST_POWER_CONFIG],
 	petConsumeInputs: [ConsumablesInputs.PetAttackPowerConsumable, ConsumablesInputs.PetAgilityConsumable, ConsumablesInputs.PetStrengthConsumable],
 	// Inputs to include in the 'Other' section on the settings tab.
 	otherInputs: {
@@ -222,8 +221,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWarlock, {
 			return Presets.DefaultAPLs[player.getLevel()][player.getTalentTree()].rotation.rotation!;
 		}
 
-		const hasIncinerate = player.getEquippedItem(ItemSlot.ItemSlotWrist)?.rune?.id == WarlockRune.RuneBracerIncinerate;
-		const specNumber = hasIncinerate ? 2 : 0;
+		const specNumber = 0;
 		return Presets.DefaultAPLs[level][specNumber].rotation.rotation!;
 	},
 

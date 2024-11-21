@@ -454,7 +454,7 @@ func (shaman *Shaman) applySpiritOfTheAlpha() {
 		return
 	}
 
-	shaman.SpiritOfTheAlphaAura = core.SpiritOfTheAlphaAura(&shaman.Unit)
+	/* shaman.SpiritOfTheAlphaAura = core.SpiritOfTheAlphaAura(&shaman.Unit)
 	shaman.LoyalBetaAura = shaman.RegisterAura(core.Aura{
 		Label:    "Loyal Beta",
 		Duration: core.NeverExpires,
@@ -474,5 +474,5 @@ func (shaman *Shaman) applySpiritOfTheAlpha() {
 		shaman.LoyalBetaAura.OnReset = func(aura *core.Aura, sim *core.Simulation) {
 			aura.Activate(sim)
 		}
-	}
+	} */
 }

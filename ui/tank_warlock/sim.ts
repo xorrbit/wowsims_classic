@@ -125,7 +125,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecTankWarlock, {
 
 	// Buff and Debuff inputs to include/exclude, overriding the EP-based defaults.
 	includeBuffDebuffInputs: [BuffDebuffInputs.ResistanceBuff],
-	excludeBuffDebuffInputs: [BuffDebuffInputs.BleedDebuff, BuffDebuffInputs.SpellWintersChillDebuff, ...ConsumablesInputs.FROST_POWER_CONFIG],
+	excludeBuffDebuffInputs: [BuffDebuffInputs.SpellWintersChillDebuff, ...ConsumablesInputs.FROST_POWER_CONFIG],
 	petConsumeInputs: [ConsumablesInputs.PetAttackPowerConsumable, ConsumablesInputs.PetAgilityConsumable, ConsumablesInputs.PetStrengthConsumable],
 	// Inputs to include in the 'Other' section on the settings tab.
 	otherInputs: {
@@ -180,8 +180,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecTankWarlock, {
 
 		// Pre-60 had fewer options so it basically came down to master channeler vs no master channeler
 		if (level < 60) {
-			const hasMasterChanneler = player.getEquippedItem(ItemSlot.ItemSlotChest)?.rune?.id == WarlockRune.RuneChestMasterChanneler;
-			specNumber = hasMasterChanneler ? 0 : 1;
+			specNumber = 1;
 			return Presets.DefaultAPLs[level][specNumber].rotation.rotation!;
 		}
 

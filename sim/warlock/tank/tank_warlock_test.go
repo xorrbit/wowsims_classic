@@ -23,7 +23,7 @@ func TestAffliction(t *testing.T) {
 			Talents:     Phase4AffTalents,
 			GearSet:     core.GetGearSet("../../../ui/tank_warlock/gear_sets", "blank"),
 			Rotation:    core.GetAplRotation("../../../ui/tank_warlock/apls", "p4_destro_aff_tank"),
-			Buffs:       core.FullBuffsPhase4,
+			Buffs:       core.FullBuffs,
 			Consumes:    Phase4Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Affliction Warlock", SpecOptions: DefaultAfflictionWarlock},
 
@@ -45,7 +45,7 @@ func TestDemonology(t *testing.T) {
 			Talents:     Phase4DemoTalents,
 			GearSet:     core.GetGearSet("../../../ui/tank_warlock/gear_sets", "blank"),
 			Rotation:    core.GetAplRotation("../../../ui/tank_warlock/apls", "p4_demo_tank"),
-			Buffs:       core.FullBuffsPhase4,
+			Buffs:       core.FullBuffs,
 			Consumes:    Phase4Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Demonology Warlock", SpecOptions: DefaultDemonologyWarlock},
 
@@ -67,7 +67,7 @@ func TestDestruction(t *testing.T) {
 			Talents:     Phase4DestroTalents,
 			GearSet:     core.GetGearSet("../../../ui/tank_warlock/gear_sets", "blank"),
 			Rotation:    core.GetAplRotation("../../../ui/tank_warlock/apls", "p4_destro_aff_tank"),
-			Buffs:       core.FullBuffsPhase4,
+			Buffs:       core.FullBuffs,
 			Consumes:    Phase4Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Destruction Warlock", SpecOptions: DefaultDestroWarlock},
 
@@ -117,41 +117,6 @@ var DefaultDemonologyWarlock = &proto.Player_TankWarlock{
 			Summon:      proto.WarlockOptions_Felguard,
 			WeaponImbue: proto.WarlockOptions_Firestone,
 		},
-	},
-}
-
-var Phase1Consumes = core.ConsumesCombo{
-	Label: "P1-Consumes",
-	Consumes: &proto.Consumes{
-		AgilityElixir: proto.AgilityElixir_ElixirOfLesserAgility,
-		DefaultPotion: proto.Potions_ManaPotion,
-		FirePowerBuff: proto.FirePowerBuff_ElixirOfFirepower,
-		Food:          proto.Food_FoodSmokedSagefish,
-		MainHandImbue: proto.WeaponImbue_BlackfathomManaOil,
-		StrengthBuff:  proto.StrengthBuff_ElixirOfOgresStrength,
-	},
-}
-
-var Phase2Consumes = core.ConsumesCombo{
-	Label: "P2-Consumes",
-	Consumes: &proto.Consumes{
-		DefaultPotion:  proto.Potions_ManaPotion,
-		FirePowerBuff:  proto.FirePowerBuff_ElixirOfFirepower,
-		Food:           proto.Food_FoodSagefishDelight,
-		MainHandImbue:  proto.WeaponImbue_LesserWizardOil,
-		SpellPowerBuff: proto.SpellPowerBuff_LesserArcaneElixir,
-	},
-}
-
-var Phase3Consumes = core.ConsumesCombo{
-	Label: "P3-Consumes",
-	Consumes: &proto.Consumes{
-		DefaultPotion:   proto.Potions_SuperiorManaPotion,
-		FirePowerBuff:   proto.FirePowerBuff_ElixirOfFirepower,
-		ShadowPowerBuff: proto.ShadowPowerBuff_ElixirOfShadowPower,
-		Food:            proto.Food_FoodTenderWolfSteak,
-		MainHandImbue:   proto.WeaponImbue_LesserWizardOil,
-		SpellPowerBuff:  proto.SpellPowerBuff_GreaterArcaneElixir,
 	},
 }
 

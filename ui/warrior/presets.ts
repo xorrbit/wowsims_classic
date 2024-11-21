@@ -7,7 +7,6 @@ import {
 	AttackPowerBuff,
 	Consumes,
 	Debuffs,
-	EnchantedSigil,
 	Food,
 	HealthElixir,
 	IndividualBuffs,
@@ -178,11 +177,9 @@ export const DefaultConsumes = Consumes.create({
 	attackPowerBuff: AttackPowerBuff.JujuMight,
 	defaultPotion: Potions.MightyRagePotion,
 	dragonBreathChili: true,
-	enchantedSigil: EnchantedSigil.FlowingWatersSigil,
 	food: Food.FoodSmokedDesertDumpling,
 	healthElixir: HealthElixir.ElixirOfFortitude,
-	mainHandImbue: WeaponImbue.WildStrikes,
-	mildlyIrradiatedRejuvPot: true,
+	mainHandImbue: WeaponImbue.Windfury,
 	offHandImbue: WeaponImbue.ElementalSharpeningStone,
 	sapperExplosive: SapperExplosive.SapperGoblinSapper,
 	strengthBuff: StrengthBuff.JujuPower,
@@ -190,12 +187,9 @@ export const DefaultConsumes = Consumes.create({
 });
 
 export const DefaultRaidBuffs = RaidBuffs.create({
-	aspectOfTheLion: true,
 	battleShout: TristateEffect.TristateEffectImproved,
-	commandingShout: true,
 	giftOfTheWild: TristateEffect.TristateEffectImproved,
 	graceOfAirTotem: TristateEffect.TristateEffectImproved,
-	hornOfLordaeron: true,
 	leaderOfThePack: true,
 	powerWordFortitude: TristateEffect.TristateEffectImproved,
 	strengthOfEarthTotem: TristateEffect.TristateEffectImproved,
@@ -206,13 +200,11 @@ export const DefaultIndividualBuffs = IndividualBuffs.create({
 	blessingOfKings: true,
 	blessingOfMight: TristateEffect.TristateEffectImproved,
 	fengusFerocity: true,
-	mightOfStormwind: true,
 	moldarsMoxie: true,
 	rallyingCryOfTheDragonslayer: true,
 	saygesFortune: SaygesFortune.SaygesDamage,
 	songflowerSerenade: true,
 	spiritOfZandalar: true,
-	valorOfAzeroth: true,
 	warchiefsBlessing: true,
 });
 
@@ -221,10 +213,7 @@ export const DefaultDebuffs = Debuffs.create({
 	exposeArmor: TristateEffect.TristateEffectImproved,
 	faerieFire: true,
 	giftOfArthas: true,
-	homunculi: 70, // 70% average uptime default
-	improvedFaerieFire: true,
 	improvedScorch: true,
-	mangle: true,
 	sunderArmor: true,
 });
 

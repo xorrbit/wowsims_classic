@@ -82,7 +82,7 @@ message APLAction {
     }
 }
 
-// NextIndex: 75
+// NextIndex: 74
 message APLValue {
     oneof value {
         // Operators
@@ -112,7 +112,7 @@ message APLValue {
         APLValueCurrentEnergy current_energy = 15;
         APLValueCurrentComboPoints current_combo_points = 16;
         APLValueTimeToEnergyTick time_to_energy_tick = 66;
-        APLValueEnergyThreshold energy_threshold = 73;
+        APLValueEnergyThreshold energy_threshold = 72;
 
         // GCD values
         APLValueGCDIsReady gcd_is_ready = 17;
@@ -129,7 +129,7 @@ message APLValue {
         APLValueSpellTimeToReady spell_time_to_ready = 21;
         APLValueSpellCastTime spell_cast_time = 35;
         APLValueSpellTravelTime spell_travel_time = 37;
-        APLValueSpellInFlight spell_in_flight = 74;
+        APLValueSpellInFlight spell_in_flight = 73;
         APLValueSpellCPM spell_cpm = 42;
         APLValueSpellIsChanneling spell_is_channeling = 56;
         APLValueSpellChanneledTicks spell_channeled_ticks = 57;
@@ -145,8 +145,8 @@ message APLValue {
         APLValueAuraICDIsReadyWithReactionTime aura_icd_is_ready_with_reaction_time = 51;
         APLValueAuraShouldRefresh aura_should_refresh = 43;
 
-        // Rune values
-        APLValueRuneIsEquipped rune_is_equipped = 69;
+        // Rune values TODO: remove once APLs for classes are updated
+        APLValueRuneIsEquipped rune_is_equipped = 74;
 
         // Dot values
         APLValueDotIsActive dot_is_active = 6;
@@ -170,9 +170,9 @@ message APLValue {
         // Warlock
         APLValueWarlockShouldRecastDrainSoul warlock_should_recast_drain_soul = 59;
         APLValueWarlockShouldRefreshCorruption warlock_should_refresh_corruption = 60;
-        APLValueWarlockCurrentPetMana warlock_current_pet_mana = 70;
-        APLValueWarlockCurrentPetManaPercent warlock_current_pet_mana_percent = 71;
-        APLValueWarlockPetIsActive warlock_pet_is_active = 72;
+        APLValueWarlockCurrentPetMana warlock_current_pet_mana = 69;
+        APLValueWarlockCurrentPetManaPercent warlock_current_pet_mana_percent = 70;
+        APLValueWarlockPetIsActive warlock_pet_is_active = 71;
         // Paladin
         APLValueCurrentSealRemainingTime current_seal_remaining_time = 65;
     }
@@ -489,6 +489,7 @@ message APLValueAuraShouldRefresh {
     APLValue max_overlap = 3;
 }
 
+// TODO: remove once APLs for classes are updated
 message APLValueRuneIsEquipped {
     ActionID rune_id = 1;
 }

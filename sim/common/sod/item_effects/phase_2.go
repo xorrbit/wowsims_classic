@@ -359,7 +359,7 @@ func init() {
 
 	// Mekkatorque's Arcano-Shredder
 	itemhelpers.CreateWeaponProcSpell(MekkatorquesArcanoShredder, "Mekkatorque", 5.0, func(character *core.Character) *core.Spell {
-		procAuras := character.NewEnemyAuraArray(core.MekkatorqueFistDebuffAura)
+		//procAuras := character.NewEnemyAuraArray(core.MekkatorqueFistDebuffAura)
 
 		return character.RegisterSpell(core.SpellConfig{
 			ActionID:    core.ActionID{SpellID: 434841},
@@ -374,7 +374,7 @@ func init() {
 			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 				if target.Level <= 45 {
 					spell.CalcAndDealDamage(sim, target, 30, spell.OutcomeMagicHitAndCrit)
-					procAuras.Get(target).Activate(sim)
+					//procAuras.Get(target).Activate(sim)
 				}
 			},
 		})

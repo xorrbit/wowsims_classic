@@ -65,16 +65,6 @@
 
 		.item-picker-name,
 		.item-picker-enchant,
-		.item-picker-rune {
-			letter-spacing: normal;
-
-			.gear-picker-right & {
-				text-align: right;
-				@include media-breakpoint-down(md) {
-					text-align: left;
-				}
-			}
-		}
 
 		.item-picker-name {
 			color: var(--bs-white);
@@ -83,23 +73,6 @@
 		.item-picker-enchant {
 			color: var(--bs-uncommon);
 			font-size: var(--content-font-size);
-		}
-		.item-picker-rune {
-			color: var(--bs-brand);
-			font-size: var(--content-font-size);
-		}
-	}
-
-	.item-picker-rune-container {
-		@include vertical-top;
-		@include horizontal-right;
-		display: flex;
-		justify-content: center;
-		pointer-events: none;
-
-		.item-picker-rune-icon {
-			width: 1.75rem;
-			height: 1.75rem;
 		}
 	}
 }

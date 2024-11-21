@@ -193,7 +193,7 @@ func NewPaladin(character *core.Character, options *proto.Player, paladinOptions
 }
 
 func (paladin *Paladin) hasRune(rune proto.PaladinRune) bool {
-	return paladin.HasRuneById(int32(rune))
+	return false // paladin.HasRuneById(int32(rune))
 }
 
 func (paladin *Paladin) has2hEquipped() bool {

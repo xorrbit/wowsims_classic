@@ -6,7 +6,6 @@ import {
 	Conjured,
 	Consumes,
 	Debuffs,
-	EnchantedSigil,
 	Flask,
 	Food,
 	IndividualBuffs,
@@ -126,14 +125,11 @@ export const DefaultConsumes = Consumes.create({
 	defaultConjured: Conjured.ConjuredDemonicRune,
 	defaultPotion: Potions.MajorManaPotion,
 	dragonBreathChili: true,
-	enchantedSigil: EnchantedSigil.FlowingWatersSigil,
 	flask: Flask.FlaskOfDistilledWisdom,
 	food: Food.FoodSmokedDesertDumpling,
 	mainHandImbue: WeaponImbue.ElementalSharpeningStone,
 	manaRegenElixir: ManaRegenElixir.MagebloodPotion,
-	mildlyIrradiatedRejuvPot: true,
 	miscConsumes: {
-		catnip: true,
 		jujuEmber: true,
 	},
 	strengthBuff: StrengthBuff.JujuPower,
@@ -142,7 +138,6 @@ export const DefaultConsumes = Consumes.create({
 
 export const DefaultRaidBuffs = RaidBuffs.create({
 	arcaneBrilliance: true,
-	aspectOfTheLion: true,
 	battleShout: TristateEffect.TristateEffectImproved,
 	divineSpirit: true,
 	giftOfTheWild: TristateEffect.TristateEffectImproved,
@@ -157,12 +152,10 @@ export const DefaultIndividualBuffs = IndividualBuffs.create({
 	blessingOfMight: TristateEffect.TristateEffectImproved,
 	blessingOfWisdom: TristateEffect.TristateEffectImproved,
 	fengusFerocity: true,
-	mightOfStormwind: true,
 	rallyingCryOfTheDragonslayer: true,
 	saygesFortune: SaygesFortune.SaygesDamage,
 	songflowerSerenade: true,
 	spiritOfZandalar: true,
-	valorOfAzeroth: true,
 	warchiefsBlessing: true,
 });
 
@@ -170,7 +163,6 @@ export const DefaultDebuffs = Debuffs.create({
 	curseOfRecklessness: true,
 	exposeArmor: TristateEffect.TristateEffectImproved,
 	faerieFire: true,
-	homunculi: 70, // 70% average uptime default
 	sunderArmor: true,
 });
 

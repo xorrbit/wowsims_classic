@@ -66,7 +66,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecRestorationShaman, {
 		debuffs: Debuffs.create({
 			faerieFire: true,
 			judgementOfWisdom: true,
-			curseOfElementsNew: TristateEffect.TristateEffectRegular,
 		}),
 	},
 	// IconInputs to include in the 'Player' section on the settings tab.

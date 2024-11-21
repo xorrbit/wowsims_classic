@@ -205,16 +205,6 @@ export class Raid {
 	}
 
 	fromProto(eventID: EventID, proto: RaidProto) {
-		// Backwards compatbility with old curses inputs
-		if (proto.debuffs?.curseOfElements && proto.debuffs.curseOfElementsNew == TristateEffect.TristateEffectMissing) {
-			proto.debuffs.curseOfElementsNew = TristateEffect.TristateEffectRegular;
-			proto.debuffs.curseOfElements = false;
-		}
-		if (proto.debuffs?.curseOfShadow && proto.debuffs.curseOfShadowNew == TristateEffect.TristateEffectMissing) {
-			proto.debuffs.curseOfShadowNew = TristateEffect.TristateEffectRegular;
-			proto.debuffs.curseOfShadow = false;
-		}
-
 		TypedEvent.freezeAllAndDo(() => {
 			this.setBuffs(eventID, proto.buffs || RaidBuffs.create());
 			this.setDebuffs(eventID, proto.debuffs || Debuffs.create());

@@ -2,7 +2,6 @@ import { ref } from 'tsx-vanilla';
 
 import { Player, UnitMetadata } from '../../player';
 import { ActionID, ItemSlot, OtherAction, UnitReference, UnitReference_Type as UnitType } from '../../proto/common';
-import { UIRune as Rune } from '../../proto/ui';
 import { ActionId, defaultTargetIcon, getPetIconFromName } from '../../proto_utils/action_id';
 import { itemTypeNames } from '../../proto_utils/names';
 import { EventID } from '../../typed_event';
@@ -303,31 +302,33 @@ export class APLActionIDPicker extends DropdownPicker<Player<any>, ActionID, Act
 	}
 }
 
+// TODO: remove once APLs for classes are updated
 export interface APLRunePickerConfig<ModObject>
-	extends Omit<DropdownPickerConfig<ModObject, ActionID, Rune>, 'defaultLabel' | 'equals' | 'setOptionContent' | 'values' | 'getValue' | 'setValue'> {
+	extends Omit<DropdownPickerConfig<ModObject, ActionID, null>, 'defaultLabel' | 'equals' | 'setOptionContent' | 'values' | 'getValue' | 'setValue'> {
 	getValue: (obj: ModObject) => ActionID;
 	setValue: (eventID: EventID, obj: ModObject, newValue: ActionID) => void;
 }
 
-export class APLRunePicker extends DropdownPicker<Player<any>, ActionID, Rune> {
+// TODO: remove once APLs for classes are updated
+export class APLRunePicker extends DropdownPicker<Player<any>, ActionID, null> {
 	constructor(parent: HTMLElement, player: Player<any>, config: APLRunePickerConfig<Player<any>>) {
 		super(parent, player, {
 			...config,
 			sourceToValue: (src: ActionID) => {
-				return src?.rawId.oneofKind == 'spellId' ? player.sim.db.getRuneById(src.rawId.spellId) : Rune.create();
+				return null;
 			},
-			valueToSource: (val: Rune) => {
+			valueToSource: (val: null) => {
 				return ActionID.create({
 					rawId: {
 						oneofKind: 'spellId',
-						spellId: val.id,
+						spellId: 0,
 					},
 				});
 			},
 			defaultLabel: 'Runes',
 			equals: (a, b) => a == b,
 			setOptionContent: (button, valueConfig) => {
-				const actionId = ActionId.fromSpellId(valueConfig.value.id);
+				const actionId = ActionId.fromSpellId(0);
 				const iconElem = document.createElement('a');
 				iconElem.classList.add('apl-actionid-item-icon');
 				iconElem.dataset.whtticon = 'false';
@@ -335,24 +336,14 @@ export class APLRunePicker extends DropdownPicker<Player<any>, ActionID, Rune> {
 				actionId.fillAndSet(iconElem, true, true);
 				button.appendChild(iconElem);
 
-				const textElem = document.createTextNode(valueConfig.value.name);
+				const textElem = document.createTextNode("");
 				button.appendChild(textElem);
 			},
 			values: [],
 		});
 
 		const updateValues = async () => {
-			const values = Object.values(ItemSlot)
-				.filter(v => typeof v != 'string')
-				.map(slot => player.getRunes(slot as ItemSlot))
-				.flat()
-				.map(rune => {
-					return {
-						value: rune,
-						submenu: [itemTypeNames.get(rune.type) ?? ''],
-					};
-				});
-			this.setOptions(values);
+			this.setOptions([]);
 		};
 		updateValues();
 		player.rotationChangeEmitter.on(() => this.update);
@@ -633,6 +624,7 @@ export function actionIdFieldConfig(
 	};
 }
 
+// TODO: remove once APLs for classes are updated
 export function runeFieldConfig(field: string): APLPickerBuilderFieldConfig<any, any> {
 	return {
 		field: field,

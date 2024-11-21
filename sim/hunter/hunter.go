@@ -92,7 +92,7 @@ type Hunter struct {
 	NormalizedAmmoDamageBonus float64
 
 	// Miscellaneous set bonuses that require extra logic inside of spells
-	SerpentStingAPCoeff       float64
+	SerpentStingAPCoeff float64
 
 	curQueueAura       *core.Aura
 	curQueuedAutoSpell *core.Spell
@@ -164,7 +164,6 @@ func (hunter *Hunter) AddRaidBuffs(raidBuffs *proto.RaidBuffs) {
 		}[hunter.Level])
 	}
 
-	raidBuffs.AspectOfTheLion = true
 	// Hunter gains an additional 10% stats from Aspect of the Lion
 	statMultiply := 1.1
 	hunter.MultiplyStat(stats.Strength, statMultiply)
@@ -356,7 +355,7 @@ func NewHunter(character *core.Character, options *proto.Player) *Hunter {
 }
 
 func (hunter *Hunter) HasRune(rune proto.HunterRune) bool {
-	return hunter.HasRuneById(int32(rune))
+	return false // hunter.HasRuneById(int32(rune))
 }
 
 func (hunter *Hunter) baseRuneAbilityDamage() float64 {

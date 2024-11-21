@@ -168,7 +168,7 @@ func init() {
 	})
 
 	// https://www.wowhead.com/classic/item=234198/signet-ring-of-the-bronze-dragonflight
-	core.NewItemEffect(SignetRingBronzeConquerorR5, TimeswornStrikeAura)
+	/* core.NewItemEffect(SignetRingBronzeConquerorR5, TimeswornStrikeAura)
 	core.NewItemEffect(SignetRingBronzeConquerorR4, TimeswornStrikeAura)
 	core.NewItemEffect(SignetRingBronzeConquerorR3, TimeswornStrikeAura)
 	core.NewItemEffect(SignetRingBronzeConquerorR2, TimeswornStrikeAura)
@@ -214,7 +214,7 @@ func init() {
 	core.NewItemEffect(SignetRingBronzeSubjugatorR4, TimewornDecayAura)
 	core.NewItemEffect(SignetRingBronzeSubjugatorR3, TimewornDecayAura)
 	core.NewItemEffect(SignetRingBronzeSubjugatorR2, TimewornDecayAura)
-	core.NewItemEffect(SignetRingBronzeSubjugatorR1, TimewornDecayAura)
+	core.NewItemEffect(SignetRingBronzeSubjugatorR1, TimewornDecayAura) */
 
 	///////////////////////////////////////////////////////////////////////////
 	//                                 Other
@@ -340,7 +340,7 @@ func ObsidianEdgedAura(itemID int32, agent core.Agent) {
 
 // https://www.wowhead.com/classic/spell=1214155/timeworn-decay
 // Increases the damage dealt by all of your damage over time spells by 2% per piece of Timeworn armor equipped.
-func TimewornDecayAura(agent core.Agent) {
+/* func TimewornDecayAura(agent core.Agent) {
 	character := agent.GetCharacter()
 	if character.PseudoStats.TimewornBonus == 0 {
 		return
@@ -530,3 +530,4 @@ func TimeswornStrikeAura(agent core.Agent) {
 		},
 	})
 }
+*/

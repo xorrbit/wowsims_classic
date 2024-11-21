@@ -23,7 +23,7 @@ func TestProtection(t *testing.T) {
 			Talents:     Phase4ProtTalents,
 			GearSet:     core.GetGearSet("../../../ui/protection_paladin/gear_sets", "blank"),
 			Rotation:    core.GetAplRotation("../../../ui/protection_paladin/apls", "p4prot"),
-			Buffs:       core.FullBuffsPhase4,
+			Buffs:       core.FullBuffs,
 			Consumes:    Phase4Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "P4 Prot", SpecOptions: PlayerOptionsSealofMartyrdom},
 
@@ -46,9 +46,9 @@ var Phase4Consumes = core.ConsumesCombo{
 		SpellPowerBuff:    proto.SpellPowerBuff_GreaterArcaneElixir,
 		DragonBreathChili: true,
 		Food:              proto.Food_FoodSmokedDesertDumpling,
-		MainHandImbue:     proto.WeaponImbue_WildStrikes,
-		OffHandImbue:      proto.WeaponImbue_ConductiveShieldCoating,
-		StrengthBuff:      proto.StrengthBuff_JujuPower,
+		//MainHandImbue:     proto.WeaponImbue_WildStrikes,
+		//OffHandImbue:      proto.WeaponImbue_ConductiveShieldCoating,
+		StrengthBuff: proto.StrengthBuff_JujuPower,
 	},
 }
 

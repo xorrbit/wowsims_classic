@@ -84,9 +84,7 @@ const statGroups = new Map<string, Array<UnitStat>>([
 	],
 	[
 		'Misc',
-		[
-			UnitStat.fromPseudoStat(PseudoStat.TimewornBonus),
-		]
+		[]
 	],
 ])
 

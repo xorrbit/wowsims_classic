@@ -24,7 +24,7 @@ func TestElemental(t *testing.T) {
 			Talents:     Phase4Talents,
 			GearSet:     core.GetGearSet("../../../ui/elemental_shaman/gear_sets", "blank"),
 			Rotation:    core.GetAplRotation("../../../ui/elemental_shaman/apls", "phase_5"),
-			Buffs:       core.FullBuffsPhase5,
+			Buffs:       core.FullBuffs,
 			Consumes:    Phase5Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Adaptive", SpecOptions: PlayerOptionsAdaptive},
 
@@ -46,63 +46,15 @@ var PlayerOptionsAdaptive = &proto.Player_ElementalShaman{
 	},
 }
 
-var Phase1Consumes = core.ConsumesCombo{
-	Label: "P1-Consumes",
-	Consumes: &proto.Consumes{
-		DefaultPotion: proto.Potions_ManaPotion,
-		FirePowerBuff: proto.FirePowerBuff_ElixirOfFirepower,
-		Food:          proto.Food_FoodSmokedSagefish,
-		MainHandImbue: proto.WeaponImbue_BlackfathomManaOil,
-	},
-}
-
-var Phase2Consumes = core.ConsumesCombo{
-	Label: "P2-Consumes",
-	Consumes: &proto.Consumes{
-		DefaultPotion:  proto.Potions_GreaterManaPotion,
-		FirePowerBuff:  proto.FirePowerBuff_ElixirOfFirepower,
-		Food:           proto.Food_FoodSagefishDelight,
-		MainHandImbue:  proto.WeaponImbue_LesserWizardOil,
-		OffHandImbue:   proto.WeaponImbue_LesserWizardOil,
-		SpellPowerBuff: proto.SpellPowerBuff_LesserArcaneElixir,
-	},
-}
-
-var Phase3Consumes = core.ConsumesCombo{
-	Label: "P3-Consumes",
-	Consumes: &proto.Consumes{
-		DefaultPotion:  proto.Potions_GreaterManaPotion,
-		FirePowerBuff:  proto.FirePowerBuff_ElixirOfGreaterFirepower,
-		Food:           proto.Food_FoodNightfinSoup,
-		MainHandImbue:  proto.WeaponImbue_FlametongueWeapon,
-		OffHandImbue:   proto.WeaponImbue_LesserWizardOil,
-		SpellPowerBuff: proto.SpellPowerBuff_ArcaneElixir,
-		StrengthBuff:   proto.StrengthBuff_ElixirOfGiants,
-	},
-}
-
-var Phase4Consumes = core.ConsumesCombo{
-	Label: "P4-Consumes",
-	Consumes: &proto.Consumes{
-		DefaultPotion:  proto.Potions_MajorManaPotion,
-		Flask:          proto.Flask_FlaskOfSupremePower,
-		FirePowerBuff:  proto.FirePowerBuff_ElixirOfGreaterFirepower,
-		Food:           proto.Food_FoodRunnTumTuberSurprise,
-		MainHandImbue:  proto.WeaponImbue_FlametongueWeapon,
-		OffHandImbue:   proto.WeaponImbue_ConductiveShieldCoating,
-		SpellPowerBuff: proto.SpellPowerBuff_GreaterArcaneElixir,
-	},
-}
-
 var Phase5Consumes = core.ConsumesCombo{
 	Label: "P5-Consumes",
 	Consumes: &proto.Consumes{
-		DefaultPotion:  proto.Potions_MajorManaPotion,
-		Flask:          proto.Flask_FlaskOfSupremePower,
-		FirePowerBuff:  proto.FirePowerBuff_ElixirOfGreaterFirepower,
-		Food:           proto.Food_FoodRunnTumTuberSurprise,
-		MainHandImbue:  proto.WeaponImbue_FlametongueWeapon,
-		OffHandImbue:   proto.WeaponImbue_MagnificentTrollshine,
+		DefaultPotion: proto.Potions_MajorManaPotion,
+		Flask:         proto.Flask_FlaskOfSupremePower,
+		FirePowerBuff: proto.FirePowerBuff_ElixirOfGreaterFirepower,
+		Food:          proto.Food_FoodRunnTumTuberSurprise,
+		MainHandImbue: proto.WeaponImbue_FlametongueWeapon,
+		//OffHandImbue:   proto.WeaponImbue_MagnificentTrollshine,
 		SpellPowerBuff: proto.SpellPowerBuff_GreaterArcaneElixir,
 	},
 }

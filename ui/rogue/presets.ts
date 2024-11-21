@@ -6,7 +6,6 @@ import {
 	Conjured,
 	Consumes,
 	Debuffs,
-	EnchantedSigil,
 	Flask,
 	Food,
 	IndividualBuffs,
@@ -337,15 +336,15 @@ export const P1Consumes = Consumes.create({
 	agilityElixir: AgilityElixir.ElixirOfLesserAgility,
 	dragonBreathChili: false,
 	strengthBuff: StrengthBuff.ElixirOfOgresStrength,
-	mainHandImbue: WeaponImbue.WildStrikes,
-	offHandImbue: WeaponImbue.BlackfathomSharpeningStone,
+	mainHandImbue: WeaponImbue.Windfury,
+	//offHandImbue: WeaponImbue.BlackfathomSharpeningStone,
 });
 
 export const P2Consumes = Consumes.create({
 	agilityElixir: AgilityElixir.ElixirOfAgility,
 	dragonBreathChili: false,
 	strengthBuff: StrengthBuff.ElixirOfOgresStrength,
-	mainHandImbue: WeaponImbue.WildStrikes,
+	mainHandImbue: WeaponImbue.Windfury,
 	offHandImbue: WeaponImbue.ShadowOil,
 });
 
@@ -353,7 +352,7 @@ export const P3Consumes = Consumes.create({
 	agilityElixir: AgilityElixir.ElixirOfGreaterAgility,
 	dragonBreathChili: false,
 	strengthBuff: StrengthBuff.ElixirOfOgresStrength,
-	mainHandImbue: WeaponImbue.WildStrikes,
+	mainHandImbue: WeaponImbue.Windfury,
 	offHandImbue: WeaponImbue.ShadowOil,
 });
 
@@ -362,10 +361,9 @@ export const P4Consumes = Consumes.create({
 	attackPowerBuff: AttackPowerBuff.JujuMight,
 	defaultConjured: Conjured.ConjuredRogueThistleTea,
 	dragonBreathChili: true,
-	enchantedSigil: EnchantedSigil.FlowingWatersSigil,
 	flask: Flask.FlaskOfSupremePower,
 	food: Food.FoodGrilledSquid,
-	mainHandImbue: WeaponImbue.WildStrikes,
+	mainHandImbue: WeaponImbue.Windfury,
 	miscConsumes: {
 		jujuEmber: true,
 	},
@@ -380,10 +378,9 @@ export const P5Consumes = Consumes.create({
 	attackPowerBuff: AttackPowerBuff.JujuMight,
 	defaultConjured: Conjured.ConjuredRogueThistleTea,
 	dragonBreathChili: true,
-	enchantedSigil: EnchantedSigil.FlowingWatersSigil,
 	flask: Flask.FlaskOfSupremePower,
 	food: Food.FoodGrilledSquid,
-	mainHandImbue: WeaponImbue.WildStrikes,
+	mainHandImbue: WeaponImbue.Windfury,
 	offHandImbue: WeaponImbue.ElementalSharpeningStone,
 	spellPowerBuff: SpellPowerBuff.GreaterArcaneElixir,
 	strengthBuff: StrengthBuff.JujuPower,
@@ -399,9 +396,7 @@ export const DefaultConsumes = {
 };
 
 export const DefaultRaidBuffs = RaidBuffs.create({
-	aspectOfTheLion: true,
 	battleShout: TristateEffect.TristateEffectImproved,
-	demonicPact: 110,
 	fireResistanceAura: true,
 	fireResistanceTotem: true,
 	giftOfTheWild: TristateEffect.TristateEffectImproved,
@@ -414,25 +409,18 @@ export const DefaultIndividualBuffs = IndividualBuffs.create({
 	blessingOfKings: true,
 	blessingOfMight: TristateEffect.TristateEffectImproved,
 	fengusFerocity: true,
-	mightOfStormwind: true,
 	rallyingCryOfTheDragonslayer: true,
 	saygesFortune: SaygesFortune.SaygesDamage,
 	slipkiksSavvy: true,
 	songflowerSerenade: true,
 	spiritOfZandalar: true,
-	valorOfAzeroth: true,
 	warchiefsBlessing: true,
 });
 
 export const DefaultDebuffs = Debuffs.create({
 	curseOfRecklessness: true,
-	dreamstate: true,
 	faerieFire: true,
-	homunculi: 100,
-	improvedFaerieFire: true,
 	improvedScorch: true,
-	mangle: true,
-	markOfChaos: true,
 	sunderArmor: true,
 });
 

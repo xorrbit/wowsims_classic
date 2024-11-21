@@ -1,7 +1,6 @@
 package rogue
 
 import (
-	"github.com/wowsims/classic/sim/core"
 	"github.com/wowsims/classic/sim/core/proto"
 )
 
@@ -10,7 +9,7 @@ func (rogue *Rogue) registerWaylayAura() {
 		return
 	}
 
-	rogue.WaylayAuras = rogue.NewEnemyAuraArray(func(target *core.Unit, level int32) *core.Aura {
-		return core.WaylayAura(target)
-	})
+	// rogue.WaylayAuras = rogue.NewEnemyAuraArray(func(target *core.Unit, level int32) *core.Aura {
+	// 	return core.WaylayAura(target)
+	// })
 }

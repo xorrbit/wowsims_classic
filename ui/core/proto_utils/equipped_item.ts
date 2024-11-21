@@ -1,5 +1,5 @@
 import { ItemRandomSuffix, ItemSpec, Profession } from '../proto/common.js';
-import { UIEnchant as Enchant, UIItem as Item, UIRune as Rune } from '../proto/ui.js';
+import { UIEnchant as Enchant, UIItem as Item } from '../proto/ui.js';
 import { distinct } from '../utils.js';
 import { ActionId } from './action_id.js';
 import { enchantAppliesToItem } from './utils.js';
@@ -11,7 +11,6 @@ export function getWeaponDPS(item: Item): number {
 interface EquippedItemConfig {
 	item: Item;
 	enchant?: Enchant | null;
-	rune?: Rune | null;
 	randomSuffix?: ItemRandomSuffix | null;
 }
 
@@ -24,13 +23,11 @@ export class EquippedItem {
 	readonly _item: Item;
 	readonly _randomSuffix: ItemRandomSuffix | null;
 	readonly _enchant: Enchant | null;
-	readonly _rune: Rune | null;
 
 	constructor(config: EquippedItemConfig) {
 		this._item = config.item;
 		this._randomSuffix = config.randomSuffix || null;
 		this._enchant = config.enchant || null;
-		this._rune = config.rune || null;
 	}
 
 	get item(): Item {
@@ -51,11 +48,6 @@ export class EquippedItem {
 		return this._enchant ? Enchant.clone(this._enchant) : null;
 	}
 
-	get rune(): Rune | null {
-		// Make a defensive copy
-		return this._rune ? Rune.clone(this._rune) : null;
-	}
-
 	equals(other: EquippedItem) {
 		if (!Item.equals(this._item, other.item)) return false;
 
@@ -67,10 +59,6 @@ export class EquippedItem {
 
 		if (this._enchant && other.enchant && !Enchant.equals(this._enchant, other.enchant)) return false;
 
-		if ((this._rune == null) != (other.rune == null)) return false;
-
-		if (this._rune && other.rune && !Rune.equals(this._rune, other.rune)) return false;
-
 		return true;
 	}
 
@@ -81,22 +69,18 @@ export class EquippedItem {
 		let newEnchant;
 		if (this._enchant && enchantAppliesToItem(this._enchant, item)) newEnchant = this._enchant;
 
-		return new EquippedItem({ item, enchant: newEnchant, rune: this.rune });
+		return new EquippedItem({ item, enchant: newEnchant });
 	}
 
 	/**
 	 * Returns a new EquippedItem with the given enchant applied.
 	 */
 	withEnchant(enchant: Enchant | null): EquippedItem {
-		return new EquippedItem({ item: this._item, enchant, rune: this._rune, randomSuffix: this._randomSuffix });
-	}
-
-	withRune(rune: Rune | null): EquippedItem {
-		return new EquippedItem({ item: this._item, enchant: this.enchant, rune, randomSuffix: this._randomSuffix });
+		return new EquippedItem({ item: this._item, enchant, randomSuffix: this._randomSuffix });
 	}
 
 	withRandomSuffix(randomSuffix: ItemRandomSuffix | null): EquippedItem {
-		return new EquippedItem({ item: this._item, enchant: this.enchant, rune: this._rune, randomSuffix });
+		return new EquippedItem({ item: this._item, enchant: this.enchant, randomSuffix });
 	}
 
 	asActionId(): ActionId {
@@ -110,7 +94,6 @@ export class EquippedItem {
 			id: this._item.id,
 			randomSuffix: this._randomSuffix?.id,
 			enchant: this._enchant?.effectId,
-			rune: this._rune?.id,
 		});
 	}
 

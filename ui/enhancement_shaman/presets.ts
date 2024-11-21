@@ -5,7 +5,6 @@ import {
 	AttackPowerBuff,
 	Consumes,
 	Debuffs,
-	EnchantedSigil,
 	FirePowerBuff,
 	Flask,
 	Food,
@@ -108,13 +107,11 @@ export const DefaultConsumes = Consumes.create({
 	attackPowerBuff: AttackPowerBuff.JujuMight,
 	defaultPotion: Potions.MajorManaPotion,
 	dragonBreathChili: true,
-	enchantedSigil: EnchantedSigil.FlowingWatersSigil,
 	firePowerBuff: FirePowerBuff.ElixirOfGreaterFirepower,
 	flask: Flask.FlaskOfSupremePower,
 	food: Food.FoodBlessSunfruit,
 	mainHandImbue: WeaponImbue.WindfuryWeapon,
 	manaRegenElixir: ManaRegenElixir.MagebloodPotion,
-	mildlyIrradiatedRejuvPot: true,
 	offHandImbue: WeaponImbue.WindfuryWeapon,
 	spellPowerBuff: SpellPowerBuff.GreaterArcaneElixir,
 	strengthBuff: StrengthBuff.JujuPower,
@@ -123,9 +120,7 @@ export const DefaultConsumes = Consumes.create({
 
 export const DefaultRaidBuffs = RaidBuffs.create({
 	arcaneBrilliance: true,
-	aspectOfTheLion: true,
 	battleShout: TristateEffect.TristateEffectImproved,
-	demonicPact: 110,
 	divineSpirit: true,
 	fireResistanceAura: true,
 	fireResistanceTotem: true,
@@ -134,7 +129,6 @@ export const DefaultRaidBuffs = RaidBuffs.create({
 	leaderOfThePack: true,
 	manaSpringTotem: TristateEffect.TristateEffectRegular,
 	strengthOfEarthTotem: TristateEffect.TristateEffectImproved,
-	vampiricTouch: 300,
 });
 
 export const DefaultIndividualBuffs = IndividualBuffs.create({
@@ -144,7 +138,6 @@ export const DefaultIndividualBuffs = IndividualBuffs.create({
 	slipkiksSavvy: true,
 	songflowerSerenade: true,
 	spiritOfZandalar: true,
-	valorOfAzeroth: true,
 	warchiefsBlessing: true,
 });
 
@@ -152,11 +145,7 @@ export const DefaultDebuffs = Debuffs.create({
 	curseOfRecklessness: true,
 	exposeArmor: TristateEffect.TristateEffectImproved,
 	faerieFire: true,
-	homunculi: 70, // 70% average uptime default
-	improvedFaerieFire: true,
 	improvedScorch: true,
-	markOfChaos: true,
-	occultPoison: true,
 	stormstrike: true,
 	sunderArmor: true,
 });

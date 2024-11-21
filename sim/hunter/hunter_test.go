@@ -23,8 +23,8 @@ func TestBM(t *testing.T) {
 			Talents:     Phase2BMTalents,
 			GearSet:     core.GetGearSet("../../ui/hunter/gear_sets", "placeholder"),
 			Rotation:    core.GetAplRotation("../../ui/hunter/apls", "p2_melee"),
-			Buffs:       core.FullBuffsPhase2,
-			Consumes:    Phase2Consumes,
+			Buffs:       core.FullBuffs,
+			Consumes:    Phase4Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Basic", SpecOptions: Phase2PlayerOptions},
 
 			OtherRotations: []core.RotationCombo{core.GetAplRotation("../../ui/hunter/apls", "p2_ranged_bm")},
@@ -48,7 +48,7 @@ func TestMM(t *testing.T) {
 			Talents:     Phase4RangedMMTalents,
 			GearSet:     core.GetGearSet("../../ui/hunter/gear_sets", "placeholder"),
 			Rotation:    core.GetAplRotation("../../ui/hunter/apls", "p4_ranged"),
-			Buffs:       core.FullBuffsPhase4,
+			Buffs:       core.FullBuffs,
 			Consumes:    Phase4Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Weave", SpecOptions: Phase4PlayerOptions},
 
@@ -71,7 +71,7 @@ func TestSV(t *testing.T) {
 			Talents:     Phase4WeaveTalents,
 			GearSet:     core.GetGearSet("../../ui/hunter/gear_sets", "placeholder"),
 			Rotation:    core.GetAplRotation("../../ui/hunter/apls", "p4_weave"),
-			Buffs:       core.FullBuffsPhase4,
+			Buffs:       core.FullBuffs,
 			Consumes:    Phase4Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Weave", SpecOptions: Phase4PlayerOptions},
 
@@ -94,32 +94,6 @@ var Phase4WeaveTalents = "-055500005-3305202202303051"
 var Phase4RangedMMTalents = "-05451002503051-33400023023"
 var Phase4RangedSVTalents = "1-054510005-334000250230305"
 
-var Phase1Consumes = core.ConsumesCombo{
-	Label: "P1-Consumes",
-	Consumes: &proto.Consumes{
-		AgilityElixir: proto.AgilityElixir_ElixirOfLesserAgility,
-		DefaultPotion: proto.Potions_ManaPotion,
-		Food:          proto.Food_FoodSmokedSagefish,
-		MainHandImbue: proto.WeaponImbue_WildStrikes,
-		OffHandImbue:  proto.WeaponImbue_BlackfathomSharpeningStone,
-		StrengthBuff:  proto.StrengthBuff_ElixirOfOgresStrength,
-	},
-}
-
-var Phase2Consumes = core.ConsumesCombo{
-	Label: "P2-Consumes",
-	Consumes: &proto.Consumes{
-		AgilityElixir:     proto.AgilityElixir_ElixirOfAgility,
-		DefaultPotion:     proto.Potions_ManaPotion,
-		DragonBreathChili: true,
-		Food:              proto.Food_FoodSagefishDelight,
-		MainHandImbue:     proto.WeaponImbue_WildStrikes,
-		OffHandImbue:      proto.WeaponImbue_SolidWeightstone,
-		SpellPowerBuff:    proto.SpellPowerBuff_LesserArcaneElixir,
-		StrengthBuff:      proto.StrengthBuff_ElixirOfOgresStrength,
-	},
-}
-
 var Phase4Consumes = core.ConsumesCombo{
 	Label: "P4-Consumes",
 	Consumes: &proto.Consumes{
@@ -129,7 +103,7 @@ var Phase4Consumes = core.ConsumesCombo{
 		DragonBreathChili: true,
 		Flask:             proto.Flask_FlaskOfSupremePower,
 		Food:              proto.Food_FoodSagefishDelight,
-		MainHandImbue:     proto.WeaponImbue_WildStrikes,
+		MainHandImbue:     proto.WeaponImbue_Windfury,
 		OffHandImbue:      proto.WeaponImbue_ElementalSharpeningStone,
 		SpellPowerBuff:    proto.SpellPowerBuff_GreaterArcaneElixir,
 		StrengthBuff:      proto.StrengthBuff_JujuPower,

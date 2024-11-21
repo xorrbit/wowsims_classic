@@ -268,7 +268,7 @@ func ClawOfChromaggusEffect(character *core.Character) {
 		fireChance, frostChance, shadowChance = 0.50/3, 0.50/3, 0.50/3
 	case proto.Class_ClassMage:
 		// The weapon's effect for mage is specialized, based off of selected runes
-		if character.HasRuneById(int32(proto.MageRune_RuneBeltFrostfireBolt)) {
+		/* if character.HasRuneById(int32(proto.MageRune_RuneBeltFrostfireBolt)) {
 			fireChance, frostChance = 0.25, 0.25
 			arcaneChance, natureChance, shadowChance = 0.50/3, 0.50/3, 0.50/3
 		} else if character.HasRuneById(int32(proto.MageRune_RuneBeltSpellfrostBolt)) {
@@ -277,7 +277,7 @@ func ClawOfChromaggusEffect(character *core.Character) {
 		} else if character.HasRuneById(int32(proto.MageRune_RuneBeltMissileBarrage)) {
 			arcaneChance = 0.50
 			fireChance, frostChance, natureChance, shadowChance = 0.125, 0.125, 0.125, 0.125
-		}
+		} */
 	case proto.Class_ClassPriest:
 		// Confirmed 50% proc chance for Shadow and the other 50% divided among the other 4 schools
 		shadowChance = 0.50
@@ -287,11 +287,11 @@ func ClawOfChromaggusEffect(character *core.Character) {
 		fireChance, natureChance = 0.25, 0.25
 		arcaneChance, frostChance, shadowChance = 0.50/3, 0.50/3, 0.50/3
 	case proto.Class_ClassWarlock:
-		if character.HasRuneById(int32(proto.WarlockRune_RuneBracerIncinerate)) {
+		/* if character.HasRuneById(int32(proto.WarlockRune_RuneBracerIncinerate)) {
 			// Confirmed 50% Fire, 50% divided among the other 4
 			fireChance = 0.50
 			arcaneChance, frostChance, natureChance, shadowChance = 0.125, 0.125, 0.125, 0.125
-		} else {
+		} else  */{
 			// Confirmed 50% Shadow, 50% divided among the other 4
 			shadowChance = 0.50
 			arcaneChance, fireChance, frostChance, natureChance = 0.125, 0.125, 0.125, 0.125

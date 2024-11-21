@@ -41,7 +41,6 @@ import {
 	UIEnchant as Enchant,
 	UIItem as Item,
 	UIItem_FactionRestriction,
-	UIRune as Rune,
 } from './proto/ui.js';
 import { ActionId, ActionIdConfig } from './proto_utils/action_id.js';
 import { Database } from './proto_utils/database.js';
@@ -426,14 +425,6 @@ export class Player<SpecType extends Spec> {
 	// Returns all enchants that this player can wear in the given slot.
 	getEnchants(slot: ItemSlot): Array<Enchant> {
 		return this.sim.db.getEnchants(slot).filter(enchant => canEquipEnchant(enchant, this));
-	}
-
-	getRunes(slot: ItemSlot): Array<Rune> {
-		return this.sim.db.getRunes(slot, this.getClass());
-	}
-
-	hasRune(slot: ItemSlot, runeId: number): boolean {
-		return this.getEquippedItem(slot)?.rune?.id === runeId;
 	}
 
 	getEpWeights(): Stats {
@@ -1348,7 +1339,6 @@ export class Player<SpecType extends Spec> {
 				inFrontOfTarget: this.getInFrontOfTarget(),
 				distanceFromTarget: this.getDistanceFromTarget(),
 				healingModel: this.getHealingModel(),
-				isbUsingShadowflame: this.getIsbUsingShadowflame(),
 				isbSbFrequency: this.getIsbSbFrequency(),
 				isbCrit: this.getIsbCrit(),
 				isbWarlocks: this.getIsbWarlocks(),
