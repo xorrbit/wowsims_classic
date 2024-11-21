@@ -611,16 +611,6 @@ func applyMiscConsumes(character *Character, miscConsumes *proto.MiscConsumes) {
 		character.PseudoStats.BonusPhysicalDamage += 1
 	}
 
-	if miscConsumes.ElixirOfCoalescedRegret {
-		character.AddStats(stats.Stats{
-			stats.Stamina:   1,
-			stats.Agility:   1,
-			stats.Strength:  1,
-			stats.Intellect: 1,
-			stats.Spirit:    1,
-		})
-	}
-
 	if miscConsumes.JujuEmber {
 		character.AddStat(stats.FireResistance, 15)
 	}

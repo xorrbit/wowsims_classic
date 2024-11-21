@@ -2143,7 +2143,7 @@ func ApplySongflowerSerenade(unit *Unit) {
 }
 
 func ApplyWarchiefsBuffs(unit *Unit, buffs *proto.IndividualBuffs, isAlliance bool, isHorde bool) {
-	if buffs.WarchiefsBlessing && isHorde {
+	if buffs.WarchiefsBlessing /* && isHorde */ {
 		ApplyWarchiefsBlessing(unit, "WarchiefsBuff")
 	}
 }

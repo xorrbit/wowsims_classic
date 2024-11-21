@@ -106,22 +106,22 @@ dps_results: {
 dps_results: {
  key: "TestArcane-Phase5-Lvl60-Settings-Gnome-blank-Arcane-p5_spellfrost-FullBuffs-P5-Consumes-LongMultiTarget"
  value: {
-  dps: 371.87485
-  tps: 653.94848
+  dps: 371.0616
+  tps: 648.00894
  }
 }
 dps_results: {
  key: "TestArcane-Phase5-Lvl60-Settings-Gnome-blank-Arcane-p5_spellfrost-FullBuffs-P5-Consumes-LongSingleTarget"
  value: {
-  dps: 371.87485
-  tps: 385.97853
+  dps: 371.0616
+  tps: 384.90897
  }
 }
 dps_results: {
  key: "TestArcane-Phase5-Lvl60-Settings-Gnome-blank-Arcane-p5_spellfrost-FullBuffs-P5-Consumes-ShortSingleTarget"
  value: {
   dps: 388.44813
-  tps: 404.37983
+  tps: 404.27494
  }
 }
 dps_results: {

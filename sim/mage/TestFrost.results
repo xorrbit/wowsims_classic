@@ -106,22 +106,22 @@ dps_results: {
 dps_results: {
  key: "TestFrost-Phase5-Lvl60-Settings-Gnome-blank-Frost-p5_spellfrost-FullBuffs-P5-Consumes-LongMultiTarget"
  value: {
-  dps: 397.37884
-  tps: 587.62691
+  dps: 399.58783
+  tps: 587.87827
  }
 }
 dps_results: {
  key: "TestFrost-Phase5-Lvl60-Settings-Gnome-blank-Frost-p5_spellfrost-FullBuffs-P5-Consumes-LongSingleTarget"
  value: {
-  dps: 397.37884
-  tps: 317.79797
+  dps: 399.58783
+  tps: 318.94962
  }
 }
 dps_results: {
  key: "TestFrost-Phase5-Lvl60-Settings-Gnome-blank-Frost-p5_spellfrost-FullBuffs-P5-Consumes-ShortSingleTarget"
  value: {
   dps: 400.34254
-  tps: 323.00782
+  tps: 322.31659
  }
 }
 dps_results: {

@@ -121,21 +121,21 @@ dps_results: {
  key: "TestMM-Phase4-Lvl60-Settings-Dwarf-placeholder-Weave-p4_ranged-FullBuffs-P4-Consumes-LongMultiTarget"
  value: {
   dps: 419.37663
-  tps: 579.53896
+  tps: 579.42693
  }
 }
 dps_results: {
  key: "TestMM-Phase4-Lvl60-Settings-Dwarf-placeholder-Weave-p4_ranged-FullBuffs-P4-Consumes-LongSingleTarget"
  value: {
   dps: 274.78179
-  tps: 282.80957
+  tps: 282.80397
  }
 }
 dps_results: {
  key: "TestMM-Phase4-Lvl60-Settings-Dwarf-placeholder-Weave-p4_ranged-FullBuffs-P4-Consumes-ShortSingleTarget"
  value: {
   dps: 266.84113
-  tps: 276.58129
+  tps: 276.55328
  }
 }
 dps_results: {

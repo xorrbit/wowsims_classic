@@ -106,15 +106,15 @@ dps_results: {
 dps_results: {
  key: "TestBalance-Phase5-Lvl60-Settings-NightElf-blank-Default-phase_5-FullBuffs-P5-Consumes-LongMultiTarget"
  value: {
-  dps: 514.55703
-  tps: 750.86219
+  dps: 520.28089
+  tps: 758.25771
  }
 }
 dps_results: {
  key: "TestBalance-Phase5-Lvl60-Settings-NightElf-blank-Default-phase_5-FullBuffs-P5-Consumes-LongSingleTarget"
  value: {
-  dps: 403.21466
-  tps: 416.06733
+  dps: 409.77009
+  tps: 422.72601
  }
 }
 dps_results: {

@@ -106,22 +106,22 @@ dps_results: {
 dps_results: {
  key: "TestFire-Phase5-Lvl60-Settings-Gnome-blank-Fire-p5_fire-FullBuffs-P5-Consumes-LongMultiTarget"
  value: {
-  dps: 328.52541
-  tps: 562.21997
+  dps: 336.04823
+  tps: 563.87387
  }
 }
 dps_results: {
  key: "TestFire-Phase5-Lvl60-Settings-Gnome-blank-Fire-p5_fire-FullBuffs-P5-Consumes-LongSingleTarget"
  value: {
-  dps: 328.52541
-  tps: 246.5804
+  dps: 336.04823
+  tps: 251.66577
  }
 }
 dps_results: {
  key: "TestFire-Phase5-Lvl60-Settings-Gnome-blank-Fire-p5_fire-FullBuffs-P5-Consumes-ShortSingleTarget"
  value: {
-  dps: 414.68439
-  tps: 302.05357
+  dps: 414.69838
+  tps: 302.05805
  }
 }
 dps_results: {

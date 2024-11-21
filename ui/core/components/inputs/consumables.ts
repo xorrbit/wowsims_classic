@@ -545,12 +545,10 @@ export const JujuFlurry = makeBooleanMiscConsumeInput({
 	fieldName: 'jujuFlurry',
 	showWhen: player => player.getLevel() >= 55,
 });
-export const elixirOfCoalescedRegret = makeBooleanMiscConsumeInput({ actionId: () => ActionId.fromItemId(210708), fieldName: 'elixirOfCoalescedRegret' });
 export const BoglingRoot = makeBooleanMiscConsumeInput({ actionId: () => ActionId.fromItemId(5206), fieldName: 'boglingRoot' });
 
 export const MISC_OFFENSIVE_CONSUMES_CONFIG: PickerStatOptions[] = [
 	{ config: JujuFlurry, picker: IconPicker, stats: [Stat.StatAttackPower] },
-	{ config: elixirOfCoalescedRegret, picker: IconPicker, stats: [] },
 	{ config: BoglingRoot, picker: IconPicker, stats: [Stat.StatAttackPower] },
 ];
 

@@ -469,11 +469,10 @@ enum ZanzaBuff {
 
 message MiscConsumes {
 	bool bogling_root = 1;
-	bool elixir_of_coalesced_regret = 2;
-	bool juju_ember = 3;
-	bool juju_chill = 4;
-	bool juju_escape = 5;
-	bool juju_flurry = 6;
+	bool juju_ember = 2;
+	bool juju_chill = 3;
+	bool juju_escape = 4;
+	bool juju_flurry = 5;
 }
 
 message PetMiscConsumes {

@@ -106,8 +106,8 @@ dps_results: {
 dps_results: {
  key: "TestShadow-Phase5-Lvl60-Settings-NightElf-blank-Basic-phase_5-FullBuffs-P4-Consumes-LongMultiTarget"
  value: {
-  dps: 626.36854
-  tps: 813.79835
+  dps: 644.32784
+  tps: 810.64669
  }
 }
 dps_results: {

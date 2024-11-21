@@ -106,22 +106,22 @@ dps_results: {
 dps_results: {
  key: "TestBM-Phase2-Lvl40-Settings-NightElf-placeholder-Basic-p2_melee-FullBuffs-P4-Consumes-LongMultiTarget"
  value: {
-  dps: 859.33765
-  tps: 874.55169
+  dps: 938.88875
+  tps: 912.66402
  }
 }
 dps_results: {
  key: "TestBM-Phase2-Lvl40-Settings-NightElf-placeholder-Basic-p2_melee-FullBuffs-P4-Consumes-LongSingleTarget"
  value: {
-  dps: 598.76357
-  tps: 279.15801
+  dps: 667.23482
+  tps: 313.89596
  }
 }
 dps_results: {
  key: "TestBM-Phase2-Lvl40-Settings-NightElf-placeholder-Basic-p2_melee-FullBuffs-P4-Consumes-ShortSingleTarget"
  value: {
-  dps: 627.58942
-  tps: 276.35825
+  dps: 701.09983
+  tps: 319.47299
  }
 }
 dps_results: {
@@ -148,22 +148,22 @@ dps_results: {
 dps_results: {
  key: "TestBM-Phase2-Lvl40-Settings-NightElf-placeholder-Basic-p2_ranged_bm-FullBuffs-P4-Consumes-LongMultiTarget"
  value: {
-  dps: 747.70435
-  tps: 718.10614
+  dps: 787.77778
+  tps: 681.30603
  }
 }
 dps_results: {
  key: "TestBM-Phase2-Lvl40-Settings-NightElf-placeholder-Basic-p2_ranged_bm-FullBuffs-P4-Consumes-LongSingleTarget"
  value: {
-  dps: 660.88371
-  tps: 342.06625
+  dps: 698.66246
+  tps: 339.611
  }
 }
 dps_results: {
  key: "TestBM-Phase2-Lvl40-Settings-NightElf-placeholder-Basic-p2_ranged_bm-FullBuffs-P4-Consumes-ShortSingleTarget"
  value: {
-  dps: 701.0324
-  tps: 342.51098
+  dps: 734.58089
+  tps: 336.78729
  }
 }
 dps_results: {

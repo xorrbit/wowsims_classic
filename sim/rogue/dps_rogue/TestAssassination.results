@@ -13,7 +13,7 @@ character_stats_results: {
   final_stats: 0
   final_stats: 0
   final_stats: 0
-  final_stats: 24
+  final_stats: 34
   final_stats: 0
   final_stats: 21
   final_stats: 0
@@ -35,7 +35,7 @@ character_stats_results: {
   final_stats: 17.44283
   final_stats: 5
   final_stats: 0
-  final_stats: 2806.9575
+  final_stats: 3106.9575
   final_stats: 13
   final_stats: 30
   final_stats: 30
@@ -50,8 +50,8 @@ character_stats_results: {
 stat_weights_results: {
  key: "TestAssassination-Phase2-Lvl40-StatWeights-Default"
  value: {
-  weights: 0.10757
-  weights: 0.15682
+  weights: 0.12364
+  weights: 0.18085
   weights: 0
   weights: 0
   weights: 0
@@ -67,9 +67,9 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.08503
-  weights: 0.36349
-  weights: 0.71253
+  weights: 0.09774
+  weights: 0.41048
+  weights: 0.82634
   weights: 0
   weights: 0
   weights: 0
@@ -99,8 +99,8 @@ stat_weights_results: {
 dps_results: {
  key: "TestAssassination-Phase2-Lvl40-Average-Default"
  value: {
-  dps: 77.62275
-  tps: 55.11216
+  dps: 89.26122
+  tps: 63.37547
  }
 }
 dps_results: {
@@ -154,7 +154,7 @@ dps_results: {
 dps_results: {
  key: "TestAssassination-Phase2-Lvl40-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 72.75594
-  tps: 51.65672
+  dps: 83.64203
+  tps: 59.38584
  }
 }

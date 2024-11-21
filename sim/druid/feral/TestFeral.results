@@ -106,15 +106,15 @@ dps_results: {
 dps_results: {
  key: "TestFeral-Phase5-Lvl60-Settings-NightElf-blank-Default-NoBleed-phase_5-FullBuffs-P4-Consumes-LongMultiTarget"
  value: {
-  dps: 402.37416
-  tps: 518.26188
+  dps: 405.3226
+  tps: 520.99922
  }
 }
 dps_results: {
  key: "TestFeral-Phase5-Lvl60-Settings-NightElf-blank-Default-NoBleed-phase_5-FullBuffs-P4-Consumes-LongSingleTarget"
  value: {
-  dps: 381.0503
-  tps: 282.21897
+  dps: 384.24199
+  tps: 284.53209
  }
 }
 dps_results: {
@@ -148,15 +148,15 @@ dps_results: {
 dps_results: {
  key: "TestFeral-Phase5-Lvl60-Settings-NightElf-blank-Default-phase_5-FullBuffs-P4-Consumes-LongMultiTarget"
  value: {
-  dps: 402.37416
-  tps: 518.26188
+  dps: 405.3226
+  tps: 520.99922
  }
 }
 dps_results: {
  key: "TestFeral-Phase5-Lvl60-Settings-NightElf-blank-Default-phase_5-FullBuffs-P4-Consumes-LongSingleTarget"
  value: {
-  dps: 381.0503
-  tps: 282.21897
+  dps: 384.24199
+  tps: 284.53209
  }
 }
 dps_results: {
@@ -190,15 +190,15 @@ dps_results: {
 dps_results: {
  key: "TestFeral-Phase5-Lvl60-Settings-NightElf-blank-Flower-Aoe-phase_5-FullBuffs-P4-Consumes-LongMultiTarget"
  value: {
-  dps: 402.37416
-  tps: 518.26188
+  dps: 405.3226
+  tps: 520.99922
  }
 }
 dps_results: {
  key: "TestFeral-Phase5-Lvl60-Settings-NightElf-blank-Flower-Aoe-phase_5-FullBuffs-P4-Consumes-LongSingleTarget"
  value: {
-  dps: 381.0503
-  tps: 282.21897
+  dps: 384.24199
+  tps: 284.53209
  }
 }
 dps_results: {

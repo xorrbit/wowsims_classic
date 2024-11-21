@@ -498,7 +498,7 @@ export const WarchiefsBlessing = withLabel(
 	makeBooleanIndividualBuffInput({
 		actionId: () => ActionId.fromSpellId(16609),
 		fieldName: 'warchiefsBlessing',
-		showWhen: player => player.getFaction() === Faction.Horde,
+		// showWhen: player => player.getFaction() === Faction.Horde,
 	}),
 	`Warchief's Blessing`,
 );
