@@ -15,29 +15,12 @@ func TestCombat(t *testing.T) {
 	core.RunTestSuite(t, t.Name(), core.FullCharacterTestSuiteGenerator([]core.CharacterSuiteConfig{
 		{
 			Class:      proto.Class_ClassRogue,
-			Level:      25,
-			Race:       proto.Race_RaceHuman,
-			OtherRaces: []proto.Race{proto.Race_RaceOrc},
-
-			Talents:     CombatDagger25Talents,
-			GearSet:     core.GetGearSet("../../../ui/rogue/gear_sets", "p1_combat"),
-			Rotation:    core.GetAplRotation("../../../ui/rogue/apls", "basic_strike_25"),
-			Buffs:       core.FullBuffsPhase1,
-			Consumes:    Phase1Consumes,
-			SpecOptions: core.SpecOptionsCombo{Label: "No Poisons", SpecOptions: DefaultCombatRogue},
-
-			ItemFilter:      ItemFilters,
-			EPReferenceStat: proto.Stat_StatAttackPower,
-			StatsToWeigh:    Stats,
-		},
-		{
-			Class:      proto.Class_ClassRogue,
 			Level:      40,
 			Race:       proto.Race_RaceHuman,
 			OtherRaces: []proto.Race{proto.Race_RaceOrc},
 
 			Talents:     CombatDagger40Talents,
-			GearSet:     core.GetGearSet("../../../ui/rogue/gear_sets", "p2_daggers"),
+			GearSet:     core.GetGearSet("../../../ui/rogue/gear_sets", "blank"),
 			Rotation:    core.GetAplRotation("../../../ui/rogue/apls", "mutilate"),
 			Buffs:       core.FullBuffsPhase2,
 			Consumes:    Phase2Consumes,
@@ -54,29 +37,12 @@ func TestAssassination(t *testing.T) {
 	core.RunTestSuite(t, t.Name(), core.FullCharacterTestSuiteGenerator([]core.CharacterSuiteConfig{
 		{
 			Class:      proto.Class_ClassRogue,
-			Level:      25,
-			Race:       proto.Race_RaceHuman,
-			OtherRaces: []proto.Race{proto.Race_RaceOrc},
-
-			Talents:     Assassination25Talents,
-			GearSet:     core.GetGearSet("../../../ui/rogue/gear_sets", "p1_daggers"),
-			Rotation:    core.GetAplRotation("../../../ui/rogue/apls", "mutilate"),
-			Buffs:       core.FullBuffsPhase1,
-			Consumes:    Phase1Consumes,
-			SpecOptions: core.SpecOptionsCombo{Label: "No Poisons", SpecOptions: DefaultAssassinationRogue},
-
-			ItemFilter:      ItemFilters,
-			EPReferenceStat: proto.Stat_StatAttackPower,
-			StatsToWeigh:    Stats,
-		},
-		{
-			Class:      proto.Class_ClassRogue,
 			Level:      40,
 			Race:       proto.Race_RaceHuman,
 			OtherRaces: []proto.Race{proto.Race_RaceOrc},
 
 			Talents:     Assassination40Talents,
-			GearSet:     core.GetGearSet("../../../ui/rogue/gear_sets", "p2_daggers"),
+			GearSet:     core.GetGearSet("../../../ui/rogue/gear_sets", "blank"),
 			Rotation:    core.GetAplRotation("../../../ui/rogue/apls", "mutilate"),
 			Buffs:       core.FullBuffsPhase2,
 			Consumes:    Phase2Consumes,

@@ -12,138 +12,115 @@ import (
 
 // Ordered by ID
 const (
-	ShortswordOfVengeance           = 754
-	FieryWarAxe                     = 870
-	Bloodrazor                      = 809
-	HammerOfTheNorthernWind         = 810
-	FlurryAxe                       = 871
-	SkullflameShield                = 1168
-	Nightblade                      = 1982
-	Shadowblade                     = 2163
-	GutRipper                       = 2164
-	HandOfEdwardTheOdd              = 2243
-	BowOfSearingArrows              = 2825
-	Gutwrencher                     = 5616
-	Ravager                         = 7717
-	HanzoSword                      = 8190
-	TheJackhammer                   = 9423
-	PendulumOfDoom                  = 9425
-	BloodletterScalpel              = 9511
-	TheHandOfAntusul                = 9639
-	GryphonRidersStormhammer        = 9651
-	Firebreather                    = 10797
-	VilerendSlicer                  = 11603
-	HookfangShanker                 = 11635
-	LinkensSwordOfMastery           = 11902
-	SearingNeedle                   = 12531
-	PipsSkinner                     = 12709
-	ArcaniteChampion                = 12790
-	MasterworkStormhammer           = 12794
-	Frostguard                      = 12797
-	SerpentSlicer                   = 13035
-	TheNeedler                      = 13060
-	SealOfTheDawn                   = 13209
-	JoonhosMercy                    = 17054
-	Deathbringer                    = 17068
-	ViskagTheBloodletter            = 17075
-	ThrashBlade                     = 17705
-	SatyrsLash                      = 17752
-	MarkOfTheChosen                 = 17774
-	Nightfall                       = 19169
-	EbonHand                        = 19170
-	RuneOfTheDawn                   = 19812
-	ZandalariHeroBadge              = 19948
-	ZandalariHeroMedallion          = 19949
-	ZandalariHeroCharm              = 19950
-	MarkOfTheChampionPhys           = 23206
-	MarkOfTheChampionSpell          = 23207
-	BlisteringRagehammer            = 220569 // 10626
-	SulfurasHandOfRagnaros          = 227683 // 17182
-	SulfuronHammer                  = 227684 // 17193
-	TemperedBlackAmnesty            = 227832 // 19166
-	EbonFist                        = 227842
-	HardenedFrostguard              = 227887
-	FlameWrath                      = 227934 // 11809
-	LordGeneralsSword               = 227940 // 11817
-	WraithScythe                    = 227941
-	SecondWind                      = 227967 // 11819
-	BurstOfKnowledge                = 227972
-	HandOfInjustice                 = 227990
-	Ironfoe                         = 227991 // 11684
-	EbonHiltOfMarduk                = 227993 // 14576
-	FrightskullShaft                = 227994 // 14531
-	BarovianFamilySword             = 227997 // 14541
-	Frightalon                      = 228015 // 14024
-	HeadmastersCharge               = 228022 // 13937
-	GravestoneWarAxe                = 228029 // 13983
-	FiendishMachete                 = 228056 // 18310
-	RefinedArcaniteChampion         = 228125
-	TalismanOfEphemeralPower        = 228255 // 18820
-	GutgoreRipper                   = 228267 // 17071
-	Shadowstrike                    = 228272 // 17074
-	Thunderstrike                   = 228273 // 17223
-	BonereaversEdge                 = 228288 // 17076
-	BonereaversEdgeMolten           = 228461
-	EssenceOfThePureFlame           = 228293 // 18815
-	PerditionsBlade                 = 228296 // 18816
-	Typhoon                         = 228347 // 18542
-	EskhandarsLeftClaw              = 228349 // 18202
-	EskhandarsRightClaw             = 228350 // 18203
-	BlazefuryMedallion              = 228354 // 17111
-	EmpyreanDemolisher              = 228397 // 17112
-	DreadbladeOfTheDestructor       = 228410
-	PerditionsBladeMolten           = 228511
-	SkullforgeReaver                = 228542 // 13361
-	RunebladeOfBaronRivendare       = 228543 // 13505
-	HeartOfWyrmthalak               = 228599 // 22321
-	Venomspitter                    = 228573 // 13183
-	SmolderwebsEye                  = 228576 // 13213
-	Chillpike                       = 228586 // 13148
-	FangOfTheCrystalSpider          = 228592 // 13218
-	BlackhandDoomsaw                = 228603 // 12583
-	BlackbladeOfShahram             = 228606 // 12592
-	SeepingWillow                   = 228666 // 12969
-	DraconicInfusedEmblem           = 228678 // 22268
-	QuelSerrar                      = 228679 // 18348
-	HandOfJustice                   = 228722 // 11815
-	Felstriker                      = 228757 // 12590
-	GutgoreRipperMolten             = 229372
-	EskhandarsRightClawMolten       = 229379
-	Thunderfury                     = 230224 // 19019
-	TheUntamedBlade                 = 230242 // 19334
-	DrakeTalonCleaver               = 230271 // 19353
-	JekliksCrusher                  = 230911 // 19918
-	ZulianSlicer                    = 230930 // 19901
-	HalberdOfSmiting                = 230991 // 19874
-	NatPaglesBrokenReel             = 231271 // 19947
-	TigulesHarpoon                  = 231272 // 19946
-	GrileksCarver                   = 231273 // 19962
-	GrileksGrinder                  = 231274 // 19961
-	PitchforkOfMadness              = 231277 // 19963
-	GrileksCarverBloodied           = 231846
-	GrileksGrinderBloodied          = 231847
-	TigulesHarpoonBloodied          = 231849
-	JekliksCrusherBloodied          = 231861
-	PitchforkOfMadnessBloodied      = 231864
-	HalberdOfSmitingBloodied        = 231870
-	ZulianSlicerBloodied            = 231876
-	DrakeTalonCleaverShadowflame    = 232562
-	TheUntamedBladeShadowflame      = 232566
-	ScarabBrooch                    = 233601 // 21625
-	KalimdorsRevenge                = 233621
-	JomGabbar                       = 233627 // 23570
-	NeretzekBloodDrinker            = 233647
-	Speedstone                      = 233990
-	ManslayerOfTheQiraji            = 234067
-	EyeOfMoam                       = 234080 // 21473
-	DarkmoonCardHeroism             = 234176 // 19287
-	DarkmoonCardBlueDragon          = 234177 // 19288
-	DarkmoonCardMaelstrom           = 234178 // 19289
-	Earthstrike                     = 234462
-	WrathOfCenarius                 = 234463 // 21190
-	KalimdorsRevengeVoidTouched     = 234981
-	NeretzekBloodDrinkerVoidTouched = 234987
-	ManslayerOfTheQirajiVoidTouched = 234990
+	ShortswordOfVengeance    = 754
+	FieryWarAxe              = 870
+	Bloodrazor               = 809
+	HammerOfTheNorthernWind  = 810
+	FlurryAxe                = 871
+	SkullflameShield         = 1168
+	Nightblade               = 1982
+	Shadowblade              = 2163
+	GutRipper                = 2164
+	HandOfEdwardTheOdd       = 2243
+	BowOfSearingArrows       = 2825
+	Gutwrencher              = 5616
+	Ravager                  = 7717
+	HanzoSword               = 8190
+	TheJackhammer            = 9423
+	PendulumOfDoom           = 9425
+	BloodletterScalpel       = 9511
+	TheHandOfAntusul         = 9639
+	GryphonRidersStormhammer = 9651
+	Firebreather             = 10797
+	VilerendSlicer           = 11603
+	HookfangShanker          = 11635
+	LinkensSwordOfMastery    = 11902
+	SearingNeedle            = 12531
+	PipsSkinner              = 12709
+	ArcaniteChampion         = 12790
+	MasterworkStormhammer    = 12794
+	Frostguard               = 12797
+	SerpentSlicer            = 13035
+	TheNeedler               = 13060
+	SealOfTheDawn            = 13209
+	JoonhosMercy             = 17054
+	Deathbringer             = 17068
+	ViskagTheBloodletter     = 17075
+	ThrashBlade              = 17705
+	SatyrsLash               = 17752
+	MarkOfTheChosen          = 17774
+	Nightfall                = 19169
+	EbonHand                 = 19170
+	RuneOfTheDawn            = 19812
+	ZandalariHeroBadge       = 19948
+	ZandalariHeroMedallion   = 19949
+	ZandalariHeroCharm       = 19950
+	MarkOfTheChampionPhys    = 23206
+	MarkOfTheChampionSpell   = 23207
+	Ragehammer               = 10626
+	// TODO: These all need to have their values restored to the original version or deleted if original has no effect.
+	SulfurasHandOfRagnaros    = 17182 // TODO: Still has effect/values for SoD item 227683
+	SulfuronHammer            = 17193 // TODO: Still has effect/values for SoD item 227684
+	TemperedBlackAmnesty      = 19166 // TODO: Still has effect/values for SoD item 227832
+	FlameWrath                = 11809 // TODO: Still has effect/values for SoD item 227934
+	LordGeneralsSword         = 11817 // TODO: Still has effect/values for SoD item 227940
+	WraithScythe              = 11920 // TODO: Still has effect/values for SoD item 227941
+	SecondWind                = 11819 // TODO: Still has effect/values for SoD item 227967
+	BurstOfKnowledge          = 11832 // TODO: Still has effect/values for SoD item 227972
+	Ironfoe                   = 11684 // TODO: Still has effect/values for SoD item 227991
+	EbonHiltOfMarduk          = 14576 // TODO: Still has effect/values for SoD item 227993
+	FrightskullShaft          = 14531 // TODO: Still has effect/values for SoD item 227994
+	BarovianFamilySword       = 14541 // TODO: Still has effect/values for SoD item 227997
+	Frightalon                = 14024 // TODO: Still has effect/values for SoD item 228015
+	HeadmastersCharge         = 13937 // TODO: Still has effect/values for SoD item 228022
+	GravestoneWarAxe          = 13983 // TODO: Still has effect/values for SoD item 228029
+	FiendishMachete           = 18310 // TODO: Still has effect/values for SoD item 228056
+	TalismanOfEphemeralPower  = 18820 // TODO: Still has effect/values for SoD item 228255
+	GutgoreRipper             = 17071 // TODO: Still has effect/values for SoD item 228267
+	Shadowstrike              = 17074 // TODO: Still has effect/values for SoD item 228272
+	Thunderstrike             = 17223 // TODO: Still has effect/values for SoD item 228273
+	BonereaversEdge           = 17076 // TODO: Still has effect/values for SoD item 228288
+	EssenceOfThePureFlame     = 18815 // TODO: Still has effect/values for SoD item 228293
+	PerditionsBlade           = 18816 // TODO: Still has effect/values for SoD item 228296
+	Typhoon                   = 18542 // TODO: Still has effect/values for SoD item 228347
+	EskhandarsLeftClaw        = 18202 // TODO: Still has effect/values for SoD item 228349
+	EskhandarsRightClaw       = 18203 // TODO: Still has effect/values for SoD item 228350
+	BlazefuryMedallion        = 17111 // TODO: Still has effect/values for SoD item 228354
+	EmpyreanDemolisher        = 17112 // TODO: Still has effect/values for SoD item 228397
+	SkullforgeReaver          = 13361 // TODO: Still has effect/values for SoD item 228542
+	RunebladeOfBaronRivendare = 13505 // TODO: Still has effect/values for SoD item 228543
+	HeartOfWyrmthalak         = 22321 // TODO: Still has effect/values for SoD item 228599
+	Venomspitter              = 13183 // TODO: Still has effect/values for SoD item 228573
+	SmolderwebsEye            = 13213 // TODO: Still has effect/values for SoD item 228576
+	Chillpike                 = 13148 // TODO: Still has effect/values for SoD item 228586
+	FangOfTheCrystalSpider    = 13218 // TODO: Still has effect/values for SoD item 228592
+	BlackhandDoomsaw          = 12583 // TODO: Still has effect/values for SoD item 228603
+	BlackbladeOfShahram       = 12592 // TODO: Still has effect/values for SoD item 228606
+	SeepingWillow             = 12969 // TODO: Still has effect/values for SoD item 228666
+	DraconicInfusedEmblem     = 22268 // TODO: Still has effect/values for SoD item 228678
+	QuelSerrar                = 18348 // TODO: Still has effect/values for SoD item 228679
+	HandOfJustice             = 11815 // TODO: Still has effect/values for SoD item 228722
+	Felstriker                = 12590 // TODO: Still has effect/values for SoD item 228757
+	Thunderfury               = 19019 // TODO: Still has effect/values for SoD item 230224
+	TheUntamedBlade           = 19334 // TODO: Still has effect/values for SoD item 230242
+	DrakeTalonCleaver         = 19353 // TODO: Still has effect/values for SoD item 230271
+	JekliksCrusher            = 19918 // TODO: Still has effect/values for SoD item 230911
+	ZulianSlicer              = 19901 // TODO: Still has effect/values for SoD item 230930
+	HalberdOfSmiting          = 19874 // TODO: Still has effect/values for SoD item 230991
+	NatPaglesBrokenReel       = 19947 // TODO: Still has effect/values for SoD item 231271
+	TigulesHarpoon            = 19946 // TODO: Still has effect/values for SoD item 231272
+	GrileksCarver             = 19962 // TODO: Still has effect/values for SoD item 231273
+	GrileksGrinder            = 19961 // TODO: Still has effect/values for SoD item 231274
+	PitchforkOfMadness        = 19963 // TODO: Still has effect/values for SoD item 231277
+	ScarabBrooch              = 21625 // TODO: Still has effect/values for SoD item 233601
+	KalimdorsRevenge          = 21679 // TODO: Still has effect/values for SoD item 233621
+	JomGabbar                 = 23570 // TODO: Still has effect/values for SoD item 233627
+	EyeOfMoam                 = 21473 // TODO: Still has effect/values for SoD item 234080
+	DarkmoonCardHeroism       = 19287 // TODO: Still has effect/values for SoD item 234176
+	DarkmoonCardBlueDragon    = 19288 // TODO: Still has effect/values for SoD item 234177
+	DarkmoonCardMaelstrom     = 19289 // TODO: Still has effect/values for SoD item 234178
+	Earthstrike               = 21180 // TODO: Still has effect/values for SoD item 234462
+	WrathOfCenarius           = 21190 // TODO: Still has effect/values for SoD item 234463
 )
 
 func init() {
@@ -424,10 +401,24 @@ func init() {
 	// TODO: Proc rate based on the original item
 	itemhelpers.CreateWeaponCoHProcDamage(BlackhandDoomsaw, "Blackhand Doomsaw", 0.4, 16549, core.SpellSchoolPhysical, 324, 216, 0, core.DefenseTypeMelee)
 
-	// https://www.wowhead.com/classic/item=220569/blistering-ragehammer
+	// https://www.wowhead.com/classic/item=10626/ragehammer
 	// Chance on hit: Increases damage done by 20 and attack speed by 5% for 15 sec.
 	// TODO: Proc rate assumed and needs testing
-	itemhelpers.CreateWeaponProcAura(BlisteringRagehammer, "Blistering Ragehammer", 1.0, EnrageAura446327)
+	itemhelpers.CreateWeaponProcAura(Ragehammer, "Ragehammer", 1.0, func(character *core.Character) *core.Aura {
+		return character.GetOrRegisterAura(core.Aura{
+			ActionID: core.ActionID{SpellID: 12686},
+			Label:    "Enrage (12686)",
+			Duration: time.Second * 15,
+			OnGain: func(aura *core.Aura, sim *core.Simulation) {
+				character.PseudoStats.BonusPhysicalDamage += 20
+				character.MultiplyAttackSpeed(sim, 1.05)
+			},
+			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
+				character.PseudoStats.BonusPhysicalDamage -= 20
+				character.MultiplyAttackSpeed(sim, 1/1.05)
+			},
+		})
+	})
 
 	itemhelpers.CreateWeaponCoHProcDamage(BloodletterScalpel, "Bloodletter Scalpel", 1.0, 18081, core.SpellSchoolPhysical, 60, 10, 0, core.DefenseTypeMelee)
 
@@ -463,7 +454,6 @@ func init() {
 	// https://www.wowhead.com/classic/item=228461/bonereavers-edge
 	// Chance on hit: Your attacks ignore 700 of your enemies' armor for 10 sec. This effect stacks up to 3 times.
 	itemhelpers.CreateWeaponProcSpell(BonereaversEdge, "Bonereaver's Edge", 2.0, bonereaversEdgeEffect)
-	itemhelpers.CreateWeaponProcSpell(BonereaversEdgeMolten, "Bonereaver's Edge (Molten)", 2.0, bonereaversEdgeEffect)
 
 	itemhelpers.CreateWeaponProcSpell(BowOfSearingArrows, "Bow of Searing Arrows", 3.35, func(character *core.Character) *core.Spell {
 		return character.GetOrRegisterSpell(core.SpellConfig{
@@ -495,18 +485,6 @@ func init() {
 	// Chance on hit: Delivers a fatal wound for 300 damage.
 	// Original proc rate 1.0 increased to approximately 1.60 in SoD phase 5
 	itemhelpers.CreateWeaponCoHProcDamage(DrakeTalonCleaver, "Drake Talon Cleaver", 1.0, 467167, core.SpellSchoolPhysical, 300, 0, 0.0, core.DefenseTypeMelee) // TBD confirm 1 ppm in SoD
-	// https://www.wowhead.com/classic/item=232562/drake-talon-cleaver
-	itemhelpers.CreateWeaponCoHProcDamage(DrakeTalonCleaverShadowflame, "Drake Talon Cleaver", 1.0, 467167, core.SpellSchoolPhysical, 300, 0, 0.0, core.DefenseTypeMelee) // TBD confirm 1 ppm in SoD
-
-	// https://www.wowhead.com/classic/item=228410/dreadblade-of-the-destructor
-	// https://www.wowhead.com/classic/item=228498/dreadblade-of-the-destructor
-	// TODO: Proc rate assumed and needs testing
-	itemhelpers.CreateWeaponProcSpell(DreadbladeOfTheDestructor, "Dreadblade of the Destructor", 1.0, dreadbladeOfTheDestructorEffect)
-
-	// https://www.wowhead.com/classic/item=227842/ebon-fist
-	// Chance on hit: Sends a shadowy bolt at the enemy causing 125 to 275 Shadow damage.
-	// TODO: Proc rate assumed and needs testing
-	itemhelpers.CreateWeaponCoHProcDamage(EbonFist, "Ebon Fist", 1.0, 18211, core.SpellSchoolShadow, 125, 150, 0, core.DefenseTypeMagic)
 
 	// https://www.wowhead.com/classic/item=19170/ebon-hand
 	// Chance on hit: Sends a shadowy bolt at the enemy causing 125 to 275 Shadow damage.
@@ -606,7 +584,6 @@ func init() {
 	// Chance on hit: Increases your attack speed by 30% for 5 sec.
 	// Original proc rate 1.0 lowered to 0.6 in SoD phase 5
 	itemhelpers.CreateWeaponProcAura(EskhandarsRightClaw, "Eskhandar's Right Claw", 0.6, eskhandarsRightClawAura)
-	itemhelpers.CreateWeaponProcAura(EskhandarsRightClawMolten, "Eskhandar's Right Claw (Molten)", 0.6, eskhandarsRightClawAura)
 
 	// https://www.wowhead.com/classic/item=13218/fang-of-the-crystal-spider
 	// Chance on hit: Slows target enemy's casting speed and increases the time between melee and ranged attacks by 10% for 10 sec.
@@ -956,22 +933,10 @@ func init() {
 			character.PseudoStats.MobTypeAttackPower += 141
 		}
 	})
-	core.NewItemEffect(GrileksCarverBloodied, func(agent core.Agent) {
-		character := agent.GetCharacter()
-		if character.CurrentTarget.MobType == proto.MobType_MobTypeDragonkin {
-			character.PseudoStats.MobTypeAttackPower += 141
-		}
-	})
 
 	// https://www.wowhead.com/classic/item=231274/grileks-grinder
 	// +60 Attack Power when fighting Dragonkin.
 	core.NewItemEffect(GrileksGrinder, func(agent core.Agent) {
-		character := agent.GetCharacter()
-		if character.CurrentTarget.MobType == proto.MobType_MobTypeDragonkin {
-			character.PseudoStats.MobTypeAttackPower += 60
-		}
-	})
-	core.NewItemEffect(GrileksGrinderBloodied, func(agent core.Agent) {
 		character := agent.GetCharacter()
 		if character.CurrentTarget.MobType == proto.MobType_MobTypeDragonkin {
 			character.PseudoStats.MobTypeAttackPower += 60
@@ -983,7 +948,6 @@ func init() {
 	// https://www.wowhead.com/classic/item=228267/gutgore-ripper
 	// Chance on hit: Sends a shadowy bolt at the enemy causing 150 Shadow damage and lowering all stats by 25 for 30 sec.
 	itemhelpers.CreateWeaponProcSpell(GutgoreRipper, "Gutgore Ripper", 1.0, gutgoreRipperEffect)
-	itemhelpers.CreateWeaponProcSpell(GutgoreRipperMolten, "Gutgore Ripper (Molten)", 1.0, gutgoreRipperEffect)
 
 	itemhelpers.CreateWeaponProcSpell(Gutwrencher, "Gutwrencher", 1.0, func(character *core.Character) *core.Spell {
 		return character.GetOrRegisterSpell(core.SpellConfig{
@@ -1020,8 +984,7 @@ func init() {
 
 	// https://www.wowhead.com/classic/item=230991/halberd-of-smiting
 	// Equip: Chance to decapitate the target on a melee swing, causing 452 to 676 damage.
-	itemhelpers.CreateWeaponEquipProcDamage(HalberdOfSmiting, "Halberd of Smiting", 2.1, 467819, core.SpellSchoolPhysical, 452, 224, 0.0, core.DefenseTypeMelee)         // Works as phantom strike
-	itemhelpers.CreateWeaponEquipProcDamage(HalberdOfSmitingBloodied, "Halberd of Smiting", 2.1, 467819, core.SpellSchoolPhysical, 452, 224, 0.0, core.DefenseTypeMelee) // Works as phantom strike
+	itemhelpers.CreateWeaponEquipProcDamage(HalberdOfSmiting, "Halberd of Smiting", 2.1, 467819, core.SpellSchoolPhysical, 452, 224, 0.0, core.DefenseTypeMelee) // Works as phantom strike
 
 	itemhelpers.CreateWeaponCoHProcDamage(HammerOfTheNorthernWind, "Hammer of the Northern Wind", 3.5, 13439, core.SpellSchoolFrost, 20, 10, 0, core.DefenseTypeMagic)
 
@@ -1086,68 +1049,6 @@ func init() {
 		})
 	})
 
-	// https://www.wowhead.com/classic/item=227887/hardened-frostguard
-	// Chance on hit: Target's movement slowed by 30% and increasing the time between attacks by 25% for 5 sec.
-	// Chance on hit: Inflicts Frost damage to nearby enemies, immobilizing them for up to 8 sec.
-	// TODO: Proc rate assumed and needs testing
-	core.NewItemEffect(HardenedFrostguard, func(agent core.Agent) {
-		character := agent.GetCharacter()
-		debuffAuras := character.NewEnemyAuraArray(func(unit *core.Unit, _ int32) *core.Aura {
-			aura := unit.GetOrRegisterAura(core.Aura{
-				ActionID: core.ActionID{SpellID: 16927},
-				Label:    "Chilled (Hardened Frostguard)",
-				Duration: time.Second * 5,
-				OnGain: func(aura *core.Aura, sim *core.Simulation) {
-					aura.Unit.AddMoveSpeedModifier(&aura.ActionID, 0.30)
-				},
-				OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-					aura.Unit.RemoveMoveSpeedModifier(&aura.ActionID)
-				},
-			})
-			core.AtkSpeedReductionEffect(aura, 1.25)
-			return aura
-		})
-
-		novaSpell := character.RegisterSpell(core.SpellConfig{
-			ActionID:         core.ActionID{SpellID: 463448},
-			SpellSchool:      core.SpellSchoolFrost,
-			DefenseType:      core.DefenseTypeMagic,
-			ProcMask:         core.ProcMaskEmpty,
-			BonusCoefficient: 1,
-			DamageMultiplier: 1,
-			ThreatMultiplier: 1,
-			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-				for _, aoeTarget := range sim.Encounter.TargetUnits {
-					spell.CalcAndDealDamage(sim, aoeTarget, 28, spell.OutcomeMagicHitAndCrit)
-				}
-			},
-		})
-
-		core.MakeProcTriggerAura(&character.Unit, core.ProcTrigger{
-			Name:              "Hardened Frostguard",
-			Callback:          core.CallbackOnSpellHitDealt,
-			Outcome:           core.OutcomeLanded,
-			ProcMask:          core.ProcMaskMeleeMH,
-			SpellFlagsExclude: core.SpellFlagSuppressWeaponProcs,
-			PPM:               1.5, // Estimated based on data from WoW Armaments Discord
-			Handler: func(sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
-				debuffAuras.Get(result.Target).Activate(sim)
-			},
-		})
-
-		core.MakeProcTriggerAura(&character.Unit, core.ProcTrigger{
-			Name:              "Hardened Frostguard",
-			Callback:          core.CallbackOnSpellHitDealt,
-			Outcome:           core.OutcomeLanded,
-			ProcMask:          core.ProcMaskMeleeMH,
-			SpellFlagsExclude: core.SpellFlagSuppressWeaponProcs,
-			PPM:               1.5, // Estimated based on data from WoW Armaments Discord
-			Handler: func(sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
-				novaSpell.Cast(sim, result.Target)
-			},
-		})
-	})
-
 	itemhelpers.CreateWeaponProcSpell(HookfangShanker, "Hookfang Shanker", 1.0, func(character *core.Character) *core.Spell {
 		return character.GetOrRegisterSpell(core.SpellConfig{
 			ActionID:         core.ActionID{SpellID: 13526},
@@ -1204,12 +1105,10 @@ func init() {
 	// Chance on hit: Wounds the target for 200 to 220 damage.
 	// Original proc rate 4.0 lowered to 1.5 in SoD phase 5
 	itemhelpers.CreateWeaponCoHProcDamage(JekliksCrusher, "Jeklik's Crusher", 1.5, 467642, core.SpellSchoolPhysical, 200, 20, 0.0, core.DefenseTypeMelee)
-	itemhelpers.CreateWeaponCoHProcDamage(JekliksCrusherBloodied, "Jeklik's Crusher", 1.5, 467642, core.SpellSchoolPhysical, 200, 20, 0.0, core.DefenseTypeMelee)
 
 	itemhelpers.CreateWeaponCoHProcDamage(JoonhosMercy, "Joonho's Mercy", 1.0, 20883, core.SpellSchoolArcane, 70, 0, 0, core.DefenseTypeMagic)
 
-	itemhelpers.CreateWeaponCoHProcDamage(KalimdorsRevenge, "Kalimdor's Revenge", 1.25, 1213355, core.SpellSchoolNature, 339, 138, 0, core.DefenseTypeMagic)            // TODO Update PPM/scaling from PTR
-	itemhelpers.CreateWeaponCoHProcDamage(KalimdorsRevengeVoidTouched, "Kalimdor's Revenge", 1.25, 1213355, core.SpellSchoolNature, 339, 138, 0, core.DefenseTypeMagic) // TODO Update PPM/scaling from PTR
+	itemhelpers.CreateWeaponCoHProcDamage(KalimdorsRevenge, "Kalimdor's Revenge", 1.25, 1213355, core.SpellSchoolNature, 339, 138, 0, core.DefenseTypeMagic) // TODO Update PPM/scaling from PTR
 
 	itemhelpers.CreateWeaponCoHProcDamage(LinkensSwordOfMastery, "Linken's Sword of Mastery", 1.0, 18089, core.SpellSchoolNature, 45, 30, 0, core.DefenseTypeMagic)
 
@@ -1236,26 +1135,6 @@ func init() {
 		})
 	})
 
-	core.NewItemEffect(ManslayerOfTheQiraji, func(agent core.Agent) {
-		character := agent.GetCharacter()
-
-		if !character.AutoAttacks.AutoSwingMelee {
-			return
-		}
-
-		manslayerOfTheQirajiAura(character)
-	})
-
-	core.NewItemEffect(ManslayerOfTheQirajiVoidTouched, func(agent core.Agent) {
-		character := agent.GetCharacter()
-
-		if !character.AutoAttacks.AutoSwingMelee {
-			return
-		}
-
-		manslayerOfTheQirajiAura(character)
-	})
-
 	// https://www.wowhead.com/classic/item=12794/masterwork-stormhammer
 	// Chance on hit: Blasts up to 3 targets for 105 to 145 Nature damage.
 	// Estimated based on data from WoW Armaments Discord
@@ -1273,46 +1152,6 @@ func init() {
 					spell.CalcAndDealDamage(sim, target, sim.Roll(105, 145), spell.OutcomeMagicHitAndCrit)
 					target = character.Env.NextTargetUnit(target)
 				}
-			},
-		})
-	})
-
-	// https://www.wowhead.com/classic/item=234987/neretzek-the-blood-drinker
-	// Chance on hit: Steals 171 to 193 life from target enemy.
-	itemhelpers.CreateWeaponProcSpell(NeretzekBloodDrinker, "Neretzek, The Blood Drinker", 0.8, func(character *core.Character) *core.Spell { // PPM based on old ppm from Armamaments discord
-		actionID := core.ActionID{SpellID: 1214208}
-		healthMetrics := character.NewHealthMetrics(actionID)
-		return character.RegisterSpell(core.SpellConfig{
-			ActionID:         actionID,
-			SpellSchool:      core.SpellSchoolShadow,
-			DefenseType:      core.DefenseTypeMagic,
-			ProcMask:         core.ProcMaskEmpty,
-			DamageMultiplier: 1,
-			ThreatMultiplier: 1,
-			BonusCoefficient: 1.0, /// TBD - Best guess based on similarity to shadowstrike
-			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-				result := spell.CalcAndDealDamage(sim, target, sim.Roll(171, 193), spell.OutcomeMagicHit)
-				character.GainHealth(sim, result.Damage, healthMetrics)
-			},
-		})
-	})
-
-	// https://www.wowhead.com/classic/item=233647/neretzek-the-blood-drinker
-	// Chance on hit: Steals 171 to 193 life from target enemy.
-	itemhelpers.CreateWeaponProcSpell(NeretzekBloodDrinkerVoidTouched, "Neretzek, The Blood Drinker", 0.8, func(character *core.Character) *core.Spell { // PPM based on old ppm from Armamaments discord
-		actionID := core.ActionID{SpellID: 1214208}
-		healthMetrics := character.NewHealthMetrics(actionID)
-		return character.RegisterSpell(core.SpellConfig{
-			ActionID:         actionID,
-			SpellSchool:      core.SpellSchoolShadow,
-			DefenseType:      core.DefenseTypeMagic,
-			ProcMask:         core.ProcMaskEmpty,
-			DamageMultiplier: 1,
-			ThreatMultiplier: 1,
-			BonusCoefficient: 1.0, // TBD - Best guess based on similarity to shadowstrike
-			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-				result := spell.CalcAndDealDamage(sim, target, sim.Roll(171, 193), spell.OutcomeMagicHit)
-				character.GainHealth(sim, result.Damage, healthMetrics)
 			},
 		})
 	})
@@ -1338,17 +1177,10 @@ func init() {
 	// https://www.wowhead.com/classic/item=228296/perditions-blade
 	// Chance on hit: Blasts a target for 98 to 122 Fire damage.
 	itemhelpers.CreateWeaponCoHProcDamage(PerditionsBlade, "Perdition's Blade", 2.8, 461695, core.SpellSchoolFire, 98, 24, 0, core.DefenseTypeMagic)
-	itemhelpers.CreateWeaponCoHProcDamage(PerditionsBladeMolten, "Perdition's Blade", 2.8, 461695, core.SpellSchoolFire, 98, 24, 0, core.DefenseTypeMagic)
 
 	// https://www.wowhead.com/classic/item=231277/pitchfork-of-madness
 	// +141 Attack Power when fighting Demons.
 	core.NewItemEffect(PitchforkOfMadness, func(agent core.Agent) {
-		character := agent.GetCharacter()
-		if character.CurrentTarget.MobType == proto.MobType_MobTypeDemon {
-			character.PseudoStats.MobTypeAttackPower += 141
-		}
-	})
-	core.NewItemEffect(PitchforkOfMadnessBloodied, func(agent core.Agent) {
 		character := agent.GetCharacter()
 		if character.CurrentTarget.MobType == proto.MobType_MobTypeDemon {
 			character.PseudoStats.MobTypeAttackPower += 141
@@ -1433,42 +1265,6 @@ func init() {
 				character.AutoAttacks.EnableAutoSwing(sim)
 				dotSpell := character.GetSpell(procActionID)
 				dotSpell.AOEDot().Cancel(sim)
-			},
-		})
-	})
-
-	// https://www.wowhead.com/classic/item=228125/refined-arcanite-champion
-	// Chance on hit: Heal self for 270 to 450 and Increases Strength by 120 for 30 sec.
-	// Chance on hit: Increases damage done by 20 and attack speed by 5% for 15 sec.
-	// TODO: Proc rate assumed and needs testing
-	core.NewItemEffect(RefinedArcaniteChampion, func(agent core.Agent) {
-		character := agent.GetCharacter()
-
-		strengthAura := StrengthOfTheChampionAura(character)
-		procMask := character.GetProcMaskForItem(RefinedArcaniteChampion)
-		enrageAura := EnrageAura446327(character)
-
-		core.MakeProcTriggerAura(&character.Unit, core.ProcTrigger{
-			Name:              "Refined Arcanite Champion (Strength)",
-			Callback:          core.CallbackOnSpellHitDealt,
-			Outcome:           core.OutcomeLanded,
-			ProcMask:          procMask,
-			SpellFlagsExclude: core.SpellFlagSuppressWeaponProcs,
-			PPM:               1, // Estimated based on data from WoW Armaments Discord
-			Handler: func(sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
-				strengthAura.Activate(sim)
-			},
-		})
-
-		core.MakeProcTriggerAura(&character.Unit, core.ProcTrigger{
-			Name:              "Refined Arcanite Champion (Enrage)",
-			Callback:          core.CallbackOnSpellHitDealt,
-			Outcome:           core.OutcomeLanded,
-			ProcMask:          procMask,
-			SpellFlagsExclude: core.SpellFlagSuppressWeaponProcs,
-			PPM:               1, // Estimated based on data from WoW Armaments Discord
-			Handler: func(sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
-				enrageAura.Activate(sim)
 			},
 		})
 	})
@@ -1985,20 +1781,6 @@ func init() {
 			},
 		})
 	})
-	// https://www.wowhead.com/classic/item=232566/the-untamed-blade
-	itemhelpers.CreateWeaponProcAura(TheUntamedBladeShadowflame, "The Untamed Blade", 0.55, func(character *core.Character) *core.Aura {
-		return character.RegisterAura(core.Aura{
-			ActionID: core.ActionID{SpellID: 23719},
-			Label:    "Untamed Fury",
-			Duration: time.Second * 8,
-			OnGain: func(aura *core.Aura, sim *core.Simulation) {
-				aura.Unit.AddStatsDynamic(sim, stats.Stats{stats.Strength: 300})
-			},
-			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-				aura.Unit.AddStatsDynamic(sim, stats.Stats{stats.Strength: -300})
-			},
-		})
-	})
 
 	itemhelpers.CreateWeaponProcSpell(ThrashBlade, "Thrash Blade", 1.0, func(character *core.Character) *core.Spell {
 		return character.GetOrRegisterSpell(core.SpellConfig{
@@ -2128,12 +1910,6 @@ func init() {
 			character.PseudoStats.MobTypeAttackPower += 99
 		}
 	})
-	core.NewItemEffect(TigulesHarpoonBloodied, func(agent core.Agent) {
-		character := agent.GetCharacter()
-		if character.CurrentTarget.MobType == proto.MobType_MobTypeBeast {
-			character.PseudoStats.MobTypeAttackPower += 99
-		}
-	})
 
 	// https://www.wowhead.com/classic/item=228347/typhoon
 	// Chance on hit: Grants an extra attack on your next swing.
@@ -2217,7 +1993,6 @@ func init() {
 	// https://www.wowhead.com/classic/item=230930/zulian-slicer
 	// Chance on hit: Slices the enemy for 72 to 96 Nature damage.
 	itemhelpers.CreateWeaponCoHProcDamage(ZulianSlicer, "Zulian Slicer", 1.2, 467738, core.SpellSchoolNature, 72, 24, 0.35, core.DefenseTypeMelee)
-	itemhelpers.CreateWeaponCoHProcDamage(ZulianSlicerBloodied, "Zulian Slicer", 1.2, 467738, core.SpellSchoolNature, 72, 24, 0.35, core.DefenseTypeMelee)
 
 	///////////////////////////////////////////////////////////////////////////
 	//                                 Trinkets
@@ -2409,37 +2184,6 @@ func init() {
 	// https://www.wowhead.com/classic/item=234080/eye-of-moam
 	// Use: Increases damage done by magical spells and effects by up to 150, and decreases the magical resistances of your spell targets by 100 for 30 sec. (3 Min Cooldown)
 	core.NewSimpleStatOffensiveTrinketEffect(EyeOfMoam, stats.Stats{stats.SpellDamage: 150, stats.SpellPenetration: 100}, time.Second*30, time.Minute*3)
-
-	// https://www.wowhead.com/classic/item=227990/hand-of-injustice
-	// Equip: 2% chance on ranged hit to gain 1 extra attack. (Proc chance: 2%, 2s cooldown)
-	core.NewItemEffect(HandOfInjustice, func(agent core.Agent) {
-		character := agent.GetCharacter()
-		if !character.AutoAttacks.AutoSwingRanged {
-			return
-		}
-
-		icd := core.Cooldown{
-			Timer:    character.NewTimer(),
-			Duration: time.Second * 2,
-		}
-
-		character.GetOrRegisterAura(core.Aura{
-			Label:    "Hand of Injustice",
-			Duration: core.NeverExpires,
-			OnReset: func(aura *core.Aura, sim *core.Simulation) {
-				aura.Activate(sim)
-			},
-			OnSpellHitDealt: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
-				if spell.Flags.Matches(core.SpellFlagSuppressEquipProcs) {
-					return
-				}
-				if result.Landed() && spell.ProcMask.Matches(core.ProcMaskRanged) && icd.IsReady(sim) && sim.Proc(0.02, "HandOfInjustice") {
-					icd.Use(sim)
-					aura.Unit.AutoAttacks.ExtraRangedAttack(sim, 1, core.ActionID{SpellID: 461164}, spell.ActionID)
-				}
-			},
-		})
-	})
 
 	core.NewItemEffect(HandOfJustice, func(agent core.Agent) {
 		character := agent.GetCharacter()
@@ -2764,14 +2508,6 @@ func init() {
 		}
 	})
 
-	// https://www.wowhead.com/classic/item=233990/speedstone
-	// Increases your attack speed by 2%.
-	core.NewItemEffect(Speedstone, func(agent core.Agent) {
-		character := agent.GetCharacter()
-		character.PseudoStats.MeleeSpeedMultiplier *= 1.02
-		character.PseudoStats.RangedSpeedMultiplier *= 1.02
-	})
-
 	// https://www.wowhead.com/classic/item=228255/talisman-of-ephemeral-power
 	// Use: Increases damage and healing done by magical spells and effects by up to 184 for 15 sec. (1 Min, 30 Sec Cooldown)
 	core.NewSimpleStatOffensiveTrinketEffect(TalismanOfEphemeralPower, stats.Stats{stats.SpellPower: 184}, time.Second*15, time.Second*90)
@@ -3037,26 +2773,6 @@ func init() {
 	})
 
 	core.AddEffectsToTest = true
-}
-
-// https://www.wowhead.com/classic/spell=446327/enrage
-// Used by:
-// - https://www.wowhead.com/classic/item=220569/blistering-ragehammer and
-// - https://www.wowhead.com/classic/item=228125/refined-arcanite-champion
-func EnrageAura446327(character *core.Character) *core.Aura {
-	return character.GetOrRegisterAura(core.Aura{
-		ActionID: core.ActionID{SpellID: 446327},
-		Label:    "Enrage (446327)",
-		Duration: time.Second * 15,
-		OnGain: func(aura *core.Aura, sim *core.Simulation) {
-			character.PseudoStats.BonusPhysicalDamage += 20
-			character.MultiplyAttackSpeed(sim, 1.05)
-		},
-		OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-			character.PseudoStats.BonusPhysicalDamage -= 20
-			character.MultiplyAttackSpeed(sim, 1/1.05)
-		},
-	})
 }
 
 func BlazefuryTriggerAura(character *core.Character, spellID int32, spellSchool core.SpellSchool, damage float64) {

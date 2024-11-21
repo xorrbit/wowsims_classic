@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"math"
 	"runtime"
-	"runtime/debug"
 	"sort"
 	"strings"
 	"sync/atomic"
@@ -57,11 +56,11 @@ type singleBulkSim struct {
 
 func (b *bulkSimRunner) Run(signals simsignals.Signals, progress chan *proto.ProgressMetrics) (result *proto.BulkSimResult) {
 	defer func() {
-		if err := recover(); err != nil {
-			result = &proto.BulkSimResult{
-				Error: &proto.ErrorOutcome{Message: fmt.Sprintf("%v\nStack Trace:\n%s", err, string(debug.Stack()))},
-			}
-		}
+		// if err := recover(); err != nil {
+		// 	result = &proto.BulkSimResult{
+		// 		Error: &proto.ErrorOutcome{Message: fmt.Sprintf("%v\nStack Trace:\n%s", err, string(debug.Stack()))},
+		// 	}
+		// }
 		signals.Abort.Trigger()
 	}()
 
