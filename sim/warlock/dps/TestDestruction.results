@@ -53,18 +53,18 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.08659
+  weights: 0.20519
   weights: 0
-  weights: 0.38179
-  weights: 0
-  weights: 0
+  weights: 0.59749
   weights: 0
   weights: 0
   weights: 0
   weights: 0
   weights: 0
-  weights: 4.68646
-  weights: 1.52727
+  weights: 0
+  weights: 0
+  weights: 4.58894
+  weights: 1.53785
   weights: 0
   weights: 0
   weights: 0
@@ -99,56 +99,56 @@ stat_weights_results: {
 dps_results: {
  key: "TestDestruction-Phase4-Lvl60-Average-Default"
  value: {
-  dps: 567.34014
-  tps: 338.83207
+  dps: 565.43322
+  tps: 337.55073
  }
 }
 dps_results: {
  key: "TestDestruction-Phase4-Lvl60-Settings-Orc-placeholder-Destruction Warlock-destruction-FullBuffs-P4-Consumes-LongMultiTarget"
  value: {
-  dps: 569.29241
-  tps: 578.88259
+  dps: 566.82962
+  tps: 575.20121
  }
 }
 dps_results: {
  key: "TestDestruction-Phase4-Lvl60-Settings-Orc-placeholder-Destruction Warlock-destruction-FullBuffs-P4-Consumes-LongSingleTarget"
  value: {
-  dps: 569.29241
-  tps: 341.56951
+  dps: 566.82962
+  tps: 339.39457
  }
 }
 dps_results: {
  key: "TestDestruction-Phase4-Lvl60-Settings-Orc-placeholder-Destruction Warlock-destruction-FullBuffs-P4-Consumes-ShortSingleTarget"
  value: {
-  dps: 596.32416
-  tps: 390.53835
+  dps: 593.95251
+  tps: 388.94832
  }
 }
 dps_results: {
  key: "TestDestruction-Phase4-Lvl60-Settings-Orc-placeholder-Destruction Warlock-destruction-NoBuffs-P4-Consumes-LongMultiTarget"
  value: {
-  dps: 299.2257
-  tps: 559.51689
+  dps: 298.65744
+  tps: 564.22982
  }
 }
 dps_results: {
  key: "TestDestruction-Phase4-Lvl60-Settings-Orc-placeholder-Destruction Warlock-destruction-NoBuffs-P4-Consumes-LongSingleTarget"
  value: {
-  dps: 299.2257
-  tps: 187.70796
+  dps: 298.65744
+  tps: 187.49258
  }
 }
 dps_results: {
  key: "TestDestruction-Phase4-Lvl60-Settings-Orc-placeholder-Destruction Warlock-destruction-NoBuffs-P4-Consumes-ShortSingleTarget"
  value: {
-  dps: 319.59389
-  tps: 216.51448
+  dps: 318.17263
+  tps: 215.59291
  }
 }
 dps_results: {
  key: "TestDestruction-Phase4-Lvl60-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 569.29241
-  tps: 341.56951
+  dps: 566.82962
+  tps: 339.39457
  }
 }
