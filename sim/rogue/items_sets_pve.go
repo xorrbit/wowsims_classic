@@ -331,7 +331,8 @@ var ItemSetBonescytheArmor = core.NewItemSet(core.ItemSet{
 			
 			c.OnComboPointsSpent(func(sim *core.Simulation, spell *core.Spell, comboPoints int32) {
 				if spell.SpellCode == SpellCode_RogueEviscerate {
-					if sim.Proc(0.2*float64(comboPoints), "Revealed Flaw") {
+					// Proc rate from Simonize Era sheet
+					if sim.Proc(0.05*float64(comboPoints), "Revealed Flaw") {
 						aura.Activate(sim)
 					}
 				}
