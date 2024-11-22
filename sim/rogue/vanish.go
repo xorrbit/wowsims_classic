@@ -12,10 +12,8 @@ func (rogue *Rogue) registerVanishSpell() {
 		ActionID: core.ActionID{SpellID: 457437},
 		Duration: time.Second * 10,
 		OnGain: func(aura *core.Aura, sim *core.Simulation) {
-			rogue.PseudoStats.SchoolDamageTakenMultiplier.MultiplyMagicSchools(0.5)
 		},
 		OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-			rogue.PseudoStats.SchoolDamageTakenMultiplier.MultiplyMagicSchools(1 / 0.5)
 		},
 	})
 
@@ -41,11 +39,5 @@ func (rogue *Rogue) registerVanishSpell() {
 			// Apply stealth
 			rogue.StealthAura.Activate(sim)
 		},
-	})
-
-	rogue.AddMajorCooldown(core.MajorCooldown{
-		Spell:    rogue.Vanish,
-		Type:     core.CooldownTypeDPS,
-		Priority: core.CooldownPriorityDrums,
 	})
 }

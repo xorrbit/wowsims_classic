@@ -23,31 +23,19 @@ const (
 	SpellCode_RogueAmbush
 	SpellCode_RogueAdrenalineRush
 	SpellCode_RogueBackstab
-	SpellCode_RogueBetweentheEyes
-	SpellCode_RogueBladeDance
 	SpellCode_RogueBladeFlurry
-	SpellCode_RogueCrimsonTempest
-	SpellCode_RogueEnvenom
 	SpellCode_RogueEviscerate
 	SpellCode_RogueExposeArmor
 	SpellCode_RogueGarrote
 	SpellCode_RogueGhostlyStrike
 	SpellCode_RogueHemorrhage
-	SpellCode_RogueMainGauche
-	SpellCode_RogueMutilate
-	SpellCode_RoguePoisonedKnife
 	SpellCode_RogueRupture
-	SpellCode_RogueSaberSlash
-	SpellCode_RogueSaberSlashDoT
-	SpellCode_RogueShadowStrike
 	SpellCode_RogueSinisterStrike
 	SpellCode_RogueSliceandDice
 	SpellCode_RogueVanish
 )
 
 var TalentTreeSizes = [3]int{15, 19, 17}
-
-const RogueBleedTag = "RogueBleed"
 
 type Rogue struct {
 	core.Character
@@ -56,7 +44,6 @@ type Rogue struct {
 	Options *proto.RogueOptions
 
 	sliceAndDiceDurations [6]time.Duration
-	bladeDanceDurations   [6]time.Duration
 
 	AdrenalineRush      *core.Spell
 	Backstab            *core.Spell
@@ -66,31 +53,13 @@ type Rogue struct {
 	Ambush              *core.Spell
 	Hemorrhage          *core.Spell
 	GhostlyStrike       *core.Spell
-	HungerForBlood      *core.Spell
-	Mutilate            *core.Spell
-	MutilateMH          *core.Spell
-	MutilateOH          *core.Spell
-	Shiv                *core.Spell
 	SinisterStrike      *core.Spell
-	SaberSlash          *core.Spell
-	saberSlashTick      *core.Spell
-	MainGauche          *core.Spell
 	Shadowstep          *core.Spell
 	Preparation         *core.Spell
 	Premeditation       *core.Spell
 	ColdBlood           *core.Spell
 	Vanish              *core.Spell
-	Shadowstrike        *core.Spell
-	QuickDraw           *core.Spell
-	ShurikenToss        *core.Spell
-	BetweenTheEyes      *core.Spell
-	PoisonedKnife       *core.Spell
-	Blunderbuss         *core.Spell
-	FanOfKnives         *core.Spell
-	CrimsonTempest      *core.Spell
-	CrimsonTempestBleed *core.Spell
 
-	Envenom      *core.Spell
 	Eviscerate   *core.Spell
 	ExposeArmor  *core.Spell
 	Rupture      *core.Spell
@@ -98,37 +67,22 @@ type Rogue struct {
 	Finishers    []*core.Spell
 
 	Evasion    *core.Spell
-	BladeDance *core.Spell
 
-	DeadlyPoison     [3]*core.Spell
+	DeadlyPoison     *core.Spell
 	deadlyPoisonTick *core.Spell
-	InstantPoison    [3]*core.Spell
-	WoundPoison      [2]*core.Spell
-	OccultPoison     *core.Spell
-	occultPoisonTick *core.Spell
+	InstantPoison    *core.Spell
+	WoundPoison      *core.Spell
 
 	instantPoisonProcChanceBonus float64
 	additivePoisonBonusChance    float64
-	cutthroatBonusChance         float64
 
 	AdrenalineRushAura            *core.Aura
 	BladeFlurryAura               *core.Aura
-	EnvenomAura                   *core.Aura
 	ExposeArmorAuras              core.AuraArray
 	EvasionAura                   *core.Aura
-	BladeDanceAura                *core.Aura
 	SliceAndDiceAura              *core.Aura
-	MasterOfSubtletyAura          *core.Aura
-	ShadowstepAura                *core.Aura
-	ShadowDanceAura               *core.Aura
 	StealthAura                   *core.Aura
-	WaylayAuras                   core.AuraArray
-	RollingWithThePunchesAura     *core.Aura
-	RollingWithThePunchesProcAura *core.Aura
-	CutthroatProcAura             *core.Aura
 	VanishAura                    *core.Aura
-
-	HonorAmongThieves *core.Aura
 
 	woundPoisonDebuffAuras core.AuraArray
 }
@@ -145,11 +99,11 @@ func (rogue *Rogue) AddRaidBuffs(_ *proto.RaidBuffs)   {}
 func (rogue *Rogue) AddPartyBuffs(_ *proto.PartyBuffs) {}
 
 func (rogue *Rogue) finisherFlags() core.SpellFlag {
-	return SpellFlagCarnage | core.SpellFlagMeleeMetrics | core.SpellFlagAPL
+	return core.SpellFlagMeleeMetrics | core.SpellFlagAPL
 }
 
 func (rogue *Rogue) builderFlags() core.SpellFlag {
-	return SpellFlagBuilder | SpellFlagColdBlooded | SpellFlagCarnage | core.SpellFlagMeleeMetrics | core.SpellFlagAPL
+	return SpellFlagBuilder | SpellFlagColdBlooded | core.SpellFlagMeleeMetrics | core.SpellFlagAPL
 }
 
 func (rogue *Rogue) Initialize() {
@@ -168,9 +122,7 @@ func (rogue *Rogue) Initialize() {
 	// Poisons
 	rogue.registerInstantPoisonSpell()
 	rogue.registerDeadlyPoisonSpell()
-	rogue.registerOccultPoisonSpell()
 	rogue.registerWoundPoisonSpell()
-	rogue.registerSebaciousPoisonSpell()
 
 	// Stealth
 	rogue.registerStealthAura()
@@ -249,18 +201,6 @@ func (rogue *Rogue) IsStealthed() bool {
 // Agent is a generic way to access underlying rogue on any of the agents.
 type RogueAgent interface {
 	GetRogue() *Rogue
-}
-
-func (rogue *Rogue) HasRune(rune proto.RogueRune) bool {
-	return false // rogue.HasRuneById(int32(rune))
-}
-
-func (rogue *Rogue) baseRuneAbilityDamage() float64 {
-	return 5.741530 - 0.255683*float64(rogue.Level) + 0.032656*float64(rogue.Level*rogue.Level)
-}
-
-func (rogue *Rogue) baseRuneAbilityDamageCombo() float64 {
-	return 8.740728 - 0.415787*float64(rogue.Level) + 0.051973*float64(rogue.Level*rogue.Level)
 }
 
 func (rogue *Rogue) getImbueProcMask(imbue proto.WeaponImbue) core.ProcMask {

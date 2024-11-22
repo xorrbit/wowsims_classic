@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 func (rogue *Rogue) registerGarrote() {
@@ -22,15 +21,13 @@ func (rogue *Rogue) registerGarrote() {
 		60: 11290,
 	}[rogue.Level]
 
-	hasCutthroatRune := rogue.HasRune(proto.RogueRune_RuneCutthroat)
-
 	rogue.Garrote = rogue.GetOrRegisterSpell(core.SpellConfig{
 		SpellCode:   SpellCode_RogueGarrote,
 		ActionID:    core.ActionID{SpellID: spellID},
 		SpellSchool: core.SpellSchoolPhysical,
 		DefenseType: core.DefenseTypeMelee,
 		ProcMask:    core.ProcMaskMeleeMHSpecial,
-		Flags:       SpellFlagBuilder | SpellFlagCarnage | core.SpellFlagMeleeMetrics | core.SpellFlagAPL,
+		Flags:       SpellFlagBuilder | core.SpellFlagMeleeMetrics | core.SpellFlagAPL,
 
 		EnergyCost: core.EnergyCostOptions{
 			Cost:   50.0 - 10*float64(rogue.Talents.DirtyDeeds),
@@ -46,7 +43,7 @@ func (rogue *Rogue) registerGarrote() {
 			if !rogue.IsStealthed() {
 				return false
 			}
-			return hasCutthroatRune || !rogue.PseudoStats.InFrontOfTarget
+			return !rogue.PseudoStats.InFrontOfTarget
 		},
 
 		DamageMultiplier: 1 +
@@ -56,7 +53,6 @@ func (rogue *Rogue) registerGarrote() {
 		Dot: core.DotConfig{
 			Aura: core.Aura{
 				Label: "Garrote",
-				Tag:   RogueBleedTag,
 			},
 			NumberOfTicks: 6,
 			TickLength:    time.Second * 3,
