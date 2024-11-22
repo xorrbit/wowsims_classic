@@ -1,4 +1,3 @@
-import { Phase } from '../core/constants/other.js';
 import { Player } from '../core/player.js';
 import * as PresetUtils from '../core/preset_utils.js';
 import {
@@ -20,7 +19,7 @@ import {
 	TristateEffect,
 	WeaponImbue,
 	ZanzaBuff,
-} from '../core/proto/common.js';
+} from '../core/proto/common';
 import { SavedTalents } from '../core/proto/ui.js';
 import {
 	WarlockOptions as WarlockOptions,
@@ -29,95 +28,40 @@ import {
 	WarlockOptions_WeaponImbue as WarlockWeaponImbue,
 } from '../core/proto/warlock.js';
 // apls
-import DestroP1APL from './apls/p1/destruction.apl.json';
-import AfflictionAPL from './apls/p2/affliction.apl.json';
-import DemonologyAPL from './apls/p2/demonology.apl.json';
-import DestroConflagAPL from './apls/p2/fire.conflag.apl.json';
-import DestroMgiAPL from './apls/p2/fire.imp.apl.json';
-import BackdraftAPLP3 from './apls/p3/backdraft.apl.json';
-import NFRuinAPLP3 from './apls/p3/nf.ruin.apl.json';
-import AffAPLP4 from './apls/p4/affliction.apl.json';
-import DestroAPLP4 from './apls/p4/destruction.apl.json';
+import BasicRotation from './apls/rotation.apl.json';
 // gear
 import BlankGear from './gear_sets/blank.gear.json';
+import MCGear from './gear_sets/mc.gear.json';
+import PreBisGear from './gear_sets/prebis.gear.json';
 
 ///////////////////////////////////////////////////////////////////////////
 //                                 Gear Presets
 ///////////////////////////////////////////////////////////////////////////
 
 export const GearBlank = PresetUtils.makePresetGear('Blank', BlankGear);
+export const GearPreBis = PresetUtils.makePresetGear('Pre-BIS', PreBisGear);
+export const GearMC = PresetUtils.makePresetGear('MC', MCGear);
 
-export const GearPresets = {};
+export const GearPresets = [
+	GearBlank,
+	GearPreBis,
+	GearMC,
+];
 
-export const DefaultGear = GearBlank;
+export const DefaultGear = GearPreBis;
 
 ///////////////////////////////////////////////////////////////////////////
 //                                 APL Presets
 ///////////////////////////////////////////////////////////////////////////
 
 // P1
-export const RotationDestructionPhase1 = PresetUtils.makePresetAPLRotation('Destruction', DestroP1APL, {
-	customCondition: player => player.getLevel() === 25,
+export const RotationSB = PresetUtils.makePresetAPLRotation('Destruction', BasicRotation, {
+	customCondition: player => player.getLevel() == 60,
 });
 
-// P2
-export const DestroMgiRotationPhase2 = PresetUtils.makePresetAPLRotation('P2 Destro Imp', DestroMgiAPL, {
-	customCondition: player => player.getLevel() === 40,
-});
-export const DestroConflagRotationPhase2 = PresetUtils.makePresetAPLRotation('P2 Destro Conflag', DestroConflagAPL, {
-	customCondition: player => player.getLevel() === 40,
-});
-export const DemonologyRotationPhase2 = PresetUtils.makePresetAPLRotation('P2 Demonology', DemonologyAPL, {
-	customCondition: player => player.getLevel() === 40,
-});
-export const AfflictionRotationPhase2 = PresetUtils.makePresetAPLRotation('P2 Affliction', AfflictionAPL, {
-	customCondition: player => player.getLevel() === 40,
-});
+export const APLPresets = [RotationSB];
 
-// P3
-export const BackdraftRotationPhase3 = PresetUtils.makePresetAPLRotation('P3 Backdraft', BackdraftAPLP3, {
-	customCondition: player => player.getLevel() === 50,
-});
-export const NFRuinRotationPhase3 = PresetUtils.makePresetAPLRotation('P3 NF/Ruin', NFRuinAPLP3, {
-	customCondition: player => player.getLevel() === 50,
-});
-
-// P4
-export const DestroRotationPhase4 = PresetUtils.makePresetAPLRotation('P4 Destro', DestroAPLP4, {
-	customCondition: player => player.getLevel() === 60,
-});
-export const AffRotationPhase4 = PresetUtils.makePresetAPLRotation('P4 Aff', AffAPLP4, {
-	customCondition: player => player.getLevel() === 60,
-});
-
-export const APLPresets = {
-	[Phase.Phase1]: [RotationDestructionPhase1],
-	[Phase.Phase2]: [DestroMgiRotationPhase2, DestroConflagRotationPhase2, DemonologyRotationPhase2, AfflictionRotationPhase2],
-	[Phase.Phase3]: [NFRuinRotationPhase3, BackdraftRotationPhase3],
-	[Phase.Phase4]: [AffRotationPhase4, DestroRotationPhase4],
-	[Phase.Phase5]: [],
-};
-
-export const DefaultAPLs: Record<number, Record<number, PresetUtils.PresetRotation>> = {
-	25: {
-		0: RotationDestructionPhase1,
-		1: RotationDestructionPhase1,
-		2: RotationDestructionPhase1,
-	},
-	40: {
-		0: AfflictionRotationPhase2,
-		1: DemonologyRotationPhase2,
-		2: DestroMgiRotationPhase2,
-	},
-	50: {
-		0: NFRuinRotationPhase3,
-		2: BackdraftRotationPhase3,
-	},
-	60: {
-		0: AffRotationPhase4,
-		2: DestroRotationPhase4,
-	},
-};
+export const DefaultAPL = RotationSB;
 
 ///////////////////////////////////////////////////////////////////////////
 //                                 Talent Presets
@@ -126,72 +70,21 @@ export const DefaultAPLs: Record<number, Record<number, PresetUtils.PresetRotati
 // Default talents. Uses the wowhead calculator format, make the talents on
 // https://wowhead.com/classic/talent-calc and copy the numbers in the url.
 
-export const DestroP1Talents = {
-	name: 'P1 Destruction',
-	data: SavedTalents.create({ talentsString: '-03-0550201' }),
-	enableWhen: (player: Player<any>) => player.getLevel() === 25,
-};
-
-export const DestroMgiTalentsPhase2 = {
-	name: 'P2 Destro Imp',
-	data: SavedTalents.create({ talentsString: '-01-055020512000415' }),
-	enableWhen: (player: Player<any>) => player.getLevel() === 40,
-};
-export const DestroConflagTalentsPhase2 = {
-	name: 'P2 Destro Conflag',
-	data: SavedTalents.create({ talentsString: '--0550205120005141' }),
-	enableWhen: (player: Player<any>) => player.getLevel() === 40,
-};
-export const DemonologyTalentsPhase2 = {
-	name: 'P2 Demonology',
-	data: SavedTalents.create({ talentsString: '-2050033132501051' }),
-	enableWhen: (player: Player<any>) => player.getLevel() === 40,
-};
-export const AfflictionTalentsPhase2 = {
-	name: 'P2 Affliction',
-	data: SavedTalents.create({ talentsString: '3500253012201105--1' }),
-	enableWhen: (player: Player<any>) => player.getLevel() === 40,
-};
-export const BackdraftTalentsPhase3 = {
-	name: 'P3 Backdraft',
-	data: SavedTalents.create({ talentsString: '-032004-5050205102005151' }),
-	enableWhen: (player: Player<any>) => player.getLevel() === 50,
-};
-export const NFRuinTalentsPhase3 = {
-	name: 'P3 NF/Ruin',
-	data: SavedTalents.create({ talentsString: '25002500102-03-50502051020001' }),
-	enableWhen: (player: Player<any>) => player.getLevel() === 50,
-};
-export const AffTalentsPhase3 = {
-	name: 'P4 Aff',
-	data: SavedTalents.create({ talentsString: '4500253012201005--50502051020001' }),
-	enableWhen: (player: Player<any>) => player.getLevel() === 60,
-};
-export const DestroTalentsPhase3 = {
-	name: 'P4 Destro',
-	data: SavedTalents.create({ talentsString: '05002-035-5250205122005151' }),
+export const TalentsSMRuid = {
+	name: 'SM/Ruin',
+	data: SavedTalents.create({ talentsString: '5502203112201105--52500051020001' }),
 	enableWhen: (player: Player<any>) => player.getLevel() === 60,
 };
 
-export const TalentPresets = {
-	[Phase.Phase1]: [DestroP1Talents],
-	[Phase.Phase2]: [DestroMgiTalentsPhase2, DestroConflagTalentsPhase2, DemonologyTalentsPhase2, AfflictionTalentsPhase2],
-	[Phase.Phase3]: [NFRuinTalentsPhase3, BackdraftTalentsPhase3],
-	[Phase.Phase4]: [AffTalentsPhase3, DestroTalentsPhase3],
-	[Phase.Phase5]: [],
+export const TalentsDSRuin = {
+	name: 'DS/Ruin',
+	data: SavedTalents.create({ talentsString: '25002-2050300152201-52500051020001' }),
+	enableWhen: (player: Player<any>) => player.getLevel() === 60,
 };
 
-export const DefaultTalentsAff = TalentPresets[Phase.Phase4][0];
-export const DefaultTalentsDestro = TalentPresets[Phase.Phase4][1];
+export const TalentPresets = [TalentsSMRuid, TalentsDSRuin];
 
-export const DefaultTalents = DefaultTalentsDestro;
-
-export const PresetBuildAff = PresetUtils.makePresetBuild('Aff', { gear: DefaultGear, talents: DefaultTalentsAff, rotation: DefaultAPLs[60][0] });
-export const PresetBuildDestro = PresetUtils.makePresetBuild('Destro', {
-	gear: DefaultGear,
-	talents: DefaultTalentsDestro,
-	rotation: DefaultAPLs[60][2],
-});
+export const DefaultTalents = TalentsDSRuin;
 
 ///////////////////////////////////////////////////////////////////////////
 //                                 Options
@@ -199,20 +92,19 @@ export const PresetBuildDestro = PresetUtils.makePresetBuild('Destro', {
 
 export const DefaultOptions = WarlockOptions.create({
 	armor: Armor.DemonArmor,
-	summon: Summon.Imp,
+	summon: Summon.Succubus,
 	weaponImbue: WarlockWeaponImbue.NoWeaponImbue,
 });
 
 export const DefaultConsumes = Consumes.create({
-	alcohol: Alcohol.AlcoholKreegsStoutBeatdown,
+	alcohol: Alcohol.AlcoholRumseyRumBlackLabel,
 	defaultPotion: Potions.MajorManaPotion,
 	defaultConjured: Conjured.ConjuredDemonicRune,
 	flask: Flask.FlaskOfSupremePower,
 	firePowerBuff: FirePowerBuff.ElixirOfGreaterFirepower,
 	food: Food.FoodTenderWolfSteak,
-	mainHandImbue: WeaponImbue.BrilliantWizardOil,
+	// mainHandImbue: WeaponImbue.BrilliantWizardOil,
 	manaRegenElixir: ManaRegenElixir.MagebloodPotion,
-
 	spellPowerBuff: SpellPowerBuff.GreaterArcaneElixir,
 	shadowPowerBuff: ShadowPowerBuff.ElixirOfShadowPower,
 	zanzaBuff: ZanzaBuff.GizzardGum,
@@ -232,13 +124,13 @@ export const DefaultRaidBuffs = RaidBuffs.create({
 export const DefaultIndividualBuffs = IndividualBuffs.create({
 	blessingOfKings: true,
 	blessingOfWisdom: TristateEffect.TristateEffectImproved,
-	moldarsMoxie: true,
+	moldarsMoxie: false,
 	rallyingCryOfTheDragonslayer: true,
 	saygesFortune: SaygesFortune.SaygesDamage,
-	slipkiksSavvy: true,
+	slipkiksSavvy: false,
 	songflowerSerenade: true,
-	spiritOfZandalar: true,
-	warchiefsBlessing: true,
+	spiritOfZandalar: false,
+	warchiefsBlessing: false,
 });
 
 export const DefaultDebuffs = Debuffs.create({
@@ -246,6 +138,7 @@ export const DefaultDebuffs = Debuffs.create({
 	improvedScorch: true,
 	judgementOfWisdom: true,
 	shadowWeaving: true,
+	curseOfShadow: true,
 });
 
 export const OtherDefaults = {

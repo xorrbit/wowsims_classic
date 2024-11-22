@@ -2,7 +2,6 @@ import * as BuffDebuffInputs from '../core/components/inputs/buffs_debuffs';
 import * as ConsumablesInputs from '../core/components/inputs/consumables.js';
 import * as WarlockInputs from '../core/components/inputs/warlock_inputs';
 import * as OtherInputs from '../core/components/other_inputs.js';
-import { Phase } from '../core/constants/other.js';
 import { IndividualSimUI, registerSpecConfig } from '../core/individual_sim_ui.js';
 import { Player } from '../core/player.js';
 import { Class, Faction, ItemSlot, PartyBuffs, Race, Spec, Stat } from '../core/proto/common.js';
@@ -70,53 +69,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWarlock, {
 		Stat.StatMP5,
 	],
 	displayPseudoStats: [],
-	
-	// TODO: Figure out a way to get the stat but right now this comes out wrong
-	// due to pet scaling and player getting some dynamic buffs which we cant get here
-	// modifyDisplayStats: (player: Player<Spec.SpecWarlock>) => {
-	// 	let stats = new Stats();
-
-	// 	// Demonic Knowledge rune
-	// 	if (player.getEquippedItem(ItemSlot.ItemSlotFeet)?.rune?.id == WarlockRune.RuneBootsDemonicKnowledge) {
-	// 		let petIntStaMap = new Map<number, Map<WarlockOptions_Summon, number>>([
-	// 			[25, new Map<WarlockOptions_Summon, number>([
-	// 				[WarlockOptions_Summon.Imp, 49 + 94],
-	// 				[WarlockOptions_Summon.Succubus, 87 + 35],
-	// 			])],
-	// 			[40, new Map<WarlockOptions_Summon, number>([
-	// 				[WarlockOptions_Summon.Imp, 67 + 163],
-	// 				[WarlockOptions_Summon.Succubus, 148 + 49],
-	// 			])],
-	// 			[50, new Map<WarlockOptions_Summon, number>([
-	// 				[WarlockOptions_Summon.Imp, 67 + 163],
-	// 				[WarlockOptions_Summon.Succubus, 148 + 49],
-	// 			])],
-	// 			[60, new Map<WarlockOptions_Summon, number>([
-	// 				[WarlockOptions_Summon.Imp, 67 + 163],
-	// 				[WarlockOptions_Summon.Succubus, 148 + 49],
-	// 			])],
-	// 		]);
-
-	// 		// Base stats
-	// 		let currentTotal = petIntStaMap.get(player.getLevel())!.get(player.getSpecOptions().summon)!;
-
-	// 		// Bonus item stats
-	// 		let trinketId = 216509
-	// 		if (player.getEquippedItem(ItemSlot.ItemSlotTrinket1)?.id == trinketId || player.getEquippedItem(ItemSlot.ItemSlotTrinket2)?.id == trinketId) {
-	// 			currentTotal = currentTotal + 100;
-	// 		}
-
-	// 		// Player scaled stats
-	// 		let playerStats = Stats.fromProto(player.getCurrentStats().finalStats)
-	// 		currentTotal = currentTotal + playerStats.getStat(Stat.StatIntellect) * 0.3 + playerStats.getStat(Stat.StatStamina) * (player.getSpecOptions().summon == WarlockOptions_Summon.Imp ? 0.66 : 0.75)
-
-	// 		stats = stats.addStat(Stat.StatSpellPower, currentTotal * 0.1);
-	// 	}
-
-	// 	return {
-	// 		talents: stats,
-	// 	};
-	// },
 
 	defaults: {
 		// Default equipped gear.
@@ -190,38 +142,15 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWarlock, {
 
 	presets: {
 		// Preset talents that the user can quickly select.
-		talents: [
-			...Presets.TalentPresets[Phase.Phase5],
-			...Presets.TalentPresets[Phase.Phase4],
-			...Presets.TalentPresets[Phase.Phase3],
-			...Presets.TalentPresets[Phase.Phase2],
-			...Presets.TalentPresets[Phase.Phase1],
-		],
+		talents: Presets.TalentPresets,
 		// Preset rotations that the user can quickly select.
-		rotations: [
-			...Presets.APLPresets[Phase.Phase5],
-			...Presets.APLPresets[Phase.Phase4],
-			...Presets.APLPresets[Phase.Phase3],
-			...Presets.APLPresets[Phase.Phase2],
-			...Presets.APLPresets[Phase.Phase1],
-		],
-
+		rotations: Presets.APLPresets,
 		// Preset gear configurations that the user can quickly select.
-		gear: [
-			Presets.DefaultGear,
-		],
-		// Preset builds (gear, talents, APL) that the user can quickly select.
-		builds: [Presets.PresetBuildAff, Presets.PresetBuildDestro],
+		gear: Presets.GearPresets,
 	},
 
-	autoRotation: player => {
-		const level = player.getLevel();
-		if (level < 50) {
-			return Presets.DefaultAPLs[player.getLevel()][player.getTalentTree()].rotation.rotation!;
-		}
-
-		const specNumber = 0;
-		return Presets.DefaultAPLs[level][specNumber].rotation.rotation!;
+	autoRotation: _player => {
+		return Presets.DefaultAPL.rotation.rotation!;
 	},
 
 	raidSimPresets: [
@@ -231,7 +160,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWarlock, {
 			defaultName: 'Destruction',
 			iconUrl: getSpecIcon(Class.ClassWarlock, 2),
 
-			talents: Presets.DestroMgiTalentsPhase2.data,
+			talents: Presets.DefaultTalents.data,
 			specOptions: Presets.DefaultOptions,
 			consumes: Presets.DefaultConsumes,
 			defaultFactionRaces: {
