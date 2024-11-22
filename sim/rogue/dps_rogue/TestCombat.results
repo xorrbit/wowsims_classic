@@ -1,11 +1,11 @@
 character_stats_results: {
- key: "TestCombat-Phase2-Lvl40-CharacterStats-Default"
+ key: "TestCombat-Phase5-Lvl60-CharacterStats-Default"
  value: {
-  final_stats: 111.32
-  final_stats: 156.86
-  final_stats: 228.39575
-  final_stats: 87.285
-  final_stats: 112.90125
+  final_stats: 264.385
+  final_stats: 471.845
+  final_stats: 453.882
+  final_stats: 127.765
+  final_stats: 197.90925
   final_stats: 0
   final_stats: 0
   final_stats: 0
@@ -13,45 +13,45 @@ character_stats_results: {
   final_stats: 0
   final_stats: 0
   final_stats: 0
-  final_stats: 34
+  final_stats: 49.6
   final_stats: 0
   final_stats: 21
   final_stats: 0
   final_stats: 0
-  final_stats: 886.18
-  final_stats: 5
-  final_stats: 21.72142
+  final_stats: 1914.23
+  final_stats: 9
+  final_stats: 41.27865
   final_stats: 0
   final_stats: 0
   final_stats: 0
   final_stats: 0
   final_stats: 0
   final_stats: 0
-  final_stats: 576.72
-  final_stats: 596.86
+  final_stats: 2448.69
+  final_stats: 1237.845
+  final_stats: 7
+  final_stats: 5.28
   final_stats: 0
-  final_stats: 5
+  final_stats: 36.83731
+  final_stats: 5.28
   final_stats: 0
-  final_stats: 22.44283
-  final_stats: 5
-  final_stats: 0
-  final_stats: 3106.9575
-  final_stats: 13
-  final_stats: 30
-  final_stats: 30
-  final_stats: 30
-  final_stats: 30
-  final_stats: 263
+  final_stats: 6181.82
+  final_stats: 27
+  final_stats: 60
+  final_stats: 60
+  final_stats: 60
+  final_stats: 60
+  final_stats: 484
   final_stats: 0
   final_stats: 0
   final_stats: 0
  }
 }
 stat_weights_results: {
- key: "TestCombat-Phase2-Lvl40-StatWeights-Default"
+ key: "TestCombat-Phase5-Lvl60-StatWeights-Default"
  value: {
-  weights: 0.1259
-  weights: 0.18396
+  weights: 0.44874
+  weights: 0.82626
   weights: 0
   weights: 0
   weights: 0
@@ -67,9 +67,9 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.09953
-  weights: 0.8715
-  weights: 0.8414
+  weights: 0.35474
+  weights: 8.21255
+  weights: 8.09257
   weights: 0
   weights: 0
   weights: 0
@@ -97,64 +97,100 @@ stat_weights_results: {
  }
 }
 dps_results: {
- key: "TestCombat-Phase2-Lvl40-Average-Default"
+ key: "TestCombat-Phase5-Lvl60-Average-Default"
  value: {
-  dps: 91.03793
-  tps: 64.63693
+  dps: 997.22622
+  tps: 708.03062
  }
 }
 dps_results: {
- key: "TestCombat-Phase2-Lvl40-Settings-Human-blank-No Poisons-mutilate-FullBuffs-P2-Consumes-LongMultiTarget"
- value: {}
-}
-dps_results: {
- key: "TestCombat-Phase2-Lvl40-Settings-Human-blank-No Poisons-mutilate-FullBuffs-P2-Consumes-LongSingleTarget"
- value: {}
-}
-dps_results: {
- key: "TestCombat-Phase2-Lvl40-Settings-Human-blank-No Poisons-mutilate-FullBuffs-P2-Consumes-ShortSingleTarget"
- value: {}
-}
-dps_results: {
- key: "TestCombat-Phase2-Lvl40-Settings-Human-blank-No Poisons-mutilate-NoBuffs-P2-Consumes-LongMultiTarget"
- value: {}
-}
-dps_results: {
- key: "TestCombat-Phase2-Lvl40-Settings-Human-blank-No Poisons-mutilate-NoBuffs-P2-Consumes-LongSingleTarget"
- value: {}
-}
-dps_results: {
- key: "TestCombat-Phase2-Lvl40-Settings-Human-blank-No Poisons-mutilate-NoBuffs-P2-Consumes-ShortSingleTarget"
- value: {}
-}
-dps_results: {
- key: "TestCombat-Phase2-Lvl40-Settings-Orc-blank-No Poisons-mutilate-FullBuffs-P2-Consumes-LongMultiTarget"
- value: {}
-}
-dps_results: {
- key: "TestCombat-Phase2-Lvl40-Settings-Orc-blank-No Poisons-mutilate-FullBuffs-P2-Consumes-LongSingleTarget"
- value: {}
-}
-dps_results: {
- key: "TestCombat-Phase2-Lvl40-Settings-Orc-blank-No Poisons-mutilate-FullBuffs-P2-Consumes-ShortSingleTarget"
- value: {}
-}
-dps_results: {
- key: "TestCombat-Phase2-Lvl40-Settings-Orc-blank-No Poisons-mutilate-NoBuffs-P2-Consumes-LongMultiTarget"
- value: {}
-}
-dps_results: {
- key: "TestCombat-Phase2-Lvl40-Settings-Orc-blank-No Poisons-mutilate-NoBuffs-P2-Consumes-LongSingleTarget"
- value: {}
-}
-dps_results: {
- key: "TestCombat-Phase2-Lvl40-Settings-Orc-blank-No Poisons-mutilate-NoBuffs-P2-Consumes-ShortSingleTarget"
- value: {}
-}
-dps_results: {
- key: "TestCombat-Phase2-Lvl40-SwitchInFrontOfTarget-Default"
+ key: "TestCombat-Phase5-Lvl60-Settings-Human-combat_sinister_strike_prebis-No Poisons-combat_sinister_strike-FullBuffs-P1-Consumes-LongMultiTarget"
  value: {
-  dps: 85.51688
-  tps: 60.71699
+  dps: 323.23963
+  tps: 229.50013
+ }
+}
+dps_results: {
+ key: "TestCombat-Phase5-Lvl60-Settings-Human-combat_sinister_strike_prebis-No Poisons-combat_sinister_strike-FullBuffs-P1-Consumes-LongSingleTarget"
+ value: {
+  dps: 268.18556
+  tps: 190.41175
+ }
+}
+dps_results: {
+ key: "TestCombat-Phase5-Lvl60-Settings-Human-combat_sinister_strike_prebis-No Poisons-combat_sinister_strike-FullBuffs-P1-Consumes-ShortSingleTarget"
+ value: {
+  dps: 334.11111
+  tps: 237.21889
+ }
+}
+dps_results: {
+ key: "TestCombat-Phase5-Lvl60-Settings-Human-combat_sinister_strike_prebis-No Poisons-combat_sinister_strike-NoBuffs-P1-Consumes-LongMultiTarget"
+ value: {
+  dps: 141.94131
+  tps: 100.77833
+ }
+}
+dps_results: {
+ key: "TestCombat-Phase5-Lvl60-Settings-Human-combat_sinister_strike_prebis-No Poisons-combat_sinister_strike-NoBuffs-P1-Consumes-LongSingleTarget"
+ value: {
+  dps: 119.24857
+  tps: 84.66648
+ }
+}
+dps_results: {
+ key: "TestCombat-Phase5-Lvl60-Settings-Human-combat_sinister_strike_prebis-No Poisons-combat_sinister_strike-NoBuffs-P1-Consumes-ShortSingleTarget"
+ value: {
+  dps: 149.4038
+  tps: 106.0767
+ }
+}
+dps_results: {
+ key: "TestCombat-Phase5-Lvl60-Settings-Orc-combat_sinister_strike_prebis-No Poisons-combat_sinister_strike-FullBuffs-P1-Consumes-LongMultiTarget"
+ value: {
+  dps: 327.41112
+  tps: 232.46189
+ }
+}
+dps_results: {
+ key: "TestCombat-Phase5-Lvl60-Settings-Orc-combat_sinister_strike_prebis-No Poisons-combat_sinister_strike-FullBuffs-P1-Consumes-LongSingleTarget"
+ value: {
+  dps: 267.00814
+  tps: 189.57578
+ }
+}
+dps_results: {
+ key: "TestCombat-Phase5-Lvl60-Settings-Orc-combat_sinister_strike_prebis-No Poisons-combat_sinister_strike-FullBuffs-P1-Consumes-ShortSingleTarget"
+ value: {
+  dps: 338.27197
+  tps: 240.1731
+ }
+}
+dps_results: {
+ key: "TestCombat-Phase5-Lvl60-Settings-Orc-combat_sinister_strike_prebis-No Poisons-combat_sinister_strike-NoBuffs-P1-Consumes-LongMultiTarget"
+ value: {
+  dps: 143.8311
+  tps: 102.12008
+ }
+}
+dps_results: {
+ key: "TestCombat-Phase5-Lvl60-Settings-Orc-combat_sinister_strike_prebis-No Poisons-combat_sinister_strike-NoBuffs-P1-Consumes-LongSingleTarget"
+ value: {
+  dps: 118.96115
+  tps: 84.46241
+ }
+}
+dps_results: {
+ key: "TestCombat-Phase5-Lvl60-Settings-Orc-combat_sinister_strike_prebis-No Poisons-combat_sinister_strike-NoBuffs-P1-Consumes-ShortSingleTarget"
+ value: {
+  dps: 152.81415
+  tps: 108.49805
+ }
+}
+dps_results: {
+ key: "TestCombat-Phase5-Lvl60-SwitchInFrontOfTarget-Default"
+ value: {
+  dps: 777.6791
+  tps: 552.15216
  }
 }

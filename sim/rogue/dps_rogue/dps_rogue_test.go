@@ -11,20 +11,21 @@ func init() {
 	RegisterDpsRogue()
 }
 
-func TestCombat(t *testing.T) {
+func CombatSinisterStrike(t *testing.T) {
 	core.RunTestSuite(t, t.Name(), core.FullCharacterTestSuiteGenerator([]core.CharacterSuiteConfig{
 		{
 			Class:      proto.Class_ClassRogue,
-			Level:      40,
+			Level:      60,
 			Race:       proto.Race_RaceHuman,
 			OtherRaces: []proto.Race{proto.Race_RaceOrc},
 
-			Talents:     CombatDagger40Talents,
-			GearSet:     core.GetGearSet("../../../ui/rogue/gear_sets", "blank"),
-			Rotation:    core.GetAplRotation("../../../ui/rogue/apls", "mutilate"),
+			Talents:     CombatSwordsTalents,
+			GearSet:     core.GetGearSet("../../../ui/rogue/gear_sets", "combat_sinister_strike_prebis"),
+			Rotation:    core.GetAplRotation("../../../ui/rogue/apls", "combat_sinister_strike"),
 			Buffs:       core.FullBuffs,
-			Consumes:    Phase2Consumes,
-			SpecOptions: core.SpecOptionsCombo{Label: "No Poisons", SpecOptions: DefaultCombatRogue},
+			Consumes:    Phase1Consumes,
+			Phase: 5,
+			SpecOptions: core.SpecOptionsCombo{Label: "No Poisons", SpecOptions: DefaultRogue},
 
 			ItemFilter:      ItemFilters,
 			EPReferenceStat: proto.Stat_StatAttackPower,
@@ -33,20 +34,21 @@ func TestCombat(t *testing.T) {
 	}))
 }
 
-func TestAssassination(t *testing.T) {
+func CombatDaggers(t *testing.T) {
 	core.RunTestSuite(t, t.Name(), core.FullCharacterTestSuiteGenerator([]core.CharacterSuiteConfig{
 		{
 			Class:      proto.Class_ClassRogue,
-			Level:      40,
+			Level:      60,
 			Race:       proto.Race_RaceHuman,
 			OtherRaces: []proto.Race{proto.Race_RaceOrc},
 
-			Talents:     Assassination40Talents,
-			GearSet:     core.GetGearSet("../../../ui/rogue/gear_sets", "blank"),
-			Rotation:    core.GetAplRotation("../../../ui/rogue/apls", "mutilate"),
+			Talents:     CombatDaggersTalents,
+			GearSet:     core.GetGearSet("../../../ui/rogue/gear_sets", "combat_backstab_prebis"),
+			Rotation:    core.GetAplRotation("../../../ui/rogue/apls", "combat_backstab"),
 			Buffs:       core.FullBuffs,
-			Consumes:    Phase2Consumes,
-			SpecOptions: core.SpecOptionsCombo{Label: "No Poisons", SpecOptions: DefaultAssassinationRogue},
+			Consumes:    Phase1Consumes,
+			Phase: 5,
+			SpecOptions: core.SpecOptionsCombo{Label: "No Poisons", SpecOptions: DefaultRogue},
 
 			ItemFilter:      ItemFilters,
 			EPReferenceStat: proto.Stat_StatAttackPower,
@@ -55,10 +57,14 @@ func TestAssassination(t *testing.T) {
 	}))
 }
 
-var CombatDagger25Talents = "-025305000001"
-var CombatDagger40Talents = "-0053052020550100201"
-var Assassination25Talents = "0053021--05"
-var Assassination40Talents = "005303103551--05"
+var CombatSwordsTalents = "005323105-0240052020050150231"
+var CombatDaggersTalents = "005023104-0233050020550100221-05"
+
+var DefaultRogue = &proto.Player_Rogue{
+	Rogue: &proto.Rogue{
+		Options: &proto.RogueOptions{},
+	},
+}
 
 var ItemFilters = core.ItemFilter{
 	ArmorType: proto.ArmorType_ArmorTypeLeather,
@@ -83,26 +89,13 @@ var Stats = []proto.Stat{
 	proto.Stat_StatMeleeCrit,
 }
 
-var DefaultAssassinationRogue = &proto.Player_Rogue{
-	Rogue: &proto.Rogue{
-		Options: DefaultDeadlyBrewOptions,
-	},
-}
-
-var DefaultCombatRogue = &proto.Player_Rogue{
-	Rogue: &proto.Rogue{
-		Options: DefaultDeadlyBrewOptions,
-	},
-}
-
-var DefaultDeadlyBrewOptions = &proto.RogueOptions{}
-
-var Phase2Consumes = core.ConsumesCombo{
-	Label: "P2-Consumes",
+var Phase1Consumes = core.ConsumesCombo{
+	Label: "P1-Consumes",
 	Consumes: &proto.Consumes{
-		AgilityElixir: proto.AgilityElixir_ElixirOfAgility,
+		AgilityElixir: proto.AgilityElixir_ElixirOfTheMongoose,
 		MainHandImbue: proto.WeaponImbue_Windfury,
-		OffHandImbue:  proto.WeaponImbue_SolidSharpeningStone,
-		StrengthBuff:  proto.StrengthBuff_ElixirOfOgresStrength,
+		OffHandImbue:  proto.WeaponImbue_InstantPoison,
+		StrengthBuff:  proto.StrengthBuff_JujuPower,
+		AttackPowerBuff: proto.AttackPowerBuff_JujuMight,
 	},
 }
