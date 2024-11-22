@@ -6,7 +6,6 @@ import { Player } from '../core/player';
 import { Class, Faction, PartyBuffs, PseudoStat, Race, Spec, Stat } from '../core/proto/common';
 import { Stats } from '../core/proto_utils/stats';
 import { getSpecIcon } from '../core/proto_utils/utils';
-import { HonorOfThievesCritRate } from './inputs';
 import * as Presets from './presets.js';
 
 const SPEC_CONFIG = registerSpecConfig(Spec.SpecTankRogue, {
@@ -64,7 +63,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecTankRogue, {
 		Stat.StatShadowResistance,
 	],
 	displayPseudoStats: [],
-	
+
 	defaults: {
 		// Default equipped gear.
 		gear: Presets.DefaultGear.gear,
@@ -128,7 +127,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecTankRogue, {
 			OtherInputs.BurstWindow,
 			OtherInputs.HpPercentForDefensives,
 			OtherInputs.InspirationUptime,
-			HonorOfThievesCritRate,
 		],
 	},
 	encounterPicker: {
@@ -154,9 +152,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecTankRogue, {
 			...Presets.APLPresets[Phase.Phase1],
 		],
 		// Preset gear configurations that the user can quickly select.
-		gear: [
-			Presets.DefaultGear,
-		],
+		gear: [Presets.DefaultGear],
 		builds: [Presets.PresetBuildEncounterDefault, Presets.PresetBuildEncounterVael],
 	},
 

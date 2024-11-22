@@ -118,8 +118,7 @@ func (rogue *Rogue) registerColdBloodCD() {
 			}
 		},
 		OnSpellHitDealt: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
-			// deactivate after use, but for MutilateMH, so MutilateOH is cold-blooded as well
-			if spell.Flags.Matches(SpellFlagColdBlooded) && spell != rogue.MutilateMH {
+			if spell.Flags.Matches(SpellFlagColdBlooded) {
 				aura.Deactivate(sim)
 			}
 		},
@@ -313,18 +312,11 @@ func (rogue *Rogue) registerBladeFlurryCD() {
 			rogue.MultiplyMeleeSpeed(sim, 1/1.2)
 		},
 		OnSpellHitDealt: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
-			bfEligible := true
-
-			//Checks for FoK Offhand and 2P TAQ Set Piece Extra Hits.
-			if (spell.ActionID.SpellID == 409240 && spell.ActionID.Tag == 2) || spell.ActionID.SpellID == 1213754 {
-				bfEligible = false
-			}
-
 			if sim.GetNumTargets() < 2 {
 				return
 			}
 
-			if result.Damage == 0 || !spell.ProcMask.Matches(core.ProcMaskMelee) || !bfEligible {
+			if result.Damage == 0 || !spell.ProcMask.Matches(core.ProcMaskMelee) {
 				return
 			}
 

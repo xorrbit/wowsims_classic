@@ -46,7 +46,6 @@ func (rogue *Rogue) registerRupture() {
 		Dot: core.DotConfig{
 			Aura: core.Aura{
 				Label: "Rupture",
-				Tag:   RogueBleedTag,
 			},
 			NumberOfTicks: 0, // Set dynamically
 			TickLength:    time.Second * 2,
