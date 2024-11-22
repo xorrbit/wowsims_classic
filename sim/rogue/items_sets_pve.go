@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	//"github.com/wowsims/classic/sim/core/proto"
 	"github.com/wowsims/classic/sim/core/stats"
 )
 
@@ -134,6 +133,36 @@ var ItemSetBloodfangArmor = core.NewItemSet(core.ItemSet{
 	},
 })
 
+var ItemSetMadcapsOutfit = core.NewItemSet(core.ItemSet{
+	Name: "Madcap's Outfit",
+	Bonuses: map[int32]core.ApplyEffect{
+		// +20 Attack Power.
+		2: func(agent core.Agent) {
+			c := agent.(RogueAgent).GetRogue()
+			c.AddStats(stats.Stats{
+				stats.AttackPower:       20,
+				stats.RangedAttackPower: 20,
+			})
+		},
+		// Decreases the cooldown of Blind by 20 sec.
+		3: func(agent core.Agent) {
+			// Blind not implemented in sim
+		},
+		// Decrease the energy cost of Eviscerate and Rupture by 5.
+		5: func(agent core.Agent) {
+			c := agent.(RogueAgent).GetRogue()
+			
+			core.MakePermanent(c.RegisterAura(core.Aura{
+				Label:     "Improved Eviscerate and Rupture",
+				OnInit: func(aura *core.Aura, sim *core.Simulation)  {
+					c.Eviscerate.Cost.FlatModifier -= 5
+					c.Rupture.Cost.FlatModifier -= 5
+				},
+			}))
+		},
+	},
+})
+
 ///////////////////////////////////////////////////////////////////////////
 //                            Phase 4 Item Sets - AQ
 ///////////////////////////////////////////////////////////////////////////
@@ -142,7 +171,7 @@ var ItemSetBloodfangArmor = core.NewItemSet(core.ItemSet{
 var ItemSetDarkmantleArmor = core.NewItemSet(core.ItemSet{
 	Name: "Darkmantle Armor",
 	Bonuses: map[int32]core.ApplyEffect{
-		// +40 Attack Power.
+		// +8 All Resistances.
 		2: func(agent core.Agent) {
 			c := agent.GetCharacter()
 			c.AddResistances(8)
@@ -167,7 +196,7 @@ var ItemSetDarkmantleArmor = core.NewItemSet(core.ItemSet{
 				},
 			})
 		},
-		// +8 All Resistances.
+		// +40 Attack Power.
 		6: func(agent core.Agent) {
 			c := agent.GetCharacter()
 			c.AddStats(stats.Stats{
