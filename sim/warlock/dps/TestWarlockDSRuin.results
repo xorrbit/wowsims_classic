@@ -97,6 +97,13 @@ stat_weights_results: {
  }
 }
 dps_results: {
+ key: "TestWarlockDSRuin-Phase1-Lvl60-AllItems-Demoniac'sThreads"
+ value: {
+  dps: 880.20312
+  tps: 942.81885
+ }
+}
+dps_results: {
  key: "TestWarlockDSRuin-Phase1-Lvl60-Average-Default"
  value: {
   dps: 922.93664
