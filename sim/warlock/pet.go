@@ -22,7 +22,6 @@ type WarlockPet struct {
 
 	DanceOfTheWickedManaMetrics *core.ResourceMetrics
 	LifeTapManaMetrics          *core.ResourceMetrics
-	T1Tank4PManaMetrics         *core.ResourceMetrics // https://www.wowhead.com/classic/spell=457572/s03-item-t1-warlock-tank-4p-bonus
 
 	manaPooling bool
 }
