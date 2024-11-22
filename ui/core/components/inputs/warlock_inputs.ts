@@ -5,7 +5,6 @@ import {
 	WarlockOptions_MaxFireboltRank as MaxFireboltRank,
 	WarlockOptions_Summon as Summon,
 	WarlockOptions_WeaponImbue as WeaponImbue,
-	WarlockRune,
 } from '../../proto/warlock.js';
 import { ActionId } from '../../proto_utils/action_id.js';
 import { WarlockSpecs } from '../../proto_utils/utils.js';
@@ -28,7 +27,7 @@ export const ArmorInput = <SpecType extends WarlockSpecs>() =>
 			},
 			{
 				actionId: () => ActionId.fromSpellId(403619),
-				value: Armor.FelArmor,
+				value: Armor.DemonArmor,
 			},
 		],
 	});
