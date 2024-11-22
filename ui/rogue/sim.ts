@@ -6,7 +6,6 @@ import { Player } from '../core/player.js';
 import { Class, Faction, ItemSlot, PartyBuffs, PseudoStat, Race, Spec, Stat, Target, WeaponType } from '../core/proto/common.js';
 import { Stats } from '../core/proto_utils/stats.js';
 import { getSpecIcon } from '../core/proto_utils/utils.js';
-import { HonorOfThievesCritRate } from './inputs';
 import * as Presets from './presets.js';
 
 const SPEC_CONFIG = registerSpecConfig(Spec.SpecRogue, {
@@ -59,11 +58,8 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecRogue, {
 		Stat.StatMeleeHit,
 		Stat.StatMeleeCrit,
 		Stat.StatMeleeHaste,
-		Stat.StatExpertise,
 		// Spell
 		Stat.StatSpellPower,
-		Stat.StatSpellHit,
-		Stat.StatSpellCrit,
 	],
 	epPseudoStats: [PseudoStat.PseudoStatMainHandDps, PseudoStat.PseudoStatOffHandDps, PseudoStat.PseudoStatMeleeSpeedMultiplier],
 	// Reference stat against which to calculate EP.
@@ -78,11 +74,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecRogue, {
 		Stat.StatAttackPower,
 		Stat.StatMeleeHit,
 		Stat.StatMeleeCrit,
-		Stat.StatExpertise,
 		Stat.StatMeleeHaste,
-		// Spell
-		Stat.StatSpellHit,
-		Stat.StatSpellCrit,
 	],
 	displayPseudoStats: [],
 
@@ -92,19 +84,19 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecRogue, {
 		// Default EP weights for sorting gear in the gear picker.
 		epWeights: Stats.fromMap(
 			{
-				[Stat.StatAgility]: 2.51,
-				[Stat.StatStrength]: 1.31,
+				[Stat.StatAgility]: 2.38,
+				[Stat.StatStrength]: 1.26,
 				[Stat.StatAttackPower]: 1.0,
-				[Stat.StatSpellCrit]: 0.12,
-				[Stat.StatSpellHit]: 11.94,
-				[Stat.StatMeleeHit]: 19.43,
-				[Stat.StatMeleeCrit]: 26.72,
+				[Stat.StatSpellCrit]: 0.41,
+				[Stat.StatSpellHit]: 0.94,
+				[Stat.StatMeleeHit]: 29.44,
+				[Stat.StatMeleeCrit]: 17.92,
 				[Stat.StatFireResistance]: 0.5,
 			},
 			{
-				[PseudoStat.PseudoStatMainHandDps]: 9.86,
-				[PseudoStat.PseudoStatOffHandDps]: 1.02,
-				[PseudoStat.PseudoStatMeleeSpeedMultiplier]: 5.0,
+				[PseudoStat.PseudoStatMainHandDps]: 10.49,
+				[PseudoStat.PseudoStatOffHandDps]: 3.74,
+				[PseudoStat.PseudoStatMeleeSpeedMultiplier]: 18.56,
 			},
 		),
 
@@ -138,7 +130,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecRogue, {
 	excludeBuffDebuffInputs: [],
 	// Inputs to include in the 'Other' section on the settings tab.
 	otherInputs: {
-		inputs: [OtherInputs.TankAssignment, OtherInputs.InFrontOfTarget, HonorOfThievesCritRate],
+		inputs: [OtherInputs.TankAssignment, OtherInputs.InFrontOfTarget],
 	},
 	encounterPicker: {
 		// Whether to include 'Execute Duration (%)' in the 'Encounter' section of the settings tab.
@@ -177,8 +169,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecRogue, {
 
 	autoRotation: player => {
 		// Try to find a rotation by hand rune
-		const handRuneID = 0;
-		const preset = Presets.DefaultAPLs[player.getLevel()][handRuneID];
+		const preset = Presets.DefaultAPLs[player.getLevel()][0];
 
 		if (preset) return preset.rotation.rotation!;
 

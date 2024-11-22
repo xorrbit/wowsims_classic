@@ -63,7 +63,7 @@ message RogueTalents {
 }
 
 message RogueOptions {
-	int32 HonorAmongThievesCritRate = 1;
+
 }
 
 message Rogue {

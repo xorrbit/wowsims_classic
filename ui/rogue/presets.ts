@@ -18,7 +18,7 @@ import {
 	WeaponImbue,
 	ZanzaBuff,
 } from '../core/proto/common.js';
-import { RogueOptions, RogueRune } from '../core/proto/rogue.js';
+import { RogueOptions } from '../core/proto/rogue.js';
 import { SavedTalents } from '../core/proto/ui.js';
 import BackstabAPL from './apls/combat_backstab.apl.json';
 import SinisterStrikeAPL from './apls/combat_sinister_strike.apl.json';
@@ -53,7 +53,7 @@ export const DefaultGear = GearSwordsPreBiS;
 ///////////////////////////////////////////////////////////////////////////
 
 export const ROTATION_PRESET_BACKSTAB = PresetUtils.makePresetAPLRotation('Backstab', BackstabAPL, {});
-export const ROTATION_PRESET_SINISTER_STRIKE = PresetUtils.makePresetAPLRotation('SinisterStrike', SinisterStrikeAPL, {});
+export const ROTATION_PRESET_SINISTER_STRIKE = PresetUtils.makePresetAPLRotation('Sinister Strike', SinisterStrikeAPL, {});
 
 export const APLPresets = {
 	[Phase.Phase1]: [ROTATION_PRESET_BACKSTAB, ROTATION_PRESET_SINISTER_STRIKE],
@@ -63,8 +63,12 @@ export const APLPresets = {
 	[Phase.Phase5]: [ROTATION_PRESET_BACKSTAB, ROTATION_PRESET_SINISTER_STRIKE],
 };
 
+//Need to add main hand equip logic or talent/rotation logic to map to Auto APL
 export const DefaultAPLs: Record<number, Record<number, PresetUtils.PresetRotation>> = {
-	60: {},
+	60: {
+		[0]: ROTATION_PRESET_SINISTER_STRIKE,
+		[1]: ROTATION_PRESET_BACKSTAB,
+	},
 };
 
 export const DefaultAPLBackstab = APLPresets[Phase.Phase5][0];
@@ -121,9 +125,7 @@ export const PresetBuildBackstab = PresetUtils.makePresetBuild('Backstab', {
 //                                 Options
 ///////////////////////////////////////////////////////////////////////////
 
-export const DefaultOptions = RogueOptions.create({
-	honorAmongThievesCritRate: 100,
-});
+export const DefaultOptions = RogueOptions.create({});
 
 ///////////////////////////////////////////////////////////////////////////
 //                         Consumes/Buffs/Debuffs

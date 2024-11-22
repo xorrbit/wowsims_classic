@@ -53,7 +53,6 @@ func (rogue *Rogue) registerGarrote() {
 		Dot: core.DotConfig{
 			Aura: core.Aura{
 				Label: "Garrote",
-				Tag:   RogueBleedTag,
 			},
 			NumberOfTicks: 6,
 			TickLength:    time.Second * 3,
