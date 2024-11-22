@@ -73,7 +73,6 @@ type Rogue struct {
 	InstantPoison    *core.Spell
 	WoundPoison      *core.Spell
 
-	instantPoisonProcChanceBonus float64
 	additivePoisonBonusChance    float64
 
 	AdrenalineRushAura            *core.Aura
