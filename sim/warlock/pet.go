@@ -38,8 +38,6 @@ func (warlock *Warlock) setDefaultActivePet() {
 	switch warlock.Options.Summon {
 	case proto.WarlockOptions_Imp:
 		warlock.ActivePet = warlock.Imp
-	case proto.WarlockOptions_Felguard:
-		warlock.ActivePet = warlock.Felguard
 	case proto.WarlockOptions_Felhunter:
 		warlock.ActivePet = warlock.Felhunter
 	case proto.WarlockOptions_Succubus:
@@ -81,11 +79,6 @@ func (warlock *Warlock) registerPets() {
 	warlock.Voidwalker = warlock.makeVoidwalker()
 
 	warlock.BasePets = []*WarlockPet{warlock.Felhunter, warlock.Imp, warlock.Succubus, warlock.Voidwalker}
-
-	if warlock.HasRune(proto.WarlockRune_RuneBracerSummonFelguard) {
-		warlock.Felguard = warlock.makeFelguard()
-		warlock.BasePets = append(warlock.BasePets, warlock.Felguard)
-	}
 }
 
 func (warlock *Warlock) makePet(cfg PetConfig, enabledOnStart bool) *WarlockPet {
@@ -129,10 +122,6 @@ func (warlock *Warlock) makePet(cfg PetConfig, enabledOnStart bool) *WarlockPet 
 }
 
 func (warlock *Warlock) registerPetAbilities() {
-	if warlock.Felguard != nil {
-		warlock.Felguard.registerFelguardCleaveSpell()
-		warlock.Felguard.registerFelguardDemonicFrenzyAura()
-	}
 	warlock.Imp.registerImpFireboltSpell()
 	warlock.Succubus.registerSuccubusLashOfPainSpell()
 }

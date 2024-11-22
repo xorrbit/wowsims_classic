@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const CorruptionRanks = 7
@@ -19,8 +18,6 @@ func (warlock *Warlock) getCorruptionConfig(rank int) core.SpellConfig {
 	level := [CorruptionRanks + 1]int{0, 4, 14, 24, 34, 44, 54, 60}[rank]
 
 	castTime := time.Millisecond * (2000 - (400 * time.Duration(warlock.Talents.ImprovedCorruption)))
-	hasInvocationRune := warlock.HasRune(proto.WarlockRune_RuneBeltInvocation)
-	hasPandemicRune := warlock.HasRune(proto.WarlockRune_RuneHelmPandemic)
 
 	return core.SpellConfig{
 		ActionID:      core.ActionID{SpellID: spellId},
@@ -28,7 +25,7 @@ func (warlock *Warlock) getCorruptionConfig(rank int) core.SpellConfig {
 		SpellCode:     SpellCode_WarlockCorruption,
 		ProcMask:      core.ProcMaskSpellDamage,
 		DefenseType:   core.DefenseTypeMagic,
-		Flags:         core.SpellFlagAPL | core.SpellFlagResetAttackSwing | core.SpellFlagPureDot | WarlockFlagAffliction | WarlockFlagHaunt,
+		Flags:         core.SpellFlagAPL | core.SpellFlagResetAttackSwing | core.SpellFlagPureDot | WarlockFlagAffliction,
 		Rank:          rank,
 		RequiredLevel: level,
 
@@ -42,7 +39,7 @@ func (warlock *Warlock) getCorruptionConfig(rank int) core.SpellConfig {
 			},
 		},
 
-		CritDamageBonus: core.TernaryFloat64(hasPandemicRune, 1, 0),
+		CritDamageBonus: 0,
 
 		DamageMultiplier: 1,
 		ThreatMultiplier: 1,
@@ -58,19 +55,9 @@ func (warlock *Warlock) getCorruptionConfig(rank int) core.SpellConfig {
 
 			OnSnapshot: func(sim *core.Simulation, target *core.Unit, dot *core.Dot, isRollover bool) {
 				dot.Snapshot(target, baseDamage, isRollover)
-				if !isRollover {
-					if warlock.zilaGularAura.IsActive() {
-						dot.SnapshotAttackerMultiplier *= 1.25
-						warlock.zilaGularAura.Deactivate(sim)
-					}
-				}
 			},
 			OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
-				if hasPandemicRune {
-					dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeSnapshotCrit)
-				} else {
-					dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
-				}
+				dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
 			},
 		},
 
@@ -78,11 +65,6 @@ func (warlock *Warlock) getCorruptionConfig(rank int) core.SpellConfig {
 			result := spell.CalcOutcome(sim, target, spell.OutcomeMagicHitNoHitCounter)
 			if result.Landed() {
 				dot := spell.Dot(target)
-
-				if hasInvocationRune && dot.IsActive() {
-					warlock.InvocationRefresh(sim, dot)
-				}
-
 				dot.Apply(sim)
 			}
 			spell.DealOutcome(sim, result)
@@ -90,15 +72,9 @@ func (warlock *Warlock) getCorruptionConfig(rank int) core.SpellConfig {
 		ExpectedTickDamage: func(sim *core.Simulation, target *core.Unit, spell *core.Spell, useSnapshot bool) *core.SpellResult {
 			if useSnapshot {
 				dot := spell.Dot(target)
-				if hasPandemicRune {
-					return dot.CalcSnapshotDamage(sim, target, dot.Spell.OutcomeExpectedMagicCrit)
-				}
 				return dot.CalcSnapshotDamage(sim, target, dot.Spell.OutcomeExpectedMagicAlwaysHit)
 			} else {
 				baseDamage := baseDamage / float64(ticks)
-				if hasPandemicRune {
-					return spell.CalcPeriodicDamage(sim, target, baseDamage, spell.OutcomeExpectedMagicCrit)
-				}
 				return spell.CalcPeriodicDamage(sim, target, baseDamage, spell.OutcomeExpectedMagicAlwaysHit)
 			}
 		},

@@ -92,7 +92,7 @@ var Phase4DestroTalents = "05002-035004-5050205102005151"
 var DefaultDestroWarlock = &proto.Player_Warlock{
 	Warlock: &proto.Warlock{
 		Options: &proto.WarlockOptions{
-			Armor:       proto.WarlockOptions_FelArmor,
+			Armor:       proto.WarlockOptions_DemonArmor,
 			Summon:      proto.WarlockOptions_Imp,
 			WeaponImbue: proto.WarlockOptions_NoWeaponImbue,
 		},
@@ -102,7 +102,7 @@ var DefaultDestroWarlock = &proto.Player_Warlock{
 var DefaultAfflictionWarlock = &proto.Player_Warlock{
 	Warlock: &proto.Warlock{
 		Options: &proto.WarlockOptions{
-			Armor:       proto.WarlockOptions_FelArmor,
+			Armor:       proto.WarlockOptions_DemonArmor,
 			Summon:      proto.WarlockOptions_Imp,
 			WeaponImbue: proto.WarlockOptions_NoWeaponImbue,
 		},
@@ -112,8 +112,8 @@ var DefaultAfflictionWarlock = &proto.Player_Warlock{
 var DefaultDemonologyWarlock = &proto.Player_Warlock{
 	Warlock: &proto.Warlock{
 		Options: &proto.WarlockOptions{
-			Armor:       proto.WarlockOptions_FelArmor,
-			Summon:      proto.WarlockOptions_Felguard,
+			Armor:       proto.WarlockOptions_DemonArmor,
+			Summon:      proto.WarlockOptions_Imp,
 			WeaponImbue: proto.WarlockOptions_NoWeaponImbue,
 		},
 	},

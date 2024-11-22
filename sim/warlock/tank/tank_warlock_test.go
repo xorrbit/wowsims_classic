@@ -93,7 +93,7 @@ var Phase4DestroTalents = "45002400102-03-505020510050115"
 var DefaultDestroWarlock = &proto.Player_TankWarlock{
 	TankWarlock: &proto.TankWarlock{
 		Options: &proto.WarlockOptions{
-			Armor:       proto.WarlockOptions_FelArmor,
+			Armor:       proto.WarlockOptions_DemonArmor,
 			Summon:      proto.WarlockOptions_Imp,
 			WeaponImbue: proto.WarlockOptions_NoWeaponImbue,
 		},
@@ -103,7 +103,7 @@ var DefaultDestroWarlock = &proto.Player_TankWarlock{
 var DefaultAfflictionWarlock = &proto.Player_TankWarlock{
 	TankWarlock: &proto.TankWarlock{
 		Options: &proto.WarlockOptions{
-			Armor:       proto.WarlockOptions_FelArmor,
+			Armor:       proto.WarlockOptions_DemonArmor,
 			Summon:      proto.WarlockOptions_Imp,
 			WeaponImbue: proto.WarlockOptions_NoWeaponImbue,
 		},
@@ -113,8 +113,8 @@ var DefaultAfflictionWarlock = &proto.Player_TankWarlock{
 var DefaultDemonologyWarlock = &proto.Player_TankWarlock{
 	TankWarlock: &proto.TankWarlock{
 		Options: &proto.WarlockOptions{
-			Armor:       proto.WarlockOptions_FelArmor,
-			Summon:      proto.WarlockOptions_Felguard,
+			Armor:       proto.WarlockOptions_DemonArmor,
+			Summon:      proto.WarlockOptions_Imp,
 			WeaponImbue: proto.WarlockOptions_Firestone,
 		},
 	},

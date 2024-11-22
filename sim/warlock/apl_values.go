@@ -63,11 +63,6 @@ func (value *APLValueWarlockShouldRecastDrainSoul) GetBool(sim *core.Simulation)
 	}
 
 	hauntRefresh := 1000 * time.Second
-	if warlock.HauntDebuffAuras != nil {
-		hauntRefresh = warlock.HauntDebuffAuras.Get(warlock.CurrentTarget).RemainingDuration(sim) -
-			warlock.Haunt.CastTime() -
-			warlock.Haunt.TravelTime()
-	}
 
 	// the amount of ticks we have left, assuming we continue channeling
 	dsDot := warlock.ChanneledDot

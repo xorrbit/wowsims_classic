@@ -5,24 +5,18 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const RainOfFireRanks = 4
 
 func (warlock *Warlock) getRainOfFireBaseConfig(rank int) core.SpellConfig {
-	hasLakeOfFireRune := warlock.HasRune(proto.WarlockRune_RuneChestLakeOfFire)
-
 	spellId := [RainOfFireRanks + 1]int32{0, 5740, 6219, 11677, 11678}[rank]
 	spellCoeff := [RainOfFireRanks + 1]float64{0, 0.083, 0.083, 0.083, 0.083}[rank]
 	baseDamage := [RainOfFireRanks + 1]float64{0, 42, 92, 155, 226}[rank]
 	manaCost := [RainOfFireRanks + 1]float64{0, 295, 605, 885, 1185}[rank]
 	level := [RainOfFireRanks + 1]int{0, 20, 34, 46, 58}[rank]
 
-	flags := core.SpellFlagAPL | core.SpellFlagResetAttackSwing | WarlockFlagDestruction
-	if !hasLakeOfFireRune {
-		flags |= core.SpellFlagChanneled
-	}
+	flags := core.SpellFlagAPL | core.SpellFlagResetAttackSwing | WarlockFlagDestruction | core.SpellFlagChanneled
 
 	config := core.SpellConfig{
 		ActionID:      core.ActionID{SpellID: spellId},
@@ -67,13 +61,6 @@ func (warlock *Warlock) getRainOfFireBaseConfig(rank int) core.SpellConfig {
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 			spell.AOEDot().Apply(sim)
 		},
-	}
-
-	if hasLakeOfFireRune {
-		config.Cast.CD = core.Cooldown{
-			Timer:    warlock.NewTimer(),
-			Duration: time.Second * 8,
-		}
 	}
 
 	return config
