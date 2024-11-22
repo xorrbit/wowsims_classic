@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 func (rogue *Rogue) registerEviscerate() {
@@ -35,8 +34,6 @@ func (rogue *Rogue) registerEviscerate() {
 		50: 11299,
 		60: 31016,
 	}[rogue.Level]
-
-	cutToTheChase := rogue.HasRune(proto.RogueRune_RuneCutToTheChase)
 
 	rogue.Eviscerate = rogue.RegisterSpell(core.SpellConfig{
 		SpellCode:    SpellCode_RogueEviscerate,
@@ -83,9 +80,6 @@ func (rogue *Rogue) registerEviscerate() {
 
 			if result.Landed() {
 				rogue.SpendComboPoints(sim, spell)
-				if cutToTheChase {
-					rogue.ApplyCutToTheChase(sim)
-				}
 			} else {
 				spell.IssueRefund(sim)
 			}

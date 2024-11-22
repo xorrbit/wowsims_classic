@@ -62,53 +62,6 @@ message RogueTalents {
 	bool premeditation = 51;
 }
 
-enum RogueRune {
-	RogueRuneNone = 0;
-
-	// Helm
-	RuneFocusedAttacks			= 432256;
-	RuneCombatPotency			= 432259;
-	RuneHonorAmongThieves		= 432264;
-
-	// Cloak
-	RuneFanOfKnives				= 409240;
-	RuneCrimsonTempest			= 412096;
-	RuneBlunderbuss				= 436564;
-
-	// Chest
-	RuneQuickDraw				= 398196;
-	RuneDeadlyBrew				= 399965;
-	RuneJustAFleshWound			= 400014;
-	RuneSlaughterFromTheShadows	= 424925;
-
-	// Bracers
-	RuneCutToTheChase			= 432271;
-	RuneUnfairAdvantage			= 432273;
-	RuneCarnage					= 432276;
-
-	// Gloves
-	RuneMutilate				= 399956;
-	RuneShadowstrike			= 399985;
-	RuneSaberSlash				= 424785;
-	RuneMainGauche				= 424919;
-	RuneCutthroat				= 462708;
-
-	// Waist
-	RuneShurikenToss			= 399986;
-	RuneShadowstep				= 400101;
-	RunePoisonedKnife			= 425012;
-
-	// Legs
-	RuneEnvenom					= 399963;
-	RuneBetweenTheEyes			= 400009;
-	RuneBladeDance				= 400012;
-	
-	// Boots
-	RuneRollingWithThePunches	= 400016;
-	RuneWaylay					= 408700;
-	RuneMasterOfSubtlety		= 425096;
-}
-
 message RogueOptions {
 	int32 HonorAmongThievesCritRate = 1;
 }
