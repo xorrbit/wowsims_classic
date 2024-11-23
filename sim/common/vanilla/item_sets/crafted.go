@@ -2,6 +2,7 @@ package item_sets
 
 import (
 	"github.com/wowsims/classic/sim/core"
+	"github.com/wowsims/classic/sim/core/proto"
 	"github.com/wowsims/classic/sim/core/stats"
 )
 
@@ -65,9 +66,11 @@ var ItemSetBloodvineGarb = core.NewItemSet(core.ItemSet{
 	Name: "Bloodvine Garb",
 	Bonuses: map[int32]core.ApplyEffect{
 		// Improves your chance to get a critical strike with spells by 2%.
-		2: func(agent core.Agent) {
+		3: func(agent core.Agent) {
 			character := agent.GetCharacter()
-			character.AddStat(stats.SpellCrit, 2*core.SpellCritRatingPerCritChance)
+			if character.HasProfession(proto.Profession_Tailoring) {
+				character.AddStat(stats.SpellCrit, 2*core.SpellCritRatingPerCritChance)
+			}
 		},
 	},
 })

@@ -1,0 +1,161 @@
+character_stats_results: {
+ key: "TestWarlockDSRuin-Phase1-Lvl60-CharacterStats-Default"
+ value: {
+  final_stats: 195.5
+  final_stats: 194.35
+  final_stats: 559.682
+  final_stats: 342.7
+  final_stats: 258.9225
+  final_stats: 496
+  final_stats: 0
+  final_stats: 40
+  final_stats: 0
+  final_stats: 0
+  final_stats: 0
+  final_stats: 161
+  final_stats: 41.25
+  final_stats: 0
+  final_stats: 32.35455
+  final_stats: 0
+  final_stats: 0
+  final_stats: 815.5
+  final_stats: 0
+  final_stats: 24.7175
+  final_stats: 0
+  final_stats: 0
+  final_stats: 0
+  final_stats: 6233.5
+  final_stats: 0
+  final_stats: 0
+  final_stats: 1974.7
+  final_stats: 540
+  final_stats: 0
+  final_stats: 5
+  final_stats: 0
+  final_stats: 11.7175
+  final_stats: 5
+  final_stats: 0
+  final_stats: 7130.82
+  final_stats: 43
+  final_stats: 75
+  final_stats: 76
+  final_stats: 60
+  final_stats: 85
+  final_stats: 384
+  final_stats: 0
+  final_stats: 65
+  final_stats: 0
+ }
+}
+stat_weights_results: {
+ key: "TestWarlockDSRuin-Phase1-Lvl60-StatWeights-Default"
+ value: {
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0.06971
+  weights: 0
+  weights: 0.85007
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 9.82568
+  weights: 4.96062
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+ }
+}
+dps_results: {
+ key: "TestWarlockDSRuin-Phase1-Lvl60-AllItems-Demoniac'sThreads"
+ value: {
+  dps: 880.20312
+  tps: 942.81885
+ }
+}
+dps_results: {
+ key: "TestWarlockDSRuin-Phase1-Lvl60-Average-Default"
+ value: {
+  dps: 922.93664
+  tps: 985.15323
+ }
+}
+dps_results: {
+ key: "TestWarlockDSRuin-Phase1-Lvl60-Settings-Orc-mc-DS/Ruin Warlock-rotation-FullBuffs-Consumes-LongMultiTarget"
+ value: {
+  dps: 910.29517
+  tps: 2100.18562
+ }
+}
+dps_results: {
+ key: "TestWarlockDSRuin-Phase1-Lvl60-Settings-Orc-mc-DS/Ruin Warlock-rotation-FullBuffs-Consumes-LongSingleTarget"
+ value: {
+  dps: 910.29517
+  tps: 972.17928
+ }
+}
+dps_results: {
+ key: "TestWarlockDSRuin-Phase1-Lvl60-Settings-Orc-mc-DS/Ruin Warlock-rotation-FullBuffs-Consumes-ShortSingleTarget"
+ value: {
+  dps: 944.73183
+  tps: 987.76278
+ }
+}
+dps_results: {
+ key: "TestWarlockDSRuin-Phase1-Lvl60-Settings-Orc-mc-DS/Ruin Warlock-rotation-NoBuffs-Consumes-LongMultiTarget"
+ value: {
+  dps: 528.6421
+  tps: 1808.84642
+ }
+}
+dps_results: {
+ key: "TestWarlockDSRuin-Phase1-Lvl60-Settings-Orc-mc-DS/Ruin Warlock-rotation-NoBuffs-Consumes-LongSingleTarget"
+ value: {
+  dps: 528.6421
+  tps: 593.64701
+ }
+}
+dps_results: {
+ key: "TestWarlockDSRuin-Phase1-Lvl60-Settings-Orc-mc-DS/Ruin Warlock-rotation-NoBuffs-Consumes-ShortSingleTarget"
+ value: {
+  dps: 562.41626
+  tps: 613.12879
+ }
+}
+dps_results: {
+ key: "TestWarlockDSRuin-Phase1-Lvl60-SwitchInFrontOfTarget-Default"
+ value: {
+  dps: 910.29517
+  tps: 972.17928
+ }
+}

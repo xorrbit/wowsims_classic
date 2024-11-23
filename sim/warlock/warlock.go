@@ -13,7 +13,6 @@ const (
 	WarlockFlagAffliction  = core.SpellFlagAgentReserved1
 	WarlockFlagDemonology  = core.SpellFlagAgentReserved2
 	WarlockFlagDestruction = core.SpellFlagAgentReserved3
-	WarlockFlagHaunt       = core.SpellFlagAgentReserved4
 
 	SpellFlagWarlock = WarlockFlagAffliction | WarlockFlagDemonology | WarlockFlagDestruction
 )
@@ -29,17 +28,12 @@ const (
 	SpellCode_WarlockDemonicSacrifice
 	SpellCode_WarlockDrainLife
 	SpellCode_WarlockDrainSoul
-	SpellCode_WarlockHaunt
 	SpellCode_WarlockImmolate
-	SpellCode_WarlockIncinerate
 	SpellCode_WarlockLifeTap
 	SpellCode_WarlockSearingPain
-	SpellCode_WarlockShadowflame
-	SpellCode_WarlockShadowCleave
 	SpellCode_WarlockShadowBolt
 	SpellCode_WarlockShadowburn
 	SpellCode_WarlockSoulFire
-	SpellCode_WarlockUnstableAffliction
 )
 
 type Warlock struct {
@@ -50,7 +44,6 @@ type Warlock struct {
 	BasePets   []*WarlockPet
 	ActivePet  *WarlockPet
 	Felhunter  *WarlockPet
-	Felguard   *WarlockPet
 	Imp        *WarlockPet
 	Succubus   *WarlockPet
 	Voidwalker *WarlockPet
@@ -58,27 +51,20 @@ type Warlock struct {
 	// Doomguard *DoomguardPet
 	// Infernal  *InfernalPet
 
-	ChaosBolt          *core.Spell
-	Conflagrate        []*core.Spell
-	Corruption         []*core.Spell
-	DarkPact           *core.Spell
-	DrainSoul          []*core.Spell
-	Haunt              *core.Spell
-	Immolate           []*core.Spell
-	Incinerate         *core.Spell
-	LifeTap            []*core.Spell
-	SearingPain        []*core.Spell
-	ShadowBolt         []*core.Spell
-	ShadowCleave       []*core.Spell
-	Shadowburn         []*core.Spell
-	SoulFire           []*core.Spell
-	DemonicGrace       *core.Spell
-	DrainLife          []*core.Spell
-	RainOfFire         []*core.Spell
-	SiphonLife         []*core.Spell
-	DeathCoil          []*core.Spell
-	Shadowflame        *core.Spell
-	UnstableAffliction *core.Spell
+	Conflagrate []*core.Spell
+	Corruption  []*core.Spell
+	DarkPact    *core.Spell
+	DrainSoul   []*core.Spell
+	Immolate    []*core.Spell
+	LifeTap     []*core.Spell
+	SearingPain []*core.Spell
+	ShadowBolt  []*core.Spell
+	Shadowburn  []*core.Spell
+	SoulFire    []*core.Spell
+	DrainLife   []*core.Spell
+	RainOfFire  []*core.Spell
+	SiphonLife  []*core.Spell
+	DeathCoil   []*core.Spell
 
 	ActiveCurseAura          core.AuraArray
 	CurseOfElements          *core.Spell
@@ -100,31 +86,17 @@ type Warlock struct {
 	DebuffSpells      []*core.Spell
 	SummonDemonSpells []*core.Spell
 
-	DemonicKnowledgeAura    *core.Aura
-	HauntDebuffAuras        core.AuraArray
 	ImmolationAura          *core.Spell
-	IncinerateAura          *core.Aura
-	Metamorphosis           *core.Spell
-	MetamorphosisAura       *core.Aura
 	ShadowTranceAura        *core.Aura
-	PyroclasmAura           *core.Aura
-	DemonicGraceAura        *core.Aura
 	AmplifyCurseAura        *core.Aura
-	BackdraftAura           *core.Aura
 	ImprovedShadowBoltAuras core.AuraArray
-	MarkOfChaosAuras        core.AuraArray
 	SoulLinkAura            *core.Aura
-	DecimationAura          *core.Aura
 	MasterDemonologistAura  *core.Aura
-	zilaGularAura           *core.Aura
-	shadowSparkAura         *core.Aura
-	defendersResolveAura    *core.Aura
 
 	// The sum total of demonic pact spell power * seconds.
 	DPSPAggregate float64
 
 	// Extra state and logic variables
-	demonicKnowledgeSp                   float64
 	masterDemonologistBonus              float64 // Bonus multiplier applied to the Master Demonologist talent
 	disableMasterDemonologistOnSacrifice bool    // Whether to disable the Master Demonologist buff after Sacrificing a pet. Used by TAQ 4pc
 	nightfallProcChance                  float64
@@ -217,8 +189,6 @@ func NewWarlock(character *core.Character, options *proto.Player, warlockOptions
 	switch warlock.Options.Armor {
 	case proto.WarlockOptions_DemonArmor:
 		warlock.applyDemonArmor()
-	case proto.WarlockOptions_FelArmor:
-		warlock.applyFelArmor()
 	}
 
 	warlock.registerPets()
@@ -227,14 +197,6 @@ func NewWarlock(character *core.Character, options *proto.Player, warlockOptions
 	guardians.ConstructGuardians(&warlock.Character)
 
 	return warlock
-}
-
-func (warlock *Warlock) HasRune(rune proto.WarlockRune) bool {
-	return false // warlock.HasRuneById(int32(rune))
-}
-
-func (warlock *Warlock) baseRuneAbilityDamage() float64 {
-	return 6.568597 + 0.672028*float64(warlock.Level) + 0.031721*float64(warlock.Level*warlock.Level)
 }
 
 func (warlock *Warlock) OnGCDReady(_ *core.Simulation) {

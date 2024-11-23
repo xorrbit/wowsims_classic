@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const SiphonLifeRanks = 4
@@ -22,15 +21,12 @@ func (warlock *Warlock) getSiphonLifeBaseConfig(rank int) core.SpellConfig {
 
 	baseDamage *= 1 + warlock.shadowMasteryBonus()
 
-	hasInvocationRune := warlock.HasRune(proto.WarlockRune_RuneBeltInvocation)
-	hasPandemicRune := warlock.HasRune(proto.WarlockRune_RuneHelmPandemic)
-
 	return core.SpellConfig{
 		ActionID:      actionID,
 		SpellSchool:   core.SpellSchoolShadow,
 		DefenseType:   core.DefenseTypeMagic,
 		ProcMask:      core.ProcMaskSpellDamage,
-		Flags:         core.SpellFlagAPL | core.SpellFlagResetAttackSwing | core.SpellFlagBinary | WarlockFlagAffliction | WarlockFlagHaunt,
+		Flags:         core.SpellFlagAPL | core.SpellFlagResetAttackSwing | core.SpellFlagBinary | WarlockFlagAffliction,
 		RequiredLevel: level,
 		Rank:          rank,
 
@@ -43,7 +39,7 @@ func (warlock *Warlock) getSiphonLifeBaseConfig(rank int) core.SpellConfig {
 			},
 		},
 
-		CritDamageBonus: core.TernaryFloat64(hasPandemicRune, 1, 0),
+		CritDamageBonus: 0,
 
 		DamageMultiplierAdditive: 1,
 		DamageMultiplier:         1,
@@ -72,11 +68,7 @@ func (warlock *Warlock) getSiphonLifeBaseConfig(rank int) core.SpellConfig {
 				dot.Spell.Flags |= core.SpellFlagIgnoreTargetModifiers
 
 				var result *core.SpellResult
-				if hasPandemicRune {
-					result = dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeSnapshotCrit)
-				} else {
-					result = dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
-				}
+				result = dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
 
 				// revert flag changes
 				dot.Spell.Flags ^= core.SpellFlagIgnoreTargetModifiers
@@ -90,10 +82,6 @@ func (warlock *Warlock) getSiphonLifeBaseConfig(rank int) core.SpellConfig {
 			result := spell.CalcOutcome(sim, target, spell.OutcomeMagicHitNoHitCounter)
 			if result.Landed() {
 				dot := spell.Dot(target)
-				if hasInvocationRune && dot.IsActive() {
-					warlock.InvocationRefresh(sim, dot)
-				}
-
 				dot.Apply(sim)
 			}
 		},

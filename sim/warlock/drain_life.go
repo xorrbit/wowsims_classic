@@ -5,26 +5,18 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const DrainLifeRanks = 6
 
 func (warlock *Warlock) getDrainLifeBaseConfig(rank int) core.SpellConfig {
-	hasMasterChannelerRune := warlock.HasRune(proto.WarlockRune_RuneChestMasterChanneler)
-	hasSoulSiphonRune := warlock.HasRune(proto.WarlockRune_RuneCloakSoulSiphon)
-
-	numTicks := core.TernaryInt32(hasMasterChannelerRune, 15, 5)
+	numTicks := int32(5)
 
 	spellId := [DrainLifeRanks + 1]int32{0, 689, 699, 709, 7651, 11699, 11700}[rank]
 	spellCoeff := [DrainLifeRanks + 1]float64{0, .078, .1, .1, .1, .1, .1}[rank]
 	baseDamage := [DrainLifeRanks + 1]float64{0, 10, 17, 29, 41, 55, 71}[rank]
 	manaCost := [DrainLifeRanks + 1]float64{0, 55, 85, 135, 185, 240, 300}[rank]
 	level := [DrainLifeRanks + 1]int{0, 14, 22, 30, 38, 46, 54}[rank]
-
-	if hasMasterChannelerRune {
-		manaCost *= 2
-	}
 
 	baseDamage *= 1 + warlock.shadowMasteryBonus() + 0.02*float64(warlock.Talents.ImprovedDrainLife)
 
@@ -46,7 +38,7 @@ func (warlock *Warlock) getDrainLifeBaseConfig(rank int) core.SpellConfig {
 		SpellCode:   SpellCode_WarlockDrainLife,
 		DefenseType: core.DefenseTypeMagic,
 		ProcMask:    core.ProcMaskSpellDamage,
-		Flags:       core.SpellFlagAPL | core.SpellFlagResetAttackSwing | WarlockFlagAffliction | WarlockFlagHaunt,
+		Flags:       core.SpellFlagAPL | core.SpellFlagResetAttackSwing | WarlockFlagAffliction | core.SpellFlagChanneled,
 
 		RequiredLevel: level,
 		Rank:          rank,
@@ -74,23 +66,13 @@ func (warlock *Warlock) getDrainLifeBaseConfig(rank int) core.SpellConfig {
 
 			OnSnapshot: func(sim *core.Simulation, target *core.Unit, dot *core.Dot, isRollover bool) {
 				dot.Snapshot(target, baseDamage, isRollover)
-
-				if hasSoulSiphonRune {
-					dot.SnapshotAttackerMultiplier *= warlock.calcSoulSiphonMultiplier(target, false)
-				}
-
 				// Drain Life heals so it snapshots target modifiers
 				// Update 2024-06-29: It no longer snapshots on PTR
 				// dot.SnapshotAttackerMultiplier *= dot.Spell.TargetDamageMultiplier(dot.Spell.Unit.AttackTables[target.UnitIndex][dot.Spell.CastType], true)
 			},
 			OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
 				result := dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
-
 				health := result.Damage
-				if hasMasterChannelerRune {
-					health *= 1.5
-				}
-
 				healingSpell.CalcAndDealHealing(sim, healingSpell.Unit, health, healingSpell.OutcomeHealing)
 			},
 		},
@@ -112,15 +94,6 @@ func (warlock *Warlock) getDrainLifeBaseConfig(rank int) core.SpellConfig {
 				return spell.CalcPeriodicDamage(sim, target, baseDamage, spell.OutcomeExpectedMagicAlwaysHit)
 			}
 		},
-	}
-
-	if hasMasterChannelerRune {
-		spellConfig.Cast.CD = core.Cooldown{
-			Timer:    warlock.NewTimer(),
-			Duration: 15 * time.Second,
-		}
-	} else {
-		spellConfig.Flags |= core.SpellFlagChanneled
 	}
 
 	return spellConfig

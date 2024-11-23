@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const CurseOfAgonyRanks = 6
@@ -20,10 +19,6 @@ func (warlock *Warlock) getCurseOfAgonyBaseConfig(rank int) core.SpellConfig {
 	manaCost := [CurseOfAgonyRanks + 1]float64{0, 25, 50, 90, 130, 170, 215}[rank]
 	level := [CurseOfAgonyRanks + 1]int{0, 8, 18, 28, 38, 48, 58}[rank]
 
-	hasInvocationRune := warlock.HasRune(proto.WarlockRune_RuneBeltInvocation)
-	hasPandemicRune := warlock.HasRune(proto.WarlockRune_RuneHelmPandemic)
-	hasMarkOfChaosRune := warlock.HasRune(proto.WarlockRune_RuneCloakMarkOfChaos)
-
 	baseDamage *= 1 + warlock.shadowMasteryBonus()
 	snapshotBaseDmgNoBonus := 0.0
 
@@ -32,7 +27,7 @@ func (warlock *Warlock) getCurseOfAgonyBaseConfig(rank int) core.SpellConfig {
 		ActionID:      core.ActionID{SpellID: spellId},
 		SpellSchool:   core.SpellSchoolShadow,
 		DefenseType:   core.DefenseTypeMagic,
-		Flags:         core.SpellFlagAPL | core.SpellFlagResetAttackSwing | core.SpellFlagPureDot | WarlockFlagAffliction | WarlockFlagHaunt,
+		Flags:         core.SpellFlagAPL | core.SpellFlagResetAttackSwing | core.SpellFlagPureDot | WarlockFlagAffliction,
 		ProcMask:      core.ProcMaskSpellDamage,
 		RequiredLevel: level,
 		Rank:          rank,
@@ -46,7 +41,7 @@ func (warlock *Warlock) getCurseOfAgonyBaseConfig(rank int) core.SpellConfig {
 			},
 		},
 
-		CritDamageBonus: core.TernaryFloat64(hasPandemicRune, 1, 0),
+		CritDamageBonus: 0,
 
 		DamageMultiplierAdditive: 1,
 		DamageMultiplier:         1,
@@ -73,20 +68,9 @@ func (warlock *Warlock) getCurseOfAgonyBaseConfig(rank int) core.SpellConfig {
 				snapshotBaseDmgNoBonus = baseDmg * 0.5
 
 				dot.Snapshot(target, snapshotBaseDmgNoBonus, isRollover)
-
-				if !isRollover {
-					if warlock.zilaGularAura.IsActive() {
-						dot.SnapshotAttackerMultiplier *= 1.25
-						warlock.zilaGularAura.Deactivate(sim)
-					}
-				}
 			},
 			OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
-				if hasPandemicRune {
-					dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeSnapshotCrit)
-				} else {
-					dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
-				}
+				dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
 				if dot.TickCount%4 == 0 { // CoA ramp up
 					dot.SnapshotBaseDamage += snapshotBaseDmgNoBonus
 				}
@@ -102,16 +86,8 @@ func (warlock *Warlock) getCurseOfAgonyBaseConfig(rank int) core.SpellConfig {
 					activeCurse.Deactivate(sim)
 				}
 
-				if hasInvocationRune && dot.IsActive() {
-					warlock.InvocationRefresh(sim, dot)
-				}
-
 				dot.Apply(sim)
 				warlock.ActiveCurseAura[target.UnitIndex] = dot.Aura
-
-				if hasMarkOfChaosRune {
-					warlock.applyMarkOfChaosDebuff(sim, target, dot.Duration)
-				}
 			}
 			spell.DealOutcome(sim, result)
 		},
@@ -130,8 +106,6 @@ func (warlock *Warlock) registerCurseOfAgonySpell() {
 }
 
 func (warlock *Warlock) registerCurseOfRecklessnessSpell() {
-	hasMarkOfChaosRune := warlock.HasRune(proto.WarlockRune_RuneCloakMarkOfChaos)
-
 	playerLevel := warlock.Level
 
 	warlock.CurseOfRecklessnessAuras = warlock.NewEnemyAuraArray(core.CurseOfRecklessnessAura)
@@ -186,10 +160,6 @@ func (warlock *Warlock) registerCurseOfRecklessnessSpell() {
 
 				warlock.ActiveCurseAura[target.UnitIndex] = aura
 				warlock.ActiveCurseAura.Get(target).Activate(sim)
-
-				if hasMarkOfChaosRune {
-					warlock.applyMarkOfChaosDebuff(sim, target, time.Minute*2)
-				}
 			}
 		},
 
@@ -354,12 +324,9 @@ func (warlock *Warlock) registerCurseOfDoomSpell() {
 		return
 	}
 
-	hasPandemicRune := warlock.HasRune(proto.WarlockRune_RuneHelmPandemic)
-	hasMarkOfChaosRune := warlock.HasRune(proto.WarlockRune_RuneCloakMarkOfChaos)
-
 	warlock.CurseOfDoom = warlock.RegisterSpell(core.SpellConfig{
 		SpellCode:   SpellCode_WarlockCurseOfDoom,
-		ActionID:    core.ActionID{SpellID: 449432}, // New spell created for SoD
+		ActionID:    core.ActionID{SpellID: 603},
 		SpellSchool: core.SpellSchoolShadow,
 		DefenseType: core.DefenseTypeMagic,
 		ProcMask:    core.ProcMaskSpellDamage,
@@ -380,11 +347,12 @@ func (warlock *Warlock) registerCurseOfDoomSpell() {
 			},
 		},
 
-		CritDamageBonus: core.TernaryFloat64(hasPandemicRune, 1, 0),
+		CritDamageBonus: 0,
 
 		DamageMultiplier: 1,
 		ThreatMultiplier: 1 - 0.1*float64(warlock.Talents.ImprovedDrainSoul),
 		FlatThreatBonus:  160,
+		BonusCoefficient: 1,
 
 		Dot: core.DotConfig{
 			Aura: core.Aura{
@@ -396,11 +364,7 @@ func (warlock *Warlock) registerCurseOfDoomSpell() {
 				dot.Snapshot(target, 3200, isRollover)
 			},
 			OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
-				if hasPandemicRune {
-					dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeSnapshotCrit)
-				} else {
-					dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
-				}
+				dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
 			},
 		},
 
@@ -414,10 +378,6 @@ func (warlock *Warlock) registerCurseOfDoomSpell() {
 
 				dot.Apply(sim)
 				warlock.ActiveCurseAura[target.UnitIndex] = dot.Aura
-
-				if hasMarkOfChaosRune {
-					warlock.applyMarkOfChaosDebuff(sim, target, dot.Duration)
-				}
 			}
 		},
 	})

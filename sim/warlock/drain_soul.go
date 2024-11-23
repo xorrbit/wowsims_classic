@@ -5,17 +5,14 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const DrainSoulRanks = 4
 
 func (warlock *Warlock) getDrainSoulBaseConfig(rank int) core.SpellConfig {
-	hasSoulSiphonRune := warlock.HasRune(proto.WarlockRune_RuneCloakSoulSiphon)
-
 	baseNumTicks := int32(5)
-	numTicks := core.TernaryInt32(hasSoulSiphonRune, 15, baseNumTicks)
-	tickLength := time.Second * time.Duration(core.TernaryInt32(hasSoulSiphonRune, 1, 3))
+	numTicks := baseNumTicks
+	tickLength := time.Second * 3
 
 	spellId := [DrainSoulRanks + 1]int32{0, 1120, 8288, 8289, 11675}[rank]
 	spellCoeff := [DrainSoulRanks + 1]float64{0, 0.063, 0.1, 0.1, 0.1}[rank]
@@ -29,7 +26,7 @@ func (warlock *Warlock) getDrainSoulBaseConfig(rank int) core.SpellConfig {
 		SpellSchool: core.SpellSchoolShadow,
 		DefenseType: core.DefenseTypeMagic,
 		ProcMask:    core.ProcMaskSpellDamage,
-		Flags:       core.SpellFlagAPL | core.SpellFlagChanneled | core.SpellFlagResetAttackSwing | WarlockFlagAffliction | WarlockFlagHaunt,
+		Flags:       core.SpellFlagAPL | core.SpellFlagChanneled | core.SpellFlagResetAttackSwing | WarlockFlagAffliction,
 
 		RequiredLevel: level,
 		Rank:          rank,
@@ -56,10 +53,6 @@ func (warlock *Warlock) getDrainSoulBaseConfig(rank int) core.SpellConfig {
 
 			OnSnapshot: func(sim *core.Simulation, target *core.Unit, dot *core.Dot, isRollover bool) {
 				dot.Snapshot(target, baseDamage, isRollover)
-
-				if hasSoulSiphonRune {
-					dot.SnapshotAttackerMultiplier *= warlock.calcSoulSiphonMultiplier(target, sim.IsExecutePhase20())
-				}
 			},
 			OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
 				dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)

@@ -1,8 +1,6 @@
 package warlock
 
 import (
-	"time"
-
 	"github.com/wowsims/classic/sim/core"
 	"github.com/wowsims/classic/sim/core/stats"
 )
@@ -38,32 +36,6 @@ func (warlock *Warlock) applyDemonArmor() {
 		Duration: core.NeverExpires,
 		OnReset: func(aura *core.Aura, sim *core.Simulation) {
 			aura.Activate(sim)
-		},
-	})
-}
-
-// Surrounds the caster with fel energy, increasing spell damage and healing by 1 plus additional spell damage and healing equal to 50% of your Spirit.
-// In addition, you regain 2% of your maximum health every 5 sec.
-func (warlock *Warlock) applyFelArmor() {
-	actionID := core.ActionID{SpellID: 403619}
-
-	warlock.AddStat(stats.SpellPower, 60)
-	warlock.AddStatDependency(stats.Spirit, stats.SpellPower, .50)
-
-	healthMetrics := warlock.NewHealthMetrics(actionID)
-	warlock.GetOrRegisterAura(core.Aura{
-		Label:    "Fel Armor",
-		ActionID: actionID,
-		Duration: core.NeverExpires,
-		OnReset: func(aura *core.Aura, sim *core.Simulation) {
-			aura.Activate(sim)
-			core.StartPeriodicAction(sim, core.PeriodicActionOptions{
-				Period:   time.Second * 5,
-				Priority: core.ActionPriorityAuto,
-				OnAction: func(sim *core.Simulation) {
-					warlock.GainHealth(sim, warlock.MaxHealth()*.02, healthMetrics)
-				},
-			})
 		},
 	})
 }

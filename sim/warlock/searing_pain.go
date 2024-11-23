@@ -34,13 +34,6 @@ func (warlock *Warlock) getSearingPainBaseConfig(rank int) core.SpellConfig {
 				GCD:      core.GCDDefault,
 				CastTime: castTime,
 			},
-			ModifyCast: func(sim *core.Simulation, spell *core.Spell, cast *core.Cast) {
-				if warlock.MetamorphosisAura != nil && warlock.MetamorphosisAura.IsActive() {
-					spell.DefaultCast.CastTime = 0
-				} else {
-					spell.DefaultCast.CastTime = castTime
-				}
-			},
 		},
 		BonusCritRating: 2.0 * float64(warlock.Talents.ImprovedSearingPain) * core.CritRatingPerCritChance,
 

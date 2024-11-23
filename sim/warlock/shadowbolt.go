@@ -4,14 +4,11 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const ShadowBoltRanks = 10
 
 func (warlock *Warlock) getShadowBoltBaseConfig(rank int) core.SpellConfig {
-	hasMarkOfChaosRune := warlock.HasRune(proto.WarlockRune_RuneCloakMarkOfChaos)
-
 	spellCoeff := [ShadowBoltRanks + 1]float64{0, .14, .299, .56, .857, .857, .857, .857, .857, .857, .857}[rank]
 	baseDamage := [ShadowBoltRanks + 1][]float64{{0}, {13, 18}, {26, 32}, {52, 61}, {92, 104}, {150, 170}, {213, 240}, {292, 327}, {373, 415}, {455, 507}, {482, 538}}[rank]
 	spellId := [ShadowBoltRanks + 1]int32{0, 686, 695, 705, 1088, 1106, 7641, 11659, 11660, 11661, 25307}[rank]
@@ -19,10 +16,9 @@ func (warlock *Warlock) getShadowBoltBaseConfig(rank int) core.SpellConfig {
 	level := [ShadowBoltRanks + 1]int{0, 1, 6, 12, 20, 28, 36, 44, 52, 60, 60}[rank]
 	castTime := [ShadowBoltRanks + 1]int32{0, 1700, 2200, 2800, 3000, 3000, 3000, 3000, 3000, 3000, 3000}[rank]
 
-	shadowboltVolley := warlock.HasRune(proto.WarlockRune_RuneHandsShadowBoltVolley)
-	damageMulti := core.TernaryFloat64(shadowboltVolley, 0.95, 1.0)
+	damageMulti := 1.0
 
-	results := make([]*core.SpellResult, min(core.TernaryInt32(shadowboltVolley, 5, 1), warlock.Env.GetNumTargets()))
+	results := make([]*core.SpellResult, 1, warlock.Env.GetNumTargets())
 
 	return core.SpellConfig{
 		SpellCode:     SpellCode_WarlockShadowBolt,
@@ -42,9 +38,6 @@ func (warlock *Warlock) getShadowBoltBaseConfig(rank int) core.SpellConfig {
 				GCD:      core.GCDDefault,
 				CastTime: time.Millisecond * time.Duration(castTime),
 			},
-		},
-		ExtraCastCondition: func(sim *core.Simulation, target *core.Unit) bool {
-			return warlock.MetamorphosisAura == nil || !warlock.MetamorphosisAura.IsActive()
 		},
 
 		DamageMultiplier: damageMulti,
@@ -66,10 +59,6 @@ func (warlock *Warlock) getShadowBoltBaseConfig(rank int) core.SpellConfig {
 						if spell.RelatedAuras[0].Get(warlock.CurrentTarget).IsActive() {
 							activeEffectMultiplier += warlock.shadowBoltActiveEffectMultiplierPer
 						}
-					}
-
-					if hasMarkOfChaosRune && warlock.MarkOfChaosAuras.Get(warlock.CurrentTarget).IsActive() {
-						activeEffectMultiplier += warlock.shadowBoltActiveEffectMultiplierPer
 					}
 
 					activeEffectMultiplier = min(warlock.shadowBoltActiveEffectMultiplierMax, activeEffectMultiplier)

@@ -4,15 +4,12 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const SoulFireRanks = 2
 const SoulFireCastTime = time.Millisecond * 6000
 
 func (warlock *Warlock) getSoulFireBaseConfig(rank int) core.SpellConfig {
-	hasDecimationRune := warlock.HasRune(proto.WarlockRune_RuneBootsDecimation)
-
 	spellId := [SoulFireRanks + 1]int32{0, 6353, 17924}[rank]
 	baseDamage := [SoulFireRanks + 1][]float64{{0, 0}, {628, 789}, {715, 894}}[rank]
 	manaCost := [SoulFireRanks + 1]float64{0, 305, 335}[rank]
@@ -53,11 +50,9 @@ func (warlock *Warlock) getSoulFireBaseConfig(rank int) core.SpellConfig {
 		},
 	}
 
-	if !hasDecimationRune {
-		config.Cast.CD = core.Cooldown{
-			Timer:    warlock.NewTimer(),
-			Duration: time.Minute,
-		}
+	config.Cast.CD = core.Cooldown{
+		Timer:    warlock.NewTimer(),
+		Duration: time.Minute,
 	}
 
 	return config

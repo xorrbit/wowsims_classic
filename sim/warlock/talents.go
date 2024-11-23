@@ -156,22 +156,15 @@ func (warlock *Warlock) applyNightfall() {
 			for _, spell := range warlock.ShadowBolt {
 				spell.CastTimeMultiplier -= 1
 			}
-			for _, spell := range warlock.ShadowCleave {
-				spell.CD.Reset()
-				spell.DamageMultiplier *= 2
-			}
 		},
 		OnExpire: func(aura *core.Aura, sim *core.Simulation) {
 			for _, spell := range warlock.ShadowBolt {
 				spell.CastTimeMultiplier += 1
 			}
-			for _, spell := range warlock.ShadowCleave {
-				spell.DamageMultiplier /= 2
-			}
 		},
 		OnCastComplete: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell) {
 			// Check if the shadowbolt was instant cast and not a normal one
-			if (spell.SpellCode == SpellCode_WarlockShadowBolt && spell.CurCast.CastTime == 0) || spell.SpellCode == SpellCode_WarlockShadowCleave {
+			if spell.SpellCode == SpellCode_WarlockShadowBolt && spell.CurCast.CastTime == 0 {
 				aura.Deactivate(sim)
 			}
 		},
@@ -183,12 +176,10 @@ func (warlock *Warlock) applyNightfall() {
 
 	warlock.nightfallProcChance = 0.02 * float64(warlock.Talents.Nightfall)
 
-	hasSoulSiphonRune := warlock.HasRune(proto.WarlockRune_RuneCloakSoulSiphon)
-
 	core.MakePermanent(warlock.RegisterAura(core.Aura{
 		Label: "Nightfall Hidden Aura",
 		OnPeriodicDamageDealt: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
-			if (spell.SpellCode == SpellCode_WarlockCorruption || spell.SpellCode == SpellCode_WarlockDrainLife || (hasSoulSiphonRune && spell.SpellCode == SpellCode_WarlockDrainSoul)) && sim.Proc(warlock.nightfallProcChance, "Nightfall") {
+			if (spell.SpellCode == SpellCode_WarlockCorruption || spell.SpellCode == SpellCode_WarlockDrainLife) && sim.Proc(warlock.nightfallProcChance, "Nightfall") {
 				warlock.ShadowTranceAura.Activate(sim)
 			}
 		},
@@ -289,13 +280,11 @@ func (warlock *Warlock) applyMasterDemonologist() {
 
 	warlock.disableMasterDemonologistOnSacrifice = true
 
-	hasMetaRune := warlock.HasRune(proto.WarlockRune_RuneHandsMetamorphosis)
-
 	points := float64(warlock.Talents.MasterDemonologist)
 	bonusMultiplier := 1 + warlock.masterDemonologistBonus
 	damageDealtMultiplier := 1 + (0.02 * points * bonusMultiplier)
 	damageTakenMultiplier := 1 - (0.02 * points * bonusMultiplier)
-	threatMultiplier := 1 + (core.TernaryFloat64(hasMetaRune, 0.04*points, -0.04*points) * bonusMultiplier)
+	threatMultiplier := 1 + -0.04*points*bonusMultiplier
 	bonusResistance := 2 * points * bonusMultiplier
 
 	masterDemonologistConfig := core.Aura{
@@ -308,11 +297,6 @@ func (warlock *Warlock) applyMasterDemonologist() {
 			}
 
 			switch warlock.ActivePet {
-			case warlock.Felguard:
-				aura.Unit.PseudoStats.DamageDealtMultiplier *= damageDealtMultiplier
-				aura.Unit.PseudoStats.DamageTakenMultiplier *= damageTakenMultiplier
-				aura.Unit.PseudoStats.ThreatMultiplier *= threatMultiplier
-				aura.Unit.AddResistancesDynamic(sim, bonusResistance)
 			case warlock.Felhunter:
 				aura.Unit.AddResistancesDynamic(sim, bonusResistance)
 			case warlock.Imp:
@@ -329,11 +313,6 @@ func (warlock *Warlock) applyMasterDemonologist() {
 			}
 
 			switch warlock.ActivePet {
-			case warlock.Felguard:
-				aura.Unit.PseudoStats.DamageDealtMultiplier /= damageDealtMultiplier
-				aura.Unit.PseudoStats.DamageTakenMultiplier /= damageTakenMultiplier
-				aura.Unit.PseudoStats.ThreatMultiplier /= threatMultiplier
-				aura.Unit.AddResistancesDynamic(sim, -bonusResistance)
 			case warlock.Felhunter:
 				aura.Unit.AddResistancesDynamic(sim, -bonusResistance)
 			case warlock.Imp:
@@ -516,11 +495,6 @@ func (warlock *Warlock) applyDemonicSacrifice() {
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 			switch warlock.ActivePet {
-			case warlock.Felguard:
-				felhunterAura.Activate(sim)
-				impAura.Activate(sim)
-				succubusAura.Activate(sim)
-				voidwalkerAura.Activate(sim)
 			case warlock.Felhunter:
 				felhunterAura.Activate(sim)
 			case warlock.Imp:
@@ -550,7 +524,7 @@ func (warlock *Warlock) applyImprovedShadowBolt() {
 		return core.ImprovedShadowBoltAura(unit, warlock.Talents.ImprovedShadowBolt, stackCount)
 	})
 
-	affectedSpellCodes := []int32{SpellCode_WarlockShadowBolt, SpellCode_WarlockShadowCleave, SpellCode_WarlockShadowflame}
+	affectedSpellCodes := []int32{SpellCode_WarlockShadowBolt}
 	core.MakePermanent(warlock.RegisterAura(core.Aura{
 		Label: "ISB Trigger",
 		OnInit: func(aura *core.Aura, sim *core.Simulation) {
@@ -588,7 +562,7 @@ func (warlock *Warlock) applyBane() {
 
 	points := time.Duration(warlock.Talents.Bane)
 	warlock.OnSpellRegistered(func(spell *core.Spell) {
-		if spell.SpellCode == SpellCode_WarlockShadowBolt || spell.SpellCode == SpellCode_WarlockImmolate || spell.SpellCode == SpellCode_WarlockShadowflame {
+		if spell.SpellCode == SpellCode_WarlockShadowBolt || spell.SpellCode == SpellCode_WarlockImmolate {
 			spell.DefaultCast.CastTime -= time.Millisecond * 100 * points
 		} else if spell.SpellCode == SpellCode_WarlockSoulFire {
 			spell.DefaultCast.CastTime -= time.Millisecond * 400 * points

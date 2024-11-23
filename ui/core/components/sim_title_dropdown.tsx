@@ -58,7 +58,6 @@ export class SimTitleDropdown extends Component {
 		[Spec.SpecHealingPriest]: 'Healing',
 		[Spec.SpecShadowPriest]: 'Shadow',
 		[Spec.SpecWarlock]: 'DPS',
-		[Spec.SpecTankWarlock]: 'Tank',
 		[Spec.SpecWarrior]: 'DPS',
 		[Spec.SpecTankWarrior]: 'Tank',
 	};
