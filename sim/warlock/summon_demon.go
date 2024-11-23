@@ -22,25 +22,6 @@ func (warlock *Warlock) registerSummonDemon() {
 		},
 	}
 
-	// Felguard
-	if warlock.Felguard != nil {
-		warlock.SummonDemonSpells = append(warlock.SummonDemonSpells, warlock.RegisterSpell(core.SpellConfig{
-			ActionID:    core.ActionID{SpellID: 427733},
-			SpellSchool: core.SpellSchoolShadow,
-			ProcMask:    core.ProcMaskEmpty,
-			Flags:       core.SpellFlagAPL,
-
-			ManaCost: core.ManaCostOptions{
-				FlatCost: warlock.BaseMana * 0.80 * (1 - .20*float64(warlock.Talents.MasterSummoner)),
-			},
-			Cast: cast,
-
-			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-				warlock.changeActivePet(sim, warlock.Felguard, false)
-			},
-		}))
-	}
-
 	// Felhunter
 	warlock.SummonDemonSpells = append(warlock.SummonDemonSpells, warlock.RegisterSpell(core.SpellConfig{
 		ActionID:    core.ActionID{SpellID: 691},

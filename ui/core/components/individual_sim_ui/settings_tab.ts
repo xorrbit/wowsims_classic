@@ -227,9 +227,8 @@ export class SettingsTab extends SimTab {
 
 			TypedEvent.onAny([this.simUI.player.talentsChangeEmitter, this.simUI.player.getRaid()!.debuffsChangeEmitter]).on(() => {
 				const isWlAndIsb = (this.simUI.player as Player<Spec.SpecWarlock>)?.getTalents().improvedShadowBolt > 0;
-				const isTankWlAndIsb = (this.simUI.player as Player<Spec.SpecTankWarlock>)?.getTalents().improvedShadowBolt > 0;
 				const externalIsb = this.simUI.player.getRaid()?.getDebuffs()?.improvedShadowBolt == true;
-				if (externalIsb || isWlAndIsb || isTankWlAndIsb) {
+				if (externalIsb || isWlAndIsb) {
 					contentBlock.rootElem.classList.remove('hide');
 				} else {
 					contentBlock.rootElem.classList.add('hide');

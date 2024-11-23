@@ -488,11 +488,6 @@ func GetAllRotationSpellIds() map[string][]int32 {
 			Level:     60,
 			Equipment: &proto.EquipmentSpec{},
 		}, &proto.Player_Warlock{Warlock: &proto.Warlock{Options: &proto.WarlockOptions{}}}), nil, nil, nil)},
-		{Name: "tank warlock", Raid: core.SinglePlayerRaidProto(core.WithSpec(&proto.Player{
-			Class:     proto.Class_ClassWarlock,
-			Level:     60,
-			Equipment: &proto.EquipmentSpec{},
-		}, &proto.Player_TankWarlock{TankWarlock: &proto.TankWarlock{Options: &proto.WarlockOptions{}}}), nil, nil, nil)},
 	}
 
 	ret_db := make(map[string][]int32, 0)

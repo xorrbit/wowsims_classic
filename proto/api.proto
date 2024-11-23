@@ -15,7 +15,7 @@ import "shaman.proto";
 import "warlock.proto";
 import "warrior.proto";
 
-// NextIndex: 49
+// NextIndex: 47
 message Player {
 	// Label used for logging.
 	string name = 1;
@@ -76,9 +76,8 @@ message Player {
 		ElementalShaman elemental_shaman = 33;
 		EnhancementShaman enhancement_shaman = 34;
 		RestorationShaman restoration_shaman = 35;
-		WardenShaman warden_shaman = 47;
+		WardenShaman warden_shaman = 39;
 		Warlock warlock = 36;
-		TankWarlock tank_warlock = 39;
 		Warrior warrior = 37;
 		TankWarrior tank_warrior = 38;
 	}

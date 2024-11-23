@@ -4,15 +4,11 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const ConflagrateRanks = 4
 
 func (warlock *Warlock) getConflagrateConfig(rank int) core.SpellConfig {
-	hasBackdraftRune := warlock.HasRune(proto.WarlockRune_RuneHelmBackdraft)
-	hasShadowflameRune := warlock.HasRune(proto.WarlockRune_RuneBootsShadowflame)
-
 	spellId := [ConflagrateRanks + 1]int32{0, 17962, 18930, 18931, 18932}[rank]
 	baseDamageMin := [ConflagrateRanks + 1]float64{0, 249, 319, 395, 447}[rank]
 	baseDamageMax := [ConflagrateRanks + 1]float64{0, 316, 400, 491, 557}[rank]
@@ -44,7 +40,7 @@ func (warlock *Warlock) getConflagrateConfig(rank int) core.SpellConfig {
 			},
 		},
 		ExtraCastCondition: func(sim *core.Simulation, target *core.Unit) bool {
-			return warlock.getActiveImmolateSpell(target) != nil || (hasShadowflameRune && warlock.Shadowflame.Dot(target).IsActive())
+			return warlock.getActiveImmolateSpell(target) != nil
 		},
 
 		DamageMultiplier: 1,
@@ -54,33 +50,11 @@ func (warlock *Warlock) getConflagrateConfig(rank int) core.SpellConfig {
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 			baseDamage := sim.Roll(baseDamageMin, baseDamageMax)
 
-			result := spell.CalcAndDealDamage(sim, target, baseDamage, spell.OutcomeMagicHitAndCrit)
+			spell.CalcAndDealDamage(sim, target, baseDamage, spell.OutcomeMagicHitAndCrit)
 
-			if result.Landed() && hasBackdraftRune {
-				warlock.BackdraftAura.Activate(sim)
-			}
-
-			// Conflag now doesn't consume Immo or Shadowflame when using Backdraft
-			if !hasBackdraftRune {
-				immoTime := core.NeverExpires
-				shadowflameTime := core.NeverExpires
-
-				immoSpell := warlock.getActiveImmolateSpell(target)
-				if immoSpell != nil {
-					immoDot := immoSpell.Dot(target)
-					immoTime = core.TernaryDuration(immoDot.IsActive(), immoDot.RemainingDuration(sim), core.NeverExpires)
-				}
-
-				if hasShadowflameRune {
-					sfDot := warlock.Shadowflame.Dot(target)
-					shadowflameTime = core.TernaryDuration(sfDot.IsActive(), sfDot.RemainingDuration(sim), core.NeverExpires)
-				}
-
-				if immoTime < shadowflameTime {
-					immoSpell.Dot(target).Deactivate(sim)
-				} else {
-					warlock.Shadowflame.Dot(target).Deactivate(sim)
-				}
+			immoSpell := warlock.getActiveImmolateSpell(target)
+			if immoSpell != nil {
+				immoSpell.Dot(target).Deactivate(sim)
 			}
 		},
 	}

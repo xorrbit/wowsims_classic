@@ -53,14 +53,7 @@ func (warlock *Warlock) getLifeTapBaseConfig(rank int) core.SpellConfig {
 				spell.DealDamage(sim, result)
 			}
 
-			if warlock.MetamorphosisAura != nil && warlock.MetamorphosisAura.IsActive() {
-				restore *= 2
-			}
-
 			warlock.AddMana(sim, restore, manaMetrics)
-			if warlock.ActivePet != nil {
-				warlock.ActivePet.AddMana(sim, restore, warlock.ActivePet.LifeTapManaMetrics)
-			}
 		},
 	}
 }

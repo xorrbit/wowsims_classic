@@ -25,7 +25,6 @@ HTML_INDECIES := ui/balance_druid/index.html \
 				 ui/healing_priest/index.html \
 				 ui/shadow_priest/index.html \
 				 ui/warlock/index.html \
-				 ui/tank_warlock/index.html \
 				 ui/warrior/index.html \
 				 ui/tank_warrior/index.html \
 				 ui/raid/index.html \

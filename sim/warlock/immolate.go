@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const ImmolateRanks = 8
@@ -19,11 +18,6 @@ func (warlock *Warlock) getImmolateConfig(rank int) core.SpellConfig {
 	spellId := [ImmolateRanks + 1]int32{0, 348, 707, 1094, 2941, 11665, 11667, 11668, 25309}[rank]
 	manaCost := [ImmolateRanks + 1]float64{0, 25, 45, 90, 155, 220, 295, 370, 380}[rank]
 	level := [ImmolateRanks + 1]int{0, 1, 10, 20, 30, 40, 50, 60, 60}[rank]
-
-	hasInvocationRune := warlock.HasRune(proto.WarlockRune_RuneBeltInvocation)
-	hasPandemicRune := warlock.HasRune(proto.WarlockRune_RuneHelmPandemic)
-	hasUnstableAffliction := warlock.HasRune(proto.WarlockRune_RuneBracerUnstableAffliction)
-	hasShadowflameRune := warlock.HasRune(proto.WarlockRune_RuneBootsShadowflame)
 
 	return core.SpellConfig{
 		SpellCode:   SpellCode_WarlockImmolate,
@@ -49,9 +43,6 @@ func (warlock *Warlock) getImmolateConfig(rank int) core.SpellConfig {
 			},
 			CastTime: func(spell *core.Spell) time.Duration {
 				durationDecrease := time.Duration(0)
-				if warlock.shadowSparkAura.IsActive() {
-					durationDecrease = (spell.DefaultCast.CastTime / 2) * time.Duration(warlock.shadowSparkAura.GetStacks())
-				}
 				return spell.DefaultCast.CastTime - durationDecrease
 			},
 		},
@@ -74,14 +65,7 @@ func (warlock *Warlock) getImmolateConfig(rank int) core.SpellConfig {
 			},
 			OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
 				var result *core.SpellResult
-				if hasPandemicRune {
-					// We add the crit damage bonus and remove it after the call to not affect the initial damage portion of the spell
-					dot.Spell.CritDamageBonus += 1
-					result = dot.CalcSnapshotDamage(sim, target, dot.OutcomeSnapshotCrit)
-					dot.Spell.CritDamageBonus -= 1
-				} else {
-					result = dot.CalcSnapshotDamage(sim, target, dot.OutcomeTick)
-				}
+				result = dot.CalcSnapshotDamage(sim, target, dot.OutcomeTick)
 				dot.Spell.DealPeriodicDamage(sim, result)
 			},
 		},
@@ -94,19 +78,6 @@ func (warlock *Warlock) getImmolateConfig(rank int) core.SpellConfig {
 
 			if result.Landed() {
 				dot := spell.Dot(target)
-
-				// UA, Immo, Shadowflame exclusivity
-				if hasUnstableAffliction && warlock.UnstableAffliction.Dot(target).IsActive() {
-					warlock.UnstableAffliction.Dot(target).Deactivate(sim)
-				}
-				if hasShadowflameRune && warlock.Shadowflame.Dot(target).IsActive() {
-					warlock.Shadowflame.Dot(target).Deactivate(sim)
-				}
-
-				if hasInvocationRune && dot.IsActive() {
-					warlock.InvocationRefresh(sim, dot)
-				}
-
 				dot.Apply(sim)
 			}
 

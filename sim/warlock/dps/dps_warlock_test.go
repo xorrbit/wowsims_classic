@@ -12,20 +12,20 @@ func init() {
 	RegisterDpsWarlock()
 }
 
-func TestAffliction(t *testing.T) {
+func TestWarlockSMRuin(t *testing.T) {
 	core.RunTestSuite(t, t.Name(), core.FullCharacterTestSuiteGenerator([]core.CharacterSuiteConfig{
 		{
 			Class: proto.Class_ClassWarlock,
-			Phase: 4,
+			Phase: 1,
 			Level: 60,
 			Race:  proto.Race_RaceOrc,
 
-			Talents:     Phase4AffTalents,
-			GearSet:     core.GetGearSet("../../../ui/warlock/gear_sets", "placeholder"),
-			Rotation:    core.GetAplRotation("../../../ui/warlock/apls/p4", "affliction"),
+			Talents:     TalentsSMRuin,
+			GearSet:     core.GetGearSet("../../../ui/warlock/gear_sets", "mc"),
+			Rotation:    core.GetAplRotation("../../../ui/warlock/apls/", "rotation"),
 			Buffs:       core.FullBuffs,
-			Consumes:    Phase4Consumes,
-			SpecOptions: core.SpecOptionsCombo{Label: "Affliction Warlock", SpecOptions: DefaultAfflictionWarlock},
+			Consumes:    Consumes,
+			SpecOptions: core.SpecOptionsCombo{Label: "SM/Ruin Warlock", SpecOptions: DefaultDestroWarlock},
 
 			ItemFilter:      ItemFilters,
 			EPReferenceStat: proto.Stat_StatSpellPower,
@@ -34,41 +34,20 @@ func TestAffliction(t *testing.T) {
 	}))
 }
 
-func TestDemonology(t *testing.T) {
+func TestWarlockDSRuin(t *testing.T) {
 	core.RunTestSuite(t, t.Name(), core.FullCharacterTestSuiteGenerator([]core.CharacterSuiteConfig{
 		{
 			Class: proto.Class_ClassWarlock,
-			Level: 40,
-			Race:  proto.Race_RaceOrc,
-
-			Talents:     Phase2DemonologyTalents,
-			GearSet:     core.GetGearSet("../../../ui/warlock/gear_sets", "placeholder"),
-			Rotation:    core.GetAplRotation("../../../ui/warlock/apls/p2", "demonology"),
-			Buffs:       core.FullBuffs,
-			Consumes:    Phase4Consumes,
-			SpecOptions: core.SpecOptionsCombo{Label: "Demonology Warlock", SpecOptions: DefaultDemonologyWarlock},
-
-			ItemFilter:      ItemFilters,
-			EPReferenceStat: proto.Stat_StatSpellPower,
-			StatsToWeigh:    Stats,
-		},
-	}))
-}
-
-func TestDestruction(t *testing.T) {
-	core.RunTestSuite(t, t.Name(), core.FullCharacterTestSuiteGenerator([]core.CharacterSuiteConfig{
-		{
-			Class: proto.Class_ClassWarlock,
-			Phase: 4,
+			Phase: 1,
 			Level: 60,
 			Race:  proto.Race_RaceOrc,
 
-			Talents:     Phase4DestroTalents,
-			GearSet:     core.GetGearSet("../../../ui/warlock/gear_sets", "placeholder"),
-			Rotation:    core.GetAplRotation("../../../ui/warlock/apls/p4", "destruction"),
+			Talents:     TalentsDSRuin,
+			GearSet:     core.GetGearSet("../../../ui/warlock/gear_sets", "mc"),
+			Rotation:    core.GetAplRotation("../../../ui/warlock/apls/", "rotation"),
 			Buffs:       core.FullBuffs,
-			Consumes:    Phase4Consumes,
-			SpecOptions: core.SpecOptionsCombo{Label: "Destruction Warlock", SpecOptions: DefaultDestroWarlock},
+			Consumes:    Consumes,
+			SpecOptions: core.SpecOptionsCombo{Label: "DS/Ruin Warlock", SpecOptions: DefaultDestroWarlock},
 
 			ItemFilter:      ItemFilters,
 			EPReferenceStat: proto.Stat_StatSpellPower,
@@ -77,50 +56,21 @@ func TestDestruction(t *testing.T) {
 	}))
 }
 
-var Phase1DestructionTalents = "-03-0550201"
-
-var Phase2AfflictionTalents = "3500253012201105--1"
-var Phase2DemonologyTalents = "-2050033132501051"
-var Phase2DestructionTalents = "-01-055020512000415"
-
-var Phase3BackdraftTalents = "-032004-5050205102005151"
-var Phase3NFRuinTalents = "25002500102-03-50502051020001"
-
-var Phase4AffTalents = "4500253012201005--50502051020001"
-var Phase4DestroTalents = "05002-035004-5050205102005151"
+var TalentsSMRuin = "5502203112201105--52500051020001"
+var TalentsDSRuin = "25002-2050300152201-52500051020001"
 
 var DefaultDestroWarlock = &proto.Player_Warlock{
 	Warlock: &proto.Warlock{
 		Options: &proto.WarlockOptions{
-			Armor:       proto.WarlockOptions_FelArmor,
-			Summon:      proto.WarlockOptions_Imp,
+			Armor:       proto.WarlockOptions_DemonArmor,
+			Summon:      proto.WarlockOptions_Succubus,
 			WeaponImbue: proto.WarlockOptions_NoWeaponImbue,
 		},
 	},
 }
 
-var DefaultAfflictionWarlock = &proto.Player_Warlock{
-	Warlock: &proto.Warlock{
-		Options: &proto.WarlockOptions{
-			Armor:       proto.WarlockOptions_FelArmor,
-			Summon:      proto.WarlockOptions_Imp,
-			WeaponImbue: proto.WarlockOptions_NoWeaponImbue,
-		},
-	},
-}
-
-var DefaultDemonologyWarlock = &proto.Player_Warlock{
-	Warlock: &proto.Warlock{
-		Options: &proto.WarlockOptions{
-			Armor:       proto.WarlockOptions_FelArmor,
-			Summon:      proto.WarlockOptions_Felguard,
-			WeaponImbue: proto.WarlockOptions_NoWeaponImbue,
-		},
-	},
-}
-
-var Phase4Consumes = core.ConsumesCombo{
-	Label: "P4-Consumes",
+var Consumes = core.ConsumesCombo{
+	Label: "Consumes",
 	Consumes: &proto.Consumes{
 		DefaultPotion:   proto.Potions_MajorManaPotion,
 		Flask:           proto.Flask_FlaskOfSupremePower,

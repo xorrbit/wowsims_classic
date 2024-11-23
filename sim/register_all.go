@@ -25,7 +25,6 @@ import (
 
 	// restoShaman "github.com/wowsims/classic/sim/shaman/restoration"
 	dpsWarlock "github.com/wowsims/classic/sim/warlock/dps"
-	tankWarlock "github.com/wowsims/classic/sim/warlock/tank"
 	dpsWarrior "github.com/wowsims/classic/sim/warrior/dps_warrior"
 	tankWarrior "github.com/wowsims/classic/sim/warrior/tank_warrior"
 )
@@ -58,5 +57,4 @@ func RegisterAll() {
 	protection.RegisterProtectionPaladin()
 	retribution.RegisterRetributionPaladin()
 	dpsWarlock.RegisterDpsWarlock()
-	tankWarlock.RegisterTankWarlock()
 }
