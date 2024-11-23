@@ -11,7 +11,7 @@ func init() {
 	RegisterDpsRogue()
 }
 
-func CombatSinisterStrike(t *testing.T) {
+func TestCombatSinisterStrike(t *testing.T) {
 	core.RunTestSuite(t, t.Name(), core.FullCharacterTestSuiteGenerator([]core.CharacterSuiteConfig{
 		{
 			Class:      proto.Class_ClassRogue,
@@ -34,7 +34,7 @@ func CombatSinisterStrike(t *testing.T) {
 	}))
 }
 
-func CombatDaggers(t *testing.T) {
+func TestCombatDaggers(t *testing.T) {
 	core.RunTestSuite(t, t.Name(), core.FullCharacterTestSuiteGenerator([]core.CharacterSuiteConfig{
 		{
 			Class:      proto.Class_ClassRogue,
