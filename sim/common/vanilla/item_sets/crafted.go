@@ -48,6 +48,7 @@ var ItemSetBlueDragonMail = core.NewItemSet(core.ItemSet{
 	},
 })
 
+// https://www.wowhead.com/classic/item-set=443/bloodsoul-embrace
 var ItemSetBloodsoulEmbrace = core.NewItemSet(core.ItemSet{
 	Name: "Bloodsoul Embrace",
 	Bonuses: map[int32]core.ApplyEffect{
@@ -59,6 +60,7 @@ var ItemSetBloodsoulEmbrace = core.NewItemSet(core.ItemSet{
 	},
 })
 
+// https://www.wowhead.com/classic/item-set=421/bloodvine-garb
 var ItemSetBloodvineGarb = core.NewItemSet(core.ItemSet{
 	Name: "Bloodvine Garb",
 	Bonuses: map[int32]core.ApplyEffect{
@@ -70,6 +72,7 @@ var ItemSetBloodvineGarb = core.NewItemSet(core.ItemSet{
 	},
 })
 
+// https://www.wowhead.com/classic/item-set=442/blood-tiger-harness
 var ItemSetBloodTigerHarness = core.NewItemSet(core.ItemSet{
 	Name: "Blood Tiger Harness",
 	Bonuses: map[int32]core.ApplyEffect{
@@ -96,6 +99,7 @@ var ItemSetDevilsaurArmor = core.NewItemSet(core.ItemSet{
 	},
 })
 
+// https://www.wowhead.com/classic/item-set=490/green-dragon-mail
 var ItemSetGreenDragonMail = core.NewItemSet(core.ItemSet{
 	Name: "Green Dragon Mail",
 	ID:   490,
@@ -113,6 +117,7 @@ var ItemSetGreenDragonMail = core.NewItemSet(core.ItemSet{
 	},
 })
 
+// https://www.wowhead.com/classic/item-set=321/imperial-plate
 var ItemSetImperialPlate = core.NewItemSet(core.ItemSet{
 	Name: "Imperial Plate",
 	Bonuses: map[int32]core.ApplyEffect{
@@ -135,6 +140,7 @@ var ItemSetImperialPlate = core.NewItemSet(core.ItemSet{
 	},
 })
 
+// https://www.wowhead.com/classic/item-set=144/ironfeather-armor
 var ItemSetIronfeatherArmor = core.NewItemSet(core.ItemSet{
 	Name: "Ironfeather Armor",
 	Bonuses: map[int32]core.ApplyEffect{
@@ -146,6 +152,7 @@ var ItemSetIronfeatherArmor = core.NewItemSet(core.ItemSet{
 	},
 })
 
+// https://www.wowhead.com/classic/item-set=142/stormshroud-armor
 var ItemSetStormshroudArmor = core.NewItemSet(core.ItemSet{
 	Name: "Stormshroud Armor",
 	Bonuses: map[int32]core.ApplyEffect{
@@ -166,7 +173,7 @@ var ItemSetStormshroudArmor = core.NewItemSet(core.ItemSet{
 				},
 			})
 			char.RegisterAura(core.Aura{
-				Label:    "Stormshround Armor 2pc",
+				Label:    "Lightning",
 				ActionID: core.ActionID{SpellID: 18979},
 				Duration: core.NeverExpires,
 				OnReset: func(aura *core.Aura, sim *core.Simulation) {
@@ -176,7 +183,7 @@ var ItemSetStormshroudArmor = core.NewItemSet(core.ItemSet{
 					if !result.Landed() || !spell.ProcMask.Matches(core.ProcMaskMelee) {
 						return
 					}
-					if sim.RandomFloat("Stormshroud Armor 2pc") < 0.05 {
+					if sim.RandomFloat("Lightning") < 0.05 {
 						proc.Cast(sim, result.Target)
 					}
 				},
@@ -197,7 +204,7 @@ var ItemSetStormshroudArmor = core.NewItemSet(core.ItemSet{
 				},
 			})
 			char.RegisterAura(core.Aura{
-				Label:    "Stormshround Armor 3pc",
+				Label:    "Revitalize",
 				ActionID: core.ActionID{SpellID: 18979},
 				Duration: core.NeverExpires,
 				OnReset: func(aura *core.Aura, sim *core.Simulation) {
@@ -207,7 +214,7 @@ var ItemSetStormshroudArmor = core.NewItemSet(core.ItemSet{
 					if !result.Landed() || !spell.ProcMask.Matches(core.ProcMaskMelee) {
 						return
 					}
-					if sim.RandomFloat("Stormshroud Armor 3pc") < 0.02 {
+					if sim.RandomFloat("Revitalize") < 0.02 {
 						proc.Cast(sim, result.Target)
 					}
 				},
@@ -222,6 +229,7 @@ var ItemSetStormshroudArmor = core.NewItemSet(core.ItemSet{
 	},
 })
 
+// https://www.wowhead.com/classic/item-set=444/the-darksoul
 var ItemSetTheDarksoul = core.NewItemSet(core.ItemSet{
 	Name: "The Darksoul",
 	Bonuses: map[int32]core.ApplyEffect{

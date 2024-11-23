@@ -17,6 +17,7 @@ const (
 	Bloodrazor               = 809
 	HammerOfTheNorthernWind  = 810
 	FlurryAxe                = 871
+	ManualCrowdPummeler      = 9449
 	SkullflameShield         = 1168
 	Nightblade               = 1982
 	Shadowblade              = 2163
@@ -124,6 +125,8 @@ func init() {
 	core.AddEffectsToTest = false
 
 	// ! Please keep items ordered alphabetically within a given category !
+
+	// Many referenced from Classic WoW Armaments - https://discord.gg/w95B2hXfBF
 
 	///////////////////////////////////////////////////////////////////////////
 	//                                 Weapons
@@ -417,8 +420,10 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=9511/bloodletter-scalpel
 	itemhelpers.CreateWeaponCoHProcDamage(BloodletterScalpel, "Bloodletter Scalpel", 1.0, 18081, core.SpellSchoolPhysical, 60, 10, 0, core.DefenseTypeMelee)
 
+	// https://www.wowhead.com/classic/item=809/bloodrazor
 	itemhelpers.CreateWeaponProcSpell(Bloodrazor, "Bloodrazor", 1.0, func(character *core.Character) *core.Spell {
 		return character.GetOrRegisterSpell(core.SpellConfig{
 			ActionID:         core.ActionID{SpellID: 17504},
@@ -474,6 +479,8 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=2825/bow-of-searing-arrows
+	// Equip: Chance to strike your ranged target with a Searing Arrow for 18 to 26 Fire damage.
 	itemhelpers.CreateWeaponProcSpell(BowOfSearingArrows, "Bow of Searing Arrows", 3.35, func(character *core.Character) *core.Spell {
 		return character.GetOrRegisterSpell(core.SpellConfig{
 			ActionID:    core.ActionID{SpellID: 29638},
@@ -548,7 +555,6 @@ func init() {
 
 	// https://www.wowhead.com/classic/item=17112/empyrean-demolisher
 	// Chance on hit: Increases your attack speed by 20% for 10 sec.
-	// Original proc rate 1.0 lowered to 0.6 in SoD phase 5
 	itemhelpers.CreateWeaponProcAura(EmpyreanDemolisher, "Empyrean Demolisher", 1.0, func(character *core.Character) *core.Aura {
 		return character.GetOrRegisterAura(core.Aura{
 			Label:    "Empyrean Demolisher Haste Aura",
@@ -601,7 +607,6 @@ func init() {
 
 	// https://www.wowhead.com/classic/item=18203/eskhandars-right-claw
 	// Chance on hit: Increases your attack speed by 30% for 5 sec.
-	// Original proc rate 1.0 lowered to 0.6 in SoD phase 5
 	itemhelpers.CreateWeaponProcAura(EskhandarsRightClaw, "Eskhandar's Right Claw", 1.0, func(character *core.Character) *core.Aura {
 		return character.GetOrRegisterAura(core.Aura{
 			Label:    "Eskhandar's Rage",
@@ -648,7 +653,6 @@ func init() {
 
 	// https://www.wowhead.com/classic/item=12590/felstriker
 	// Chance on hit: All attacks are guaranteed to land and will be critical strikes for the next 3 sec.
-	// Original proc rate 1.0 lowered to 0.6 in SoD phase 5
 	core.NewItemEffect(Felstriker, func(agent core.Agent) {
 		character := agent.GetCharacter()
 
@@ -660,13 +664,14 @@ func init() {
 			Outcome:           core.OutcomeLanded,
 			ProcMask:          procMask,
 			SpellFlagsExclude: core.SpellFlagSuppressWeaponProcs,
-			PPM:               0.6,
+			PPM:               1,
 			Handler: func(sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
 				effectAura.Activate(sim)
 			},
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=18310/fiendish-machete
 	core.NewItemEffect(FiendishMachete, func(agent core.Agent) {
 		character := agent.GetCharacter()
 
@@ -675,6 +680,7 @@ func init() {
 		}
 	})
 
+	// https://www.wowhead.com/classic/item=870/fiery-war-axe
 	itemhelpers.CreateWeaponProcSpell(FieryWarAxe, "Fiery War Axe", 1.0, func(character *core.Character) *core.Spell {
 		return character.GetOrRegisterSpell(core.SpellConfig{
 			ActionID:    core.ActionID{SpellID: 18796},
@@ -974,6 +980,7 @@ func init() {
 		}
 	})
 
+	// https://www.wowhead.com/classic/item=9651/gryphon-riders-stormhammer
 	itemhelpers.CreateWeaponCoHProcDamage(GryphonRidersStormhammer, "Gryphon Rider's Stormhammer", 1.0, 18081, core.SpellSchoolNature, 91, 34, 0, core.DefenseTypeMagic)
 
 	// https://www.wowhead.com/classic/item=17071/gutgore-ripper
@@ -1020,7 +1027,8 @@ func init() {
 			},
 		})
 	})
-
+	
+	// https://www.wowhead.com/classic/item=5616/gutwrencher
 	itemhelpers.CreateWeaponProcSpell(Gutwrencher, "Gutwrencher", 1.0, func(character *core.Character) *core.Spell {
 		return character.GetOrRegisterSpell(core.SpellConfig{
 			ActionID:         core.ActionID{SpellID: 16406},
@@ -1052,12 +1060,14 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=2164/gut-ripper
 	itemhelpers.CreateWeaponCoHProcDamage(GutRipper, "Gut Ripper", 1.0, 18107, core.SpellSchoolPhysical, 95, 26, 0, core.DefenseTypeMelee)
 
 	// https://www.wowhead.com/classic/item=19874/halberd-of-smiting
 	// Equip: Chance to decapitate the target on a melee swing, causing 452 to 676 damage.
 	itemhelpers.CreateWeaponEquipProcDamage(HalberdOfSmiting, "Halberd of Smiting", 2.1, 467819, core.SpellSchoolPhysical, 452, 224, 0.0, core.DefenseTypeMelee) // Works as phantom strike
 
+	// https://www.wowhead.com/classic/item=810/hammer-of-the-northern-wind
 	itemhelpers.CreateWeaponCoHProcDamage(HammerOfTheNorthernWind, "Hammer of the Northern Wind", 3.5, 13439, core.SpellSchoolFrost, 20, 10, 0, core.DefenseTypeMagic)
 
 	// https://www.wowhead.com/classic/item=2243/hand-of-edward-the-odd
@@ -1079,6 +1089,7 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=8190/hanzo-sword
 	itemhelpers.CreateWeaponCoHProcDamage(HanzoSword, "Hanzo Sword", 1.0, 16405, core.SpellSchoolPhysical, 75, 0, 0, core.DefenseTypeMelee)
 
 	// https://www.wowhead.com/classic/item=13937/headmasters-charge
@@ -1121,6 +1132,7 @@ func init() {
 		})
 	}) */
 
+	// https://www.wowhead.com/classic/item=11635/hookfang-shanker
 	itemhelpers.CreateWeaponProcSpell(HookfangShanker, "Hookfang Shanker", 1.0, func(character *core.Character) *core.Spell {
 		return character.GetOrRegisterSpell(core.SpellConfig{
 			ActionID:         core.ActionID{SpellID: 13526},
@@ -1176,10 +1188,13 @@ func init() {
 	// Original proc rate 4.0 lowered to 1.5 in SoD phase 5
 	itemhelpers.CreateWeaponCoHProcDamage(JekliksCrusher, "Jeklik's Crusher", 4.0, 467642, core.SpellSchoolPhysical, 200, 20, 0.0, core.DefenseTypeMelee)
 
+	// https://www.wowhead.com/classic/item=17054/joonhos-mercy
 	itemhelpers.CreateWeaponCoHProcDamage(JoonhosMercy, "Joonho's Mercy", 1.0, 20883, core.SpellSchoolArcane, 70, 0, 0, core.DefenseTypeMagic)
 
+	// https://www.wowhead.com/classic/item=21679/kalimdors-revenge
 	itemhelpers.CreateWeaponCoHProcDamage(KalimdorsRevenge, "Kalimdor's Revenge", 1.25, 26415, core.SpellSchoolNature, 239, 38, 0, core.DefenseTypeMagic) // TODO Update PPM/scaling from PTR
 
+	// https://www.wowhead.com/classic/item=11902/linkens-sword-of-mastery
 	itemhelpers.CreateWeaponCoHProcDamage(LinkensSwordOfMastery, "Linken's Sword of Mastery", 1.0, 18089, core.SpellSchoolNature, 45, 30, 0, core.DefenseTypeMagic)
 
 	// https://www.wowhead.com/classic/item=11817/lord-generals-sword
@@ -1205,6 +1220,44 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=9449/manual-crowd-pummeler
+
+	core.NewItemEffect(ManualCrowdPummeler, func(agent core.Agent) {
+		character := agent.GetCharacter()
+		actionID := core.ActionID{SpellID: 13494}
+		duration := time.Second * 30
+
+		mcpAura := character.GetOrRegisterAura(core.Aura{
+			Label:    "Haste",
+			ActionID: actionID,
+			Duration: duration,
+			OnGain: func(aura *core.Aura, sim *core.Simulation) {
+				character.MultiplyAttackSpeed(sim, 1.5)
+			},
+			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
+				character.MultiplyAttackSpeed(sim, 1.0/1.5)
+			},
+		})
+	
+		spell := character.RegisterSpell(core.SpellConfig{
+			ActionID: actionID,
+			Flags:    core.SpellFlagNoOnCastComplete | core.SpellFlagOffensiveEquipment,
+			Cast: core.CastConfig{
+				CD: core.Cooldown{
+					Timer:    character.NewTimer(),
+					Duration: time.Second * 30,
+				},
+			},
+			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+				mcpAura.Activate(sim)
+			},
+		})
+		character.AddMajorCooldown(core.MajorCooldown{
+			Type:  core.CooldownTypeDPS,
+			Spell: spell,
+		})
+	})
+
 	// https://www.wowhead.com/classic/item=12794/masterwork-stormhammer
 	// Chance on hit: Blasts up to 3 targets for 105 to 145 Nature damage.
 	// Estimated based on data from WoW Armaments Discord
@@ -1226,6 +1279,7 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=1982/nightblade
 	itemhelpers.CreateWeaponCoHProcDamage(Nightblade, "Nightblade", 1.0, 18211, core.SpellSchoolShadow, 125, 150, 0, core.DefenseTypeMagic)
 
 	// https://www.wowhead.com/classic/item=19169/nightfall
@@ -1233,8 +1287,10 @@ func init() {
 		makeNightfallProc(agent.GetCharacter(), "Nightfall")
 	})
 
+	// https://www.wowhead.com/classic/item=9425/pendulum-of-doom
 	itemhelpers.CreateWeaponCoHProcDamage(PendulumOfDoom, "Pendulum of Doom", 0.5, 10373, core.SpellSchoolPhysical, 250, 100, 0, core.DefenseTypeMelee)
 
+	// https://www.wowhead.com/classic/item=12709/pips-skinner
 	core.NewItemEffect(PipsSkinner, func(agent core.Agent) {
 		character := agent.GetCharacter()
 
@@ -1279,9 +1335,11 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=7717/ravager
 	itemhelpers.CreateWeaponProcAura(Ravager, "Ravager", 1.0, func(character *core.Character) *core.Aura {
 		tickActionID := core.ActionID{SpellID: 9633}
 		procActionID := core.ActionID{SpellID: 9632}
+		//Used as part of a canceling ravager APL
 		auraActionID := core.ActionID{SpellID: 433801}
 
 		ravegerBladestormTickSpell := character.GetOrRegisterSpell(core.SpellConfig{
@@ -1360,6 +1418,7 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=17752/satyrs-lash
 	itemhelpers.CreateWeaponCoHProcDamage(SatyrsLash, "Satyr's Lash", 1.0, 18205, core.SpellSchoolShadow, 55, 30, 0, core.DefenseTypeMagic)
 
 	// TODO Searing Needle adds an "Apply Aura: Mod Damage Done (Fire): 10" aura to the /target/, buffing it; not currently modelled
@@ -1423,6 +1482,7 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=13035/serpent-slicer
 	itemhelpers.CreateWeaponProcSpell(SerpentSlicer, "Serpent Slicer", 1.0, func(character *core.Character) *core.Spell {
 		return character.GetOrRegisterSpell(core.SpellConfig{
 			ActionID:         core.ActionID{SpellID: 17511},
@@ -1454,6 +1514,7 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=2163/shadowblade
 	itemhelpers.CreateWeaponCoHProcDamage(Shadowblade, "Shadowblade", 1.0, 18138, core.SpellSchoolShadow, 110, 30, 0, core.DefenseTypeMagic)
 
 	// https://www.wowhead.com/classic/item=17074/shadowstrike
@@ -1477,6 +1538,7 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=754/shortsword-of-vengeance
 	itemhelpers.CreateWeaponCoHProcDamage(ShortswordOfVengeance, "Shortsword of Vengeance", 1.0, 13519, core.SpellSchoolHoly, 30, 0, 0, core.DefenseTypeMagic)
 
 	// https://www.wowhead.com/classic/item=13361/skullforge-reaver
@@ -1644,6 +1706,7 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=9639/the-hand-of-antusul
 	itemhelpers.CreateWeaponProcSpell(TheHandOfAntusul, "The Hand of Antu'sul", 1.0, func(character *core.Character) *core.Spell {
 		debuffAuras := character.NewEnemyAuraArray(func(unit *core.Unit, _ int32) *core.Aura {
 			aura := unit.GetOrRegisterAura(core.Aura{
@@ -1679,6 +1742,7 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=9423/the-jackhammer
 	itemhelpers.CreateWeaponProcAura(TheJackhammer, "The Jackhammer", 1.0, func(character *core.Character) *core.Aura {
 		return character.GetOrRegisterAura(core.Aura{
 			Label:    "The Jackhammer Haste Aura",
@@ -1693,6 +1757,7 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=13060/the-needler
 	itemhelpers.CreateWeaponCoHProcDamage(TheNeedler, "The Needler", 3.0, 13060, core.SpellSchoolPhysical, 75, 0, 0, core.DefenseTypeMelee)
 
 	// https://www.wowhead.com/classic/item=19334/the-untamed-blade
@@ -1713,6 +1778,7 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=17705/thrash-blade
 	itemhelpers.CreateWeaponProcSpell(ThrashBlade, "Thrash Blade", 1.0, func(character *core.Character) *core.Spell {
 		return character.GetOrRegisterSpell(core.SpellConfig{
 			ActionID:         core.ActionID{SpellID: 21919},
@@ -1878,8 +1944,10 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=11603/vilerend-slicer
 	itemhelpers.CreateWeaponCoHProcDamage(VilerendSlicer, "Vilerend Slicer", 1.0, 16405, core.SpellSchoolPhysical, 75, 0, 0, core.DefenseTypeMelee)
 
+	// https://www.wowhead.com/classic/item=17075/viskag-the-bloodletter
 	itemhelpers.CreateWeaponCoHProcDamage(ViskagTheBloodletter, "Vis'kag the Bloodletter", 0.6, 21140, core.SpellSchoolPhysical, 240, 0, 0, core.DefenseTypeMelee)
 
 	// https://www.wowhead.com/classic/item=11920/wraith-scythe
@@ -1923,14 +1991,14 @@ func init() {
 			OnGain: func(aura *core.Aura, sim *core.Simulation) {
 				for _, spell := range aura.Unit.Spellbook {
 					if spell.Cost != nil && spell.Cost.CostType() == core.CostTypeMana {
-						spell.Cost.Multiplier -= 100
+						spell.Cost.FlatModifier -= 100
 					}
 				}
 			},
 			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
 				for _, spell := range aura.Unit.Spellbook {
 					if spell.Cost != nil && spell.Cost.CostType() == core.CostTypeMana {
-						spell.Cost.Multiplier += 100
+						spell.Cost.FlatModifier += 100
 					}
 				}
 			},
@@ -1968,7 +2036,7 @@ func init() {
 	core.NewItemEffect(DarkmoonCardBlueDragon, func(agent core.Agent) {
 		character := agent.GetCharacter()
 
-		actionID := core.ActionID{SpellID: 1213421}
+		actionID := core.ActionID{SpellID: 23688}
 
 		procAura := character.GetOrRegisterAura(core.Aura{
 			Label:    "Aura of the Blue Dragon",
@@ -2029,7 +2097,7 @@ func init() {
 	core.NewItemEffect(DarkmoonCardMaelstrom, func(agent core.Agent) {
 		character := agent.GetCharacter()
 
-		actionID := core.ActionID{SpellID: 1213417}
+		actionID := core.ActionID{SpellID: 23686}
 
 		procSpell := character.GetOrRegisterSpell(core.SpellConfig{
 			ActionID:    actionID,
@@ -2160,7 +2228,7 @@ func init() {
 	// Use: Increases attack power by 65 and an additional 65 every 2 sec.  Lasts 20 sec. (2 Min Cooldown)
 	core.NewItemEffect(JomGabbar, func(agent core.Agent) {
 		character := agent.GetCharacter()
-		actionID := core.ActionID{SpellID: 1213366}
+		actionID := core.ActionID{SpellID: 29602}
 		duration := time.Second * 20
 		bonusPerStack := stats.Stats{
 			stats.AttackPower:       65,
@@ -2226,6 +2294,7 @@ func init() {
 		}
 	}) */
 
+	// https://www.wowhead.com/classic/item=17774/mark-of-the-chosen
 	core.NewItemEffect(MarkOfTheChosen, func(agent core.Agent) {
 		character := agent.GetCharacter()
 		statIncrease := float64(25)
@@ -2281,6 +2350,7 @@ func init() {
 		}
 	})
 
+	// https://www.wowhead.com/classic/item=21625/scarab-brooch
 	core.NewItemEffect(ScarabBrooch, func(agent core.Agent) {
 		character := agent.GetCharacter()
 		actionID := core.ActionID{ItemID: ScarabBrooch}
@@ -2536,6 +2606,7 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=19949/zandalarian-hero-medallion
 	core.NewItemEffect(ZandalariHeroMedallion, func(agent core.Agent) {
 		character := agent.GetCharacter()
 

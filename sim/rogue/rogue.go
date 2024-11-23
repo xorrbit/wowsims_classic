@@ -32,6 +32,7 @@ const (
 	SpellCode_RogueRupture
 	SpellCode_RogueSinisterStrike
 	SpellCode_RogueSliceandDice
+	SpellCode_RogueVanish
 )
 
 var TalentTreeSizes = [3]int{15, 19, 17}
@@ -72,7 +73,6 @@ type Rogue struct {
 	InstantPoison    *core.Spell
 	WoundPoison      *core.Spell
 
-	instantPoisonProcChanceBonus float64
 	additivePoisonBonusChance    float64
 
 	AdrenalineRushAura            *core.Aura

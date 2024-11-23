@@ -7,6 +7,8 @@ import (
 	"github.com/wowsims/classic/sim/core/stats"
 )
 
+//We can place these in the class items_sets_pve.go if wanted.
+
 var ItemSetWildheartRaiment = core.NewItemSet(core.ItemSet{
 	Name: "Wildheart Raiment",
 	Bonuses: map[int32]core.ApplyEffect{
@@ -15,56 +17,37 @@ var ItemSetWildheartRaiment = core.NewItemSet(core.ItemSet{
 			c := agent.GetCharacter()
 			c.AddStat(stats.Armor, 200)
 		},
-		// +40 Attack Power, up to 23 increased damage from spells, and up to 44 increased healing from spells.
+		// +26 Attack Power,increases damage and healing done by magical spells and effects by up to 15.
 		4: func(agent core.Agent) {
 			c := agent.GetCharacter()
 			c.AddStats(stats.Stats{
-				stats.AttackPower:       40,
-				stats.RangedAttackPower: 40,
-				stats.SpellDamage:       23,
-				stats.HealingPower:      44,
+				stats.AttackPower:       26,
+				stats.RangedAttackPower: 26,
+				stats.SpellDamage:       15,
+				stats.HealingPower:      15,
 			})
 		},
-		// 2% chance on spellcast to energize you for 300 mana, 6% chance on dealing a melee autoattack to energize you for 40 Energy, and 3% chance on being hit by a melee attack to energize you for 10 Rage.
+		// When struck in combat has a chance of returning 300 mana, 10 rage, or 40 energy to the wearer.
 		6: func(agent core.Agent) {
 			c := agent.GetCharacter()
-			actionID := core.ActionID{SpellID: 450608}
+			actionID := core.ActionID{SpellID: 27781}
 			manaMetrics := c.NewManaMetrics(actionID)
 			energyMetrics := c.NewEnergyMetrics(actionID)
 			rageMetrics := c.NewRageMetrics(actionID)
 
 			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
 				ActionID:   actionID,
-				Name:       "S03 - Druid Energize Trigger - Wildheart Raiment (Mana)",
-				Callback:   core.CallbackOnCastComplete,
-				ProcMask:   core.ProcMaskSpellDamage | core.ProcMaskSpellHealing,
+				Name:       "Nature's Bounty",
+				Callback:   core.CallbackOnSpellHitTaken,
+				ProcMask:   core.ProcMaskMelee,
 				ProcChance: 0.02,
 				Handler: func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
 					if c.HasManaBar() {
 						c.AddMana(sim, 300, manaMetrics)
 					}
-				},
-			})
-			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
-				ActionID:   actionID,
-				Name:       "S03 - Druid Energize Trigger - Wildheart Raiment (Energy)",
-				Callback:   core.CallbackOnSpellHitDealt,
-				Outcome:    core.OutcomeLanded,
-				ProcMask:   core.ProcMaskMeleeWhiteHit,
-				ProcChance: 0.06,
-				Handler: func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
 					if c.HasEnergyBar() {
 						c.AddEnergy(sim, 40, energyMetrics)
 					}
-				},
-			})
-			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
-				ActionID:   actionID,
-				Name:       "S03 - Druid Energize Trigger - Wildheart Raiment (Rage)",
-				Callback:   core.CallbackOnSpellHitTaken,
-				ProcMask:   core.ProcMaskMelee,
-				ProcChance: 0.03,
-				Handler: func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
 					if c.HasRageBar() {
 						c.AddRage(sim, 10, rageMetrics)
 					}
@@ -95,22 +78,22 @@ var ItemSetBeaststalkerArmor = core.NewItemSet(core.ItemSet{
 				stats.RangedAttackPower: 40,
 			})
 		},
-		// Your melee and ranged autoattacks have a 6% chance to energize you for 300 mana.
+		// Your normal ranged attacks have a 4% chance of restoring 200 mana.
 		6: func(agent core.Agent) {
 			c := agent.GetCharacter()
-			actionID := core.ActionID{SpellID: 450577}
+			actionID := core.ActionID{SpellID: 27785}
 			manaMetrics := c.NewManaMetrics(actionID)
 
 			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
 				ActionID:   actionID,
-				Name:       "S03 - Mana Proc on Cast - Beaststalker Armor",
+				Name:       "Hunter Armor Energize",
 				Callback:   core.CallbackOnSpellHitDealt,
 				Outcome:    core.OutcomeLanded,
 				ProcMask:   core.ProcMaskWhiteHit,
-				ProcChance: 0.06,
+				ProcChance: 0.04,
 				Handler: func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
 					if c.HasManaBar() {
-						c.AddMana(sim, 300, manaMetrics)
+						c.AddMana(sim, 200, manaMetrics)
 					}
 				},
 			})
@@ -136,25 +119,9 @@ var ItemSetMagistersRegalia = core.NewItemSet(core.ItemSet{
 			c := agent.GetCharacter()
 			c.AddStat(stats.SpellPower, 23)
 		},
-		// Your spellcasts have a 6% chance to energize you for 300 mana.
+		// When struck in combat has a chance of freezing the attacker in place for 3 sec.
 		6: func(agent core.Agent) {
-			c := agent.GetCharacter()
-			actionID := core.ActionID{SpellID: 450527}
-			manaMetrics := c.NewManaMetrics(actionID)
-
-			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
-				ActionID:   actionID,
-				Name:       "S03 - Mana Proc on Cast - Magister's Regalia",
-				Callback:   core.CallbackOnSpellHitDealt,
-				Outcome:    core.OutcomeLanded,
-				ProcMask:   core.ProcMaskSpellDamage | core.ProcMaskSpellHealing,
-				ProcChance: 0.06,
-				Handler: func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
-					if c.HasManaBar() {
-						c.AddMana(sim, 300, manaMetrics)
-					}
-				},
-			})
+			//Not implemented due to raid boss immunity
 		},
 		// +8 All Resistances.
 		8: func(agent core.Agent) {
@@ -172,40 +139,31 @@ var ItemSetLightforgeArmor = core.NewItemSet(core.ItemSet{
 			c := agent.GetCharacter()
 			c.AddStat(stats.Armor, 200)
 		},
-		// +40 Attack Power and up to 40 increased healing from spells.
+		// +40 Attack Power
 		4: func(agent core.Agent) {
 			c := agent.GetCharacter()
 			c.AddStats(stats.Stats{
 				stats.AttackPower:       40,
 				stats.RangedAttackPower: 40,
-				stats.HealingPower:      40,
 			})
 		},
-		// 6% chance on melee autoattack and 4% chance on spellcast to increase your damage and healing done by magical spells and effects by up to 95 for 10 sec.
+		// Chance on melee attack to increase your damage and healing done by magical spells and effects by up to 95 for 10 sec.
 		6: func(agent core.Agent) {
 			c := agent.GetCharacter()
-			actionID := core.ActionID{SpellID: 450625}
+			actionID := core.ActionID{SpellID: 27498}
 
-			procAura := c.NewTemporaryStatsAura("Crusader's Wrath", core.ActionID{SpellID: 27499}, stats.Stats{stats.SpellPower: 95}, time.Second*10)
+			procAura := c.NewTemporaryStatsAura("Crusader's Wrath", core.ActionID{SpellID: 27498}, stats.Stats{stats.SpellPower: 95}, time.Second*10)
 			handler := func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
 				procAura.Activate(sim)
 			}
 
 			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
 				ActionID:   actionID,
-				Name:       "Item - Crusader's Wrath Proc - Lightforge Armor (Melee Auto)",
+				Name:       "Item - Crusader's Wrath Proc - Lightforge Armor",
 				Callback:   core.CallbackOnSpellHitDealt,
 				Outcome:    core.OutcomeLanded,
 				ProcMask:   core.ProcMaskMeleeWhiteHit,
-				ProcChance: 0.06,
-				Handler:    handler,
-			})
-			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
-				ActionID:   actionID,
-				Name:       "Item - Crusader's Wrath Proc - Lightforge Armor (Spell Cast)",
-				Callback:   core.CallbackOnCastComplete,
-				ProcMask:   core.ProcMaskSpellDamage | core.ProcMaskSpellHealing,
-				ProcChance: 0.04,
+				ProcChance: 0.06, //Unsure if this is the classic or SoD proc rate.
 				Handler:    handler,
 			})
 		},
@@ -230,24 +188,9 @@ var ItemSetVestmentsOfTheDevout = core.NewItemSet(core.ItemSet{
 			c := agent.GetCharacter()
 			c.AddStat(stats.SpellPower, 23)
 		},
-		// Your spellcasts have a 6% chance to energize you for 300 mana.
+		// 6 pieces: When struck in combat has a chance of shielding the wearer in a protective shield which will absorb 350 damage.
 		6: func(agent core.Agent) {
-			c := agent.GetCharacter()
-			actionID := core.ActionID{SpellID: 450576}
-			manaMetrics := c.NewManaMetrics(actionID)
-
-			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
-				ActionID:   actionID,
-				Name:       "S03 - Mana Proc on Cast - Vestments of the Devout",
-				Callback:   core.CallbackOnCastComplete,
-				ProcMask:   core.ProcMaskSpellDamage | core.ProcMaskSpellHealing,
-				ProcChance: 0.06,
-				Handler: func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
-					if c.HasManaBar() {
-						c.AddMana(sim, 300, manaMetrics)
-					}
-				},
-			})
+			//No use case in Classic Sim
 		},
 		// +8 All Resistances.
 		8: func(agent core.Agent) {
@@ -309,45 +252,33 @@ var ItemSetTheElements = core.NewItemSet(core.ItemSet{
 			c := agent.GetCharacter()
 			c.AddStat(stats.Armor, 200)
 		},
-		// +40 Attack Power, up to 23 increased damage from spells, and up to 44 increased healing from spells.
+		// Increases damage and healing done by magical spells and effects by up to 23.
 		4: func(agent core.Agent) {
 			c := agent.GetCharacter()
 			c.AddStats(stats.Stats{
-				stats.AttackPower:       40,
-				stats.RangedAttackPower: 40,
 				stats.SpellDamage:       23,
-				stats.HealingPower:      44,
+				stats.HealingPower:      23,
 			})
 		},
-		// 6% chance on mainhand autoattack and 4% chance on spellcast to increase your damage and healing done by magical spells and effects by up to 95 for 10 sec.
+		// Chance on spell cast to increase your damage and healing by up to 95 for 10 sec.
 		6: func(agent core.Agent) {
 			c := agent.GetCharacter()
-			actionID := core.ActionID{SpellID: 450626}
+			actionID := core.ActionID{SpellID: 27774}
 
-			procAura := c.NewTemporaryStatsAura("The Furious Storm", core.ActionID{SpellID: 27775}, stats.Stats{stats.SpellPower: 95}, time.Second*10)
+			procAura := c.NewTemporaryStatsAura("The Furious Storm", core.ActionID{SpellID: 27774}, stats.Stats{stats.SpellPower: 95}, time.Second*10)
 			handler := func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
 				procAura.Activate(sim)
 			}
 
 			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
 				ActionID:   actionID,
-				Name:       "Item - The Furious Storm Proc (MH Auto)",
-				Callback:   core.CallbackOnSpellHitDealt,
-				Outcome:    core.OutcomeLanded,
-				ProcMask:   core.ProcMaskMeleeMHAuto,
-				ProcChance: 0.06,
-				Handler:    handler,
-			})
-			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
-				ActionID:   actionID,
-				Name:       "Item - The Furious Storm Proc (Spell Cast)",
+				Name:       "Item - The Furious Storm Proc",
 				Callback:   core.CallbackOnCastComplete,
 				ProcMask:   core.ProcMaskSpellDamage | core.ProcMaskSpellHealing,
 				ProcChance: 0.04,
 				Handler:    handler,
 			})
 		},
-
 		// +8 All Resistances.
 		8: func(agent core.Agent) {
 			c := agent.GetCharacter()
@@ -369,33 +300,9 @@ var ItemSetDreadmistRaiment = core.NewItemSet(core.ItemSet{
 			c := agent.GetCharacter()
 			c.AddStat(stats.SpellPower, 23)
 		},
-		// Your melee autoattacks and spellcasts have a 6% chance to heal you for 270 to 330 health.
+		// When struck in combat has a chance of causing the attacker to flee in terror for 2 seconds.
 		6: func(agent core.Agent) {
-			c := agent.GetCharacter()
-			actionID := core.ActionID{SpellID: 450585}
-			healthMetrics := c.NewHealthMetrics(core.ActionID{SpellID: 450583})
-
-			handler := func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
-				c.GainHealth(sim, sim.Roll(270, 300), healthMetrics)
-			}
-
-			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
-				ActionID:   actionID,
-				Name:       "S03 - Heal Proc on Cast - Dreadmist Raiment (Melee Auto)",
-				Callback:   core.CallbackOnSpellHitDealt,
-				Outcome:    core.OutcomeLanded,
-				ProcMask:   core.ProcMaskWhiteHit,
-				ProcChance: 0.06,
-				Handler:    handler,
-			})
-			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
-				ActionID:   actionID,
-				Name:       "S03 - Heal Proc on Cast - Dreadmist Raiment (Spell Cast)",
-				Callback:   core.CallbackOnCastComplete,
-				ProcMask:   core.ProcMaskSpellDamage | core.ProcMaskSpellHealing,
-				ProcChance: 0.06,
-				Handler:    handler,
-			})
+			//No use case in Classic Sim
 		},
 		// +8 All Resistances.
 		8: func(agent core.Agent) {
@@ -421,25 +328,21 @@ var ItemSetBattlegearOfValor = core.NewItemSet(core.ItemSet{
 				stats.RangedAttackPower: 40,
 			})
 		},
-		// Chance on melee attack to heal you for 88 to 132 and energize you for 10 Rage
+		// Chance on melee attack to heal you for 88 to 132
 		6: func(agent core.Agent) {
 			c := agent.GetCharacter()
-			actionID := core.ActionID{SpellID: 450587}
-			healthMetrics := c.NewHealthMetrics(core.ActionID{SpellID: 450589})
-			rageMetrics := c.NewRageMetrics(core.ActionID{SpellID: 450589})
+			actionID := core.ActionID{SpellID: 27419}
+			healthMetrics := c.NewHealthMetrics(core.ActionID{SpellID: 27419})
 
 			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
 				ActionID: actionID,
-				Name:     "S03 - Warrior Armor Heal Trigger - Battlegear of Valor",
+				Name:     "Warrior's Resolve",
 				Callback: core.CallbackOnSpellHitDealt,
 				Outcome:  core.OutcomeLanded,
 				ProcMask: core.ProcMaskMelee,
 				PPM:      1,
 				Handler: func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
 					c.GainHealth(sim, sim.Roll(88, 132), healthMetrics)
-					if c.HasRageBar() {
-						c.AddRage(sim, 10, rageMetrics)
-					}
 				},
 			})
 		},
