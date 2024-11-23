@@ -17,7 +17,6 @@ import { RestorationShamanSimUI } from '../restoration_shaman/sim.js';
 import { RetributionPaladinSimUI } from '../retribution_paladin/sim.js';
 import { RogueSimUI } from '../rogue/sim.js';
 import { ShadowPriestSimUI } from '../shadow_priest/sim.js';
-import { TankRogueSimUI } from '../tank_rogue/sim.js';
 import { TankWarlockSimUI } from '../tank_warlock/sim.js';
 import { TankWarriorSimUI } from '../tank_warrior/sim.js';
 import { WardenShamanSimUI } from '../warden_shaman/sim.js';
@@ -36,7 +35,6 @@ export const specSimFactories: Record<Spec, (parentElem: HTMLElement, player: Pl
 	[Spec.SpecHunter]: (parentElem: HTMLElement, player: Player<any>) => new HunterSimUI(parentElem, player),
 	[Spec.SpecMage]: (parentElem: HTMLElement, player: Player<any>) => new MageSimUI(parentElem, player),
 	[Spec.SpecRogue]: (parentElem: HTMLElement, player: Player<any>) => new RogueSimUI(parentElem, player),
-	[Spec.SpecTankRogue]: (parentElem: HTMLElement, player: Player<any>) => new TankRogueSimUI(parentElem, player),
 	[Spec.SpecHolyPaladin]: (parentElem: HTMLElement, player: Player<any>) => new HolyPaladinSimUI(parentElem, player),
 	[Spec.SpecProtectionPaladin]: (parentElem: HTMLElement, player: Player<any>) => new ProtectionPaladinSimUI(parentElem, player),
 	[Spec.SpecRetributionPaladin]: (parentElem: HTMLElement, player: Player<any>) => new RetributionPaladinSimUI(parentElem, player),
