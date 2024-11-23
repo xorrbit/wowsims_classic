@@ -5,7 +5,6 @@ import (
 	"github.com/wowsims/classic/sim/druid/balance"
 	"github.com/wowsims/classic/sim/paladin/retribution"
 	dpsrogue "github.com/wowsims/classic/sim/rogue/dps_rogue"
-	tankrogue "github.com/wowsims/classic/sim/rogue/tank_rogue"
 	"github.com/wowsims/classic/sim/shaman/elemental"
 	"github.com/wowsims/classic/sim/shaman/enhancement"
 	"github.com/wowsims/classic/sim/shaman/warden"
@@ -50,7 +49,6 @@ func RegisterAll() {
 	// healingPriest.RegisterHealingPriest()
 	shadow.RegisterShadowPriest()
 	dpsrogue.RegisterDpsRogue()
-	tankrogue.RegisterTankRogue()
 	dpsWarrior.RegisterDpsWarrior()
 	tankWarrior.RegisterTankWarrior()
 	// holyPaladin.RegisterHolyPaladin()
