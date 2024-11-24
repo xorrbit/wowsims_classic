@@ -12,20 +12,20 @@ func init() {
 	RegisterShadowPriest()
 }
 
-func TestShadow(t *testing.T) {
+func TestP1Shadow(t *testing.T) {
 	core.RunTestSuite(t, t.Name(), core.FullCharacterTestSuiteGenerator([]core.CharacterSuiteConfig{
 		{
 			Class:      proto.Class_ClassPriest,
 			Level:      60,
-			Phase:      5,
-			Race:       proto.Race_RaceTroll,
-			OtherRaces: []proto.Race{proto.Race_RaceNightElf},
+			Phase:      1,
+			Race:       proto.Race_RaceUndead,
+			OtherRaces: []proto.Race{proto.Race_RaceDwarf},
 
-			Talents:     Phase4Talents,
-			GearSet:     core.GetGearSet("../../../ui/shadow_priest/gear_sets", "blank"),
-			Rotation:    core.GetAplRotation("../../../ui/shadow_priest/apls", "phase_5"),
+			Talents:     P1Talents,
+			GearSet:     core.GetGearSet("../../../ui/shadow_priest/gear_sets", "p0.bis"),
+			Rotation:    core.GetAplRotation("../../../ui/shadow_priest/apls", "p1"),
 			Buffs:       core.FullBuffs,
-			Consumes:    Phase4Consumes,
+			Consumes:    P1Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Basic", SpecOptions: PlayerOptionsBasic},
 
 			ItemFilter:      ItemFilters,
@@ -35,13 +35,10 @@ func TestShadow(t *testing.T) {
 	}))
 }
 
-var Phase1Talents = "-20535000001"
-var Phase2Talents = "--5022204002501251"
-var Phase3Talents = "-0055-5022204002501251"
-var Phase4Talents = "0512301302--5002504103501251"
+var P1Talents = "0512301302--5002504103501251"
 
-var Phase4Consumes = core.ConsumesCombo{
-	Label: "P4-Consumes",
+var P1Consumes = core.ConsumesCombo{
+	Label: "P1-Consumes",
 	Consumes: &proto.Consumes{
 		DefaultPotion:   proto.Potions_MajorManaPotion,
 		Flask:           proto.Flask_FlaskOfSupremePower,
