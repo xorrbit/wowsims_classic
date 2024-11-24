@@ -1,0 +1,196 @@
+character_stats_results: {
+ key: "TestP1Shadow-Phase1-Lvl60-CharacterStats-Default"
+ value: {
+  final_stats: 175.95
+  final_stats: 180.55
+  final_stats: 476.23225
+  final_stats: 372.6
+  final_stats: 363.4
+  final_stats: 173
+  final_stats: 0
+  final_stats: 0
+  final_stats: 0
+  final_stats: 0
+  final_stats: 0
+  final_stats: 40
+  final_stats: 41.25
+  final_stats: 0
+  final_stats: 28.05968
+  final_stats: 0
+  final_stats: 0
+  final_stats: 795.95
+  final_stats: 0
+  final_stats: 16
+  final_stats: 0
+  final_stats: 0
+  final_stats: 0
+  final_stats: 6685
+  final_stats: 0
+  final_stats: 0
+  final_stats: 1052.1
+  final_stats: 540
+  final_stats: 0
+  final_stats: 5
+  final_stats: 0
+  final_stats: 3
+  final_stats: 5
+  final_stats: 0
+  final_stats: 6279.3225
+  final_stats: 35
+  final_stats: 68
+  final_stats: 68
+  final_stats: 68
+  final_stats: 78
+  final_stats: 384
+  final_stats: 0
+  final_stats: 35
+  final_stats: 0
+ }
+}
+stat_weights_results: {
+ key: "TestP1Shadow-Phase1-Lvl60-StatWeights-Default"
+ value: {
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0.08882
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0.08882
+  weights: 0
+  weights: 0.45508
+  weights: 0.22314
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-Lvl60-Average-Default"
+ value: {
+  dps: 49.82754
+  tps: 49.52526
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-Lvl60-Settings-Dwarf-p0.bis-Basic-p1-FullBuffs-P1-Consumes-LongMultiTarget"
+ value: {
+  dps: 49.33146
+  tps: 82.7582
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-Lvl60-Settings-Dwarf-p0.bis-Basic-p1-FullBuffs-P1-Consumes-LongSingleTarget"
+ value: {
+  dps: 49.33146
+  tps: 49.1282
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-Lvl60-Settings-Dwarf-p0.bis-Basic-p1-FullBuffs-P1-Consumes-ShortSingleTarget"
+ value: {
+  dps: 48.66608
+  tps: 48.15904
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-Lvl60-Settings-Dwarf-p0.bis-Basic-p1-NoBuffs-P1-Consumes-LongMultiTarget"
+ value: {
+  dps: 31.2971
+  tps: 30.04522
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-Lvl60-Settings-Dwarf-p0.bis-Basic-p1-NoBuffs-P1-Consumes-LongSingleTarget"
+ value: {
+  dps: 31.2971
+  tps: 30.04522
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-Lvl60-Settings-Dwarf-p0.bis-Basic-p1-NoBuffs-P1-Consumes-ShortSingleTarget"
+ value: {
+  dps: 31.0536
+  tps: 29.81145
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-Lvl60-Settings-Undead-p0.bis-Basic-p1-FullBuffs-P1-Consumes-LongMultiTarget"
+ value: {
+  dps: 49.15098
+  tps: 82.58494
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-Lvl60-Settings-Undead-p0.bis-Basic-p1-FullBuffs-P1-Consumes-LongSingleTarget"
+ value: {
+  dps: 49.15098
+  tps: 48.95494
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-Lvl60-Settings-Undead-p0.bis-Basic-p1-FullBuffs-P1-Consumes-ShortSingleTarget"
+ value: {
+  dps: 48.66608
+  tps: 48.15904
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-Lvl60-Settings-Undead-p0.bis-Basic-p1-NoBuffs-P1-Consumes-LongMultiTarget"
+ value: {
+  dps: 31.2971
+  tps: 30.04522
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-Lvl60-Settings-Undead-p0.bis-Basic-p1-NoBuffs-P1-Consumes-LongSingleTarget"
+ value: {
+  dps: 31.2971
+  tps: 30.04522
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-Lvl60-Settings-Undead-p0.bis-Basic-p1-NoBuffs-P1-Consumes-ShortSingleTarget"
+ value: {
+  dps: 31.0536
+  tps: 29.81145
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-Lvl60-SwitchInFrontOfTarget-Default"
+ value: {
+  dps: 49.15098
+  tps: 48.95494
+ }
+}
