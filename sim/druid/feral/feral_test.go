@@ -12,20 +12,20 @@ func init() {
 	RegisterFeralDruid()
 }
 
-func TestFeral(t *testing.T) {
+func TestP1Feral(t *testing.T) {
 	core.RunTestSuite(t, t.Name(), core.FullCharacterTestSuiteGenerator([]core.CharacterSuiteConfig{
 		{
 			Class:      proto.Class_ClassDruid,
-			Phase:      5,
+			Phase:      1,
 			Level:      60,
 			Race:       proto.Race_RaceTauren,
 			OtherRaces: []proto.Race{proto.Race_RaceNightElf},
 
-			Talents:     Phase4Talents,
-			GearSet:     core.GetGearSet("../../../ui/feral_druid/gear_sets", "blank"),
-			Rotation:    core.GetAplRotation("../../../ui/feral_druid/apls", "phase_5"),
+			Talents:     P1Talents,
+			GearSet:     core.GetGearSet("../../../ui/feral_druid/gear_sets", "p0.bis"),
+			Rotation:    core.GetAplRotation("../../../ui/feral_druid/apls", "p1"),
 			Buffs:       core.FullBuffs,
-			Consumes:    Phase4Consumes,
+			Consumes:    P1Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Default", SpecOptions: PlayerOptionsMonoCat},
 			OtherSpecOptions: []core.SpecOptionsCombo{
 				{Label: "Default-NoBleed", SpecOptions: PlayerOptionsMonoCatNoBleed},
@@ -39,10 +39,7 @@ func TestFeral(t *testing.T) {
 	}))
 }
 
-var Phase1Talents = "500005001--05"
-var Phase2Talents = "-550002032320211-05"
-var Phase3Talents = "500005301-5500020323002-05"
-var Phase4Talents = "500005301-5500020323202151-15"
+var P1Talents = "500005301-5500020323202151-15"
 
 var PlayerOptionsMonoCat = &proto.Player_FeralDruid{
 	FeralDruid: &proto.FeralDruid{
@@ -74,8 +71,8 @@ var PlayerOptionsFlowerCatAoe = &proto.Player_FeralDruid{
 	},
 }
 
-var Phase4Consumes = core.ConsumesCombo{
-	Label: "P4-Consumes",
+var P1Consumes = core.ConsumesCombo{
+	Label: "P1-Consumes",
 	Consumes: &proto.Consumes{
 		AgilityElixir:     proto.AgilityElixir_ElixirOfTheMongoose,
 		AttackPowerBuff:   proto.AttackPowerBuff_JujuMight,

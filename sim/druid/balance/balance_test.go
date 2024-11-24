@@ -12,20 +12,20 @@ func init() {
 	RegisterBalanceDruid()
 }
 
-func TestBalance(t *testing.T) {
+func TestP1Balance(t *testing.T) {
 	core.RunTestSuite(t, t.Name(), core.FullCharacterTestSuiteGenerator([]core.CharacterSuiteConfig{
 		{
 			Class:      proto.Class_ClassDruid,
-			Phase:      5,
+			Phase:      1,
 			Level:      60,
 			Race:       proto.Race_RaceTauren,
 			OtherRaces: []proto.Race{proto.Race_RaceNightElf},
 
-			Talents:     Phase4Talents,
-			GearSet:     core.GetGearSet("../../../ui/balance_druid/gear_sets", "blank"),
-			Rotation:    core.GetAplRotation("../../../ui/balance_druid/apls", "phase_5"),
+			Talents:     P1Talents,
+			GearSet:     core.GetGearSet("../../../ui/balance_druid/gear_sets", "p0.bis"),
+			Rotation:    core.GetAplRotation("../../../ui/balance_druid/apls", "p1"),
 			Buffs:       core.FullBuffs,
-			Consumes:    Phase5Consumes,
+			Consumes:    P1Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Default", SpecOptions: PlayerOptionsAdaptive},
 
 			ItemFilter:      ItemFilters,
@@ -35,13 +35,10 @@ func TestBalance(t *testing.T) {
 	}))
 }
 
-var Phase1Talents = "50005003021"
-var Phase2Talents = "5000500302541051"
-var Phase3Talents = "5000550012551351--3"
-var Phase4Talents = "5000550012551251--5005031"
+var P1Talents = "5000550012551251--5005031"
 
-var Phase5Consumes = core.ConsumesCombo{
-	Label: "P5-Consumes",
+var P1Consumes = core.ConsumesCombo{
+	Label: "P1-Consumes",
 	Consumes: &proto.Consumes{
 		DefaultPotion:  proto.Potions_MajorManaPotion,
 		Flask:          proto.Flask_FlaskOfSupremePower,
