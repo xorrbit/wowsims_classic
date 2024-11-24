@@ -111,21 +111,13 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecBalanceDruid, {
 
 	presets: {
 		talents: [
-			...Presets.TalentPresets[Phase.Phase5],
-			...Presets.TalentPresets[Phase.Phase4],
-			...Presets.TalentPresets[Phase.Phase3],
-			...Presets.TalentPresets[Phase.Phase2],
 			...Presets.TalentPresets[Phase.Phase1],
 		],
 		rotations: [
-			...Presets.APLPresets[Phase.Phase5],
-			...Presets.APLPresets[Phase.Phase4],
-			...Presets.APLPresets[Phase.Phase3],
-			...Presets.APLPresets[Phase.Phase2],
 			...Presets.APLPresets[Phase.Phase1],
 		],
 		gear: [
-			Presets.DefaultGear,
+			...Presets.GearPresets[Phase.Phase1],
 		],
 	},
 

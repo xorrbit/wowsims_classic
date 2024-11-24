@@ -1,0 +1,196 @@
+character_stats_results: {
+ key: "TestP1Balance-Phase1-Lvl60-CharacterStats-Default"
+ value: {
+  final_stats: 247.25
+  final_stats: 213.9
+  final_stats: 386.17
+  final_stats: 320.85
+  final_stats: 336.95
+  final_stats: 150
+  final_stats: 0
+  final_stats: 0
+  final_stats: 0
+  final_stats: 0
+  final_stats: 0
+  final_stats: 0
+  final_stats: 49.25
+  final_stats: 0
+  final_stats: 28.1582
+  final_stats: 0
+  final_stats: 0
+  final_stats: 1130.5
+  final_stats: 0
+  final_stats: 24.595
+  final_stats: 0
+  final_stats: 0
+  final_stats: 0
+  final_stats: 5776.75
+  final_stats: 0
+  final_stats: 0
+  final_stats: 1989.8
+  final_stats: 566
+  final_stats: 0
+  final_stats: 5
+  final_stats: 0
+  final_stats: 11.595
+  final_stats: 5
+  final_stats: 0
+  final_stats: 5737.935
+  final_stats: 35
+  final_stats: 68
+  final_stats: 68
+  final_stats: 78
+  final_stats: 68
+  final_stats: 384
+  final_stats: 15
+  final_stats: 50
+  final_stats: 0
+ }
+}
+stat_weights_results: {
+ key: "TestP1Balance-Phase1-Lvl60-StatWeights-Default"
+ value: {
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0.04486
+  weights: 0
+  weights: 0.59211
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 3.87073
+  weights: 3.04363
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+ }
+}
+dps_results: {
+ key: "TestP1Balance-Phase1-Lvl60-Average-Default"
+ value: {
+  dps: 277.78892
+  tps: 291.26631
+ }
+}
+dps_results: {
+ key: "TestP1Balance-Phase1-Lvl60-Settings-NightElf-p0.bis-Default-p1-FullBuffs-P1-Consumes-LongMultiTarget"
+ value: {
+  dps: 276.03428
+  tps: 518.78252
+ }
+}
+dps_results: {
+ key: "TestP1Balance-Phase1-Lvl60-Settings-NightElf-p0.bis-Default-p1-FullBuffs-P1-Consumes-LongSingleTarget"
+ value: {
+  dps: 276.03428
+  tps: 288.1717
+ }
+}
+dps_results: {
+ key: "TestP1Balance-Phase1-Lvl60-Settings-NightElf-p0.bis-Default-p1-FullBuffs-P1-Consumes-ShortSingleTarget"
+ value: {
+  dps: 265.65065
+  tps: 274.24129
+ }
+}
+dps_results: {
+ key: "TestP1Balance-Phase1-Lvl60-Settings-NightElf-p0.bis-Default-p1-NoBuffs-P1-Consumes-LongMultiTarget"
+ value: {
+  dps: 154.66373
+  tps: 304.76804
+ }
+}
+dps_results: {
+ key: "TestP1Balance-Phase1-Lvl60-Settings-NightElf-p0.bis-Default-p1-NoBuffs-P1-Consumes-LongSingleTarget"
+ value: {
+  dps: 154.66373
+  tps: 162.16895
+ }
+}
+dps_results: {
+ key: "TestP1Balance-Phase1-Lvl60-Settings-NightElf-p0.bis-Default-p1-NoBuffs-P1-Consumes-ShortSingleTarget"
+ value: {
+  dps: 159.29075
+  tps: 174.4745
+ }
+}
+dps_results: {
+ key: "TestP1Balance-Phase1-Lvl60-Settings-Tauren-p0.bis-Default-p1-FullBuffs-P1-Consumes-LongMultiTarget"
+ value: {
+  dps: 274.14307
+  tps: 541.17321
+ }
+}
+dps_results: {
+ key: "TestP1Balance-Phase1-Lvl60-Settings-Tauren-p0.bis-Default-p1-FullBuffs-P1-Consumes-LongSingleTarget"
+ value: {
+  dps: 274.14307
+  tps: 287.49457
+ }
+}
+dps_results: {
+ key: "TestP1Balance-Phase1-Lvl60-Settings-Tauren-p0.bis-Default-p1-FullBuffs-P1-Consumes-ShortSingleTarget"
+ value: {
+  dps: 263.72755
+  tps: 272.34674
+ }
+}
+dps_results: {
+ key: "TestP1Balance-Phase1-Lvl60-Settings-Tauren-p0.bis-Default-p1-NoBuffs-P1-Consumes-LongMultiTarget"
+ value: {
+  dps: 153.90514
+  tps: 296.06075
+ }
+}
+dps_results: {
+ key: "TestP1Balance-Phase1-Lvl60-Settings-Tauren-p0.bis-Default-p1-NoBuffs-P1-Consumes-LongSingleTarget"
+ value: {
+  dps: 153.90514
+  tps: 161.01292
+ }
+}
+dps_results: {
+ key: "TestP1Balance-Phase1-Lvl60-Settings-Tauren-p0.bis-Default-p1-NoBuffs-P1-Consumes-ShortSingleTarget"
+ value: {
+  dps: 158.80529
+  tps: 173.98904
+ }
+}
+dps_results: {
+ key: "TestP1Balance-Phase1-Lvl60-SwitchInFrontOfTarget-Default"
+ value: {
+  dps: 275.18712
+  tps: 288.60431
+ }
+}

@@ -20,12 +20,9 @@ import {
 } from '../core/proto/common.js';
 import { BalanceDruid_Options as BalanceDruidOptions } from '../core/proto/druid.js';
 import { SavedTalents } from '../core/proto/ui.js';
-import Phase1APL from './apls/phase_1.apl.json';
-import Phase2APL from './apls/phase_2.apl.json';
-import Phase3APL from './apls/phase_3.apl.json';
-import Phase4APL from './apls/phase_4.apl.json';
-import Phase5APL from './apls/phase_5.apl.json';
-import BlankGear from './gear_sets/blank.gear.json';
+import P1APL from './apls/p1.apl.json';
+import P0BISGear from './gear_sets/p0.bis.gear.json';
+import P1BISGear from './gear_sets/p1.bis.gear.json';
 
 // Preset options for this spec.
 // Eventually we will import these values for the raid sim too, so its good to
@@ -35,63 +32,42 @@ import BlankGear from './gear_sets/blank.gear.json';
 //                                 Gear Presets
 ///////////////////////////////////////////////////////////////////////////
 
-export const GearBlank = PresetUtils.makePresetGear('Blank', BlankGear);
+export const GearP0BIS = PresetUtils.makePresetGear('Pre-BiS', P0BISGear);
+export const GearP1BIS = PresetUtils.makePresetGear('P1 BiS', P1BISGear);
 
-export const GearPresets = {};
+export const GearPresets = {
+	[Phase.Phase1]: [GearP0BIS, GearP1BIS],
+};
 
-export const DefaultGear = GearBlank;
+export const DefaultGear = GearP0BIS;
 
 ///////////////////////////////////////////////////////////////////////////
 //                                 APL Presets
 ///////////////////////////////////////////////////////////////////////////
 
-export const APLPhase1 = PresetUtils.makePresetAPLRotation('Phase 1', Phase1APL, { customCondition: player => player.getLevel() === 25 });
-export const APLPhase2 = PresetUtils.makePresetAPLRotation('Phase 2', Phase2APL, { customCondition: player => player.getLevel() === 40 });
-export const APLPhase3 = PresetUtils.makePresetAPLRotation('Phase 3', Phase3APL, { customCondition: player => player.getLevel() === 50 });
-export const APLPhase4 = PresetUtils.makePresetAPLRotation('Phase 4', Phase4APL, { customCondition: player => player.getLevel() === 60 });
-export const APLPhase5 = PresetUtils.makePresetAPLRotation('Phase 5', Phase5APL, { customCondition: player => player.getLevel() === 60 });
+export const APLP1Balance = PresetUtils.makePresetAPLRotation('Balance', P1APL, { customCondition: player => player.getLevel() === 60 });
 
 export const APLPresets = {
-	[Phase.Phase1]: [APLPhase1],
-	[Phase.Phase2]: [APLPhase2],
-	[Phase.Phase3]: [APLPhase3],
-	[Phase.Phase4]: [APLPhase4],
-	[Phase.Phase5]: [APLPhase5],
+	[Phase.Phase1]: [APLP1Balance],
 };
 
 export const DefaultAPLs: Record<number, PresetUtils.PresetRotation> = {
-	25: APLPresets[Phase.Phase1][0],
-	40: APLPresets[Phase.Phase2][0],
-	50: APLPresets[Phase.Phase3][0],
-	60: APLPresets[Phase.Phase5][0],
+	60: APLPresets[Phase.Phase1][0],
 };
 
 ///////////////////////////////////////////////////////////////////////////
 //                                 Talent Presets
 ///////////////////////////////////////////////////////////////////////////
 
-export const TalentsPhase1 = PresetUtils.makePresetTalents('Level 25', SavedTalents.create({ talentsString: '50005003021' }), {
-	customCondition: player => player.getLevel() === 25,
-});
-export const TalentsPhase2 = PresetUtils.makePresetTalents('Level 40', SavedTalents.create({ talentsString: '5000500302541051' }), {
-	customCondition: player => player.getLevel() === 40,
-});
-export const TalentsPhase3 = PresetUtils.makePresetTalents('Level 50', SavedTalents.create({ talentsString: '5000550012551351--3' }), {
-	customCondition: player => player.getLevel() === 50,
-});
-export const TalentsPhase4 = PresetUtils.makePresetTalents('Level 60', SavedTalents.create({ talentsString: '5000550012551251--5005031' }), {
+export const TalentsP1Balance = PresetUtils.makePresetTalents('Balance', SavedTalents.create({ talentsString: '5000550012551251--5005031' }), {
 	customCondition: player => player.getLevel() === 60,
 });
 
 export const TalentPresets = {
-	[Phase.Phase1]: [TalentsPhase1],
-	[Phase.Phase2]: [TalentsPhase2],
-	[Phase.Phase3]: [TalentsPhase3],
-	[Phase.Phase4]: [TalentsPhase4],
-	[Phase.Phase5]: [],
+	[Phase.Phase1]: [TalentsP1Balance],
 };
 
-export const DefaultTalents = TalentPresets[Phase.Phase4][0];
+export const DefaultTalents = TalentPresets[Phase.Phase1][0];
 
 ///////////////////////////////////////////////////////////////////////////
 //                                 Options
