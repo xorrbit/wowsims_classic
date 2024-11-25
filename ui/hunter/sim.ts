@@ -141,25 +141,16 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecHunter, {
 	presets: {
 		// Preset talents that the user can quickly select.
 		talents: [
-			...Presets.TalentPresets[Phase.Phase5],
-			...Presets.TalentPresets[Phase.Phase4],
-			...Presets.TalentPresets[Phase.Phase3],
-			...Presets.TalentPresets[Phase.Phase2],
 			...Presets.TalentPresets[Phase.Phase1],
 		],
 		// Preset rotations that the user can quickly select.
 		rotations: [
-			...Presets.APLPresets[Phase.Phase5],
-			...Presets.APLPresets[Phase.Phase4],
-			...Presets.APLPresets[Phase.Phase3],
-			...Presets.APLPresets[Phase.Phase2],
 			...Presets.APLPresets[Phase.Phase1],
 		],
 		// Preset gear configurations that the user can quickly select.
 		gear: [
-			Presets.DefaultGear,
+			...Presets.GearPresets[Phase.Phase1],
 		],
-		builds: [Presets.PresetBuildRangedMM, Presets.PresetBuildRangedSV, Presets.PresetBuildMeleeBM, Presets.PresetBuildMeleeSV, Presets.PresetBuildWeave],
 	},
 
 	autoRotation: player => {
@@ -168,32 +159,34 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecHunter, {
 			//player.hasRune(ItemSlot.ItemSlotWaist, HunterRune.RuneBeltMeleeSpecialist) ||
 			//player.hasRune(ItemSlot.ItemSlotFeet, HunterRune.RuneBootsDualWieldSpecialization) ||
 			//player.hasRune(ItemSlot.ItemSlotFeet, HunterRune.RuneBootsWyvernStrike);
-
-		if (isMelee) {
-			switch (level) {
-				case 25:
-					return Presets.APLMeleeWeavePhase1.rotation.rotation!;
-				case 40:
-					return Presets.APLMeleePhase2.rotation.rotation!;
-				case 50:
-					return Presets.APLMeleeBmPhase3.rotation.rotation!;
-				case 60:
-					return Presets.APLWeavePhase4.rotation.rotation!;
-			}
-		} else {
-			switch (level) {
-				case 25:
-					return Presets.APLMeleeWeavePhase1.rotation.rotation!;
-				case 40:
-					return player.getTalentTree() === 1 ? Presets.APLRangedMmPhase2.rotation.rotation! : Presets.APLRangedBmPhase2.rotation.rotation!;
-				case 50:
-					return Presets.APLRangedMmPhase3.rotation.rotation!;
-				case 60:
-					return Presets.APLRangedPhase4.rotation.rotation!;
-			}
-		}
-
-		throw new Error('Auto rotation not supported for your current configuration.');
+		
+		return Presets.DefaultAPL.rotation.rotation!;
+		
+		// COMMENTING OUT TO SAVE FOR FUTURE IMPLEMENTATION.
+		// if (isMelee) {
+		// 	switch (level) {
+		// 		case 25:
+		// 			return Presets.APLMeleeWeavePhase1.rotation.rotation!;
+		// 		case 40:
+		// 			return Presets.APLMeleePhase2.rotation.rotation!;
+		// 		case 50:
+		// 			return Presets.APLMeleeBmPhase3.rotation.rotation!;
+		// 		case 60:
+		// 			return Presets.APLWeavePhase4.rotation.rotation!;
+		// 	}
+		// } else {
+		// 	switch (level) {
+		// 		case 25:
+		// 			return Presets.APLMeleeWeavePhase1.rotation.rotation!;
+		// 		case 40:
+		// 			return player.getTalentTree() === 1 ? Presets.APLRangedMmPhase2.rotation.rotation! : Presets.APLRangedBmPhase2.rotation.rotation!;
+		// 		case 50:
+		// 			return Presets.APLRangedMmPhase3.rotation.rotation!;
+		// 		case 60:
+		// 			return Presets.APLRangedPhase4.rotation.rotation!;
+		// 	}
+		// }
+		//throw new Error('Auto rotation not supported for your current configuration.');
 	},
 
 	raidSimPresets: [
