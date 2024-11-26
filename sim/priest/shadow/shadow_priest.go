@@ -56,5 +56,4 @@ func (spriest *ShadowPriest) Initialize() {
 }
 
 func (spriest *ShadowPriest) Reset(sim *core.Simulation) {
-	spriest.Priest.Reset(sim)
 }

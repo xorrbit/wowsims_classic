@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const MindBlastRanks = 9
@@ -37,8 +36,6 @@ func (priest *Priest) getMindBlastBaseConfig(rank int, cdTimer *core.Timer) core
 	manaCost := MindBlastManaCost[rank]
 	level := MindBlastLevel[rank]
 
-	hasMindSpike := priest.HasRune(proto.PriestRune_RuneWaistMindSpike)
-
 	return core.SpellConfig{
 		SpellCode:   SpellCode_PriestMindBlast,
 		ActionID:    core.ActionID{SpellID: spellId},
@@ -70,38 +67,17 @@ func (priest *Priest) getMindBlastBaseConfig(rank int, cdTimer *core.Timer) core
 		BonusCoefficient: spellCoeff,
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			var mindSpikeAura *core.Aura
-			if hasMindSpike {
-				mindSpikeAura = priest.MindSpikeAuras.Get(target)
-			}
-
-			oldBonusCrit := spell.BonusCritRating
-			oldMultiplier := spell.DamageMultiplier
-			spell.BonusCritRating += float64(mindSpikeAura.GetStacks()) * 30 * core.CritRatingPerCritChance
-			spell.DamageMultiplier *= priest.MindBlastModifier
-
 			result := spell.CalcDamage(sim, target, sim.Roll(baseDamageLow, baseDamageHigh), spell.OutcomeMagicHitAndCrit)
-
-			spell.BonusCritRating = oldBonusCrit
-			spell.DamageMultiplier = oldMultiplier
 
 			if result.Landed() {
 				priest.AddShadowWeavingStack(sim, target)
-				if mindSpikeAura != nil {
-					mindSpikeAura.Deactivate(sim)
-				}
 			}
-
 			spell.DealDamage(sim, result)
 		},
 
 		ExpectedInitialDamage: func(sim *core.Simulation, target *core.Unit, spell *core.Spell, _ bool) *core.SpellResult {
 			damage := (baseDamageLow + baseDamageHigh) / 2
-
-			oldMultiplier := spell.DamageMultiplier
-			spell.DamageMultiplier *= priest.MindBlastModifier
 			result := spell.CalcDamage(sim, target, damage, spell.OutcomeExpectedMagicHitAndCrit)
-			spell.DamageMultiplier = oldMultiplier
 			return result
 		},
 	}

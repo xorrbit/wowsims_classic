@@ -43,8 +43,6 @@ export const HolyTalents = {
 
 export const DefaultOptions = Options.create({
 	useInnerFire: true,
-	useShadowfiend: true,
-	rapturesPerMinute: 5,
 
 	powerInfusionTarget: UnitReference.create(),
 });

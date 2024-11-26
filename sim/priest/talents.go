@@ -226,8 +226,6 @@ func (priest *Priest) applyDarkness() {
 					[][]*core.Spell{
 						priest.MindBlast,
 						priest.DevouringPlague,
-						priest.MindSearTicks,
-						{priest.ShadowWordDeath},
 					},
 				),
 				func(spell *core.Spell) bool { return spell != nil },
@@ -237,9 +235,6 @@ func (priest *Priest) applyDarkness() {
 				core.Flatten(
 					[][]*core.Spell{
 						priest.ShadowWordPain,
-						{priest.VoidPlague},
-						{priest.MindSpike},
-						{priest.VoidZone},
 					},
 				),
 				func(spell *core.Spell) bool { return spell != nil },
@@ -329,17 +324,17 @@ func (priest *Priest) registerShadowform() {
 
 	actionID := core.ActionID{SpellID: 15473}
 
+	//To Do: Add physical damage resistance
+
 	priest.ShadowformAura = priest.RegisterAura(core.Aura{
 		Label:    "Shadowform",
 		ActionID: actionID,
 		Duration: core.NeverExpires,
 		OnGain: func(aura *core.Aura, sim *core.Simulation) {
-			aura.Unit.PseudoStats.SchoolDamageDealtMultiplier[stats.SchoolIndexShadow] *= 1.25
-			aura.Unit.PseudoStats.SchoolCostMultiplier[stats.SchoolIndexShadow] -= 50
+			aura.Unit.PseudoStats.SchoolDamageDealtMultiplier[stats.SchoolIndexShadow] *= 1.15
 		},
 		OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-			aura.Unit.PseudoStats.SchoolDamageDealtMultiplier[stats.SchoolIndexShadow] /= 1.25
-			aura.Unit.PseudoStats.SchoolCostMultiplier[stats.SchoolIndexShadow] += 50
+			aura.Unit.PseudoStats.SchoolDamageDealtMultiplier[stats.SchoolIndexShadow] /= 1.15
 		},
 		OnCastComplete: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell) {
 			if spell.SpellSchool.Matches(core.SpellSchoolHoly) {

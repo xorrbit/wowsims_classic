@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const ShadowWordPainRanks = 8
@@ -15,6 +14,8 @@ var ShadowWordPainBaseDamage = [ShadowWordPainRanks + 1]float64{0, 30, 66, 132, 
 var ShadowWordPainSpellCoef = [ShadowWordPainRanks + 1]float64{0, 0.067, 0.104, 0.154, 0.167, 0.167, 0.167, 0.167, 0.167} // per tick
 var ShadowWordPainManaCost = [ShadowWordPainRanks + 1]float64{0, 25, 50, 95, 155, 230, 305, 385, 470}
 var ShadowWordPainLevel = [ShadowWordPainRanks + 1]int{0, 4, 10, 18, 26, 34, 42, 50, 58}
+
+//To Do: Check rollover code from runes
 
 func (priest *Priest) registerShadowWordPainSpell() {
 	priest.ShadowWordPain = make([]*core.Spell, ShadowWordPainRanks+1)
@@ -36,10 +37,6 @@ func (priest *Priest) getShadowWordPainConfig(rank int) core.SpellConfig {
 	spellCoeff := ShadowWordPainSpellCoef[rank]
 	manaCost := ShadowWordPainManaCost[rank]
 	level := ShadowWordPainLevel[rank]
-
-	results := make([]*core.SpellResult, min(core.TernaryInt32(priest.HasRune(proto.PriestRune_RuneLegsSharedPain), 3, 1), priest.Env.GetNumTargets()))
-
-	hasDespairRune := priest.HasRune(proto.PriestRune_RuneBracersDespair)
 
 	return core.SpellConfig{
 		SpellCode:   SpellCode_PriestShadowWordPain,
@@ -67,16 +64,6 @@ func (priest *Priest) getShadowWordPainConfig(rank int) core.SpellConfig {
 		Dot: core.DotConfig{
 			Aura: core.Aura{
 				Label: fmt.Sprintf("Shadow Word: Pain (Rank %d)", rank),
-				OnGain: func(aura *core.Aura, sim *core.Simulation) {
-					if priest.HasRune(proto.PriestRune_RuneChestTwistedFaith) {
-						priest.MindBlastModifier = 1.5
-						priest.MindFlayModifier = 1.5
-					}
-				},
-				OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-					priest.MindBlastModifier = 1
-					priest.MindFlayModifier = 1
-				},
 			},
 
 			NumberOfTicks:    ticks + (priest.Talents.ImprovedShadowWordPain),
@@ -87,26 +74,18 @@ func (priest *Priest) getShadowWordPainConfig(rank int) core.SpellConfig {
 				dot.Snapshot(target, baseDotDamage, isRollover)
 			},
 			OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
-				if hasDespairRune {
-					dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeSnapshotCrit)
-				} else {
-					dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
-				}
+				dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
 			},
 		},
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			for idx := range results {
-				results[idx] = spell.CalcOutcome(sim, target, spell.OutcomeMagicHitNoHitCounter)
-				target = sim.Environment.NextTargetUnit(target)
+			result := spell.CalcOutcome(sim, target, spell.OutcomeMagicHitNoHitCounter)
+
+			if result.Landed() {
+				priest.AddShadowWeavingStack(sim, result.Target)
+				spell.Dot(result.Target).Apply(sim)
 			}
-			for _, result := range results {
-				if result.Landed() {
-					priest.AddShadowWeavingStack(sim, result.Target)
-					spell.Dot(result.Target).Apply(sim)
-				}
-				spell.DealOutcome(sim, result)
-			}
+			spell.DealOutcome(sim, result)
 		},
 	}
 }
