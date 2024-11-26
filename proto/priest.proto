@@ -60,45 +60,6 @@ message PriestTalents {
 	bool shadowform = 47;
 }
 
-enum PriestRune {
-	PriestRuneNone = 0;
-
-	RuneHelmDivineAegis 		= 431622;
-	RuneHelmEyeOfTheVoid 		= 402789;
-	RuneHelmPainAndSuffering 	= 413251;
-
-	RuneCloakBindingHeal		= 401937;
-	RuneCloakSoulWarding		= 402000;
-	RuneCloakVampiricTouch		= 402668;
-
-	RuneChestSerendipity	 	= 413248;
-	RuneChestStrengthOfSoul		= 415739;
-	RuneChestTwistedFaith    	= 425198;
-
-	RuneBracersDespair 			= 431670;
-	RuneBracersSurgeOfLight 	= 431664;
-	RuneBracersVoidZone 		= 431681;
-
-	RuneHandsCircleOfHealing	= 401946;
-	RuneHandsMindSear			= 413259;
-	RuneHandsPenance			= 402174;
-	RuneHandsShadowWordDeath 	= 401955;
-
-	RuneWaistEmpoweredRenew		= 425266;
-	RuneWaistMindSpike			= 431655;
-	RuneWaistRenewedHope 		= 425280;
-
-	RuneLegsHomunculi			= 402799;
-	RuneLegsPowerWordBarrier	= 425207;
-	RuneLegsPrayerOfMending		= 401859;
-	RuneLegsSharedPain			= 401969;
-
-	RuneFeetDispersion			= 425294;
-	RuneFeetPainSuppression		= 402004;
-	RuneFeetSpiritOfTheRedeemer	= 425284;
-	RuneFeetVoidPlague			= 425204;
-}
-
 message ShadowPriest {
 	message Rotation {
 	}
@@ -112,9 +73,8 @@ message ShadowPriest {
 		bool use_shadowfiend = 1;
 		Armor armor = 2;
 		bool use_mind_blast = 4;
-		bool use_shadow_word_death = 5;
-		UnitReference power_infusion_target = 6;
-		double latency = 7 [deprecated = true]; // Latency between actions
+		UnitReference power_infusion_target = 5;
+		double latency = 6 [deprecated = true]; // Latency between actions
 	}
 	Options options = 3;
 }
@@ -124,12 +84,8 @@ message HealingPriest {
 	}
 
 	message Options {
-		bool use_inner_fire = 3;
-		bool use_shadowfiend = 1;
-		UnitReference power_infusion_target = 2;
-
-		// Number of times for rapture to proc each minute, ie when a PWS is fully absorbed.
-		double raptures_per_minute = 4;
+		bool use_inner_fire = 2;
+		UnitReference power_infusion_target = 1;
 	}
 	Options options = 3;
 }

@@ -78,7 +78,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecHealingPriest, {
 	playerIconInputs: [
 		HealingPriestInputs.SelfPowerInfusion,
 		HealingPriestInputs.InnerFire,
-		HealingPriestInputs.Shadowfiend,
 	],
 	// Buff and Debuff inputs to include/exclude, overriding the EP-based defaults.
 	includeBuffDebuffInputs: [
