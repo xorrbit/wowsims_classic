@@ -261,9 +261,9 @@ func New(character *core.Character, form DruidForm, selfBuffs SelfBuffs, talents
 	druid.EnableManaBar()
 
 	druid.AddStatDependency(stats.Strength, stats.AttackPower, core.APPerStrength[character.Class])
-	druid.AddStatDependency(stats.Agility, stats.MeleeCrit, core.CritPerAgiAtLevel[character.Class][int(druid.Level)]*core.CritRatingPerCritChance)
-	druid.AddStatDependency(stats.Agility, stats.Dodge, core.DodgePerAgiAtLevel[character.Class][int(druid.Level)]*core.DodgeRatingPerDodgeChance)
-	druid.AddStatDependency(stats.Intellect, stats.SpellCrit, core.CritPerIntAtLevel[character.Class][int(druid.Level)]*core.SpellCritRatingPerCritChance)
+	druid.AddStatDependency(stats.Agility, stats.MeleeCrit, core.CritPerAgiAtLevel[character.Class]*core.CritRatingPerCritChance)
+	druid.AddStatDependency(stats.Agility, stats.Dodge, core.DodgePerAgiAtLevel[character.Class]*core.DodgeRatingPerDodgeChance)
+	druid.AddStatDependency(stats.Intellect, stats.SpellCrit, core.CritPerIntAtLevel[character.Class]*core.SpellCritRatingPerCritChance)
 	druid.AddStatDependency(stats.BonusArmor, stats.Armor, 1)
 
 	// Druids get extra melee haste
