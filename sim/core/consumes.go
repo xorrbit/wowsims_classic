@@ -416,7 +416,7 @@ func applyDefensiveBuffConsumes(character *Character, consumes *proto.Consumes) 
 				stats.BonusArmor: 50,
 			})
 		case proto.ArmorElixir_ScrollOfProtection:
-			character.AddStats(BuffSpellByLevel[ScrollOfProtection][character.Level])
+			character.AddStats(BuffSpellValues[ScrollOfProtection])
 		}
 	}
 
@@ -473,7 +473,7 @@ func applyPhysicalBuffConsumes(character *Character, consumes *proto.Consumes) {
 				stats.Agility: 8,
 			})
 		case proto.AgilityElixir_ScrollOfAgility:
-			character.AddStats(BuffSpellByLevel[ScrollOfAgility][character.Level])
+			character.AddStats(BuffSpellValues[ScrollOfAgility])
 		}
 	}
 
@@ -492,7 +492,7 @@ func applyPhysicalBuffConsumes(character *Character, consumes *proto.Consumes) {
 				stats.Strength: 8,
 			})
 		case proto.StrengthBuff_ScrollOfStrength:
-			character.AddStats(BuffSpellByLevel[ScrollOfStrength][character.Level])
+			character.AddStats(BuffSpellValues[ScrollOfStrength])
 		}
 	}
 }

@@ -17,7 +17,6 @@ const (
 )
 
 func applyDebuffEffects(target *Unit, targetIdx int, debuffs *proto.Debuffs, raid *proto.Raid) {
-	//level := int32(CharacterMaxLevel)
 	if debuffs.JudgementOfWisdom && targetIdx == 0 {
 		jowAura := JudgementOfWisdomAura(target)
 		if jowAura != nil {
