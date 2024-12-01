@@ -1,7 +1,6 @@
 package priest
 
 import (
-	"github.com/wowsims/classic/sim/common/guardians"
 	"github.com/wowsims/classic/sim/core"
 	"github.com/wowsims/classic/sim/core/proto"
 	"github.com/wowsims/classic/sim/core/stats"
@@ -23,7 +22,6 @@ const (
 	SpellCode_PriestHolyFire
 	SpellCode_PriestMindBlast
 	SpellCode_PriestMindFlay
-	SpellCode_PriestMindSpike
 	SpellCode_PriestShadowWordPain
 	SpellCode_PriestSmite
 	SpellCode_PriestVampiricTouch
@@ -33,62 +31,34 @@ type Priest struct {
 	core.Character
 	Talents *proto.PriestTalents
 
-	Latency                     float64
-	MindFlayModifier            float64 // For Twisted Faith
-	MindBlastModifier           float64 // For Twisted Faith
-	MindBlastCritChanceModifier float64
+	Latency float64
 
 	CircleOfHealing   *core.Spell
 	DevouringPlague   []*core.Spell
-	Dispersion        *core.Spell
 	EmpoweredRenew    *core.Spell
-	EyeOfTheVoid      *core.Spell
 	FlashHeal         []*core.Spell
 	GreaterHeal       []*core.Spell
 	HolyFire          []*core.Spell
-	Homunculi         *core.Spell
 	InnerFocus        *core.Spell
 	MindBlast         []*core.Spell
 	MindFlay          [][]*core.Spell // 1 entry for each tick for each rank
-	MindSear          []*core.Spell   // 1 entry for each tick
-	MindSearTicks     []*core.Spell   // 1 entry for each tick
-	MindSpike         *core.Spell
-	Penance           *core.Spell
-	PenanceHeal       *core.Spell
 	PowerWordShield   []*core.Spell
 	PrayerOfHealing   []*core.Spell
 	PrayerOfMending   *core.Spell
 	Renew             []*core.Spell
-	Shadowfiend       *core.Spell
 	Shadowform        *core.Spell
 	ShadowWeavingProc *core.Spell
-	ShadowWordDeath   *core.Spell
 	ShadowWordPain    []*core.Spell
 	Smite             []*core.Spell
 	VampiricEmbrace   *core.Spell
-	VampiricTouch     *core.Spell
-	VoidPlague        *core.Spell
-	VoidZone          *core.Spell
 
-	DispersionAura   *core.Aura
-	EyeOfTheVoidAura *core.Aura
-	HomunculiAura    *core.Aura
-	InnerFocusAura   *core.Aura
-	ShadowfiendAura  *core.Aura
-	ShadowformAura   *core.Aura
-	SpiritTapAura    *core.Aura
-	SurgeOfLightAura *core.Aura
+	InnerFocusAura *core.Aura
+	ShadowformAura *core.Aura
+	SpiritTapAura  *core.Aura
 
-	MindSpikeAuras       core.AuraArray
 	ShadowWeavingAuras   core.AuraArray
 	VampiricEmbraceAuras core.AuraArray
 	WeakenedSouls        core.AuraArray
-
-	EyeOfTheVoidPet *EyeOfTheVoid
-	HomunculiPets   []*Homunculus
-	ShadowfiendPet  *Shadowfiend
-
-	PainAndSufferingDoTSpells []*core.Spell
 
 	ProcPrayerOfMending core.ApplySpellResults
 }
@@ -113,7 +83,9 @@ func (priest *Priest) Initialize() {
 	priest.registerMindBlast()
 	priest.registerMindFlay()
 	priest.registerShadowWordPainSpell()
-	priest.registerDevouringPlagueSpell()
+	if priest.GetCharacter().Race == proto.Race_RaceUndead {
+		priest.registerDevouringPlagueSpell()
+	}
 	priest.RegisterSmiteSpell()
 	priest.registerHolyFire()
 
@@ -126,11 +98,6 @@ func (priest *Priest) RegisterHealingSpells() {
 	// priest.registerPowerWordShieldSpell()
 	// priest.registerPrayerOfHealingSpell()
 	// priest.registerRenewSpell()
-}
-
-func (priest *Priest) Reset(_ *core.Simulation) {
-	priest.MindFlayModifier = 1
-	priest.MindBlastModifier = 1
 }
 
 func New(character *core.Character, talents string) *Priest {
@@ -150,34 +117,7 @@ func New(character *core.Character, talents string) *Priest {
 		return 6.25 + priest.GetStat(stats.Spirit)/8
 	}
 
-	priest.ShadowfiendPet = priest.NewShadowfiend()
-
-	if priest.HasRune(proto.PriestRune_RuneHelmEyeOfTheVoid) {
-		priest.EyeOfTheVoidPet = priest.NewEyeOfTheVoid()
-	}
-
-	if priest.HasRune(proto.PriestRune_RuneLegsHomunculi) {
-		priest.HomunculiPets = make([]*Homunculus, 3)
-		priest.HomunculiPets[0] = priest.NewHomunculus(1, 202390)
-		priest.HomunculiPets[1] = priest.NewHomunculus(2, 202392)
-		priest.HomunculiPets[2] = priest.NewHomunculus(3, 202391)
-	}
-
-	guardians.ConstructGuardians(&priest.Character)
-
 	return priest
-}
-
-func (priest *Priest) HasRune(rune proto.PriestRune) bool {
-	return false // priest.HasRuneById(int32(rune))
-}
-
-func (priest *Priest) baseRuneAbilityDamage() float64 {
-	return 9.456667 + 0.635108*float64(priest.Level) + 0.039063*float64(priest.Level*priest.Level)
-}
-
-func (priest *Priest) baseRuneAbilityHealing() float64 {
-	return 38.258376 + 0.904195*float64(priest.Level) + 0.161311*float64(priest.Level*priest.Level)
 }
 
 // Agent is a generic way to access underlying priest on any of the agents.

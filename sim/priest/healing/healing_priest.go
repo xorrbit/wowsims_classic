@@ -61,5 +61,4 @@ func (hpriest *HealingPriest) Initialize() {
 }
 
 func (hpriest *HealingPriest) Reset(sim *core.Simulation) {
-	hpriest.Priest.Reset(sim)
 }

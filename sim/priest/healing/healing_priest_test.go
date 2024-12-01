@@ -83,9 +83,7 @@ var FullConsumes = &proto.Consumes{
 var PlayerOptionsDisc = &proto.Player_HealingPriest{
 	HealingPriest: &proto.HealingPriest{
 		Options: &proto.HealingPriest_Options{
-			UseInnerFire:      true,
-			UseShadowfiend:    true,
-			RapturesPerMinute: 5,
+			UseInnerFire: true,
 		},
 	},
 }
@@ -93,8 +91,7 @@ var PlayerOptionsDisc = &proto.Player_HealingPriest{
 var PlayerOptionsHoly = &proto.Player_HealingPriest{
 	HealingPriest: &proto.HealingPriest{
 		Options: &proto.HealingPriest_Options{
-			UseInnerFire:   true,
-			UseShadowfiend: true,
+			UseInnerFire: true,
 		},
 	},
 }

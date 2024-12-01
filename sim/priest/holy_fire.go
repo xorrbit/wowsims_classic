@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const HolyFireRanks = 8
@@ -42,8 +41,6 @@ func (priest *Priest) getHolyFireConfig(rank int) core.SpellConfig {
 	directCoeff := 0.75
 	dotCoeff := 0.05
 	castTime := time.Millisecond * 3500
-
-	hasDespairRune := priest.HasRune(proto.PriestRune_RuneBracersDespair)
 
 	return core.SpellConfig{
 		SpellCode:   SpellCode_PriestHolyFire,
@@ -86,11 +83,7 @@ func (priest *Priest) getHolyFireConfig(rank int) core.SpellConfig {
 			},
 
 			OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
-				if hasDespairRune {
-					dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeSnapshotCrit)
-				} else {
-					dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
-				}
+				dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
 			},
 		},
 
