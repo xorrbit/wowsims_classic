@@ -1,5 +1,5 @@
 character_stats_results: {
- key: "TestP1Mage-Phase1-Lvl60-CharacterStats-Default"
+ key: "TestP1Mage-Phase1-CharacterStats-Default"
  value: {
   final_stats: 172.5
   final_stats: 179.4
@@ -48,12 +48,12 @@ character_stats_results: {
  }
 }
 stat_weights_results: {
- key: "TestP1Mage-Phase1-Lvl60-StatWeights-Default"
+ key: "TestP1Mage-Phase1-StatWeights-Default"
  value: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.01055
+  weights: 0.01051
   weights: 0
   weights: 0.13055
   weights: 0
@@ -63,8 +63,8 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.64435
-  weights: 0.5321
+  weights: 0.6413
+  weights: 0.52978
   weights: 0
   weights: 0
   weights: 0
@@ -97,100 +97,100 @@ stat_weights_results: {
  }
 }
 dps_results: {
- key: "TestP1Mage-Phase1-Lvl60-Average-Default"
+ key: "TestP1Mage-Phase1-Average-Default"
  value: {
-  dps: 54.83156
-  tps: 62.0652
+  dps: 54.57723
+  tps: 61.81087
  }
 }
 dps_results: {
- key: "TestP1Mage-Phase1-Lvl60-Settings-Gnome-p0.bis-DPS-p1-FullBuffs-P1-Consumes-LongMultiTarget"
+ key: "TestP1Mage-Phase1-Settings-Gnome-p0.bis-DPS-p1-FullBuffs-P1-Consumes-LongMultiTarget"
  value: {
-  dps: 55.33731
-  tps: 167.06291
+  dps: 55.08153
+  tps: 166.80713
  }
 }
 dps_results: {
- key: "TestP1Mage-Phase1-Lvl60-Settings-Gnome-p0.bis-DPS-p1-FullBuffs-P1-Consumes-LongSingleTarget"
+ key: "TestP1Mage-Phase1-Settings-Gnome-p0.bis-DPS-p1-FullBuffs-P1-Consumes-LongSingleTarget"
  value: {
-  dps: 55.33731
-  tps: 60.92359
+  dps: 55.08153
+  tps: 60.66781
  }
 }
 dps_results: {
- key: "TestP1Mage-Phase1-Lvl60-Settings-Gnome-p0.bis-DPS-p1-FullBuffs-P1-Consumes-ShortSingleTarget"
+ key: "TestP1Mage-Phase1-Settings-Gnome-p0.bis-DPS-p1-FullBuffs-P1-Consumes-ShortSingleTarget"
  value: {
-  dps: 52.21493
-  tps: 57.57093
+  dps: 51.9735
+  tps: 57.3295
  }
 }
 dps_results: {
- key: "TestP1Mage-Phase1-Lvl60-Settings-Gnome-p0.bis-DPS-p1-NoBuffs-P1-Consumes-LongMultiTarget"
+ key: "TestP1Mage-Phase1-Settings-Gnome-p0.bis-DPS-p1-NoBuffs-P1-Consumes-LongMultiTarget"
  value: {
   dps: 30.66147
   tps: 212.32815
  }
 }
 dps_results: {
- key: "TestP1Mage-Phase1-Lvl60-Settings-Gnome-p0.bis-DPS-p1-NoBuffs-P1-Consumes-LongSingleTarget"
+ key: "TestP1Mage-Phase1-Settings-Gnome-p0.bis-DPS-p1-NoBuffs-P1-Consumes-LongSingleTarget"
  value: {
   dps: 30.66147
   tps: 39.7448
  }
 }
 dps_results: {
- key: "TestP1Mage-Phase1-Lvl60-Settings-Gnome-p0.bis-DPS-p1-NoBuffs-P1-Consumes-ShortSingleTarget"
+ key: "TestP1Mage-Phase1-Settings-Gnome-p0.bis-DPS-p1-NoBuffs-P1-Consumes-ShortSingleTarget"
  value: {
   dps: 29.57362
   tps: 33.03878
  }
 }
 dps_results: {
- key: "TestP1Mage-Phase1-Lvl60-Settings-Troll-p0.bis-DPS-p1-FullBuffs-P1-Consumes-LongMultiTarget"
+ key: "TestP1Mage-Phase1-Settings-Troll-p0.bis-DPS-p1-FullBuffs-P1-Consumes-LongMultiTarget"
  value: {
-  dps: 54.53749
-  tps: 184.74762
+  dps: 54.28472
+  tps: 184.49485
  }
 }
 dps_results: {
- key: "TestP1Mage-Phase1-Lvl60-Settings-Troll-p0.bis-DPS-p1-FullBuffs-P1-Consumes-LongSingleTarget"
+ key: "TestP1Mage-Phase1-Settings-Troll-p0.bis-DPS-p1-FullBuffs-P1-Consumes-LongSingleTarget"
  value: {
-  dps: 54.53749
-  tps: 61.048
+  dps: 54.28472
+  tps: 60.79523
  }
 }
 dps_results: {
- key: "TestP1Mage-Phase1-Lvl60-Settings-Troll-p0.bis-DPS-p1-FullBuffs-P1-Consumes-ShortSingleTarget"
+ key: "TestP1Mage-Phase1-Settings-Troll-p0.bis-DPS-p1-FullBuffs-P1-Consumes-ShortSingleTarget"
  value: {
-  dps: 51.44671
-  tps: 58.02596
+  dps: 51.20828
+  tps: 57.78753
  }
 }
 dps_results: {
- key: "TestP1Mage-Phase1-Lvl60-Settings-Troll-p0.bis-DPS-p1-NoBuffs-P1-Consumes-LongMultiTarget"
+ key: "TestP1Mage-Phase1-Settings-Troll-p0.bis-DPS-p1-NoBuffs-P1-Consumes-LongMultiTarget"
  value: {
   dps: 30.54926
   tps: 214.44915
  }
 }
 dps_results: {
- key: "TestP1Mage-Phase1-Lvl60-Settings-Troll-p0.bis-DPS-p1-NoBuffs-P1-Consumes-LongSingleTarget"
+ key: "TestP1Mage-Phase1-Settings-Troll-p0.bis-DPS-p1-NoBuffs-P1-Consumes-LongSingleTarget"
  value: {
   dps: 30.54926
   tps: 39.74425
  }
 }
 dps_results: {
- key: "TestP1Mage-Phase1-Lvl60-Settings-Troll-p0.bis-DPS-p1-NoBuffs-P1-Consumes-ShortSingleTarget"
+ key: "TestP1Mage-Phase1-Settings-Troll-p0.bis-DPS-p1-NoBuffs-P1-Consumes-ShortSingleTarget"
  value: {
   dps: 29.45515
   tps: 32.91712
  }
 }
 dps_results: {
- key: "TestP1Mage-Phase1-Lvl60-SwitchInFrontOfTarget-Default"
+ key: "TestP1Mage-Phase1-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 54.63154
-  tps: 61.86075
+  dps: 54.37854
+  tps: 61.60774
  }
 }
