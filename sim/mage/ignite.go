@@ -14,6 +14,7 @@ func (mage *Mage) applyIgnite() {
 	if mage.Talents.Ignite == 0 {
 		return
 	}
+	newIgniteDamage := 0.0
 
 	mage.RegisterAura(core.Aura{
 		Label:    "Ignite Talent",
@@ -26,13 +27,13 @@ func (mage *Mage) applyIgnite() {
 				return
 			}
 			if spell.SpellSchool.Matches(core.SpellSchoolFire) && result.DidCrit() {
-				mage.procIgnite(sim, result)
-			}
-		},
-		// TODO: Classic verify mechanics match for rune based Living Bomb - I believe this can be removed in classic?
-		OnPeriodicDamageDealt: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
-			if !spell.ProcMask.Matches(core.ProcMaskSpellDamage) {
-				return
+				newIgniteDamage = result.Damage * 0.08 * float64(mage.Talents.Ignite)
+				dot := mage.Ignite.Dot(result.Target)
+				dot.ApplyOrRefresh(sim)
+				if dot.GetStacks() < dot.MaxStacks{
+					dot.AddStack(sim)
+					dot.TakeSnapshot(sim, true)
+				}
 			}
 		},
 	})
@@ -55,27 +56,29 @@ func (mage *Mage) applyIgnite() {
 		Dot: core.DotConfig{
 			Aura: core.Aura{
 				Label: "Ignite",
+				MaxStacks: 5,
+				Duration: time.Second * 4,
 			},
 			NumberOfTicks: IgniteTicks,
 			TickLength:    time.Second * 2,
+
+			OnSnapshot: func(sim *core.Simulation, target *core.Unit, dot *core.Dot, applyStack bool) {
+				if !applyStack {
+					return
+				}
+
+				// only the first stack snapshots the multiplier
+				if dot.GetStacks() == 1 {
+					attackTable := dot.Spell.Unit.AttackTables[target.UnitIndex][dot.Spell.CastType]
+					dot.SnapshotAttackerMultiplier = dot.Spell.AttackerDamageMultiplier(attackTable)
+					dot.SnapshotBaseDamage = newIgniteDamage
+				} else {
+					dot.SnapshotBaseDamage += newIgniteDamage
+				}	
+			},
 			OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
 				dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
 			},
 		},
-
-		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			spell.Dot(target).ApplyOrReset(sim)
-		},
 	})
-}
-
-func (mage *Mage) procIgnite(sim *core.Simulation, result *core.SpellResult) {
-	dot := mage.Ignite.Dot(result.Target)
-
-	newDamage := result.Damage * 0.08 * float64(mage.Talents.Ignite)
-	outstandingDamage := core.TernaryFloat64(dot.IsActive(), dot.SnapshotBaseDamage*float64(dot.NumberOfTicks-dot.TickCount), 0)
-
-	dot.Snapshot(result.Target, (outstandingDamage+newDamage)/float64(IgniteTicks), false)
-
-	mage.Ignite.Cast(sim, result.Target)
 }
