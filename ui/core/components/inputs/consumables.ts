@@ -9,6 +9,7 @@ import {
 	Conjured,
 	Consumes,
 	Explosive,
+	Faction,
 	FirePowerBuff,
 	Flask,
 	Food,
@@ -75,8 +76,7 @@ function makeConsumeInputFactory<T extends number>(
 			),
 			equals: (a: T, b: T) => a == b,
 			zeroValue: 0 as T,
-			changedEvent: (player: Player<any>) =>
-				TypedEvent.onAny([player.consumesChangeEmitter, player.gearChangeEmitter, player.professionChangeEmitter]),
+			changedEvent: (player: Player<any>) => TypedEvent.onAny([player.consumesChangeEmitter, player.gearChangeEmitter, player.professionChangeEmitter]),
 			showWhen: (player: Player<any>) => !args.showWhen || args.showWhen(player),
 			getValue: (player: Player<any>) => player.getConsumes()[args.consumesFieldName] as T,
 			setValue: (eventID: EventID, player: Player<any>, newValue: number) => {
@@ -198,9 +198,7 @@ export const EXPLOSIVES_CONFIG: ConsumableStatOption<Explosive>[] = [
 	{ config: ExplosiveGoblinLandMine, stats: [] },
 ];
 
-export const SAPPER_CONFIG: ConsumableStatOption<SapperExplosive>[] = [
-	{ config: SapperGoblinSapper, stats: [] },
-];
+export const SAPPER_CONFIG: ConsumableStatOption<SapperExplosive>[] = [{ config: SapperGoblinSapper, stats: [] }];
 
 export const makeExplosivesInput = makeConsumeInputFactory({
 	consumesFieldName: 'fillerExplosive',
@@ -837,8 +835,9 @@ export const makeMp5ConsumeInput = makeConsumeInputFactory({ consumesFieldName: 
 
 // Windfury (Buff)
 export const Windfury: ConsumableInputConfig<WeaponImbue> = {
-	actionId: () => ActionId.fromItemId(10614),
+	actionId: () => ActionId.fromSpellId(10614),
 	value: WeaponImbue.Windfury,
+	showWhen: player => player.getFaction() === Faction.Horde,
 };
 
 // Other Imbues

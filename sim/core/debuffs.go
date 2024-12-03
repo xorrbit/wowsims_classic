@@ -179,40 +179,13 @@ func applyDebuffEffects(target *Unit, targetIdx int, debuffs *proto.Debuffs, rai
 }
 
 func StormstrikeAura(unit *Unit) *Aura {
-	return exclusiveNatureDamageTakenAura(unit, "Stormstrike", ActionID{SpellID: 17364})
-}
-
-func DreamstateAura(unit *Unit) *Aura {
-	aura := exclusiveNatureDamageTakenAura(unit, "Dreamstate", ActionID{SpellID: 408258})
-	aura.NewExclusiveEffect("ArcaneDamageTaken", false, ExclusiveEffect{
-		Priority: 20,
-		OnGain: func(ee *ExclusiveEffect, sim *Simulation) {
-			aura.Unit.PseudoStats.SchoolDamageTakenMultiplier[stats.SchoolIndexArcane] *= 1.2
-		},
-		OnExpire: func(ee *ExclusiveEffect, sim *Simulation) {
-			aura.Unit.PseudoStats.SchoolDamageTakenMultiplier[stats.SchoolIndexArcane] /= 1.2
-		},
-	})
-	return aura
-}
-
-func exclusiveNatureDamageTakenAura(unit *Unit, label string, actionID ActionID) *Aura {
 	aura := unit.GetOrRegisterAura(Aura{
-		Label:    label,
-		ActionID: actionID,
+		Label:    "Stormstrike",
+		ActionID: ActionID{SpellID: 17364},
 		Duration: time.Second * 12,
 	})
 
-	aura.NewExclusiveEffect("NatureDamageTaken", false, ExclusiveEffect{
-		Priority: 20,
-		OnGain: func(ee *ExclusiveEffect, sim *Simulation) {
-			aura.Unit.PseudoStats.SchoolDamageTakenMultiplier[stats.SchoolIndexNature] *= 1.2
-		},
-		OnExpire: func(ee *ExclusiveEffect, sim *Simulation) {
-			aura.Unit.PseudoStats.SchoolDamageTakenMultiplier[stats.SchoolIndexNature] /= 1.2
-		},
-	})
-
+	//Needs updating to classic version
 	return aura
 }
 
