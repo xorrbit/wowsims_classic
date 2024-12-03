@@ -1422,7 +1422,8 @@ func BattleShoutAura(unit *Unit, impBattleShout int32, boomingVoicePts int32) *A
 }
 
 func TrueshotAura(unit *Unit) *Aura {
-	rangedAP := 200.0
+	rangedAP := 100.0
+	meleeAP := 100.0
 
 	aura := MakePermanent(unit.RegisterAura(Aura{
 		Label:    "Trueshot Aura",
@@ -1432,7 +1433,8 @@ func TrueshotAura(unit *Unit) *Aura {
 	makeExclusiveBuff(aura, BuffConfig{
 		Category: "TrueshotAura",
 		Stats: []StatConfig{
-			{stats.RangedAttackPower, rangedAP, false},
+			{stats.AttackPower, rangedAP, false},
+			{stats.RangedAttackPower, meleeAP, false},
 		},
 	})
 

@@ -123,7 +123,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecRogue, {
 	includeBuffDebuffInputs: [
 		BuffDebuffInputs.SpellCritBuff,
 		BuffDebuffInputs.SpellShadowWeavingDebuff,
-		BuffDebuffInputs.NatureSpellDamageDebuff,
 		BuffDebuffInputs.SpellScorchDebuff,
 		BuffDebuffInputs.PowerInfusion,
 	],

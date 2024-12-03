@@ -293,9 +293,6 @@ func (druid *Druid) applyDreamstate() {
 		return
 	}
 
-	dreamstateAuras := druid.NewEnemyAuraArray(func(target *core.Unit) *core.Aura {
-		return core.DreamstateAura(target)
-	})
 
 	druid.DreamstateManaRegenAura = druid.RegisterAura(core.Aura{
 		Label:    "Dreamstate Mana Regen",
@@ -314,7 +311,6 @@ func (druid *Druid) applyDreamstate() {
 		OnSpellHitDealt: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
 			if spell.ProcMask.Matches(core.ProcMaskSpellDamage) && result.DidCrit() || spell.SpellCode == SpellCode_DruidStarsurge {
 				druid.DreamstateManaRegenAura.Activate(sim)
-				dreamstateAuras.Get(result.Target).Activate(sim)
 			}
 		},
 	}))

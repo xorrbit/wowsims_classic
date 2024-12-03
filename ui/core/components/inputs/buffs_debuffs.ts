@@ -252,10 +252,7 @@ export const MeleeCritBuff = withLabel(
 	'Leader of the Pack',
 );
 
-export const SpellCritBuff = withLabel(
-	makeBooleanRaidBuffInput({ actionId: () => ActionId.fromSpellId(24907), fieldName: 'moonkinAura' }),
-	'Moonkin Aura',
-);
+export const SpellCritBuff = withLabel(makeBooleanRaidBuffInput({ actionId: () => ActionId.fromSpellId(24907), fieldName: 'moonkinAura' }), 'Moonkin Aura');
 
 // Misc Buffs
 export const RetributionAura = makeTristateRaidBuffInput({
@@ -477,16 +474,6 @@ export const SpellWintersChillDebuff = withLabel(
 	'Frost Damage',
 );
 
-export const NatureSpellDamageDebuff = InputHelpers.makeMultiIconInput({
-	values: [
-		makeBooleanDebuffInput({
-			actionId: () => ActionId.fromSpellId(17364),
-			fieldName: 'stormstrike',
-		}),
-	],
-	label: 'Nature Damage',
-});
-
 export const SpellShadowWeavingDebuff = withLabel(
 	makeBooleanDebuffInput({
 		actionId: () => ActionId.fromSpellId(15334),
@@ -631,7 +618,7 @@ export const RAID_BUFFS_CONFIG = [
 	{
 		config: TrueshotAuraBuff,
 		picker: IconPicker,
-		stats: [Stat.StatRangedAttackPower],
+		stats: [Stat.StatRangedAttackPower, Stat.StatAttackPower],
 	},
 	{
 		config: MeleeCritBuff,
@@ -805,11 +792,6 @@ export const DEBUFFS_CONFIG = [
 		config: SpellWintersChillDebuff,
 		picker: IconPicker,
 		stats: [Stat.StatFrostPower],
-	},
-	{
-		config: NatureSpellDamageDebuff,
-		picker: MultiIconPicker,
-		stats: [Stat.StatNaturePower, Stat.StatArcanePower],
 	},
 	{
 		config: SpellShadowWeavingDebuff,
