@@ -200,7 +200,9 @@ func main() {
 		}
 
 		// Populate phase data
-		item.Phase = GetPhaseData(item)
+		if item.Phase == 1 {
+			item.Phase = GetPhaseData(item)
+		}
 
 		// Tier and Dungeon 2 Set items don't all have class restrictions
 		// Let's pretend that they do for UI filtering
@@ -565,6 +567,15 @@ func GetPhaseData(item *proto.UIItem) int32 {
 			if slices.Contains([]int32{12397, 6109}, dropSource.NpcId) {
 				return 2
 			}
+
+			// Silithus Lord/Abyssal Summons
+			if slices.Contains([]int32{
+				15204, 15305, 15203, 15205,
+				15207, 15206, 15208, 15220,
+				15211, 15209, 15307, 15212,
+			}, dropSource.NpcId) {
+				return 5
+			}
 		}
 
 		// Vendor Items
@@ -595,6 +606,11 @@ func GetPhaseData(item *proto.UIItem) int32 {
 				return 3
 			}
 
+			// ZG Belt Quest
+			if questSource.Id == 8201 {
+				return 4
+			}
+
 			// Various AQ Quests
 			// Scepter Quest Rewards
 			// "Path of the X"
@@ -602,13 +618,24 @@ func GetPhaseData(item *proto.UIItem) int32 {
 			// Cthun Head
 			// Ossirian Head
 			// The Perfect Poison
-			if slices.Contains([]int32{8730, 8745, 8752, 8757, 8747, 8572, 8573, 8548, 8802, 8791, 9023}, questSource.Id) {
+			// Armaments of War
+			if slices.Contains([]int32{
+				8730, 8745, 8736,
+				8752, 8757, 8747,
+				8572, 8573, 8548, 8574,
+				8802,
+				8791,
+				9023,
+				8316, 8376, 8377, 8379, 8380, 8381, 8382, 8378,
+			}, questSource.Id) {
 				return 5
 			}
 
 			// KT Phylactery Trinkets
 			// Armaments Argent Dawn rewards
-			if slices.Contains([]int32{9120, 9228, 9227}, questSource.Id) {
+			if slices.Contains([]int32{9120,
+				9228, 9227, 9224, 9225, 9222, 9221, 9223, 9226,
+			}, questSource.Id) {
 				return 6
 			}
 		}
