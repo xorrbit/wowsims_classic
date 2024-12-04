@@ -70,7 +70,7 @@ import {
 } from './proto_utils/utils.js';
 import { Raid } from './raid.js';
 import { Sim, SimSettingCategories } from './sim.js';
-import { playerTalentStringToProto } from './talents/factory.js';
+import { playerTalentStringToProto, protoToTalentString } from './talents/factory.js';
 import { EventID, TypedEvent } from './typed_event.js';
 import { stringComparator } from './utils.js';
 import { WorkerProgressCallback } from './worker_pool';
@@ -1111,6 +1111,16 @@ export class Player<SpecType extends Spec> {
 
 	static WEAPON_SLOTS: Array<ItemSlot> = [ItemSlot.ItemSlotMainHand, ItemSlot.ItemSlotOffHand];
 
+	static readonly RAID_IDS: Partial<Record<RaidFilterOption, number>> = {
+		[RaidFilterOption.RaidMoltenCore]: 2717,
+		[RaidFilterOption.RaidOnyxiasLair]: 2159,
+		[RaidFilterOption.RaidBlackwingLair]: 2677,
+		[RaidFilterOption.RaidZulGurub]: 1977,
+		[RaidFilterOption.RaidRuinsOfAQ]: 3428,
+		[RaidFilterOption.RaidTempleOfAQ]: 3429,
+		[RaidFilterOption.RaidNaxxramas]: 3456
+	}
+
 	filterItemData<T>(itemData: Array<T>, getItemFunc: (val: T) => Item, slot: ItemSlot): Array<T> {
 		const filters = this.sim.getFilters();
 
@@ -1157,20 +1167,14 @@ export class Player<SpecType extends Spec> {
 			}
 		}
 
-		if (!filters.sources.includes(SourceFilterOption.SourceRaid)) {
-			const zoneIds: Array<number> = [];
-			for (const zoneName in RaidFilterOption) {
-				const zoneId = RaidFilterOption[zoneName];
-
-				if (typeof zoneId == 'number' && zoneId != 0) {
-					zoneIds.push(zoneId);
-				}
+		for(const [raidOptionStr, zoneId] of Object.entries(Player.RAID_IDS)) {
+			const raidOption = parseInt(raidOptionStr) as RaidFilterOption
+			if (!filters.sources.includes(SourceFilterOption.SourceRaid) || !filters.raids.includes(raidOption)) {
+				itemData = filterItems(
+					itemData,
+					item => !item.sources.some(itemSrc => itemSrc.source.oneofKind == 'drop' && itemSrc.source.drop.zoneId == zoneId),
+				);
 			}
-
-			itemData = filterItems(
-				itemData,
-				item => !item.sources.some(itemSrc => itemSrc.source.oneofKind == 'drop' && zoneIds.includes(itemSrc.source.drop.zoneId)),
-			);
 		}
 
 		for (const zoneName in ExcludedZones) {

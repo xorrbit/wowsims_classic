@@ -18,7 +18,7 @@ import { Sim } from '../../sim';
 import { SimUI } from '../../sim_ui';
 import { EventID, TypedEvent } from '../../typed_event';
 import { formatDeltaTextElem } from '../../utils';
-import { makeShow1hWeaponsSelector, makeShow2hWeaponsSelector, makeShowEPValuesSelector } from '../other_inputs';
+import { makePhaseSelector, makeShow1hWeaponsSelector, makeShow2hWeaponsSelector, makeShowEPValuesSelector } from '../other_inputs';
 import Toast from '../toast';
 import { Clusterize } from '../virtual_scroll/clusterize';
 import { FiltersMenu } from './filters_menu';
@@ -134,7 +134,7 @@ export default class ItemList<T extends ItemListType> {
 							Filters
 						</button>
 					)}
-					<div ref={phaseSelectorRef} className="selector-modal-phase-selector hide" />
+					<div ref={phaseSelectorRef} className="selector-modal-phase-selector" />
 					<div ref={show1hWeaponRef} className="sim-input selector-modal-boolean-option selector-modal-show-1h-weapons hide" />
 					<div ref={show2hWeaponRef} className="sim-input selector-modal-boolean-option selector-modal-show-2h-weapons hide" />
 					<div ref={showEpValuesRef} className="sim-input selector-modal-boolean-option selector-modal-show-ep-values" />
@@ -188,7 +188,7 @@ export default class ItemList<T extends ItemListType> {
 			makeShow2hWeaponsSelector(show2hWeaponRef.value!, player.sim);
 		}
 
-		//makePhaseSelector(this.tabContent.getElementsByClassName('selector-modal-phase-selector')[0] as HTMLElement, player.sim);
+		if (phaseSelectorRef.value) makePhaseSelector(phaseSelectorRef.value, player.sim);
 
 		makeShowEPValuesSelector(showEpValuesRef.value!, player.sim);
 
@@ -313,9 +313,9 @@ export default class ItemList<T extends ItemListType> {
 		itemIdxs = itemIdxs.filter(i => {
 			const listItemData = this.itemData[i];
 
-			// if (listItemData.phase > this.player.sim.getPhase()) {
-			// 	return false;
-			// }
+			if (listItemData.phase > this.player.sim.getPhase()) {
+				return false;
+			}
 
 			if (!!this.searchInput.value.length) {
 				const formatQuery = (value: string) => value.toLowerCase().replaceAll(/[^a-zA-Z0-9\s]/g, '');

@@ -1,6 +1,6 @@
 import { ResourceType } from '../proto/api.js';
 import { ArmorType, Class, ItemSlot, ItemType, Profession, PseudoStat, Race, RangedWeaponType, Stat, WeaponType } from '../proto/common.js';
-import { RepLevel, SourceFilterOption } from '../proto/ui.js';
+import { RaidFilterOption, RepLevel, SourceFilterOption } from '../proto/ui.js';
 
 export const armorTypeNames: Map<ArmorType, string> = new Map([
 	[ArmorType.ArmorTypeUnknown, 'Unknown'],
@@ -322,20 +322,16 @@ export const sourceNames: Map<SourceFilterOption, string> = new Map([
 	[SourceFilterOption.SourceWorldBOE, 'World Drops'],
 ]);
 
-// export const raidNames: Map<RaidFilterOption, string> = new Map([
-// 	[RaidFilterOption.RaidUnknown, 'Unknown'],
-// 	[RaidFilterOption.RaidVanilla, 'Vanilla'],
-// 	[RaidFilterOption.RaidTbc, 'TBC'],
-// 	[RaidFilterOption.RaidNaxxramas, 'Naxxramas'],
-// 	[RaidFilterOption.RaidEyeOfEternity, 'Eye of Eternity'],
-// 	[RaidFilterOption.RaidObsidianSanctum, 'Obsidian Sanctum'],
-// 	[RaidFilterOption.RaidVaultOfArchavon, 'Vault of Archavon'],
-// 	[RaidFilterOption.RaidUlduar, 'Ulduar'],
-// 	[RaidFilterOption.RaidTrialOfTheCrusader, 'Trial of the Crusader'],
-// 	[RaidFilterOption.RaidOnyxiasLair, 'Onyxia\'s Lair'],
-// 	[RaidFilterOption.RaidIcecrownCitadel, 'Icecrown Citadel'],
-// 	[RaidFilterOption.RaidRubySanctum, 'Ruby Sanctum'],
-// ]);
+export const raidNames: Map<RaidFilterOption, string> = new Map([
+	[RaidFilterOption.RaidUnknown, 'Unknown'],
+	[RaidFilterOption.RaidMoltenCore, "Molten Core"],
+	[RaidFilterOption.RaidOnyxiasLair, "Onyxia's Lair"],
+	[RaidFilterOption.RaidBlackwingLair, "Blackwing Lair"],
+	[RaidFilterOption.RaidZulGurub, "Zul'Gurub"],
+	[RaidFilterOption.RaidRuinsOfAQ, "AQ 20"],
+	[RaidFilterOption.RaidTempleOfAQ, "AQ 40"],
+	[RaidFilterOption.RaidNaxxramas, 'Naxxramas'],
+]);
 
 export const REP_LEVEL_NAMES: Record<RepLevel, string> = {
 	[RepLevel.RepLevelUnknown]: 'Unknown',

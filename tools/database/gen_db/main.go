@@ -9,6 +9,7 @@ import (
 	"os"
 	"slices"
 	"strconv"
+	"strings"
 
 	"github.com/wowsims/classic/sim"
 	"github.com/wowsims/classic/sim/core"
@@ -196,6 +197,16 @@ func main() {
 			if _, exists := db.RandomSuffixes[randomSuffixID]; !exists {
 				db.RandomSuffixes[randomSuffixID] = wowheadDB.RandomSuffixes[strconv.Itoa(int(randomSuffixID))].ToProto()
 			}
+		}
+
+		// Populate phase data
+		item.Phase = GetPhaseData(item)
+
+		// Tier and Dungeon 2 Set items don't all have class restrictions
+		// Let's pretend that they do for UI filtering
+		// Note: Dungeon 2 sets don't have quest source data, so we can't check Quest source here
+		if item.SetId > 0 && len(item.ClassAllowlist) == 0 {
+			item.ClassAllowlist = GetClassAllowList(item)
 		}
 	}
 
@@ -508,4 +519,235 @@ func GetAllRotationSpellIds() map[string][]int32 {
 	ret_db["warrior wowhead"] = []int32{23894, 21553, 23925, 25289, 20569, 25286, 11585, 11574, 25288, 6554, 11597, 11581, 20662, 11567, 20560, 23893, 21552, 23924, 11556, 7373, 11601, 11605, 11551, 20617, 1672, 11609, 1719, 11573, 23892, 21551, 23923, 20661, 11566, 11580, 11578, 20559, 11604, 11596, 11555, 11584, 11600, 11550, 20616, 11608, 20660, 11565, 11572, 6552, 8820, 8205, 7402, 1680, 11554, 7379, 8380, 11549, 18499, 20658, 7372, 11564, 1671, 2458, 7369, 20252, 6548, 1464, 7887, 871, 8204, 1161, 6178, 7400, 6190, 5308, 1608, 6574, 6192, 5246, 7405, 845, 6547, 20230, 676, 8198, 285, 694, 2565, 1160, 6572, 5242, 7384, 72, 2687, 71, 6546, 7386, 355, 1715, 284, 6343, 100, 772, 461475, 413479, 107, 3127, 2480, 7919, 7918, 2764, 6673, 2457, 403215, 403196, 416004, 409163, 416005, 403467, 416002, 403472, 426491, 427081, 427082, 427084, 403474, 403480, 425444, 425445, 440492, 440496, 440494, 403475, 425443, 416003, 403470, 403489, 427080, 427076, 427078, 425446, 425447, 403476, 453688, 453690, 459313, 453691, 453689, 453694, 453692, 453635, 402913, 78, 12288, 12707, 12708, 403338, 403228, 429765, 402911, 426490, 440488, 402927, 9077, 8737, 750, 9116, 264, 5011, 1180, 674, 15590, 266, 196, 198, 201, 200, 227, 2567, 197, 199, 202, 402974, 12296, 12297, 12750, 12751, 12752, 12753, 12700, 12781, 12783, 12784, 12785, 16487, 16489, 16492, 23881, 12321, 12835, 12836, 12837, 12838, 12809, 12320, 12852, 12853, 12855, 12856, 12328, 12834, 12849, 12867, 12303, 12788, 12789, 12791, 12792, 16462, 16463, 16464, 16465, 16466, 23584, 23585, 23586, 23587, 23588, 12317, 13045, 13046, 13047, 13048, 12319, 12971, 12972, 12973, 12974, 16493, 16494, 12318, 12857, 12858, 12860, 12861, 20500, 20501, 12301, 12818, 12285, 12697, 12329, 12950, 20496, 12324, 12876, 12877, 12878, 12879, 12313, 12804, 12807, 20502, 20503, 12289, 12668, 23695, 12282, 12663, 12664, 20504, 20505, 12290, 12963, 12286, 12658, 12659, 12797, 12799, 12800, 12311, 12958, 12307, 12944, 12945, 12312, 12803, 12330, 12862, 20497, 20498, 20499, 12308, 12810, 12811, 12302, 12765, 12287, 12665, 12666, 12300, 12959, 12960, 12961, 12962, 12975, 12284, 12701, 12702, 12703, 12704, 12294, 16538, 16539, 16540, 16541, 16542, 12323, 12165, 12830, 12831, 12832, 12833, 23922, 12298, 12724, 12725, 12726, 12727, 12292, 12281, 12812, 12813, 12814, 12815, 12295, 12676, 12677, 12678, 12679, 12299, 12761, 12762, 12763, 12764, 12163, 12711, 12712, 12713, 12714, 12322, 12999, 13000, 13001, 13002}
 
 	return ret_db
+}
+
+func GetPhaseData(item *proto.UIItem) int32 {
+	for _, itemSource := range item.Sources {
+		dropSource := itemSource.GetDrop()
+		if dropSource != nil {
+			// Zone IDs as defined by WoWHead - does NOT match the in-game Zone ID!
+			// P1 - Molten Core, Ony
+			if slices.Contains([]int32{2717, 2159}, dropSource.ZoneId) {
+				return 1
+			}
+
+			// P2 - Dire Maul
+			if dropSource.ZoneId == 2557 {
+				return 2
+			}
+
+			// P3 - BWL
+			if dropSource.ZoneId == 2677 {
+				return 3
+			}
+
+			// P4 - ZG
+			if dropSource.ZoneId == 1977 {
+				return 4
+			}
+
+			// P5 - AQ 20/40
+			if slices.Contains([]int32{3428, 3429}, dropSource.ZoneId) {
+				return 5
+			}
+
+			// P6 - Naxx
+			if dropSource.ZoneId == 3456 {
+				return 6
+			}
+
+			// Nightmare Dragons
+			if slices.Contains([]int32{14889, 14888, 14890, 14887}, dropSource.NpcId) {
+				return 4
+			}
+
+			// Kazzak and Azuregos
+			if slices.Contains([]int32{12397, 6109}, dropSource.NpcId) {
+				return 2
+			}
+		}
+
+		// Vendor Items
+		vendorSource := itemSource.GetSoldBy()
+		if vendorSource != nil {
+			// PvP Rank gear. Phase determined by item quality (Rare/Epic)
+			if slices.Contains([]int32{14581, 12782, 12792, 12777}, vendorSource.NpcId) {
+				if item.Quality == proto.ItemQuality_ItemQualityEpic {
+					return 5
+				} else {
+					return 2
+				}
+			}
+		}
+
+		// Quest Source
+		// Tier is easier to filter on Item Set IDs, do not place those here
+		questSource := itemSource.GetQuest()
+		if questSource != nil {
+			// DM quest rewards
+			if slices.Contains(([]int32{7506, 7503, 7500, 7501, 7504, 7498, 7505, 7502, 7499}), questSource.Id) {
+				return 2
+			}
+
+			// Nef Head
+			// Darkmoon Decks and Necks
+			if slices.Contains([]int32{7782, 7784, 7927, 7929, 7907, 7928, 7981, 7940}, questSource.Id) {
+				return 3
+			}
+
+			// Various AQ Quests
+			// Scepter Quest Rewards
+			// "Path of the X"
+			// Silithus Battlegear
+			// Cthun Head
+			// Ossirian Head
+			// The Perfect Poison
+			if slices.Contains([]int32{8730, 8745, 8752, 8757, 8747, 8572, 8573, 8548, 8802, 8791, 9023}, questSource.Id) {
+				return 5
+			}
+
+			// KT Phylactery Trinkets
+			// Armaments Argent Dawn rewards
+			if slices.Contains([]int32{9120, 9228, 9227}, questSource.Id) {
+				return 6
+			}
+		}
+
+		// Reputation items
+		repSource := itemSource.GetRep()
+		if repSource != nil {
+			// WSG/AV
+			if slices.Contains([]int32{729, 730, 889, 890}, repSource.RepFactionId) {
+				return 2
+			}
+
+			// AB
+			if slices.Contains([]int32{510, 509}, repSource.RepFactionId) {
+				return 4
+			}
+
+			// Brood of Nozdorumu
+			if repSource.RepFactionId == 910 {
+				return 5
+			}
+		}
+	}
+
+	/// TIER AND OTHER SETS
+
+	// Dungeon 2
+	if slices.Contains([]int32{512, 516, 515, 514, 513, 518, 511, 517, 519}, item.SetId) {
+		return 5
+	}
+
+	// ZG Class+Crafted Sets
+	if slices.Contains([]int32{478, 474, 475, 479, 481, 480, 477, 476, 482, 421, 441, 443, 444}, item.SetId) {
+		return 4
+	}
+
+	// ZG Bloodvine Lens/Goggles
+	// Not in any set, have to filter by Item ID
+	if slices.Contains([]int32{19998, 19999}, item.Id) {
+		return 4
+	}
+
+	// T2.5 and AQ20
+	if slices.Contains([]int32{498, 500, 494, 510, 502, 495, 506, 504, 508,
+		496, 505, 493, 501, 499, 503, 497, 509, 507}, item.SetId) {
+		return 5
+	}
+
+	// AQ Raid Quest Items
+	if strings.Contains(item.Name, "Blessed Qiraji") {
+		return 5
+	}
+
+	// T3
+	if slices.Contains([]int32{523, 524, 529, 526, 528, 521, 530, 525, 527}, item.SetId) {
+		return 6
+	}
+
+	/// NAME MATCHING
+
+	// Thunderfury
+	// Quel'Serrar
+	// AV Rep Trinkets
+	if strings.Contains(item.Name, "Thunderfury") ||
+		strings.Contains(item.Name, "Quel'Serrar") ||
+		strings.Contains(item.Name, "Frostwolf Insignia") ||
+		strings.Contains(item.Name, "Stormpike Insignia") {
+		return 2
+	}
+
+	// ZG Necks
+	if strings.Contains(item.Name, "Zandalarian") {
+		return 4
+	}
+
+	// Atiesh
+	if strings.Contains(item.Name, "Atiesh") {
+		return 6
+	}
+
+	// Naxx Frost Resist items
+	if (strings.Contains(item.Name, "Glacial") ||
+		strings.Contains(item.Name, "Polar") ||
+		strings.Contains(item.Name, "Icebane") ||
+		strings.Contains(item.Name, "Icy Scale")) &&
+		item.Quality == proto.ItemQuality_ItemQualityEpic {
+		return 6
+	}
+
+	return 1
+}
+
+func GetClassAllowList(item *proto.UIItem) []proto.Class {
+	// Filter on Dungeon2 and T3 set IDs that don't have an existing class flag
+
+	// Rogue
+	if slices.Contains([]int32{512, 524}, item.SetId) {
+		return []proto.Class{proto.Class_ClassRogue}
+	}
+
+	// Hunter
+	if slices.Contains([]int32{515, 530}, item.SetId) {
+		return []proto.Class{proto.Class_ClassHunter}
+	}
+
+	// Mage
+	if slices.Contains([]int32{517, 526}, item.SetId) {
+		return []proto.Class{proto.Class_ClassMage}
+	}
+
+	// Druid
+	if slices.Contains([]int32{513, 521}, item.SetId) {
+		return []proto.Class{proto.Class_ClassDruid}
+	}
+
+	// Warrior
+	if slices.Contains([]int32{523, 511}, item.SetId) {
+		return []proto.Class{proto.Class_ClassWarrior}
+	}
+
+	// Warlock
+	if slices.Contains([]int32{529, 518}, item.SetId) {
+		return []proto.Class{proto.Class_ClassWarlock}
+	}
+
+	// Paladin
+	if slices.Contains([]int32{528, 516}, item.SetId) {
+		return []proto.Class{proto.Class_ClassPaladin}
+	}
+
+	// Priest
+	if slices.Contains([]int32{525, 514}, item.SetId) {
+		return []proto.Class{proto.Class_ClassPriest}
+	}
+
+	// Shaman
+	if slices.Contains([]int32{527, 519}, item.SetId) {
+		return []proto.Class{proto.Class_ClassShaman}
+	}
+
+	return item.ClassAllowlist
 }
