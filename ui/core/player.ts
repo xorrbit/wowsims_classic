@@ -1111,16 +1111,6 @@ export class Player<SpecType extends Spec> {
 
 	static WEAPON_SLOTS: Array<ItemSlot> = [ItemSlot.ItemSlotMainHand, ItemSlot.ItemSlotOffHand];
 
-	static readonly RAID_IDS: Partial<Record<RaidFilterOption, number>> = {
-		[RaidFilterOption.RaidMoltenCore]: 2717,
-		[RaidFilterOption.RaidOnyxiasLair]: 2159,
-		[RaidFilterOption.RaidBlackwingLair]: 2677,
-		[RaidFilterOption.RaidZulGurub]: 1977,
-		[RaidFilterOption.RaidRuinsOfAQ]: 3428,
-		[RaidFilterOption.RaidTempleOfAQ]: 3429,
-		[RaidFilterOption.RaidNaxxramas]: 3456
-	}
-
 	filterItemData<T>(itemData: Array<T>, getItemFunc: (val: T) => Item, slot: ItemSlot): Array<T> {
 		const filters = this.sim.getFilters();
 
@@ -1167,9 +1157,9 @@ export class Player<SpecType extends Spec> {
 			}
 		}
 
-		for(const [raidOptionStr, zoneId] of Object.entries(Player.RAID_IDS)) {
-			const raidOption = parseInt(raidOptionStr) as RaidFilterOption
-			if (!filters.sources.includes(SourceFilterOption.SourceRaid) || !filters.raids.includes(raidOption)) {
+		for(const zoneName in RaidFilterOption) {
+			const zoneId = parseInt(RaidFilterOption[zoneName])
+			if (!filters.sources.includes(SourceFilterOption.SourceRaid) || !filters.raids.includes(zoneId)) {
 				itemData = filterItems(
 					itemData,
 					item => !item.sources.some(itemSrc => itemSrc.source.oneofKind == 'drop' && itemSrc.source.drop.zoneId == zoneId),

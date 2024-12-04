@@ -221,13 +221,13 @@ enum DungeonFilterOption {
 
 enum RaidFilterOption {
 	RaidUnknown					= 0;
-	RaidMoltenCore				= 1;
-	RaidOnyxiasLair				= 2;
-	RaidBlackwingLair			= 3;
-	RaidZulGurub				= 4;
-	RaidRuinsOfAQ 				= 5;
-	RaidTempleOfAQ 				= 6;
-	RaidNaxxramas 				= 7;
+	RaidMoltenCore				= 2717;
+	RaidOnyxiasLair				= 2159;
+	RaidBlackwingLair			= 2677;
+	RaidZulGurub				= 1977;
+	RaidRuinsOfAQ 				= 3428;
+	RaidTempleOfAQ 				= 3429;
+	RaidNaxxramas 				= 3456;
 }
 
 // Zones not yet available to players
