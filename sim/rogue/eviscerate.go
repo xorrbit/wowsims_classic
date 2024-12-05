@@ -11,28 +11,28 @@ func (rogue *Rogue) registerEviscerate() {
 		25: 10,
 		40: 22,
 		50: 34,
-		60: 54,
+		60: core.TernaryFloat64(core.IncludeAQ, 54, 48),
 	}[rogue.Level]
 
 	comboDamageBonus := map[int32]float64{
 		25: 31,
 		40: 77,
 		50: 110,
-		60: 170,
+		60: core.TernaryFloat64(core.IncludeAQ, 170, 151),
 	}[rogue.Level]
 
 	damageVariance := map[int32]float64{
 		25: 20,
 		40: 44,
 		50: 68,
-		60: 108,
+		60: core.TernaryFloat64(core.IncludeAQ, 108, 96),
 	}[rogue.Level]
 
 	spellID := map[int32]int32{
 		25: 6762,
 		40: 8624,
 		50: 11299,
-		60: 31016,
+		60: core.TernaryInt32(core.IncludeAQ, 31016, 11300), 
 	}[rogue.Level]
 
 	rogue.Eviscerate = rogue.RegisterSpell(core.SpellConfig{
