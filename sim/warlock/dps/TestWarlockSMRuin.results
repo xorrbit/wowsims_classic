@@ -104,6 +104,13 @@ dps_results: {
  }
 }
 dps_results: {
+ key: "TestWarlockSMRuin-Phase1-AllItems-DeathmistRaiment"
+ value: {
+  dps: 1080.97179
+  tps: 903.66134
+ }
+}
+dps_results: {
  key: "TestWarlockSMRuin-Phase1-AllItems-Demoniac'sThreads"
  value: {
   dps: 1097.42734
@@ -143,6 +150,13 @@ dps_results: {
  value: {
   dps: 1140.64502
   tps: 961.2941
+ }
+}
+dps_results: {
+ key: "TestWarlockSMRuin-Phase1-AllItems-PlagueheartRaiment"
+ value: {
+  dps: 1235.01715
+  tps: 1049.06851
  }
 }
 dps_results: {
