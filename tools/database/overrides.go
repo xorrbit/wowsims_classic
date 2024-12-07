@@ -12,142 +12,84 @@ var ItemOverrides = []*proto.UIItem{
 	// Valentine's day event rewards
 	// {Id: 51804, Phase: 2},
 
-	// SOD Items
-	{Id: 10019, Sources: []*proto.UIItemSource{{
-		Source: &proto.UIItemSource_Crafted{
-			Crafted: &proto.CraftedSource{
-				Profession: proto.Profession_Tailoring, SpellId: 3759,
-			},
-		},
-	}}},
+	// Some items might slip past the phase filters defined in main.go
+	// Dragonspur Wraps
+	{Id: 20615, Phase: 4},
 
-	// Updated profession items not updated in the AtlasLoot DB
-	// Crimson Silk Robe
-	{Id: 217245, Sources: []*proto.UIItemSource{{Source: &proto.UIItemSource_Crafted{Crafted: &proto.CraftedSource{Profession: proto.Profession_Tailoring, SpellId: 439085}}}}},
-	// Black Mageweave Vest
-	{Id: 217246, Sources: []*proto.UIItemSource{{Source: &proto.UIItemSource_Crafted{Crafted: &proto.CraftedSource{Profession: proto.Profession_Tailoring, SpellId: 439086}}}}},
-	// Long Silken Cloak
-	{Id: 217252, Sources: []*proto.UIItemSource{{Source: &proto.UIItemSource_Crafted{Crafted: &proto.CraftedSource{Profession: proto.Profession_Tailoring, SpellId: 439094}}}}},
-	// Enchanter's Cowl
-	{Id: 217257, Sources: []*proto.UIItemSource{{Source: &proto.UIItemSource_Crafted{Crafted: &proto.CraftedSource{Profession: proto.Profession_Tailoring, SpellId: 439102}}}}},
-	// Big Voodoo Mask
-	{Id: 217259, Sources: []*proto.UIItemSource{{Source: &proto.UIItemSource_Crafted{Crafted: &proto.CraftedSource{Profession: proto.Profession_Leatherworking, SpellId: 439105}}}}},
-	// Big Voodoo Robe
-	{Id: 217261, Sources: []*proto.UIItemSource{{Source: &proto.UIItemSource_Crafted{Crafted: &proto.CraftedSource{Profession: proto.Profession_Leatherworking, SpellId: 439108}}}}},
-	// Turtle Scale Breastplate
-	{Id: 217268, Sources: []*proto.UIItemSource{{Source: &proto.UIItemSource_Crafted{Crafted: &proto.CraftedSource{Profession: proto.Profession_Leatherworking, SpellId: 439116}}}}},
-	// Turtle Scale Gloves
-	{Id: 217270, Sources: []*proto.UIItemSource{{Source: &proto.UIItemSource_Crafted{Crafted: &proto.CraftedSource{Profession: proto.Profession_Leatherworking, SpellId: 439118}}}}},
-	// Golden Scale Cuirass
-	{Id: 217277, Sources: []*proto.UIItemSource{{Source: &proto.UIItemSource_Crafted{Crafted: &proto.CraftedSource{Profession: proto.Profession_Blacksmithing, SpellId: 439124}}}}},
-	// Golden Scale Coif
-	{Id: 217279, Sources: []*proto.UIItemSource{{Source: &proto.UIItemSource_Crafted{Crafted: &proto.CraftedSource{Profession: proto.Profession_Blacksmithing, SpellId: 439126}}}}},
-	// Golden Scale Leggings
-	{Id: 217285, Sources: []*proto.UIItemSource{{Source: &proto.UIItemSource_Crafted{Crafted: &proto.CraftedSource{Profession: proto.Profession_Blacksmithing, SpellId: 439132}}}}},
+	// Argent Dawn Armaments of Battle
+	{Id: 22657, Phase: 6},
+	{Id: 22667, Phase: 6},
+	{Id: 22668, Phase: 6},
+	{Id: 22659, Phase: 6},
+	{Id: 22678, Phase: 6},
+	{Id: 22656, Phase: 6},
 
-	// The item tooltip is missing the usual Libram tag
-	{Id: 221457, RangedWeaponType: proto.RangedWeaponType_RangedWeaponTypeLibram},
+	{Id: 22681, Phase: 6},
+	{Id: 22680, Phase: 6},
+	{Id: 22688, Phase: 6},
+	{Id: 22679, Phase: 6},
+	{Id: 22690, Phase: 6},
+	{Id: 22689, Phase: 6},
 
-	// The item tooltip is missing the usual Totem tag
-	{Id: 221464, RangedWeaponType: proto.RangedWeaponType_RangedWeaponTypeTotem},
-
-	// SoD Gnomeregan Quest Necklaces are missing quest info from the gear planner DB
-	{Id: 213343, Sources: []*proto.UIItemSource{
-		{Source: &proto.UIItemSource_Quest{Quest: &proto.QuestSource{Id: 80324, Name: "The Mad King"}}},
-		{Source: &proto.UIItemSource_Quest{Quest: &proto.QuestSource{Id: 80325, Name: "The Mad King"}}},
-	}},
-	{Id: 213344, Sources: []*proto.UIItemSource{
-		{Source: &proto.UIItemSource_Quest{Quest: &proto.QuestSource{Id: 80324, Name: "The Mad King"}}},
-		{Source: &proto.UIItemSource_Quest{Quest: &proto.QuestSource{Id: 80325, Name: "The Mad King"}}},
-	}},
-	{Id: 213345, Sources: []*proto.UIItemSource{
-		{Source: &proto.UIItemSource_Quest{Quest: &proto.QuestSource{Id: 80324, Name: "The Mad King"}}},
-		{Source: &proto.UIItemSource_Quest{Quest: &proto.QuestSource{Id: 80325, Name: "The Mad King"}}},
-	}},
-	{Id: 213346, Sources: []*proto.UIItemSource{
-		{Source: &proto.UIItemSource_Quest{Quest: &proto.QuestSource{Id: 80324, Name: "The Mad King"}}},
-		{Source: &proto.UIItemSource_Quest{Quest: &proto.QuestSource{Id: 80325, Name: "The Mad King"}}},
-	}},
-
-	// SoD Sunken Temple Drakeclaw Bands are missing quest info from the gear planner DB
-	{Id: 220626, Sources: []*proto.UIItemSource{
-		{Source: &proto.UIItemSource_Quest{Quest: &proto.QuestSource{Id: 82081, Name: "A Broken Ritual"}}},
-		{Source: &proto.UIItemSource_Quest{Quest: &proto.QuestSource{Id: 82083, Name: "A Broken Ritual"}}},
-	}},
-	{Id: 220627, Sources: []*proto.UIItemSource{
-		{Source: &proto.UIItemSource_Quest{Quest: &proto.QuestSource{Id: 82081, Name: "A Broken Ritual"}}},
-		{Source: &proto.UIItemSource_Quest{Quest: &proto.QuestSource{Id: 82083, Name: "A Broken Ritual"}}},
-	}},
-	{Id: 220628, Sources: []*proto.UIItemSource{
-		{Source: &proto.UIItemSource_Quest{Quest: &proto.QuestSource{Id: 82081, Name: "A Broken Ritual"}}},
-		{Source: &proto.UIItemSource_Quest{Quest: &proto.QuestSource{Id: 82083, Name: "A Broken Ritual"}}},
-	}},
-	{Id: 220629, Sources: []*proto.UIItemSource{
-		{Source: &proto.UIItemSource_Quest{Quest: &proto.QuestSource{Id: 82081, Name: "A Broken Ritual"}}},
-		{Source: &proto.UIItemSource_Quest{Quest: &proto.QuestSource{Id: 82083, Name: "A Broken Ritual"}}},
-	}},
-	{Id: 220630, Sources: []*proto.UIItemSource{
-		{Source: &proto.UIItemSource_Quest{Quest: &proto.QuestSource{Id: 82081, Name: "A Broken Ritual"}}},
-		{Source: &proto.UIItemSource_Quest{Quest: &proto.QuestSource{Id: 82083, Name: "A Broken Ritual"}}},
-	}},
+	// Nef Head
+	{Id: 19383, Phase: 3},
+	{Id: 19366, Phase: 3},
+	{Id: 19384, Phase: 3},
 }
 
 // Keep these sorted by item ID.
-var ItemAllowList = map[int32]struct{}{
-	14637:  {}, // https://www.wowhead.com/classic/item=14637/cadaverous-armor
-	19099:  {}, // https://www.wowhead.com/classic/item=19099/glacial-blade filtered by temp naxx Glacial gear filters
-	22335:  {}, // https://www.wowhead.com/classic/item=22335/lord-valthalaks-staff-of-command accidentally left in the loot pool for a while. Allowing for compatibility
-	22395:  {}, // https://www.wowhead.com/classic/item=22395/totem-of-rage
-	221783: {}, // https://www.wowhead.com/classic/item=221783/lawbringer-spaulders
+var ItemAllowList = map[int32]struct{}{}
 
-	// These are all filtered out by the SoD duplicates filter because of new versions added in SoD
-	20425: {}, // https://www.wowhead.com/classic/item=20425/advisors-gnarled-staff
-	20430: {}, // https://www.wowhead.com/classic/item=20430/legionnaires-sword
-	20434: {}, // https://www.wowhead.com/classic/item=20434/lorekeepers-staff
-	20437: {}, // https://www.wowhead.com/classic/item=20437/outriders-bow
-	20438: {}, // https://www.wowhead.com/classic/item=20438/outrunners-bow
-	20440: {}, // https://www.wowhead.com/classic/item=20440/protectors-sword
-	20441: {}, // https://www.wowhead.com/classic/item=20441/scouts-blade
-	20443: {}, // https://www.wowhead.com/classic/item=20443/sentinels-blade
-}
-
-// Keep these sorted by item ID.
+// Items to remove from the UI
 var ItemDenyList = map[int32]struct{}{
-	9653:   {}, // Speedy Racer Goggles
-	12104:  {}, // Brindlethorn Tunic
-	12805:  {}, // Orb of Fire
-	17782:  {}, // talisman of the binding shard
-	17783:  {}, // talisman of the binding fragment
-	17802:  {}, // Deprecated version of Thunderfury
-	20522:  {}, // Feral Staff
-	22736:  {}, // Andonisus, Reaper of Souls
-	34576:  {}, // Battlemaster's Cruelty
-	34577:  {}, // Battlemaster's Depreavity
-	34578:  {}, // Battlemaster's Determination
-	34579:  {}, // Battlemaster's Audacity
-	34580:  {}, // Battlemaster's Perseverence
-	206382: {}, // Tempest Icon
-	206387: {}, // Kajaric Icon
-	206954: {}, // Idol of Ursine Rage
-	208689: {}, // Ferocious Idol
-	208849: {}, // Libram of Blessings
-	208851: {}, // Libram of Justice
-	210195: {}, // Unbalanced Idol
-	210534: {}, // Idol of the Wild
-	211472: {}, // Libram of Banishment
-	211501: {}, // https://www.wowhead.com/classic/item=211501/chestguard-of-might
-	213513: {}, // Libram of Deliverance
-	213594: {}, // Idol of the Heckler
-	215116: {}, // UNUSED - Hyperconductive Speed Belt
-	220915: {}, // Idol of the Raging Shambler
-	227444: {}, // Idol of the Huntress
-	227843: {}, // https://www.wowhead.com/classic/item=227843/reaving-nightfall Removed from SoD
-	227954: {}, // https://www.wowhead.com/classic/item=227954/boreal-mantle unused item
-	227966: {}, // https://www.wowhead.com/classic/item=227966/naglering unused item
-	227977: {}, // https://www.wowhead.com/classic/item=227977/totem-of-rage unused item
-	227989: {}, // https://www.wowhead.com/classic/item=227989/hand-of-justice unused item
-	227995: {}, // https://www.wowhead.com/classic/item=227995/cadaverous-armor unused item
-	228498: {}, // Unused Dreadblade of the Destructor
+	9653:  {}, // Speedy Racer Goggles
+	12104: {}, // Brindlethorn Tunic
+	12805: {}, // Orb of Fire
+	17782: {}, // talisman of the binding shard
+	17783: {}, // talisman of the binding fragment
+	17802: {}, // Deprecated version of Thunderfury
+	20522: {}, // Feral Staff
+	22736: {}, // Andonisus, Reaper of Souls
+
+	// Unimplemented PvP Belts/Bracers (Marshal's/General's)
+	16482: {},
+	16447: {},
+	16458: {},
+	16470: {},
+	17585: {},
+	17609: {},
+	16439: {},
+	16464: {},
+
+	16481: {},
+	17606: {},
+	16438: {},
+	16445: {},
+	16460: {},
+	16469: {},
+	17582: {},
+	16461: {},
+
+	16572: {},
+	16557: {},
+	16547: {},
+	16556: {},
+	16575: {},
+	17589: {},
+	17621: {},
+	16537: {},
+
+	16553: {},
+	16546: {},
+	16576: {},
+	16538: {},
+	16559: {},
+	16570: {},
+	17587: {},
+	17619: {},
+
+	// Bladebane Armguards
+	14550: {},
 }
 
 // Item icons to include in the DB, so they don't need to be separately loaded in the UI.
@@ -432,24 +374,6 @@ var DenyListNameRegexes = []*regexp.Regexp{
 	regexp.MustCompile(`TEST`),
 	regexp.MustCompile(`Test`),
 	regexp.MustCompile(`zOLD`),
-
-	// PVP Gear
-	// regexp.MustCompile(`Grand Marshal's [a-zA-z\s]+`),
-	// regexp.MustCompile(`High Warlord's [a-zA-z\s]+`),
-
-	// AQ
-	// regexp.MustCompile(`Qiraji`),
-	// regexp.MustCompile(`[A-Za-z\s]+ of the Bronze Dragonflight`),
-	// regexp.MustCompile(`[A-Za-z\s]+ of the Fallen God`),
-	// regexp.MustCompile(`Belt of [A-Za-z]+ Heads`),
-
-	// Naxx
-	regexp.MustCompile(`Icebane`),
-	regexp.MustCompile(`Icy Scale`),
-	regexp.MustCompile(`Polar`),
-	regexp.MustCompile(`Glacial`),
-	regexp.MustCompile(`Mark of the Champion`),
-	regexp.MustCompile(`Atiesh`),
 }
 
 // Data can easily be found here:

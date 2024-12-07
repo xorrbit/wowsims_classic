@@ -70,7 +70,7 @@ import {
 } from './proto_utils/utils.js';
 import { Raid } from './raid.js';
 import { Sim, SimSettingCategories } from './sim.js';
-import { playerTalentStringToProto } from './talents/factory.js';
+import { playerTalentStringToProto, protoToTalentString } from './talents/factory.js';
 import { EventID, TypedEvent } from './typed_event.js';
 import { stringComparator } from './utils.js';
 import { WorkerProgressCallback } from './worker_pool';
@@ -1157,20 +1157,14 @@ export class Player<SpecType extends Spec> {
 			}
 		}
 
-		if (!filters.sources.includes(SourceFilterOption.SourceRaid)) {
-			const zoneIds: Array<number> = [];
-			for (const zoneName in RaidFilterOption) {
-				const zoneId = RaidFilterOption[zoneName];
-
-				if (typeof zoneId == 'number' && zoneId != 0) {
-					zoneIds.push(zoneId);
-				}
+		for(const zoneName in RaidFilterOption) {
+			const zoneId = parseInt(RaidFilterOption[zoneName])
+			if (!filters.sources.includes(SourceFilterOption.SourceRaid) || !filters.raids.includes(zoneId)) {
+				itemData = filterItems(
+					itemData,
+					item => !item.sources.some(itemSrc => itemSrc.source.oneofKind == 'drop' && itemSrc.source.drop.zoneId == zoneId),
+				);
 			}
-
-			itemData = filterItems(
-				itemData,
-				item => !item.sources.some(itemSrc => itemSrc.source.oneofKind == 'drop' && zoneIds.includes(itemSrc.source.drop.zoneId)),
-			);
 		}
 
 		for (const zoneName in ExcludedZones) {
