@@ -1,8 +1,8 @@
 character_stats_results: {
  key: "TestElemental-Phase5-CharacterStats-Default"
  value: {
-  final_stats: 235.75
-  final_stats: 202.4
+  final_stats: 215.05
+  final_stats: 189.75
   final_stats: 331.9475
   final_stats: 181.7
   final_stats: 197.8
@@ -18,21 +18,21 @@ character_stats_results: {
   final_stats: 26.37073
   final_stats: 0
   final_stats: 0
-  final_stats: 1301.5
+  final_stats: 1211.1
   final_stats: 3
-  final_stats: 24.98192
+  final_stats: 24.3393
   final_stats: 0
   final_stats: 0
   final_stats: 0
   final_stats: 3965.5
   final_stats: 0
   final_stats: 0
-  final_stats: 788.8
+  final_stats: 763.5
   final_stats: 440
   final_stats: 0
   final_stats: 5
   final_stats: 0
-  final_stats: 11.98192
+  final_stats: 11.3393
   final_stats: 5
   final_stats: 0
   final_stats: 4862.475
@@ -53,7 +53,7 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.71989
+  weights: 0.72152
   weights: 0
   weights: 0.51092
   weights: 0
@@ -63,7 +63,7 @@ stat_weights_results: {
   weights: 0.41728
   weights: 0
   weights: 0
-  weights: 5.03315
+  weights: 5.03844
   weights: 2.59396
   weights: 0
   weights: 0
@@ -99,8 +99,8 @@ stat_weights_results: {
 dps_results: {
  key: "TestElemental-Phase5-Average-Default"
  value: {
-  dps: 420.87152
-  tps: 432.94799
+  dps: 419.18307
+  tps: 431.25953
  }
 }
 dps_results: {
@@ -190,7 +190,7 @@ dps_results: {
 dps_results: {
  key: "TestElemental-Phase5-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 420.79557
-  tps: 433.19562
+  dps: 419.46276
+  tps: 431.86281
  }
 }

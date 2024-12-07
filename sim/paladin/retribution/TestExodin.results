@@ -13,12 +13,12 @@ character_stats_results: {
   final_stats: 0
   final_stats: 0
   final_stats: 0
-  final_stats: 49.6
+  final_stats: 46
   final_stats: 0
   final_stats: 27.28857
   final_stats: 0
   final_stats: 0
-  final_stats: 1669.638
+  final_stats: 1584.638
   final_stats: 3
   final_stats: 28.44509
   final_stats: 0
@@ -51,7 +51,7 @@ stat_weights_results: {
  key: "TestExodin-Phase5-StatWeights-Default"
  value: {
   weights: 0.45025
-  weights: 0.18208
+  weights: 0.17396
   weights: 0
   weights: 0
   weights: 0
@@ -63,13 +63,13 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.2108
-  weights: 0.09336
+  weights: 0.21085
+  weights: 0.09328
   weights: 0
   weights: 0
   weights: 0.16179
-  weights: 4.32983
-  weights: 3.32152
+  weights: 4.15772
+  weights: 3.18201
   weights: 0
   weights: 0
   weights: 0
@@ -99,29 +99,29 @@ stat_weights_results: {
 dps_results: {
  key: "TestExodin-Phase5-AllItems-SanctifiedOrb-20512"
  value: {
-  dps: 359.54902
-  tps: 396.36087
+  dps: 345.69646
+  tps: 382.69107
  }
 }
 dps_results: {
  key: "TestExodin-Phase5-Average-Default"
  value: {
-  dps: 357.20747
-  tps: 394.05402
+  dps: 343.4384
+  tps: 380.47158
  }
 }
 dps_results: {
  key: "TestExodin-Phase5-Settings-Dwarf-blank-P5 Seal of Martyrdom Ret-p5ret-exodin-6CF2DR-FullBuffs-P5-Consumes-LongMultiTarget"
  value: {
-  dps: 24.30242
-  tps: 219.01258
+  dps: 23.55242
+  tps: 218.06591
  }
 }
 dps_results: {
  key: "TestExodin-Phase5-Settings-Dwarf-blank-P5 Seal of Martyrdom Ret-p5ret-exodin-6CF2DR-FullBuffs-P5-Consumes-LongSingleTarget"
  value: {
-  dps: 10.34057
-  tps: 20.07607
+  dps: 9.78378
+  tps: 19.50945
  }
 }
 dps_results: {
@@ -154,15 +154,15 @@ dps_results: {
 dps_results: {
  key: "TestExodin-Phase5-Settings-Human-blank-P5 Seal of Martyrdom Ret-p5ret-exodin-6CF2DR-FullBuffs-P5-Consumes-LongMultiTarget"
  value: {
-  dps: 24.93099
-  tps: 219.05115
+  dps: 22.87194
+  tps: 216.9921
  }
 }
 dps_results: {
  key: "TestExodin-Phase5-Settings-Human-blank-P5 Seal of Martyrdom Ret-p5ret-exodin-6CF2DR-FullBuffs-P5-Consumes-LongSingleTarget"
  value: {
-  dps: 10.07469
-  tps: 19.7807
+  dps: 9.52454
+  tps: 19.23055
  }
 }
 dps_results: {
@@ -195,7 +195,7 @@ dps_results: {
 dps_results: {
  key: "TestExodin-Phase5-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 293.1927
-  tps: 327.73719
+  dps: 281.97986
+  tps: 316.71265
  }
 }
