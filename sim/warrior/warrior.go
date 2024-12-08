@@ -162,46 +162,6 @@ func (warrior *Warrior) RegisterSpell(stanceMask Stance, config core.SpellConfig
 	return ws
 }
 
-func (warrior *Warrior) newStanceOverrideExclusiveEffect(stance Stance, aura *core.Aura) *core.ExclusiveEffect {
-	return aura.NewExclusiveEffect("stance-override", false, core.ExclusiveEffect{
-		Priority: core.TernaryFloat64(stance == AnyStance, 2, 1),
-		OnGain: func(ee *core.ExclusiveEffect, sim *core.Simulation) {
-			if stance.Matches(BattleStance) {
-				for _, spell := range warrior.BattleStanceSpells {
-					spell.stanceOverride = true
-				}
-			}
-			if stance.Matches(DefensiveStance) {
-				for _, spell := range warrior.DefensiveStanceSpells {
-					spell.stanceOverride = true
-				}
-			}
-			if stance.Matches(BerserkerStance) {
-				for _, spell := range warrior.BerserkerStanceSpells {
-					spell.stanceOverride = true
-				}
-			}
-		},
-		OnExpire: func(ee *core.ExclusiveEffect, sim *core.Simulation) {
-			if stance.Matches(BattleStance) {
-				for _, spell := range warrior.BattleStanceSpells {
-					spell.stanceOverride = false
-				}
-			}
-			if stance.Matches(DefensiveStance) {
-				for _, spell := range warrior.DefensiveStanceSpells {
-					spell.stanceOverride = false
-				}
-			}
-			if stance.Matches(BerserkerStance) {
-				for _, spell := range warrior.BerserkerStanceSpells {
-					spell.stanceOverride = false
-				}
-			}
-		},
-	})
-}
-
 func (warrior *Warrior) Initialize() {
 	primaryTimer := warrior.NewTimer()
 	overpowerRevengeTimer := warrior.NewTimer()
