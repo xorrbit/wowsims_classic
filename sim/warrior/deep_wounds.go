@@ -42,7 +42,7 @@ func (warrior *Warrior) applyDeepWounds() {
 		},
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			spell.Dot(target).Apply(sim)
+			spell.Dot(target).Apply(sim)  //Resets the tick counter with Apply vs ApplyorRefresh
 			spell.CalcAndDealOutcome(sim, target, spell.OutcomeAlwaysHitNoHitCounter)
 		},
 	})
@@ -66,7 +66,6 @@ func (warrior *Warrior) applyDeepWounds() {
 	}))
 }
 
-// Needs confirmation on classic functionality.  It is regular dot instead of a stacking one and if so does that mean it is only overwritten by a "higher" crit?
 func (warrior *Warrior) procDeepWounds(sim *core.Simulation, target *core.Unit, isOh bool) {
 	dot := warrior.DeepWounds.Dot(target)
 
@@ -74,7 +73,7 @@ func (warrior *Warrior) procDeepWounds(sim *core.Simulation, target *core.Unit, 
 	if isOh {
 		attackTableOh := warrior.AttackTables[target.UnitIndex][proto.CastType_CastTypeOffHand]
 		adm := warrior.AutoAttacks.OHAuto().AttackerDamageMultiplier(attackTableOh)
-		awd = warrior.AutoAttacks.OH().CalculateAverageWeaponDamage(dot.Spell.MeleeAttackPower()) * 0.5 * adm // Does this not include the DWS talent?
+		awd = warrior.AutoAttacks.OH().CalculateAverageWeaponDamage(dot.Spell.MeleeAttackPower()) * 0.5 * adm
 	} else { // MH
 		attackTableMh := warrior.AttackTables[target.UnitIndex][proto.CastType_CastTypeMainHand]
 		adm := warrior.AutoAttacks.MHAuto().AttackerDamageMultiplier(attackTableMh)

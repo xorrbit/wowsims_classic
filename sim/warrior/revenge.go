@@ -54,6 +54,10 @@ func (warrior *Warrior) registerRevengeSpell(cdTimer *core.Timer) {
 				GCD: core.GCDDefault,
 			},
 			IgnoreHaste: true,
+			CD: core.Cooldown{
+				Timer:    cdTimer,
+				Duration: time.Second * 5,
+			},
 		},
 		ExtraCastCondition: func(sim *core.Simulation, target *core.Unit) bool {
 			return warrior.revengeProcAura.IsActive()
