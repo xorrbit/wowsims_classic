@@ -37,8 +37,8 @@ func (warrior *Warrior) applyDeepWounds() {
 			TickLength:    time.Second * 3,
 
 			OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
-				attackTable := warrior.AttackTables[target.UnitIndex][proto.CastType_CastTypeMainHand]
-				dot.SnapshotAttackerMultiplier = dot.Spell.AttackerDamageMultiplier(attackTable)
+				attackTable := warrior.AttackTables[target.UnitIndex][proto.CastType_CastTypeMainHand] 
+				dot.SnapshotAttackerMultiplier = dot.Spell.AttackerDamageMultiplier(attackTable)  // Double dips on attackers mods
 				dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
 			},
 		},
@@ -82,9 +82,9 @@ func (warrior *Warrior) procDeepWounds(sim *core.Simulation, target *core.Unit, 
 		awd = warrior.AutoAttacks.MH().CalculateAverageWeaponDamage(dot.Spell.MeleeAttackPower()) * adm
 	}
 
-	newDamage := awd * 0.2 * float64(warrior.Talents.DeepWounds)
+	newDamage := awd * 0.2 * float64(warrior.Talents.DeepWounds) // 60% of average attackers damage
 
-	dot.SnapshotBaseDamage = newDamage / 4.0
+	dot.SnapshotBaseDamage = newDamage / 4.0 // spread over 4 ticks of the dot
 	dot.SnapshotAttackerMultiplier = 1
 
 	warrior.DeepWounds.Cast(sim, target)
