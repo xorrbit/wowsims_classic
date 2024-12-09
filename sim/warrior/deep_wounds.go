@@ -84,7 +84,7 @@ func (warrior *Warrior) procDeepWounds(sim *core.Simulation, target *core.Unit, 
 
 	newDamage := awd * 0.2 * float64(warrior.Talents.DeepWounds)
 
-	dot.SnapshotBaseDamage = newDamage // / float64(dot.NumberOfTicks)
+	dot.SnapshotBaseDamage = newDamage / 4.0
 	dot.SnapshotAttackerMultiplier = 1
 
 	warrior.DeepWounds.Cast(sim, target)
