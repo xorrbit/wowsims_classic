@@ -528,8 +528,19 @@ func GetPhaseData(item *proto.UIItem) int32 {
 		dropSource := itemSource.GetDrop()
 		if dropSource != nil {
 			// Zone IDs as defined by WoWHead - does NOT match the in-game Zone ID!
+<<<<<<< HEAD
 			// P1 - Molten Core, Ony
 			if slices.Contains([]int32{2717, 2159}, dropSource.ZoneId) || dropSource.NpcId == 10184 {
+=======
+			// P1 - Molten Core, Ony (Go down one check)
+			if dropSource.ZoneId == 2717 {
+				return 1
+			}
+
+			// Ony items don't have a ZoneID. Let's add it for UI filtering, then return phase 1
+			if dropSource.NpcId == 10184 {
+				dropSource.ZoneId = 2159
+>>>>>>> master
 				return 1
 			}
 			
