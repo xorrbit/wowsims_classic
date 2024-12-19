@@ -3,7 +3,7 @@ package mage
 import (
 	"slices"
 	"time"
-
+	
 	"github.com/wowsims/classic/sim/core"
 	"github.com/wowsims/classic/sim/core/stats"
 )
@@ -84,7 +84,7 @@ var ItemSetNetherwindRegalia = core.NewItemSet(core.ItemSet{
 				Duration: time.Second * 10,
 				OnInit: func(aura *core.Aura, sim *core.Simulation) {
 					for spellIdx := range mage.Spellbook {
-						if spell := mage.Spellbook[spellIdx]; spell.DefaultCast.CastTime > 0 && spell.DefaultCast.CastTime <= 10 {
+						if spell := mage.Spellbook[spellIdx]; (spell.DefaultCast.CastTime > 0 && spell.DefaultCast.CastTime <= 10*time.Second) {
 							affectedSpells = append(affectedSpells, spell)
 						}
 					}
@@ -103,6 +103,9 @@ var ItemSetNetherwindRegalia = core.NewItemSet(core.ItemSet{
 					if !slices.Contains(affectedSpells, spell) {
 						return
 					}
+					if (spell.CurCast.CastTime > 0) { //Returns if you are midcast when your aura procs from landing to prevent instant consumption
+						return
+					}
 					aura.Deactivate(sim)
 				},
 			})
@@ -115,7 +118,9 @@ var ItemSetNetherwindRegalia = core.NewItemSet(core.ItemSet{
 				},
 				OnSpellHitDealt: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
 					if (spell.SpellCode == SpellCode_MageArcaneMissiles || spell.SpellCode == SpellCode_MageFireball || spell.SpellCode == SpellCode_MageFrostbolt) {
-						netherwindFocusAura.Activate(sim)
+						if sim.Proc(0.10, "Netherwind Focus Proc") {
+							netherwindFocusAura.Activate(sim)
+						}
 					}
 				},
 			})

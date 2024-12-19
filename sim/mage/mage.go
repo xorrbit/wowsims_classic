@@ -66,6 +66,7 @@ type Mage struct {
 	Frostbolt               []*core.Spell
 	IceBarrier              []*core.Spell
 	Ignite                  *core.Spell
+	igniteTick		 		*core.Spell
 	ManaGem                 []*core.Spell
 	PresenceOfMind          *core.Spell
 	Pyroblast               []*core.Spell

@@ -139,6 +139,13 @@ dps_results: {
  }
 }
 dps_results: {
+ key: "TestP1Mage-Phase1-AllItems-IronweaveBattlesuit"
+ value: {
+  dps: 65.51091
+  tps: 72.7335
+ }
+}
+dps_results: {
  key: "TestP1Mage-Phase1-AllItems-LieutenantCommander'sRegalia"
  value: {
   dps: 84.10533
@@ -148,8 +155,8 @@ dps_results: {
 dps_results: {
  key: "TestP1Mage-Phase1-AllItems-NetherwindRegalia"
  value: {
-  dps: 107.93251
-  tps: 101.39714
+  dps: 107.30217
+  tps: 99.97337
  }
 }
 dps_results: {
