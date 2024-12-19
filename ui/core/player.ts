@@ -1157,8 +1157,8 @@ export class Player<SpecType extends Spec> {
 			}
 		}
 
-		for(const zoneName in RaidFilterOption) {
-			const zoneId = parseInt(RaidFilterOption[zoneName])
+		for (const zoneName in RaidFilterOption) {
+			const zoneId = parseInt(RaidFilterOption[zoneName]);
 			if (!filters.sources.includes(SourceFilterOption.SourceRaid) || !filters.raids.includes(zoneId)) {
 				itemData = filterItems(
 					itemData,

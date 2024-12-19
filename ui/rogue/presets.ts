@@ -111,17 +111,17 @@ export const DefaultTalents = DefaultTalentsSinisterStrike;
 //                                Build Presets
 ///////////////////////////////////////////////////////////////////////////
 export const PresetBuildBackstab = PresetUtils.makePresetBuild('Backstab', {
-	gear: GearBackstabPreBiS,
+	gear: GearBackstabP1BiS,
 	talents: DefaultTalentsBackstab,
 	rotation: DefaultAPLBackstab,
 });
 export const PresetBuildSinisterStrike = PresetUtils.makePresetBuild('Sinister Strike', {
-	gear: GearSinisterStrikePreBiS,
+	gear: GearSinisterStrikeP1BiS,
 	talents: DefaultTalentsSinisterStrike,
 	rotation: DefaultAPLSinisterStrike,
 });
 export const PresetBuildIEA = PresetUtils.makePresetBuild('IEA', {
-	gear: GearSinisterStrikePreBiS,
+	gear: GearSinisterStrikeP1BiS,
 	talents: DefaultTalentsIEA,
 	rotation: DefaultAPLIEA,
 });

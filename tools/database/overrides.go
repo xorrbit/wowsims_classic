@@ -35,6 +35,20 @@ var ItemOverrides = []*proto.UIItem{
 	{Id: 19383, Phase: 3},
 	{Id: 19366, Phase: 3},
 	{Id: 19384, Phase: 3},
+
+	// Dire Maul Crafts
+	{Id: 18504, Phase: 2},
+	{Id: 18506, Phase: 2},
+	{Id: 18508, Phase: 2},
+	{Id: 18509, Phase: 2},
+	{Id: 18510, Phase: 2},
+	{Id: 18511, Phase: 2},
+
+	{Id: 18405, Phase: 2},
+	{Id: 18407, Phase: 2},
+	{Id: 18408, Phase: 2},
+	{Id: 18409, Phase: 2},
+	{Id: 18413, Phase: 2},
 }
 
 // Keep these sorted by item ID.
