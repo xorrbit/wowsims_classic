@@ -193,7 +193,7 @@ func (warrior *Warrior) Initialize() {
 	warrior.registerHeroicStrikeSpell(queuedRealismICD)
 	warrior.registerCleaveSpell(queuedRealismICD)
 
-	warrior.SunderArmor = warrior.registerSunderArmorSpell()
+	warrior.registerSunderArmorSpell()
 
 	warrior.registerBloodrageCD()
 	warrior.RegisterRecklessnessCD()
