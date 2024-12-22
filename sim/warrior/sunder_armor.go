@@ -4,7 +4,7 @@ import (
 	"github.com/wowsims/classic/sim/core"
 )
 
-func (warrior *Warrior) registerSunderArmorSpell() *WarriorSpell {
+func (warrior *Warrior) registerSunderArmorSpell() {
 	warrior.SunderArmorAuras = warrior.NewEnemyAuraArray(core.SunderArmorAura)
 
 	spellID := int32(11597)
@@ -14,7 +14,7 @@ func (warrior *Warrior) registerSunderArmorSpell() *WarriorSpell {
 	var canApplySunder bool
 
 
-	return warrior.RegisterSpell(AnyStance, core.SpellConfig{
+	warrior.SunderArmor = warrior.RegisterSpell(AnyStance, core.SpellConfig{
 		ActionID:    core.ActionID{SpellID: spellID},
 		SpellSchool: core.SpellSchoolPhysical,
 		ProcMask:    core.ProcMaskMeleeMHSpecial,
@@ -49,7 +49,6 @@ func (warrior *Warrior) registerSunderArmorSpell() *WarriorSpell {
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 			result := spell.CalcAndDealOutcome(sim, target, spell.OutcomeMeleeWeaponSpecialNoCrit) // Cannot be blocked
-
 			if !result.Landed() {
 				spell.IssueRefund(sim)
 				return

@@ -3,7 +3,6 @@ package warrior
 import (
 	"slices"
 	"time"
-	"fmt"
 	"github.com/wowsims/classic/sim/core"
 	"github.com/wowsims/classic/sim/core/stats"
 )
@@ -41,9 +40,10 @@ var ItemSetBattleGearOfMight = core.NewItemSet(core.ItemSet{
 		8: func(agent core.Agent) {
 			warrior := agent.(WarriorAgent).GetWarrior()
 			warrior.RegisterAura(core.Aura{
-				Label: "Reduced Threat",
+				Label: "Enhanced Sunder Armor",
 				OnInit: func(aura *core.Aura, sim *core.Simulation) {
 					warrior.SunderArmor.ThreatMultiplier *= 1.15
+					warrior.SunderArmor.FlatThreatBonus *= 1.15
 				},
 			})
 		},
@@ -92,7 +92,7 @@ var ItemSetBattleGearOfWrath = core.NewItemSet(core.ItemSet{
 						spell.Cost.FlatModifier += 5
 					}
 				},
-				OnSpellHitDealt: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
+				OnCastComplete: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell) {
 					if slices.Contains(affectedSpells, spell) {
 						aura.Deactivate(sim)
 					}
@@ -102,11 +102,8 @@ var ItemSetBattleGearOfWrath = core.NewItemSet(core.ItemSet{
 			core.MakePermanent(warrior.RegisterAura(core.Aura{
 				Label: "Warrior's Wrath Trigger",
 				OnCastComplete: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell) {
-					fmt.Println("Is ", spell, "in: ", slices.Contains(affectedSpells, spell))
 					if slices.Contains(affectedSpells, spell) {
-						fmt.Println("Affected spell",spell)
 						if sim.Proc(0.2, "Warrior's Wrath Trigger"){
-							fmt.Println("Rolled")
 							warriorsWrathAura.Activate(sim)
 						}
 					}

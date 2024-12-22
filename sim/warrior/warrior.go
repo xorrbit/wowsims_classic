@@ -179,6 +179,7 @@ func (warrior *Warrior) Initialize() {
 	warrior.registerRevengeSpell(overpowerRevengeTimer)
 	warrior.registerShieldSlamSpell()
 	warrior.registerSlamSpell()
+	warrior.registerSunderArmorSpell()
 	warrior.registerThunderClapSpell()
 	warrior.registerWhirlwindSpell()
 	warrior.registerRendSpell()
@@ -193,7 +194,7 @@ func (warrior *Warrior) Initialize() {
 	warrior.registerHeroicStrikeSpell(queuedRealismICD)
 	warrior.registerCleaveSpell(queuedRealismICD)
 
-	warrior.registerSunderArmorSpell()
+	
 
 	warrior.registerBloodrageCD()
 	warrior.RegisterRecklessnessCD()

@@ -97,6 +97,48 @@ stat_weights_results: {
  }
 }
 dps_results: {
+ key: "TestP1DPSWarrior-Phase1-AllItems-BattlegearofHeroism"
+ value: {
+  dps: 237.73911
+  tps: 231.66781
+ }
+}
+dps_results: {
+ key: "TestP1DPSWarrior-Phase1-AllItems-BattlegearofMight"
+ value: {
+  dps: 222.95766
+  tps: 218.52321
+ }
+}
+dps_results: {
+ key: "TestP1DPSWarrior-Phase1-AllItems-BattlegearofWrath"
+ value: {
+  dps: 219.245
+  tps: 216.30574
+ }
+}
+dps_results: {
+ key: "TestP1DPSWarrior-Phase1-AllItems-Conqueror'sBattlegear"
+ value: {
+  dps: 244.90003
+  tps: 237.86693
+ }
+}
+dps_results: {
+ key: "TestP1DPSWarrior-Phase1-AllItems-Dreadnaught'sBattlegear"
+ value: {
+  dps: 228.08017
+  tps: 223.44701
+ }
+}
+dps_results: {
+ key: "TestP1DPSWarrior-Phase1-AllItems-Vindicator'sBattlegear"
+ value: {
+  dps: 236.32283
+  tps: 231.13999
+ }
+}
+dps_results: {
  key: "TestP1DPSWarrior-Phase1-Average-Default"
  value: {
   dps: 225.0288
