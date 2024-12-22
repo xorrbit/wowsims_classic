@@ -8,6 +8,8 @@ import (
 	"github.com/wowsims/classic/sim/core/stats"
 )
 
+// Needs to be updated to classic version
+
 func addVaelastraszTheCorrupt(bossPrefix string) {
 	core.AddPresetTarget(&core.PresetTarget{
 		PathPrefix: bossPrefix,
