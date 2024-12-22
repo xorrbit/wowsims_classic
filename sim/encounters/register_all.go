@@ -7,8 +7,8 @@ import (
 func init() {
 	// TODO: Classic encounters?
 	// naxxramas.Register()
-	addLevel60("SoD")
-	addVaelastraszTheCorrupt("SoD")
+	addLevel60("Classic")
+	//addVaelastraszTheCorrupt("Classic")
 }
 
 func AddSingleTargetBossEncounter(presetTarget *core.PresetTarget) {
