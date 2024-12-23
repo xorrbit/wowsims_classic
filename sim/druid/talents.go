@@ -280,8 +280,7 @@ func (druid *Druid) applyOmenOfClarity() {
 				return
 			}
 
-			// Hotfix 2024-04-13 Starsurge does not consume clearcasting
-			if spell.Flags.Matches(SpellFlagOmen) && spell.SpellCode != SpellCode_DruidStarsurge && spell.DefaultCast.Cost > 0 {
+			if spell.Flags.Matches(SpellFlagOmen) && spell.DefaultCast.Cost > 0 {
 				aura.Deactivate(sim)
 			}
 		},
@@ -328,8 +327,6 @@ func (druid *Druid) applyMoonfury() {
 						druid.Wrath,
 						druid.Starfire,
 						druid.Moonfire,
-						{druid.Starsurge},
-						{druid.Sunfire},
 					},
 				),
 				func(spell *DruidSpell) bool { return spell != nil },
@@ -354,25 +351,12 @@ func (druid *Druid) applyImprovedMoonfire() {
 		Label: "Improved moonfire",
 		OnInit: func(aura *core.Aura, sim *core.Simulation) {
 			damageAffectedSpells := core.FilterSlice(
-				core.Flatten(
-					[][]*DruidSpell{
-						druid.Moonfire,
-						{druid.Sunfire},
-					},
-				),
+				druid.Moonfire,
 				func(spell *DruidSpell) bool { return spell != nil },
 			)
 
 			critAffectedSpells := core.FilterSlice(
-				core.Flatten(
-					[][]*DruidSpell{
-						druid.Moonfire,
-						{druid.Sunfire},
-						// Starfall only receives the bonus crit, not damage
-						{druid.StarfallTick},
-						{druid.StarfallSplash},
-					},
-				),
+				druid.Moonfire,
 				func(spell *DruidSpell) bool { return spell != nil },
 			)
 
@@ -403,10 +387,6 @@ func (druid *Druid) applyVengeance() {
 						druid.Wrath,
 						druid.Starfire,
 						druid.Moonfire,
-						{druid.Starsurge},
-						{druid.Sunfire},
-						{druid.StarfallTick},
-						{druid.StarfallSplash},
 					},
 				),
 				func(spell *DruidSpell) bool { return spell != nil },
@@ -435,8 +415,6 @@ func (druid *Druid) applyMoonglow() {
 						druid.Wrath,
 						druid.Starfire,
 						druid.Moonfire,
-						{druid.Starsurge},
-						{druid.Starfall},
 					},
 				),
 				func(spell *DruidSpell) bool { return spell != nil },
