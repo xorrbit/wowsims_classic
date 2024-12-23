@@ -493,23 +493,15 @@ func GiftOfArthasAura(target *Unit) *Aura {
 	})
 }
 
-func HemorrhageAura(target *Unit, casterLevel int32) *Aura {
-	debuffBonusDamage := map[int32]float64{
-		40: 3,
-		50: 5,
-		60: 7,
-	}[casterLevel]
+func HemorrhageAura(target *Unit) *Aura {
+	debuffBonusDamage := 7.0
 
-	spellID := map[int32]int32{
-		40: 16511,
-		50: 17347,
-		60: 17348,
-	}[casterLevel]
+	spellID := int32(17348)
 
 	return target.GetOrRegisterAura(Aura{
 		Label:     "Hemorrhage",
 		ActionID:  ActionID{SpellID: spellID},
-		Duration:  time.Second * 8,
+		Duration:  time.Second * 15,
 		MaxStacks: 30,
 		OnGain: func(aura *Aura, sim *Simulation) {
 			aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexPhysical] += debuffBonusDamage
