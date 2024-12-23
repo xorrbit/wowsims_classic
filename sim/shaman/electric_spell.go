@@ -19,20 +19,15 @@ const (
 )
 
 // Shared precomputation logic for LB and CL.
-func (shaman *Shaman) newElectricSpellConfig(actionID core.ActionID, baseCost float64, baseCastTime time.Duration, isOverload bool) core.SpellConfig {
+func (shaman *Shaman) newElectricSpellConfig(actionID core.ActionID, baseCost float64, baseCastTime time.Duration) core.SpellConfig {
 	hasMaelstromWeaponRune := shaman.HasRune(proto.ShamanRune_RuneWaistMaelstromWeapon)
-
-	flags := SpellFlagShaman | SpellFlagLightning
-	if !isOverload {
-		flags |= core.SpellFlagAPL | SpellFlagMaelstrom
-	}
 
 	spell := core.SpellConfig{
 		ActionID:     actionID,
 		SpellSchool:  core.SpellSchoolNature,
 		DefenseType:  core.DefenseTypeMagic,
 		ProcMask:     core.ProcMaskSpellDamage,
-		Flags:        flags,
+		Flags:        flags := SpellFlagShaman | SpellFlagLightning | core.SpellFlagAPL,
 		MetricSplits: 6,
 
 		ManaCost: core.ManaCostOptions{
