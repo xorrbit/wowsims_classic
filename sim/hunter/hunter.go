@@ -87,21 +87,22 @@ type Hunter struct {
 	curQueueAura       *core.Aura
 	curQueuedAutoSpell *core.Spell
 
-	AimedShot      *core.Spell
-	ArcaneShot     *core.Spell
-	ExplosiveTrap  *core.Spell
-	ImmolationTrap *core.Spell
-	FreezingTrap   *core.Spell
-	KillCommand    *core.Spell
-	MultiShot      *core.Spell
-	RapidFire      *core.Spell
-	RaptorStrike   *core.Spell
-	MongooseBite   *core.Spell
-	ScorpidSting   *core.Spell
-	SerpentSting   *core.Spell
-	SilencingShot  *core.Spell
-	Volley         *core.Spell
-	WingClip       *core.Spell
+	AimedShot       *core.Spell
+	ArcaneShot      *core.Spell
+	ExplosiveTrap   *core.Spell
+	ImmolationTrap  *core.Spell
+	FreezingTrap    *core.Spell
+	KillCommand     *core.Spell
+	MultiShot       *core.Spell
+	RapidFire       *core.Spell
+	RaptorStrike    *core.Spell
+	RaptorStrikeHit *core.Spell
+	MongooseBite    *core.Spell
+	ScorpidSting    *core.Spell
+	SerpentSting    *core.Spell
+	SilencingShot   *core.Spell
+	Volley          *core.Spell
+	WingClip        *core.Spell
 
 	Shots       []*core.Spell
 	Strikes     []*core.Spell
