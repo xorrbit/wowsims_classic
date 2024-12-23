@@ -477,15 +477,6 @@ message PetMiscConsumes {
 	bool juju_flurry = 1;
 }
 
-enum MageScroll {
-	MageScrollUnknown = 0;
-	MageScrollArcaneRecovery = 1;
-	MageScrollArcaneAccuracy = 2;
-	MageScrollArcanePower = 3;
-	MageScrollFireProtection = 4;
-	MageScrollFrostProtection = 5;
-}
-
 // NextIndex: 31
 enum WeaponImbue {
 	// Weapon Oils
@@ -682,7 +673,6 @@ message Consumes {
 	HealthElixir health_elixir = 23;
 	Alcohol alcohol = 24;
 	int32 pet_attack_power_consumable = 25;
-	MageScroll mage_scroll = 26;
 	PetMiscConsumes pet_misc_consumes = 27;
 	SapperExplosive sapper_explosive = 28;
 }

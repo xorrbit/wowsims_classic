@@ -1,8 +1,7 @@
 {
 	"type": "TypeAPL",
-	"prepullActions": [],
 	"priorityList": [
-		{"action":{"autocastOtherCooldowns":{}}},
-        {"action":{"castSpell":{"spellId":{"spellId":133,"rank":1}}}}
+	  {"action":{"autocastOtherCooldowns":{}}},
+	  {"action":{"castSpell":{"spellId":{"spellId":10181,"rank":10}}}}
 	]
 }
