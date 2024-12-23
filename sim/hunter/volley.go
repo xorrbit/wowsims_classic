@@ -28,13 +28,7 @@ func (hunter *Hunter) getVolleyConfig(rank int) core.SpellConfig {
 	manaCost := [4]float64{0, 350, 420, 490}[rank]
 	level := [4]int{0, 40, 50, 58}[rank]
 
-	hasImprovedVolley := hunter.HasRune(proto.HunterRune_RuneCloakImprovedVolley)
-
 	manaCostModifer := 100 - 2*hunter.Talents.Efficiency
-
-	if hasImprovedVolley {
-		manaCostModifer -= 50
-	}
 
 	return core.SpellConfig{
 		SpellCode: SpellCode_HunterVolley,
@@ -70,9 +64,6 @@ func (hunter *Hunter) getVolleyConfig(rank int) core.SpellConfig {
 			BonusCoefficient: .056,
 			OnSnapshot: func(sim *core.Simulation, target *core.Unit, dot *core.Dot, isRollover bool) {
 				damage := baseDamage
-				if hasImprovedVolley {
-					damage += hunter.GetStat(stats.RangedAttackPower) * 0.03
-				}
 				dot.Snapshot(target, damage, isRollover)
 			},
 			OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
@@ -87,9 +78,6 @@ func (hunter *Hunter) getVolleyConfig(rank int) core.SpellConfig {
 		ThreatMultiplier: 1,
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			if hasImprovedVolley {
-				spell.CD.Reset()
-			}
 			hunter.Unit.AutoAttacks.DelayRangedUntil(sim, sim.CurrentTime+(time.Second*6))
 			spell.AOEDot().Apply(sim)
 		},
