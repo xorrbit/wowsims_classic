@@ -19,7 +19,7 @@ func (shaman *Shaman) registerLightningBoltSpell() {
 	shaman.LightningBolt = make([]*core.Spell, LightningBoltRanks+1)
 
 	for rank := 1; rank <= LightningBoltRanks; rank++ {
-		config := shaman.newLightningBoltSpellConfig(rank, false)
+		config := shaman.newLightningBoltSpellConfig(rank)
 
 		if config.RequiredLevel <= int(shaman.Level) {
 			shaman.LightningBolt[rank] = shaman.RegisterSpell(config)
@@ -27,7 +27,7 @@ func (shaman *Shaman) registerLightningBoltSpell() {
 	}
 }
 
-func (shaman *Shaman) newLightningBoltSpellConfig(rank int, isOverload bool) core.SpellConfig {
+func (shaman *Shaman) newLightningBoltSpellConfig(rank int) core.SpellConfig {
 	spellId := LightningBoltSpellId[rank]
 	baseDamageLow := LightningBoltBaseDamage[rank][0]
 	baseDamageHigh := LightningBoltBaseDamage[rank][1]

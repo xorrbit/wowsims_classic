@@ -19,7 +19,7 @@ func (shaman *Shaman) registerHealingWaveSpell() {
 	shaman.HealingWave = make([]*core.Spell, HealingWaveRanks+1)
 
 	for rank := 1; rank <= HealingWaveRanks; rank++ {
-		config := shaman.newHealingWaveSpellConfig(rank, false)
+		config := shaman.newHealingWaveSpellConfig(rank)
 
 		if config.RequiredLevel <= int(shaman.Level) {
 			shaman.HealingWave[rank] = shaman.RegisterSpell(config)
@@ -27,7 +27,7 @@ func (shaman *Shaman) registerHealingWaveSpell() {
 	}
 }
 
-func (shaman *Shaman) newHealingWaveSpellConfig(rank int, isOverload bool) core.SpellConfig {
+func (shaman *Shaman) newHealingWaveSpellConfig(rank int) core.SpellConfig {
 	spellId := HealingWaveSpellId[rank]
 	baseHealingMultiplier := 1 + shaman.purificationHealingModifier()
 	baseHealingLow := HealingWaveBaseHealing[rank][0] * baseHealingMultiplier

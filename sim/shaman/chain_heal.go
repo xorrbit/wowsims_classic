@@ -20,7 +20,7 @@ func (shaman *Shaman) registerChainHealSpell() {
 	shaman.ChainHeal = make([]*core.Spell, ChainHealRanks+1)
 
 	for rank := 1; rank <= ChainHealRanks; rank++ {
-		config := shaman.newChainHealSpellConfig(rank, false)
+		config := shaman.newChainHealSpellConfig(rank)
 
 		if config.RequiredLevel <= int(shaman.Level) {
 			shaman.ChainHeal[rank] = shaman.RegisterSpell(config)
@@ -28,7 +28,7 @@ func (shaman *Shaman) registerChainHealSpell() {
 	}
 }
 
-func (shaman *Shaman) newChainHealSpellConfig(rank int, isOverload bool) core.SpellConfig {
+func (shaman *Shaman) newChainHealSpellConfig(rank int) core.SpellConfig {
 	spellId := ChainHealSpellId[rank]
 	baseHealingMultiplier := 1 + shaman.purificationHealingModifier()
 	baseHealingLow := ChainHealBaseHealing[rank][0] * baseHealingMultiplier
