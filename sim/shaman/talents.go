@@ -102,8 +102,6 @@ func (shaman *Shaman) applyElementalFocus() {
 		return
 	}
 
-	shaman.elementalFocusProcChance = 0.1
-
 	var affectedSpells []*core.Spell
 
 	shaman.ClearcastingAura = shaman.RegisterAura(core.Aura{
@@ -148,7 +146,7 @@ func (shaman *Shaman) applyElementalFocus() {
 	core.MakePermanent(shaman.RegisterAura(core.Aura{
 		Label: "Elemental Focus Trigger",
 		OnCastComplete: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell) {
-			if shaman.isShamanDamagingSpell(spell) && sim.Proc(shaman.elementalFocusProcChance, "Elemental Focus") {
+			if shaman.isShamanDamagingSpell(spell) && sim.Proc(0.10, "Elemental Focus") {
 				shaman.ClearcastingAura.Activate(sim)
 				shaman.ClearcastingAura.SetStacks(sim, shaman.ClearcastingAura.MaxStacks)
 			}
@@ -394,10 +392,10 @@ func (shaman *Shaman) makeFlurryAura(points int32) *core.Aura {
 	aura.NewExclusiveEffect("Flurry", true, core.ExclusiveEffect{
 		Priority: attackSpeed,
 		OnGain: func(ee *core.ExclusiveEffect, sim *core.Simulation) {
-			shaman.MultiplyMeleeSpeed(sim, attackSpeed+shaman.bonusFlurrySpeed)
+			shaman.MultiplyMeleeSpeed(sim, attackSpeed)
 		},
 		OnExpire: func(ee *core.ExclusiveEffect, sim *core.Simulation) {
-			shaman.MultiplyMeleeSpeed(sim, 1/(attackSpeed+shaman.bonusFlurrySpeed))
+			shaman.MultiplyMeleeSpeed(sim, 1/(attackSpeed))
 		},
 	})
 

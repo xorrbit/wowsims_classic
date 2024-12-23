@@ -13,8 +13,7 @@ const (
 	Bear
 	Cat
 	Moonkin
-	Tree
-	Any = Humanoid | Bear | Cat | Moonkin | Tree
+	Any = Humanoid | Bear | Cat | Moonkin
 )
 
 func (form DruidForm) Matches(other DruidForm) bool {
@@ -88,8 +87,6 @@ func (druid *Druid) GetDynamicPredStrikeStats() stats.Stats {
 func (druid *Druid) registerCatFormSpell() {
 	actionID := core.ActionID{SpellID: 768}
 
-	srm := druid.getSavageRoarMultiplier()
-
 	statBonus := druid.GetFormShiftStats().Add(stats.Stats{
 		stats.AttackPower: float64(druid.Level) * 2,
 	})
@@ -138,15 +135,6 @@ func (druid *Druid) registerCatFormSpell() {
 				druid.AutoAttacks.EnableAutoSwing(sim)
 				druid.manageCooldownsEnabled()
 				druid.UpdateManaRegenRates()
-
-				// These buffs stay up, but corresponding changes don't
-				if druid.SavageRoarAura.IsActive() {
-					druid.PseudoStats.SchoolDamageDealtMultiplier[stats.SchoolIndexPhysical] *= srm
-				}
-
-				if druid.PredatoryInstinctsAura != nil {
-					druid.PredatoryInstinctsAura.Activate(sim)
-				}
 			}
 		},
 		OnExpire: func(aura *core.Aura, sim *core.Simulation) {
@@ -176,15 +164,6 @@ func (druid *Druid) registerCatFormSpell() {
 				druid.UpdateManaRegenRates()
 
 				//druid.TigersFuryAura.Deactivate(sim)
-
-				// These buffs stay up, but corresponding changes don't
-				if druid.SavageRoarAura.IsActive() {
-					druid.PseudoStats.SchoolDamageDealtMultiplier[stats.SchoolIndexPhysical] /= srm
-				}
-
-				if druid.PredatoryInstinctsAura != nil {
-					druid.PredatoryInstinctsAura.Deactivate(sim)
-				}
 			}
 		},
 	})
@@ -411,9 +390,6 @@ func (druid *Druid) registerMoonkinFormSpell() {
 
 	actionID := core.ActionID{SpellID: 24858}
 
-	druid.MoonfireDotMultiplier = 1.0
-	druid.SunfireDotMultiplier = 1.0
-
 	druid.MoonkinFormAura = druid.RegisterAura(core.Aura{
 		Label:    "Moonkin Form",
 		ActionID: actionID,
@@ -423,37 +399,9 @@ func (druid *Druid) registerMoonkinFormSpell() {
 				druid.CancelShapeshift(sim)
 			}
 			druid.form = Moonkin
-
-			druid.AddStatDynamic(sim, stats.SpellDamage, float64(2*druid.Level))
-
-			druid.MoonfireDotMultiplier *= 2.0
-			core.Each(druid.Moonfire, func(spell *DruidSpell) {
-				if spell != nil {
-					spell.Spell.Cost.Multiplier -= 50
-				}
-			})
-
-			if druid.HasRune(proto.DruidRune_RuneHandsSunfire) {
-				druid.Sunfire.Cost.Multiplier -= 50
-				druid.SunfireDotMultiplier *= 2.0
-			}
 		},
 		OnExpire: func(aura *core.Aura, sim *core.Simulation) {
 			druid.form = Humanoid
-
-			druid.AddStatDynamic(sim, stats.SpellDamage, float64(-2*druid.Level))
-
-			core.Each(druid.Moonfire, func(spell *DruidSpell) {
-				if spell != nil {
-					spell.Spell.Cost.Multiplier += 50
-				}
-			})
-			druid.MoonfireDotMultiplier /= 2.0
-
-			if druid.HasRune(proto.DruidRune_RuneHandsSunfire) {
-				druid.Sunfire.Cost.Multiplier += 50
-				druid.SunfireDotMultiplier /= 2.0
-			}
 		},
 	})
 

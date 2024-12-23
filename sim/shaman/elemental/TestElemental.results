@@ -53,18 +53,18 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.72152
+  weights: 0.28545
   weights: 0
-  weights: 0.51092
+  weights: 0.34779
   weights: 0
-  weights: 0.09364
-  weights: 0
-  weights: 0
-  weights: 0.41728
+  weights: 0.06737
   weights: 0
   weights: 0
-  weights: 5.03844
-  weights: 2.59396
+  weights: 0.28041
+  weights: 0
+  weights: 0
+  weights: 3.68699
+  weights: 1.69771
   weights: 0
   weights: 0
   weights: 0
@@ -99,98 +99,98 @@ stat_weights_results: {
 dps_results: {
  key: "TestElemental-Phase5-Average-Default"
  value: {
-  dps: 419.18307
-  tps: 431.25953
+  dps: 315.07058
+  tps: 305.15394
  }
 }
 dps_results: {
  key: "TestElemental-Phase5-Settings-Orc-blank-Adaptive-phase_5-FullBuffs-P5-Consumes-LongMultiTarget"
  value: {
-  dps: 936.03114
-  tps: 1063.90326
+  dps: 438.54113
+  tps: 423.67921
  }
 }
 dps_results: {
  key: "TestElemental-Phase5-Settings-Orc-blank-Adaptive-phase_5-FullBuffs-P5-Consumes-LongSingleTarget"
  value: {
-  dps: 382.81453
-  tps: 391.18373
+  dps: 231.03268
+  tps: 213.0393
  }
 }
 dps_results: {
  key: "TestElemental-Phase5-Settings-Orc-blank-Adaptive-phase_5-FullBuffs-P5-Consumes-ShortSingleTarget"
  value: {
-  dps: 455.77318
-  tps: 471.70032
+  dps: 411.24888
+  tps: 403.27209
  }
 }
 dps_results: {
  key: "TestElemental-Phase5-Settings-Orc-blank-Adaptive-phase_5-NoBuffs-P5-Consumes-LongMultiTarget"
  value: {
-  dps: 439.78229
-  tps: 670.41777
+  dps: 251.27196
+  tps: 266.58356
  }
 }
 dps_results: {
  key: "TestElemental-Phase5-Settings-Orc-blank-Adaptive-phase_5-NoBuffs-P5-Consumes-LongSingleTarget"
  value: {
-  dps: 193.28771
-  tps: 199.2521
+  dps: 117.28075
+  tps: 106.78686
  }
 }
 dps_results: {
  key: "TestElemental-Phase5-Settings-Orc-blank-Adaptive-phase_5-NoBuffs-P5-Consumes-ShortSingleTarget"
  value: {
-  dps: 290.74843
-  tps: 303.82981
+  dps: 211.38078
+  tps: 207.61972
  }
 }
 dps_results: {
  key: "TestElemental-Phase5-Settings-Troll-blank-Adaptive-phase_5-FullBuffs-P5-Consumes-LongMultiTarget"
  value: {
-  dps: 927.686
-  tps: 1063.1965
+  dps: 427.65433
+  tps: 413.58194
  }
 }
 dps_results: {
  key: "TestElemental-Phase5-Settings-Troll-blank-Adaptive-phase_5-FullBuffs-P5-Consumes-LongSingleTarget"
  value: {
-  dps: 378.61527
-  tps: 387.4519
+  dps: 226.47569
+  tps: 208.42126
  }
 }
 dps_results: {
  key: "TestElemental-Phase5-Settings-Troll-blank-Adaptive-phase_5-FullBuffs-P5-Consumes-ShortSingleTarget"
  value: {
-  dps: 468.33804
-  tps: 485.29395
+  dps: 412.45881
+  tps: 405.1777
  }
 }
 dps_results: {
  key: "TestElemental-Phase5-Settings-Troll-blank-Adaptive-phase_5-NoBuffs-P5-Consumes-LongMultiTarget"
  value: {
-  dps: 407.40739
-  tps: 668.29302
+  dps: 242.22557
+  tps: 264.41278
  }
 }
 dps_results: {
  key: "TestElemental-Phase5-Settings-Troll-blank-Adaptive-phase_5-NoBuffs-P5-Consumes-LongSingleTarget"
  value: {
-  dps: 194.00563
-  tps: 200.3651
+  dps: 109.08185
+  tps: 98.65562
  }
 }
 dps_results: {
  key: "TestElemental-Phase5-Settings-Troll-blank-Adaptive-phase_5-NoBuffs-P5-Consumes-ShortSingleTarget"
  value: {
-  dps: 285.69204
-  tps: 299.14104
+  dps: 204.43526
+  tps: 201.00836
  }
 }
 dps_results: {
  key: "TestElemental-Phase5-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 419.46276
-  tps: 431.86281
+  dps: 312.30983
+  tps: 302.89056
  }
 }

@@ -11,8 +11,6 @@ func (cat *FeralDruid) NewAPLValue(rot *core.APLRotation, config *proto.APLValue
 	switch config.Value.(type) {
 	case *proto.APLValue_CatExcessEnergy:
 		return cat.newValueCatExcessEnergy(rot, config.GetCatExcessEnergy())
-	case *proto.APLValue_CatNewSavageRoarDuration:
-		return cat.newValueCatNewSavageRoarDuration(rot, config.GetCatNewSavageRoarDuration())
 	default:
 		return nil
 	}
@@ -72,27 +70,6 @@ func (value *APLValueCatExcessEnergy) String() string {
 	return "Cat Excess Energy()"
 }
 
-type APLValueCatNewSavageRoarDuration struct {
-	core.DefaultAPLValueImpl
-	cat *FeralDruid
-}
-
-func (cat *FeralDruid) newValueCatNewSavageRoarDuration(rot *core.APLRotation, config *proto.APLValueCatNewSavageRoarDuration) core.APLValue {
-	return &APLValueCatNewSavageRoarDuration{
-		cat: cat,
-	}
-}
-func (value *APLValueCatNewSavageRoarDuration) Type() proto.APLValueType {
-	return proto.APLValueType_ValueTypeDuration
-}
-func (value *APLValueCatNewSavageRoarDuration) GetDuration(sim *core.Simulation) time.Duration {
-	cat := value.cat
-	return cat.SavageRoarDurationTable[cat.ComboPoints()]
-}
-func (value *APLValueCatNewSavageRoarDuration) String() string {
-	return "New Savage Roar Duration()"
-}
-
 func (cat *FeralDruid) NewAPLAction(rot *core.APLRotation, config *proto.APLAction) core.APLActionImpl {
 	switch config.Action.(type) {
 	case *proto.APLAction_CatOptimalRotationAction:
@@ -131,7 +108,7 @@ func (action *APLActionCatOptimalRotationAction) Execute(sim *core.Simulation) {
 
 	// If a melee swing resulted in an Omen or Wild Strikes proc, then schedule the
 	// next player decision based on latency.
-	if (cat.Talents.OmenOfClarity && cat.ClearcastingAura.RemainingDuration(sim) == cat.ClearcastingAura.Duration) || (cat.WildStrikesBuffAura != nil && cat.WildStrikesBuffAura.RemainingDuration(sim) == cat.WildStrikesBuffAura.Duration) {
+	if cat.Talents.OmenOfClarity && cat.ClearcastingAura.RemainingDuration(sim) == cat.ClearcastingAura.Duration {
 		// Kick gcd loop, also need to account for any gcd 'left'
 		// otherwise it breaks gcd logic
 		kickTime := max(cat.NextGCDAt(), sim.CurrentTime+cat.latency)

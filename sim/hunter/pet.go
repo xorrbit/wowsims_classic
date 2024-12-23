@@ -21,8 +21,6 @@ type HunterPet struct {
 	specialAbility *core.Spell
 	focusDump      *core.Spell
 
-	flankingStrike *core.Spell
-
 	uptimePercent    float64
 	hasOwnerCooldown bool
 }
@@ -242,7 +240,7 @@ func (hp *HunterPet) ExecuteCustomRotation(sim *core.Simulation) {
 	if hp.config.CustomRotation != nil {
 		hp.config.CustomRotation(sim, hp, tryCast)
 	} else {
-		if hp.specialAbility.IsReady(sim) && hp.flankingStrike == nil {
+		if hp.specialAbility.IsReady(sim) {
 			if !tryCast(hp.specialAbility) && hp.GCD.IsReady(sim) {
 				hp.WaitUntil(sim, sim.CurrentTime+time.Millisecond*500)
 			}

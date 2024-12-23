@@ -1,6 +1,5 @@
 import * as InputHelpers from '../../components/input_helpers';
-import { ItemSlot } from '../../proto/common';
-import { WarriorRune, WarriorShout, WarriorStance } from '../../proto/warrior';
+import { WarriorShout, WarriorStance } from '../../proto/warrior';
 import { ActionId } from '../../proto_utils/action_id';
 import { WarriorSpecs } from '../../proto_utils/utils';
 import { TypedEvent } from '../../typed_event';

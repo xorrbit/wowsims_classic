@@ -50,7 +50,6 @@ func (druid *Druid) newWrathSpellConfig(rank int) core.SpellConfig {
 
 		ManaCost: core.ManaCostOptions{
 			FlatCost:   manaCost,
-			Multiplier: core.TernaryInt32(druid.FuryOfStormrageAura != nil, -1, 100),
 		},
 		Cast: core.CastConfig{
 			DefaultCast: core.Cast{

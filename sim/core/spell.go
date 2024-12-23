@@ -521,7 +521,7 @@ func (spell *Spell) CanCast(sim *Simulation, target *Unit) bool {
 	}
 
 	// While casting no other action is possible except rare cast-while-casting spells
-	if spell.Unit.IsCasting(sim) && !spell.Flags.Matches(SpellFlagCastWhileCasting) {
+	if spell.Unit.IsCasting(sim) {
 		//if sim.Log != nil {
 		//	sim.Log("Cant cast because already casting")
 		//}
@@ -529,7 +529,7 @@ func (spell *Spell) CanCast(sim *Simulation, target *Unit) bool {
 	}
 
 	// While channeling no other action is possible except rare cast-while-channeling spells
-	if spell.Unit.IsChanneling(sim) && !spell.Flags.Matches(SpellFlagCastWhileChanneling) {
+	if spell.Unit.IsChanneling(sim) {
 		//if sim.Log != nil {
 		//	sim.Log("Cant cast because already channeling")
 		//}

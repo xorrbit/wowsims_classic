@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const FlameShockRanks = 6
@@ -29,14 +28,7 @@ func (shaman *Shaman) registerFlameShockSpell(shockTimer *core.Timer) {
 }
 
 func (shaman *Shaman) newFlameShockSpell(rank int, shockTimer *core.Timer) core.SpellConfig {
-	hasBurnRune := shaman.HasRune(proto.ShamanRune_RuneHelmBurn)
-	hasLavaBurstRune := shaman.HasRune(proto.ShamanRune_RuneHandsLavaBurst)
-	hasPowerSurgeRune := shaman.HasRune(proto.ShamanRune_RuneWaistPowerSurge)
-	hasMoltenBlastRune := shaman.HasRune(proto.ShamanRune_RuneHandsMoltenBlast)
-	hasOverloadRune := shaman.HasRune(proto.ShamanRune_RuneChestOverload)
-	hasStormEarthAndFireRune := shaman.HasRune(proto.ShamanRune_RuneCloakStormEarthAndFire)
-
-	numTicks := 4 + core.TernaryInt32(hasBurnRune, BurnFlameShockBonusTicks, 0)
+	numTicks := 4
 	tickDuration := time.Second * 3
 
 	spellId := FlameShockSpellId[rank]
@@ -65,22 +57,6 @@ func (shaman *Shaman) newFlameShockSpell(rank int, shockTimer *core.Timer) core.
 	spell.Dot = core.DotConfig{
 		Aura: core.Aura{
 			Label: fmt.Sprintf("Flame Shock (Rank %d)", rank),
-			OnGain: func(aura *core.Aura, sim *core.Simulation) {
-				if hasLavaBurstRune {
-					shaman.LavaBurst.BonusCritRating += 100 * core.CritRatingPerCritChance
-					if hasOverloadRune {
-						shaman.LavaBurstOverload.BonusCritRating += 100 * core.CritRatingPerCritChance
-					}
-				}
-			},
-			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-				if hasLavaBurstRune {
-					shaman.LavaBurst.BonusCritRating -= 100 * core.CritRatingPerCritChance
-					if hasOverloadRune {
-						shaman.LavaBurstOverload.BonusCritRating -= 100 * core.CritRatingPerCritChance
-					}
-				}
-			},
 		},
 
 		NumberOfTicks:    int32(numTicks),
@@ -89,43 +65,17 @@ func (shaman *Shaman) newFlameShockSpell(rank int, shockTimer *core.Timer) core.
 
 		OnSnapshot: func(sim *core.Simulation, target *core.Unit, dot *core.Dot, isRollover bool) {
 			dot.Snapshot(target, baseDotDamage, isRollover)
-			if !isRollover && hasStormEarthAndFireRune {
-				dot.SnapshotAttackerMultiplier *= 1.60
-			}
 		},
 
 		OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
 			dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
-
-			if hasMoltenBlastRune && sim.Proc(ShamanMoltenBlastResetChance, "Molten Blast Reset") {
-				shaman.MoltenBlast.CD.Reset()
-			}
-
-			if hasPowerSurgeRune && sim.Proc(shaman.powerSurgeProcChance, "Power Surge Proc") {
-				shaman.PowerSurgeDamageAura.Activate(sim)
-			}
 		},
 	}
 
-	results := make([]*core.SpellResult, min(core.TernaryInt32(hasBurnRune, BurnFlameShockTargetCount, 1), shaman.Env.GetNumTargets()))
 	spell.ApplyEffects = func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-		for idx := range results {
-			results[idx] = spell.CalcDamage(sim, target, baseDamage, spell.OutcomeMagicHitAndCrit)
-			target = sim.Environment.NextTargetUnit(target)
-		}
-
-		for _, result := range results {
-			spell.DealDamage(sim, result)
-			if result.Landed() {
-				spell.Dot(result.Target).Apply(sim)
-				if shaman.HasRune(proto.ShamanRune_RuneLegsAncestralGuidance) {
-					shaman.lastFlameShockTarget = target
-				}
-
-				if hasPowerSurgeRune && sim.Proc(shaman.powerSurgeProcChance, "Power Surge Proc") {
-					shaman.PowerSurgeDamageAura.Activate(sim)
-				}
-			}
+		result := spell.CalcAndDealDamage(sim, target, baseDamage, spell.OutcomeMagicHitAndCrit)
+		if result.Landed() {
+			spell.Dot(result.Target).Apply(sim)
 		}
 	}
 

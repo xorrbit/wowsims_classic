@@ -4,21 +4,17 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
+// TODO: All of this needs to be refactored for how it works in Vanilla vs SoD.
+// Gives an extra attack instead of a true yellow hit
 func (shaman *Shaman) registerStormstrikeSpell() {
 	if !shaman.Talents.Stormstrike {
 		return
 	}
 
-	hasDualWieldSpecRune := shaman.HasRune(proto.ShamanRune_RuneChestDualWieldSpec)
-
-	shaman.StormstrikeMH = shaman.newStormstrikeHitSpell(true)
+	shaman.StormstrikeMH = shaman.newStormstrikeHitSpell()
 	shaman.StormstrikeMH.SpellCode = SpellCode_ShamanStormstrike
-	if hasDualWieldSpecRune {
-		shaman.StormstrikeOH = shaman.newStormstrikeHitSpell(false)
-	}
 
 	shaman.RegisterSpell(core.SpellConfig{
 		ActionID:    core.ActionID{SpellID: 17364},
@@ -41,47 +37,33 @@ func (shaman *Shaman) registerStormstrikeSpell() {
 		},
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			// offhand always swings first
-			if shaman.AutoAttacks.IsDualWielding && shaman.StormstrikeOH != nil {
-				shaman.StormstrikeOH.Cast(sim, target)
-			}
 			shaman.StormstrikeMH.Cast(sim, target)
 		},
 	})
 }
 
 // Only the main-hand hit triggers procs / the debuff
-func (shaman *Shaman) newStormstrikeHitSpell(isMH bool) *core.Spell {
-	procMask := core.ProcMaskMeleeMHSpecial
-	flags := core.SpellFlagMeleeMetrics
-	damageMultiplier := 1.0
-	damageFunc := shaman.MHWeaponDamage
-	if !isMH {
-		procMask = core.ProcMaskMeleeOHSpecial
-		flags |= core.SpellFlagNoOnCastComplete
-		damageMultiplier = shaman.AutoAttacks.OHConfig().DamageMultiplier
-		damageFunc = shaman.OHWeaponDamage
-	}
-
+func (shaman *Shaman) newStormstrikeHitSpell() *core.Spell {
 	stormStrikeAuras := shaman.NewEnemyAuraArray(func(target *core.Unit) *core.Aura {
 		return core.StormstrikeAura(target)
 	})
 
 	return shaman.RegisterSpell(core.SpellConfig{
-		ActionID:    core.ActionID{SpellID: 17364}.WithTag(int32(core.Ternary(isMH, 1, 2))),
+		ActionID:    core.ActionID{SpellID: 17364}.WithTag(1),
 		SpellSchool: core.SpellSchoolPhysical,
 		DefenseType: core.DefenseTypeMelee,
-		ProcMask:    procMask,
-		Flags:       flags,
+		ProcMask:    core.ProcMaskMeleeMHSpecial,
+		Flags:       core.SpellFlagMeleeMetrics,
 
-		DamageMultiplier: damageMultiplier,
+		DamageMultiplier: 1,
 		ThreatMultiplier: 1,
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			baseDamage := damageFunc(sim, spell.MeleeAttackPower())
+			baseDamage := shaman.MHWeaponDamage(sim, spell.MeleeAttackPower())
 			result := spell.CalcAndDealDamage(sim, target, baseDamage, spell.OutcomeMeleeWeaponSpecialHitAndCrit)
 
-			if isMH && result.Landed() {
+			if result.Landed() {
+				// TODO: Stormstrike with 2 stacks instead of unlimited
 				stormStrikeAuras.Get(target).Activate(sim)
 			}
 		},

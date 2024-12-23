@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const LesserHealingWaveRanks = 6
@@ -29,8 +28,6 @@ func (shaman *Shaman) registerLesserHealingWaveSpell() {
 }
 
 func (shaman *Shaman) newLesserHealingWaveSpellConfig(rank int) core.SpellConfig {
-	hasMaelstromWeaponRune := shaman.HasRune(proto.ShamanRune_RuneWaistMaelstromWeapon)
-
 	spellId := LesserHealingWaveSpellId[rank]
 	baseHealingMultiplier := 1 + shaman.purificationHealingModifier()
 	baseHealingLow := LesserHealingWaveBaseHealing[rank][0] * baseHealingMultiplier
@@ -46,13 +43,13 @@ func (shaman *Shaman) newLesserHealingWaveSpellConfig(rank int) core.SpellConfig
 		baseHealingHigh += 53
 	}
 
-	spell := core.SpellConfig{
+	return core.SpellConfig{
 		ActionID:     core.ActionID{SpellID: spellId},
 		SpellCode:    SpellCode_ShamanLesserHealingWave,
 		SpellSchool:  core.SpellSchoolNature,
 		DefenseType:  core.DefenseTypeMagic,
 		ProcMask:     core.ProcMaskSpellHealing,
-		Flags:        core.SpellFlagHelpful | core.SpellFlagAPL | SpellFlagMaelstrom | SpellFlagShaman,
+		Flags:        core.SpellFlagHelpful | core.SpellFlagAPL | SpellFlagShaman,
 		MetricSplits: 6,
 
 		RequiredLevel: level,
@@ -69,15 +66,6 @@ func (shaman *Shaman) newLesserHealingWaveSpellConfig(rank int) core.SpellConfig
 			},
 			ModifyCast: func(sim *core.Simulation, spell *core.Spell, cast *core.Cast) {
 				castTime := shaman.ApplyCastSpeedForSpell(cast.CastTime, spell)
-				if hasMaelstromWeaponRune {
-					stacks := shaman.MaelstromWeaponAura.GetStacks()
-					spell.SetMetricsSplit(stacks)
-
-					if stacks > 0 {
-						return
-					}
-				}
-
 				shaman.AutoAttacks.StopMeleeUntil(sim, sim.CurrentTime+castTime, false)
 			},
 		},
@@ -87,19 +75,7 @@ func (shaman *Shaman) newLesserHealingWaveSpellConfig(rank int) core.SpellConfig
 		BonusCoefficient: spellCoeff,
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			result := spell.CalcAndDealHealing(sim, spell.Unit, sim.Roll(baseHealingLow, baseHealingHigh), spell.OutcomeHealingCrit)
-
-			if result.Outcome.Matches(core.OutcomeCrit) {
-				if shaman.HasRune(proto.ShamanRune_RuneFeetAncestralAwakening) {
-					shaman.ancestralHealingAmount = result.Damage * AncestralAwakeningHealMultiplier
-
-					// TODO: this should actually target the lowest health target in the raid.
-					//  does it matter in a sim? We currently only simulate tanks taking damage (multiple tanks could be handled here though.)
-					shaman.AncestralAwakening.Cast(sim, spell.Unit)
-				}
-			}
+			spell.CalcAndDealHealing(sim, spell.Unit, sim.Roll(baseHealingLow, baseHealingHigh), spell.OutcomeHealingCrit)
 		},
 	}
-
-	return spell
 }

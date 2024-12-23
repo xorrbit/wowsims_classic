@@ -2,7 +2,6 @@ package core
 
 import (
 	"fmt"
-	"slices"
 	"time"
 
 	"github.com/wowsims/classic/sim/core/proto"
@@ -170,9 +169,6 @@ func (rot *APLRotation) reset(sim *Simulation) {
 	rot.inLoop = false
 	rot.interruptChannelIf = nil
 	rot.allowChannelRecastOnInterrupt = false
-	rot.allowCastWhileChanneling = slices.ContainsFunc(rot.unit.Spellbook, func(spell *Spell) bool {
-		return spell.Flags.Matches(SpellFlagCastWhileChanneling)
-	})
 	for _, action := range rot.allAPLActions() {
 		action.impl.Reset(sim)
 	}

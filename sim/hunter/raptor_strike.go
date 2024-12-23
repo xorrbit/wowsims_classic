@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const RaptorStrikeRanks = 8
@@ -24,23 +23,18 @@ func (hunter *Hunter) TryRaptorStrike(sim *core.Simulation, mhSwingSpell *core.S
 }
 
 func (hunter *Hunter) getRaptorStrikeConfig(rank int) core.SpellConfig {
-	hasRaptorFury := hunter.HasRune(proto.HunterRune_RuneBracersRaptorFury)
-	hasDualWieldSpec := hunter.HasRune(proto.HunterRune_RuneBootsDualWieldSpecialization)
-	hasMeleeSpecialist := hunter.HasRune(proto.HunterRune_RuneBeltMeleeSpecialist)
-
-	spellID := core.Ternary(hasMeleeSpecialist, RaptorStrikeSpellIdMeleeSpecialist, RaptorStrikeSpellId)[rank]
+	spellID := RaptorStrikeSpellId[rank]
 	manaCost := RaptorStrikeManaCost[rank]
 	level := RaptorStrikeLevel[rank]
 
-	hunter.RaptorStrikeMH = hunter.newRaptorStrikeHitSpell(rank, true)
-	hunter.RaptorStrikeOH = hunter.newRaptorStrikeHitSpell(rank, false)
+	hunter.RaptorStrikeHit = hunter.newRaptorStrikeHitSpell(rank)
 
 	spellConfig := core.SpellConfig{
 		SpellCode:     SpellCode_HunterRaptorStrike,
 		ActionID:      core.ActionID{SpellID: spellID},
 		SpellSchool:   core.SpellSchoolPhysical,
 		DefenseType:   core.DefenseTypeMelee,
-		ProcMask:      core.ProcMaskMeleeMHSpecial,
+		ProcMask:      core.ProcMaskMeleeMHSpecial | core.ProcMaskMeleeMHAuto,
 		Flags:         core.SpellFlagMeleeMetrics | SpellFlagStrike,
 		Rank:          rank,
 		RequiredLevel: level,
@@ -60,85 +54,36 @@ func (hunter *Hunter) getRaptorStrikeConfig(rank int) core.SpellConfig {
 		},
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			hunter.RaptorStrikeMH.Cast(sim, target)
-			if hasDualWieldSpec && hunter.AutoAttacks.IsDualWielding {
-				hunter.RaptorStrikeOH.Cast(sim, target)
-			}
+			hunter.RaptorStrikeHit.Cast(sim, target)
 
 			if hunter.curQueueAura != nil {
 				hunter.curQueueAura.Deactivate(sim)
 			}
-
-			if hasMeleeSpecialist && sim.Proc(0.3, "Raptor Strike Reset") {
-				spell.CD.Reset()
-				hunter.MongooseBite.CD.Reset()
-			}
-
-			if hasRaptorFury {
-				if !hunter.RaptorFuryAura.IsActive() {
-					hunter.RaptorFuryAura.Activate(sim)
-				}
-				hunter.RaptorFuryAura.AddStack(sim)
-			}
 		},
-	}
-
-	if hasMeleeSpecialist {
-		spellConfig.Flags |= core.SpellFlagAPL
-		spellConfig.Cast.DefaultCast = core.Cast{
-			GCD: core.GCDDefault,
-		}
-	} else {
-		spellConfig.ProcMask |= core.ProcMaskMeleeMHAuto
 	}
 
 	return spellConfig
 }
 
-func (hunter *Hunter) newRaptorStrikeHitSpell(rank int, isMH bool) *core.Spell {
-	hasMeleeSpecialist := hunter.HasRune(proto.HunterRune_RuneBeltMeleeSpecialist)
-	hasRaptorFury := hunter.HasRune(proto.HunterRune_RuneBracersRaptorFury)
-	hasHitAndRun := hunter.HasRune(proto.HunterRune_RuneCloakHitAndRun)
-
-	spellID := core.Ternary(hasMeleeSpecialist, RaptorStrikeSpellIdMeleeSpecialist, RaptorStrikeSpellId)[rank]
+func (hunter *Hunter) newRaptorStrikeHitSpell(rank int) *core.Spell {
+	spellID := RaptorStrikeSpellId[rank]
 	baseDamage := RaptorStrikeBaseDamage[rank]
-
-	procMask := core.ProcMaskMeleeMHSpecial
-	damageMultiplier := 1.0
-	damageFunc := core.Ternary(hasMeleeSpecialist, hunter.MHNormalizedWeaponDamage, hunter.MHWeaponDamage)
-
-	if !isMH {
-		baseDamage /= 2
-		procMask = core.ProcMaskMeleeOHSpecial
-		damageMultiplier = hunter.AutoAttacks.OHConfig().DamageMultiplier
-		damageFunc = core.Ternary(hasMeleeSpecialist, hunter.OHNormalizedWeaponDamage, hunter.OHWeaponDamage)
-	}
 
 	return hunter.RegisterSpell(core.SpellConfig{
 		SpellCode:   SpellCode_HunterRaptorStrikeHit,
-		ActionID:    core.ActionID{SpellID: spellID}.WithTag(core.TernaryInt32(isMH, 1, 2)),
+		ActionID:    core.ActionID{SpellID: spellID}.WithTag(1),
 		SpellSchool: core.SpellSchoolPhysical,
 		DefenseType: core.DefenseTypeMelee,
-		ProcMask:    procMask,
+		ProcMask:    core.ProcMaskMeleeMHSpecial,
 		Flags:       core.SpellFlagMeleeMetrics | core.SpellFlagNoOnCastComplete,
 
 		BonusCritRating:  float64(hunter.Talents.SavageStrikes) * 10 * core.CritRatingPerCritChance,
 		CritDamageBonus:  hunter.mortalShots(),
-		DamageMultiplier: damageMultiplier,
+		DamageMultiplier: 1,
 		BonusCoefficient: 1,
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			if hasHitAndRun {
-				hunter.HitAndRunAura.Activate(sim)
-			}
-
-			multiplier := 1.0
-			if hasRaptorFury {
-				multiplier *= hunter.raptorFuryDamageMultiplier()
-			}
-
-			weaponDamage := damageFunc(sim, spell.MeleeAttackPower())
-			damage := multiplier * (weaponDamage + baseDamage)
+			damage := baseDamage + hunter.MHWeaponDamage(sim, spell.MeleeAttackPower())
 			spell.CalcAndDealDamage(sim, target, damage, spell.OutcomeMeleeWeaponSpecialHitAndCrit)
 		},
 	})
@@ -194,11 +139,7 @@ func (hunter *Hunter) registerRaptorStrikeSpell() {
 		60: 8,
 	}[hunter.Level]
 
-	hasMeleeSpecialist := hunter.HasRune(proto.HunterRune_RuneBeltMeleeSpecialist)
 	config := hunter.getRaptorStrikeConfig(rank)
 	hunter.RaptorStrike = hunter.GetOrRegisterSpell(config)
-
-	if !hasMeleeSpecialist {
-		hunter.makeQueueSpellsAndAura()
-	}
+	hunter.makeQueueSpellsAndAura()
 }

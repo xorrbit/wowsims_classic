@@ -3,26 +3,10 @@ package paladin
 import (
 	"time"
 
-	"github.com/wowsims/classic/sim/core/stats"
-
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 func (paladin *Paladin) registerHolyShock() {
-
-	hasInfusionOfLight := paladin.hasRune(proto.PaladinRune_RuneWaistInfusionOfLight)
-
-	cdTime := time.Second * 30
-	if hasInfusionOfLight {
-		cdTime = time.Second * 6
-	}
-
-	paladin.holyShockCooldown = &core.Cooldown{
-		Timer:    paladin.NewTimer(),
-		Duration: cdTime,
-	}
-
 	if !paladin.Talents.HolyShock {
 		return
 	}
@@ -38,15 +22,6 @@ func (paladin *Paladin) registerHolyShock() {
 		{level: 48, spellID: 20929, manaCost: 275, minDamage: 279, maxDamage: 301},
 		{level: 56, spellID: 20930, manaCost: 325, minDamage: 365, maxDamage: 395},
 	}
-
-	damageMultiplier := core.TernaryFloat64(hasInfusionOfLight, 1.5, 1.0)
-
-	//hasArtOfWar := paladin.hasRune(proto.PaladinRune_RuneFeetTheArtOfWar)
-	manaCostMultiplier := int32(100) //core.TernaryFloat64(hasArtOfWar, 0.2, 1.0)
-
-	hasWrath := paladin.hasRune(proto.PaladinRune_RuneHeadWrath)
-
-	manaMetrics := paladin.NewManaMetrics(core.ActionID{SpellID: 437063}) // Infusion of Light mana restore
 
 	for i, rank := range ranks {
 		rank := rank
@@ -67,35 +42,26 @@ func (paladin *Paladin) registerHolyShock() {
 			SpellCode: SpellCode_PaladinHolyShock,
 
 			ManaCost: core.ManaCostOptions{
-				FlatCost:   rank.manaCost,
-				Multiplier: manaCostMultiplier,
+				FlatCost: rank.manaCost,
 			},
 
 			Cast: core.CastConfig{
 				DefaultCast: core.Cast{
 					GCD: core.GCDDefault,
 				},
-				CD: *paladin.holyShockCooldown,
+				CD: core.Cooldown{
+					Timer:    paladin.NewTimer(),
+					Duration: time.Second * 30,
+				},
 			},
 
-			DamageMultiplier: damageMultiplier,
+			DamageMultiplier: 1,
 			ThreatMultiplier: 1,
 			BonusCoefficient: 0.429,
 
 			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 				baseDamage := sim.Roll(rank.minDamage, rank.maxDamage)
-
-				bonusCrit := core.TernaryFloat64(hasWrath, paladin.GetStat(stats.MeleeCrit), 0)
-				spell.BonusCritRating += bonusCrit
-				result := spell.CalcAndDealDamage(sim, target, baseDamage, spell.OutcomeMagicHitAndCrit)
-				spell.BonusCritRating -= bonusCrit
-
-				// If we crit, Infusion of Light refunds base mana cost and reduces next Holy Shock Cooldown by 3 seconds
-				if hasInfusionOfLight && result.Outcome.Matches(core.OutcomeCrit) {
-					paladin.AddMana(sim, rank.manaCost, manaMetrics)
-					paladin.holyShockCooldown.Set(sim.CurrentTime + max(0, paladin.holyShockCooldown.TimeToReady(sim)-(time.Second*3)))
-
-				}
+				spell.CalcAndDealDamage(sim, target, baseDamage, spell.OutcomeMagicHitAndCrit)
 			},
 		})
 	}

@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 func (hunter *Hunter) getMongooseBiteConfig(rank int) core.SpellConfig {
@@ -12,10 +11,6 @@ func (hunter *Hunter) getMongooseBiteConfig(rank int) core.SpellConfig {
 	baseDamage := [5]float64{0, 25, 45, 75, 115}[rank]
 	manaCost := [5]float64{0, 30, 40, 50, 65}[rank]
 	level := [5]int{0, 16, 30, 44, 58}[rank]
-
-	hasCobraSlayer := hunter.HasRune(proto.HunterRune_RuneHandsCobraSlayer)
-	hasRaptorFury := hunter.HasRune(proto.HunterRune_RuneBracersRaptorFury)
-	hasMeleeSpecialist := hunter.HasRune(proto.HunterRune_RuneBeltMeleeSpecialist)
 
 	spellConfig := core.SpellConfig{
 		SpellCode:     SpellCode_HunterMongooseBite,
@@ -52,24 +47,7 @@ func (hunter *Hunter) getMongooseBiteConfig(rank int) core.SpellConfig {
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 			hunter.DefensiveState.Deactivate(sim)
-
-			if hasMeleeSpecialist && sim.Proc(0.3, "Raptor Strike Reset") {
-				hunter.RaptorStrike.CD.Reset()
-				spell.CD.Reset()
-			}
-
-			multiplier := 1.0
-			if hasRaptorFury {
-				multiplier *= hunter.raptorFuryDamageMultiplier()
-			}
-
-			damage := baseDamage
-			if hasCobraSlayer {
-				damage += spell.MeleeAttackPower() * 0.45
-			}
-			damage *= multiplier
-
-			spell.CalcAndDealDamage(sim, target, damage, spell.OutcomeMeleeWeaponSpecialHitAndCrit)
+			spell.CalcAndDealDamage(sim, target, baseDamage, spell.OutcomeMeleeWeaponSpecialHitAndCrit)
 		},
 	}
 

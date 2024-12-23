@@ -51,7 +51,7 @@ func (hunter *Hunter) getImmolationTrapConfig(rank int, timer *core.Timer) core.
 			TickLength:    time.Millisecond * 1500,
 
 			OnSnapshot: func(sim *core.Simulation, target *core.Unit, dot *core.Dot, isRollover bool) {
-				tickDamage := (dotDamage + hunter.tntDamageFlatBonus()) / float64(dot.NumberOfTicks)
+				tickDamage := dotDamage / float64(dot.NumberOfTicks)
 				dot.Snapshot(target, tickDamage, isRollover)
 			},
 			OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
@@ -60,7 +60,7 @@ func (hunter *Hunter) getImmolationTrapConfig(rank int, timer *core.Timer) core.
 		},
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			if hunter.DistanceFromTarget > hunter.trapRange() {
+			if hunter.DistanceFromTarget > 5 {
 				return
 			}
 			// Traps gain no benefit from hit bonuses except for the Trap Mastery talent, since this is a unique interaction this is my workaround

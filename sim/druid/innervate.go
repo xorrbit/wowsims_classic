@@ -35,7 +35,7 @@ func (druid *Druid) registerInnervateCD() {
 		}
 	})
 
-	druid.Innervate = druid.RegisterSpell(Humanoid|Moonkin|Tree, core.SpellConfig{
+	druid.Innervate = druid.RegisterSpell(Humanoid|Moonkin, core.SpellConfig{
 		ActionID: actionID,
 
 		ManaCost: core.ManaCostOptions{

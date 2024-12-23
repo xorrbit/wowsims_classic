@@ -1,8 +1,6 @@
 package druid
 
 import (
-	"time"
-
 	"github.com/wowsims/classic/sim/common/guardians"
 	"github.com/wowsims/classic/sim/core"
 	"github.com/wowsims/classic/sim/core/proto"
@@ -23,19 +21,12 @@ const (
 	SpellCode_DruidFaerieFireFeral
 	SpellCode_DruidFerociousBite
 	SpellCode_DruidInsectSwarm
-	SpellCode_DruidMangleCat
-	SpellCode_DruidMangleBear
 	SpellCode_DruidMoonfire
 	SpellCode_DruidRake
 	SpellCode_DruidRip
 	SpellCode_DruidShred
 	SpellCode_DruidStarfire
-	SpellCode_DruidStarsurge
 	SpellCode_DruidWrath
-	SpellCode_DruidStarfall
-	SpellCode_DruidStarfallTick
-	SpellCode_DruidStarfallSplash
-	SpellCode_DruidSunfire
 )
 
 type Druid struct {
@@ -65,31 +56,17 @@ type Druid struct {
 	Hurricane            []*DruidSpell
 	Innervate            *DruidSpell
 	InsectSwarm          []*DruidSpell
-	Lacerate             *DruidSpell
 	Languish             *DruidSpell
-	MangleBear           *DruidSpell
-	MangleCat            *DruidSpell
-	Berserk              *DruidSpell
 	Maul                 *DruidSpell
 	MaulQueueSpell       *DruidSpell
 	Moonfire             []*DruidSpell
 	Rebirth              *DruidSpell
 	Rake                 *DruidSpell
 	Rip                  *DruidSpell
-	SavageRoar           *DruidSpell
 	Shred                *DruidSpell
 	Starfire             []*DruidSpell
-	Starfall             *DruidSpell
-	StarfallTick         *DruidSpell
-	StarfallSplash       *DruidSpell
-	Starsurge            *DruidSpell
-	Sunfire              *DruidSpell
-	SunfireCat           *DruidSpell
-	SurvivalInstincts    *DruidSpell
 	SwipeBear            *DruidSpell
-	SwipeCat             *DruidSpell
 	TigersFury           *DruidSpell
-	Typhoon              *DruidSpell
 	Wrath                []*DruidSpell
 
 	BearForm    *DruidSpell
@@ -102,36 +79,18 @@ type Druid struct {
 	CatFormAura              *core.Aura
 	ClearcastingAura         *core.Aura
 	DemoralizingRoarAuras    core.AuraArray
-	DreamstateManaRegenAura  *core.Aura
 	EnrageAura               *core.Aura
-	EclipseAura              *core.Aura
 	FaerieFireAuras          core.AuraArray
-	ImprovedFaerieFireAuras  core.AuraArray
 	FrenziedRegenerationAura *core.Aura
 	FurorAura                *core.Aura
-	FuryOfStormrageAura      *core.Aura
 	InsectSwarmAuras         core.AuraArray
 	MaulQueueAura            *core.Aura
 	MoonkinFormAura          *core.Aura
 	NaturesGraceProcAura     *core.Aura
 	PredatoryInstinctsAura   *core.Aura
-	SurvivalInstinctsAura    *core.Aura
 	TigersFuryAura           *core.Aura
-	SavageRoarAura           *core.Aura
-	SolarEclipseProcAura     *core.Aura
-	LunarEclipseProcAura     *core.Aura
-	WildStrikesBuffAura      *core.Aura
 
-	BleedCategories         core.ExclusiveCategoryArray
-	SavageRoarDurationTable [6]time.Duration
-
-	// Extra data used for various calculations and overrides
-	FerociousBiteExcessEnergyOverride bool // When true, disables the excess energy consumption of Ferocious bite
-	// Sunfire/Moonfire modifiers applied when in Moonkin form
-	MoonfireDotMultiplier float64
-	ShredPositionOverride bool
-	SunfireDotMultiplier  float64
-	t26pcTreants          *T2Treants
+	BleedCategories core.ExclusiveCategoryArray
 
 	form         DruidForm
 	disabledMCDs []*core.MajorCooldown
@@ -218,7 +177,6 @@ func (druid *Druid) RegisterFeralCatSpells() {
 	druid.registerFerociousBiteSpell()
 	// druid.registerMangleBearSpell()
 	// druid.registerMaulSpell()
-	// druid.registerLacerateSpell()
 	druid.registerRakeSpell()
 	druid.registerRipSpell()
 	druid.registerShredSpell()
@@ -236,10 +194,8 @@ func (druid *Druid) RegisterFeralTankSpells() {
 	// druid.registerFrenziedRegenerationCD()
 	// druid.registerMangleBearSpell()
 	// druid.registerMaulSpell()
-	// druid.registerLacerateSpell()
 	// druid.registerRakeSpell()
 	// druid.registerRipSpell()
-	// druid.registerSurvivalInstinctsCD()
 	// druid.registerSwipeBearSpell()
 }
 
@@ -270,7 +226,6 @@ func New(character *core.Character, form DruidForm, selfBuffs SelfBuffs, talents
 	// druid.PseudoStats.MeleeHasteRatingPerHastePercent /= 1.3
 
 	guardians.ConstructGuardians(&druid.Character)
-	druid.t26pcTreants = druid.NewT2Treants()
 
 	return druid
 }
@@ -299,14 +254,6 @@ func (ds *DruidSpell) IsEqual(s *core.Spell) bool {
 		return false
 	}
 	return ds.Spell == s
-}
-
-func (druid *Druid) HasRune(rune proto.DruidRune) bool {
-	return false // druid.HasRuneById(int32(rune))
-}
-
-func (druid *Druid) baseRuneAbilityDamage() float64 {
-	return 9.183105 + 0.616405*float64(druid.Level) + 0.028608*float64(druid.Level*druid.Level)
 }
 
 // Agent is a generic way to access underlying druid on any of the agents (for example balance druid.)

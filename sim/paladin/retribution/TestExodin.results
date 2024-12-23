@@ -50,12 +50,12 @@ character_stats_results: {
 stat_weights_results: {
  key: "TestExodin-Phase5-StatWeights-Default"
  value: {
-  weights: 0.45025
-  weights: 0.17396
+  weights: 0.33175
+  weights: 0.18012
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.27825
+  weights: 0.53169
   weights: 0
   weights: 0
   weights: 0
@@ -63,13 +63,13 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.21085
-  weights: 0.09328
+  weights: 2.40738
+  weights: 0.34737
   weights: 0
   weights: 0
-  weights: 0.16179
-  weights: 4.15772
-  weights: 3.18201
+  weights: 0.11921
+  weights: 3.88017
+  weights: 2.8226
   weights: 0
   weights: 0
   weights: 0
@@ -99,103 +99,105 @@ stat_weights_results: {
 dps_results: {
  key: "TestExodin-Phase5-AllItems-SanctifiedOrb-20512"
  value: {
-  dps: 345.69646
-  tps: 382.69107
+  dps: 480.97798
+  tps: 522.8839
  }
 }
 dps_results: {
  key: "TestExodin-Phase5-Average-Default"
  value: {
-  dps: 343.4384
-  tps: 380.47158
+  dps: 481.66427
+  tps: 523.64138
  }
 }
 dps_results: {
  key: "TestExodin-Phase5-Settings-Dwarf-blank-P5 Seal of Martyrdom Ret-p5ret-exodin-6CF2DR-FullBuffs-P5-Consumes-LongMultiTarget"
  value: {
-  dps: 23.55242
-  tps: 218.06591
+  dps: 348.99957
+  tps: 557.67306
  }
 }
 dps_results: {
  key: "TestExodin-Phase5-Settings-Dwarf-blank-P5 Seal of Martyrdom Ret-p5ret-exodin-6CF2DR-FullBuffs-P5-Consumes-LongSingleTarget"
  value: {
-  dps: 9.78378
-  tps: 19.50945
+  dps: 78.69145
+  tps: 89.16446
  }
 }
 dps_results: {
  key: "TestExodin-Phase5-Settings-Dwarf-blank-P5 Seal of Martyrdom Ret-p5ret-exodin-6CF2DR-FullBuffs-P5-Consumes-ShortSingleTarget"
  value: {
-  tps: 15.18376
+  dps: 173.94294
+  tps: 191.24086
  }
 }
 dps_results: {
  key: "TestExodin-Phase5-Settings-Dwarf-blank-P5 Seal of Martyrdom Ret-p5ret-exodin-6CF2DR-NoBuffs-P5-Consumes-LongMultiTarget"
  value: {
-  dps: 14.04078
-  tps: 134.89475
+  dps: 157.63726
+  tps: 323.56962
  }
 }
 dps_results: {
  key: "TestExodin-Phase5-Settings-Dwarf-blank-P5 Seal of Martyrdom Ret-p5ret-exodin-6CF2DR-NoBuffs-P5-Consumes-LongSingleTarget"
  value: {
-  dps: 2.9307
-  tps: 8.9734
+  dps: 35.24239
+  tps: 43.53901
  }
 }
 dps_results: {
  key: "TestExodin-Phase5-Settings-Dwarf-blank-P5 Seal of Martyrdom Ret-p5ret-exodin-6CF2DR-NoBuffs-P5-Consumes-ShortSingleTarget"
  value: {
-  dps: 2.49444
-  tps: 2.49444
+  dps: 86.4435
+  tps: 101.62726
  }
 }
 dps_results: {
  key: "TestExodin-Phase5-Settings-Human-blank-P5 Seal of Martyrdom Ret-p5ret-exodin-6CF2DR-FullBuffs-P5-Consumes-LongMultiTarget"
  value: {
-  dps: 22.87194
-  tps: 216.9921
+  dps: 348.38697
+  tps: 557.84713
  }
 }
 dps_results: {
  key: "TestExodin-Phase5-Settings-Human-blank-P5 Seal of Martyrdom Ret-p5ret-exodin-6CF2DR-FullBuffs-P5-Consumes-LongSingleTarget"
  value: {
-  dps: 9.52454
-  tps: 19.23055
+  dps: 79.66673
+  tps: 90.16924
  }
 }
 dps_results: {
  key: "TestExodin-Phase5-Settings-Human-blank-P5 Seal of Martyrdom Ret-p5ret-exodin-6CF2DR-FullBuffs-P5-Consumes-ShortSingleTarget"
  value: {
-  tps: 15.18376
+  dps: 173.05306
+  tps: 190.35099
  }
 }
 dps_results: {
  key: "TestExodin-Phase5-Settings-Human-blank-P5 Seal of Martyrdom Ret-p5ret-exodin-6CF2DR-NoBuffs-P5-Consumes-LongMultiTarget"
  value: {
-  dps: 13.08502
-  tps: 193.83184
+  dps: 190.3591
+  tps: 371.10593
  }
 }
 dps_results: {
  key: "TestExodin-Phase5-Settings-Human-blank-P5 Seal of Martyrdom Ret-p5ret-exodin-6CF2DR-NoBuffs-P5-Consumes-LongSingleTarget"
  value: {
-  dps: 2.52678
-  tps: 11.56412
+  dps: 36.43544
+  tps: 45.47278
  }
 }
 dps_results: {
  key: "TestExodin-Phase5-Settings-Human-blank-P5 Seal of Martyrdom Ret-p5ret-exodin-6CF2DR-NoBuffs-P5-Consumes-ShortSingleTarget"
  value: {
-  dps: 1.12892
-  tps: 16.31268
+  dps: 84.08524
+  tps: 99.26899
  }
 }
 dps_results: {
  key: "TestExodin-Phase5-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 281.97986
-  tps: 316.71265
+  dps: 432.35436
+  tps: 471.87012
  }
 }

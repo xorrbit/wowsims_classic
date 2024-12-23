@@ -24,17 +24,11 @@ const (
 	// Shots
 	SpellCode_HunterAimedShot
 	SpellCode_HunterArcaneShot
-	SpellCode_HunterChimeraShot
-	SpellCode_HunterExplosiveShot
-	SpellCode_HunterKillShot
 	SpellCode_HunterMultiShot
-	SpellCode_HunterSteadyShot
 
 	// Strikes
-	SpellCode_HunterFlankingStrike
 	SpellCode_HunterRaptorStrike
 	SpellCode_HunterRaptorStrikeHit
-	SpellCode_HunterWyvernStrike
 
 	// Stings
 	SpellCode_HunterSerpentSting
@@ -45,15 +39,11 @@ const (
 	SpellCode_HunterImmolationTrap
 
 	// Other
-	SpellCode_HunterCarve
-	SpellCode_HunterCarveHit
 	SpellCode_HunterMongooseBite
 	SpellCode_HunterWingClip
 	SpellCode_HunterVolley
-	SpellCode_HunterChimeraSerpent
 
 	// Pet Spells
-	SpellCode_HunterPetFlankingStrike
 	SpellCode_HunterPetClaw
 	SpellCode_HunterPetBite
 	SpellCode_HunterPetLightningBreath
@@ -97,51 +87,31 @@ type Hunter struct {
 	curQueueAura       *core.Aura
 	curQueuedAutoSpell *core.Spell
 
-	AimedShot      *core.Spell
-	ArcaneShot     *core.Spell
-	ChimeraShot    *core.Spell
-	ExplosiveShot  *core.Spell
-	ExplosiveTrap  *core.Spell
-	ImmolationTrap *core.Spell
-	FreezingTrap   *core.Spell
-	KillCommand    *core.Spell
-	KillShot       *core.Spell
-	MultiShot      *core.Spell
-	FocusFire      *core.Spell
-	RapidFire      *core.Spell
-	RaptorStrike   *core.Spell
-	RaptorStrikeMH *core.Spell
-	RaptorStrikeOH *core.Spell
-	FlankingStrike *core.Spell
-	WyvernStrike   *core.Spell
-	MongooseBite   *core.Spell
-	ScorpidSting   *core.Spell
-	SerpentSting   *core.Spell
-	SilencingShot  *core.Spell
-	SteadyShot     *core.Spell
-	Volley         *core.Spell
-	CarveMH        *core.Spell
-	CarveOH        *core.Spell
-	WingClip       *core.Spell
+	AimedShot       *core.Spell
+	ArcaneShot      *core.Spell
+	ExplosiveTrap   *core.Spell
+	ImmolationTrap  *core.Spell
+	FreezingTrap    *core.Spell
+	KillCommand     *core.Spell
+	MultiShot       *core.Spell
+	RapidFire       *core.Spell
+	RaptorStrike    *core.Spell
+	RaptorStrikeHit *core.Spell
+	MongooseBite    *core.Spell
+	ScorpidSting    *core.Spell
+	SerpentSting    *core.Spell
+	SilencingShot   *core.Spell
+	Volley          *core.Spell
+	WingClip        *core.Spell
 
 	Shots       []*core.Spell
 	Strikes     []*core.Spell
 	MeleeSpells []*core.Spell
 	LastShot    *core.Spell
 
-	SerpentStingChimeraShot *core.Spell
-
-	FlankingStrikeAura *core.Aura
-	RaptorFuryAura     *core.Aura
-	SniperTrainingAura *core.Aura
-	CobraStrikesAura   *core.Aura
-	HitAndRunAura      *core.Aura
-
 	// The aura that allows you to cast Mongoose Bite
 	DefensiveState *core.Aura
 
-	ImprovedSteadyShotAura *core.Aura
-	LockAndLoadAura        *core.Aura
 	RapidFireAura          *core.Aura
 	BestialWrathPetAura    *core.Aura
 }
@@ -193,7 +163,6 @@ func (hunter *Hunter) Initialize() {
 	})
 
 	hunter.registerAspectOfTheHawkSpell()
-	hunter.registerAspectOfTheFalconSpell()
 	hunter.registerAspectOfTheViperSpell()
 
 	multiShotTimer := hunter.NewTimer()
@@ -204,38 +173,20 @@ func (hunter *Hunter) Initialize() {
 	hunter.registerArcaneShotSpell(arcaneShotTimer)
 	hunter.registerAimedShotSpell(arcaneShotTimer)
 	hunter.registerMultiShotSpell(multiShotTimer)
-	hunter.registerExplosiveShotSpell()
-	hunter.registerChimeraShotSpell()
-	hunter.registerSteadyShotSpell()
-	hunter.registerKillShotSpell()
 
 	hunter.registerRaptorStrikeSpell()
-	hunter.registerFlankingStrikeSpell()
-	hunter.registerWyvernStrikeSpell()
 	hunter.registerMongooseBiteSpell()
-	hunter.registerCarveSpell()
 	hunter.registerWingClipSpell()
 	hunter.registerVolleySpell()
 
-	// Trap Launcher rune also splits the cooldowns between frost traps and fire traps, without the rune all traps share a cd
-	if hunter.HasRune(proto.HunterRune_RuneBootsTrapLauncher) {
-		fireTraps := hunter.NewTimer()
-		frostTraps := hunter.NewTimer()
+	traps := hunter.NewTimer()
 
-		hunter.registerExplosiveTrapSpell(fireTraps)
-		hunter.registerImmolationTrapSpell(fireTraps)
-		hunter.registerFreezingTrapSpell(frostTraps)
-	} else {
-		traps := hunter.NewTimer()
-
-		hunter.registerExplosiveTrapSpell(traps)
-		hunter.registerImmolationTrapSpell(traps)
-		hunter.registerFreezingTrapSpell(traps)
-	}
+	hunter.registerExplosiveTrapSpell(traps)
+	hunter.registerImmolationTrapSpell(traps)
+	hunter.registerFreezingTrapSpell(traps)
 
 	// hunter.registerKillCommand()
 	hunter.registerRapidFire()
-	hunter.registerFocusFireSpell()
 }
 
 func (hunter *Hunter) Reset(sim *core.Simulation) {
@@ -352,14 +303,6 @@ func NewHunter(character *core.Character, options *proto.Player) *Hunter {
 	guardians.ConstructGuardians(&hunter.Character)
 
 	return hunter
-}
-
-func (hunter *Hunter) HasRune(rune proto.HunterRune) bool {
-	return false // hunter.HasRuneById(int32(rune))
-}
-
-func (hunter *Hunter) baseRuneAbilityDamage() float64 {
-	return 2.976264 + 0.641066*float64(hunter.Level) + 0.022519*float64(hunter.Level*hunter.Level)
 }
 
 func (hunter *Hunter) OnGCDReady(_ *core.Simulation) {

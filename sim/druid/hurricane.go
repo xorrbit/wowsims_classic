@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 func (druid *Druid) registerHurricaneSpell() {
@@ -20,20 +19,6 @@ func (druid *Druid) registerHurricaneSpell() {
 		{level: 40, spellID: 16914, manaCost: 880, scaleLevel: 46, damage: 70, scale: 0.2},
 		{level: 50, spellID: 17401, manaCost: 1180, scaleLevel: 56, damage: 100, scale: 0.2},
 		{level: 60, spellID: 17402, manaCost: 1495, scaleLevel: 66, damage: 134, scale: 0.3},
-	}
-
-	// assuming Gale Winds is in use, to save creating an unused timer
-	damageMultiplier := 2.0
-	costMultiplier := int32(40)
-	cd := core.Cooldown{}
-
-	if !druid.HasRune(proto.DruidRune_RuneHelmGaleWinds) {
-		damageMultiplier = 1.0
-		costMultiplier = 100
-		cd = core.Cooldown{
-			Timer:    druid.NewTimer(),
-			Duration: time.Second * 60,
-		}
 	}
 
 	for i, rank := range ranks {
@@ -52,17 +37,19 @@ func (druid *Druid) registerHurricaneSpell() {
 			Rank:          i + 1,
 
 			ManaCost: core.ManaCostOptions{
-				FlatCost:   rank.manaCost,
-				Multiplier: costMultiplier,
+				FlatCost: rank.manaCost,
 			},
 			Cast: core.CastConfig{
 				DefaultCast: core.Cast{
 					GCD: core.GCDDefault,
 				},
-				CD: cd,
+				CD: core.Cooldown{
+					Timer:    druid.NewTimer(),
+					Duration: time.Second * 60,
+				},
 			},
 
-			DamageMultiplier: damageMultiplier,
+			DamageMultiplier: 1,
 			ThreatMultiplier: 1,
 
 			Dot: core.DotConfig{

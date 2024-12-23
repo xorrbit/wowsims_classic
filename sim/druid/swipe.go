@@ -1,10 +1,7 @@
 package druid
 
 import (
-	"time"
-
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const SwipeRanks = 5
@@ -18,8 +15,6 @@ var SwipeLevel = [SwipeRanks + 1]int{0, 16, 24, 34, 44, 54}
 const SwipeThreatMultiplier = 2.0
 
 func (druid *Druid) registerSwipeBearSpell() {
-	hasImprovedSwipeRune := druid.HasRune(proto.DruidRune_RuneCloakImprovedSwipe)
-
 	rank := map[int32]int{
 		25: 2,
 		40: 3,
@@ -32,8 +27,7 @@ func (druid *Druid) registerSwipeBearSpell() {
 	baseDamage := SwipeBaseDamage[rank]
 
 	rageCost := 20 - float64(druid.Talents.Ferocity)
-	targetCount := core.TernaryInt32(hasImprovedSwipeRune, 10, 3)
-	numHits := min(targetCount, druid.Env.GetNumTargets())
+	numHits := min(3, druid.Env.GetNumTargets())
 	results := make([]*core.SpellResult, numHits)
 
 	switch druid.Ranged().ID {
@@ -76,50 +70,4 @@ func (druid *Druid) registerSwipeBearSpell() {
 			}
 		},
 	})
-}
-
-func (druid *Druid) registerSwipeCatSpell() {
-	if !druid.HasRune(proto.DruidRune_RuneCloakImprovedSwipe) {
-		return
-	}
-
-	weaponMulti := 2.5
-
-	druid.SwipeCat = druid.RegisterSpell(Cat, core.SpellConfig{
-		ActionID:    core.ActionID{SpellID: 411128},
-		SpellSchool: core.SpellSchoolPhysical,
-		DefenseType: core.DefenseTypeMelee,
-		ProcMask:    core.ProcMaskMeleeMHSpecial,
-		Flags:       core.SpellFlagMeleeMetrics | core.SpellFlagAPL | SpellFlagOmen | SpellFlagBuilder,
-
-		EnergyCost: core.EnergyCostOptions{
-			Cost: 50 - float64(druid.Talents.Ferocity),
-		},
-
-		Cast: core.CastConfig{
-			DefaultCast: core.Cast{
-				GCD: time.Second,
-			},
-			IgnoreHaste: true,
-		},
-
-		DamageMultiplier: (1 + 0.1*float64(druid.Talents.SavageFury)) * weaponMulti,
-		ThreatMultiplier: 1,
-
-		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			baseDamage := spell.Unit.MHNormalizedWeaponDamage(sim, spell.MeleeAttackPower())
-			aoeTarget := target
-			for i := 0; i < len(sim.Encounter.TargetUnits); i++ {
-				result := spell.CalcAndDealDamage(sim, aoeTarget, baseDamage, spell.OutcomeMeleeSpecialHitAndCrit)
-				if i == 0 && result.Landed() {
-					druid.AddComboPoints(sim, 1, target, spell.ComboPointMetrics())
-				}
-				aoeTarget = sim.Environment.NextTargetUnit(aoeTarget)
-			}
-		},
-	})
-}
-
-func (druid *Druid) CurrentSwipeCatCost() float64 {
-	return druid.SwipeCat.Cost.GetCurrentCost()
 }

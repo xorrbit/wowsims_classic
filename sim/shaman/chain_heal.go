@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const ChainHealRanks = 3
@@ -18,32 +17,18 @@ var ChainHealManaCost = [ChainHealRanks + 1]float64{0, 260, 315, 405}
 var ChainHealLevel = [ChainHealRanks + 1]int{0, 40, 46, 54}
 
 func (shaman *Shaman) registerChainHealSpell() {
-	overloadRuneEquipped := shaman.HasRune(proto.ShamanRune_RuneChestOverload)
-
 	shaman.ChainHeal = make([]*core.Spell, ChainHealRanks+1)
 
-	if overloadRuneEquipped {
-		shaman.ChainHealOverload = make([]*core.Spell, ChainHealRanks+1)
-	}
-
 	for rank := 1; rank <= ChainHealRanks; rank++ {
-		config := shaman.newChainHealSpellConfig(rank, false)
+		config := shaman.newChainHealSpellConfig(rank)
 
 		if config.RequiredLevel <= int(shaman.Level) {
 			shaman.ChainHeal[rank] = shaman.RegisterSpell(config)
-
-			if overloadRuneEquipped {
-				shaman.ChainHealOverload[rank] = shaman.RegisterSpell(shaman.newChainHealSpellConfig(rank, true))
-			}
 		}
 	}
 }
 
-func (shaman *Shaman) newChainHealSpellConfig(rank int, isOverload bool) core.SpellConfig {
-	hasOverloadRune := shaman.HasRune(proto.ShamanRune_RuneChestOverload)
-	hasCoherenceRune := shaman.HasRune(proto.ShamanRune_RuneCloakCoherence)
-	hasRiptideRune := shaman.HasRune(proto.ShamanRune_RuneBracersRiptide)
-
+func (shaman *Shaman) newChainHealSpellConfig(rank int) core.SpellConfig {
 	spellId := ChainHealSpellId[rank]
 	baseHealingMultiplier := 1 + shaman.purificationHealingModifier()
 	baseHealingLow := ChainHealBaseHealing[rank][0] * baseHealingMultiplier
@@ -53,27 +38,16 @@ func (shaman *Shaman) newChainHealSpellConfig(rank int, isOverload bool) core.Sp
 	manaCost := ChainHealManaCost[rank]
 	level := ChainHealLevel[rank]
 
-	flags := core.SpellFlagHelpful | SpellFlagShaman
-	if !isOverload {
-		flags |= core.SpellFlagAPL
-	}
-
-	bounceCoef := .5 // 50% reduction per bounce
+	bounceCoef := 0.50 // 50% reduction per bounce
 	targetCount := ChainHealTargetCount
-	if hasCoherenceRune {
-		bounceCoef = .65 // 35% reduction per bounce
-		targetCount += 2
-	}
 
-	canOverload := !isOverload && hasOverloadRune
-
-	spell := core.SpellConfig{
+	return core.SpellConfig{
 		ActionID:    core.ActionID{SpellID: spellId},
 		SpellCode:   SpellCode_ShamanChainHeal,
 		DefenseType: core.DefenseTypeMagic,
 		SpellSchool: core.SpellSchoolNature,
 		ProcMask:    core.ProcMaskSpellHealing,
-		Flags:       flags,
+		Flags:       core.SpellFlagHelpful | core.SpellFlagAPL | SpellFlagShaman,
 
 		RequiredLevel: level,
 		Rank:          rank,
@@ -100,27 +74,13 @@ func (shaman *Shaman) newChainHealSpellConfig(rank int, isOverload bool) core.Sp
 			// TODO: This bounces to most hurt friendly...
 			for hitIndex := 0; hitIndex < len(targets); hitIndex++ {
 				originalDamageMultiplier := spell.DamageMultiplier
-				if hasRiptideRune && !isOverload && shaman.Riptide.Hot(curTarget).IsActive() {
-					spell.DamageMultiplier *= 1.25
-					shaman.Riptide.Hot(curTarget).Deactivate(sim)
-				}
 				spell.CalcAndDealHealing(sim, curTarget, sim.Roll(baseHealingLow, baseHealingHigh), spell.OutcomeHealingCrit)
 				spell.DamageMultiplier = originalDamageMultiplier
-
-				if canOverload && sim.RandomFloat("CH Overload") < ShamanOverloadChance {
-					shaman.ChainHealOverload[rank].Cast(sim, target)
-				}
-
 				spell.DamageMultiplier *= bounceCoef
+
 				curTarget = targets[hitIndex]
 			}
 			spell.DamageMultiplier = origMult
 		},
 	}
-
-	if isOverload {
-		shaman.applyOverloadModifiers(&spell)
-	}
-
-	return spell
 }

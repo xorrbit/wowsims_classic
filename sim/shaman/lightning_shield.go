@@ -5,14 +5,12 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const LightningShieldRanks = 7
 
 var LightningShieldSpellId = [LightningShieldRanks + 1]int32{0, 324, 325, 905, 945, 8134, 10431, 10432}
 var LightningShieldProcSpellId = [LightningShieldRanks + 1]int32{0, 26364, 26365, 26366, 26367, 26369, 26370, 26363}
-var LightningShieldOverchargedProcSpellId = [LightningShieldRanks + 1]int32{0, 432143, 432144, 432145, 432146, 432147, 432148, 432149}
 var LightningShieldBaseDamage = [LightningShieldRanks + 1]float64{0, 13, 29, 51, 80, 114, 154, 198}
 var LightningShieldSpellCoef = [LightningShieldRanks + 1]float64{0, .147, .227, .267, .267, .267, .267, .267}
 var LightningShieldManaCost = [LightningShieldRanks + 1]float64{0, 45, 80, 125, 180, 240, 305}
@@ -22,8 +20,6 @@ func (shaman *Shaman) registerLightningShieldSpell() {
 	shaman.LightningShield = make([]*core.Spell, LightningShieldRanks+1)
 	shaman.LightningShieldProcs = make([]*core.Spell, LightningShieldRanks+1)
 	shaman.LightningShieldAuras = make([]*core.Aura, LightningShieldRanks+1)
-
-	shaman.lightningShieldCanCrit = false
 
 	for rank := 1; rank <= LightningShieldRanks; rank++ {
 		level := LightningShieldLevel[rank]
@@ -35,13 +31,10 @@ func (shaman *Shaman) registerLightningShieldSpell() {
 }
 
 func (shaman *Shaman) registerNewLightningShieldSpell(rank int) {
-	hasOverchargedRune := shaman.HasRune(proto.ShamanRune_RuneBracersOvercharged)
-	hasStaticShockRune := shaman.HasRune(proto.ShamanRune_RuneBracersStaticShock)
-
 	impLightningShieldBonus := 1 + []float64{0, .05, .10, .15}[shaman.Talents.ImprovedLightningShield]
 
 	spellId := LightningShieldSpellId[rank]
-	procSpellId := core.Ternary(hasOverchargedRune, LightningShieldOverchargedProcSpellId, LightningShieldProcSpellId)[rank]
+	procSpellId := LightningShieldProcSpellId[rank]
 	baseDamage := LightningShieldBaseDamage[rank] * impLightningShieldBonus
 	spellCoeff := LightningShieldSpellCoef[rank]
 	manaCost := LightningShieldManaCost[rank]
@@ -49,10 +42,6 @@ func (shaman *Shaman) registerNewLightningShieldSpell(rank int) {
 
 	baseCharges := int32(3)
 	maxCharges := int32(3)
-	if hasStaticShockRune {
-		baseCharges = 9
-		maxCharges = 9
-	}
 
 	shaman.LightningShieldProcs[rank] = shaman.RegisterSpell(core.SpellConfig{
 		ActionID:    core.ActionID{SpellID: procSpellId},
@@ -66,19 +55,15 @@ func (shaman *Shaman) registerNewLightningShieldSpell(rank int) {
 		BonusCoefficient: spellCoeff,
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			outcome := core.Ternary(shaman.lightningShieldCanCrit, spell.OutcomeMagicCrit, spell.OutcomeAlwaysHit)
-			spell.CalcAndDealDamage(sim, target, baseDamage, outcome)
-
-			if !hasOverchargedRune {
-				shaman.ActiveShieldAura.RemoveStack(sim)
-			}
+			spell.CalcAndDealDamage(sim, target, baseDamage, spell.OutcomeAlwaysHit)
+			shaman.ActiveShieldAura.RemoveStack(sim)
 		},
 	})
 
 	// TODO: Does vanilla have an ICD?
 	icd := core.Cooldown{
 		Timer:    shaman.NewTimer(),
-		Duration: core.Ternary(hasOverchargedRune, time.Second*3, time.Millisecond*3500),
+		Duration: time.Millisecond * 3500,
 	}
 
 	shaman.LightningShieldAuras[rank] = shaman.RegisterAura(core.Aura{
@@ -105,19 +90,8 @@ func (shaman *Shaman) registerNewLightningShieldSpell(rank int) {
 			}
 		},
 		OnSpellHitTaken: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
-			if !spell.ProcMask.Matches(core.ProcMaskMelee) || !result.Landed() || !icd.IsReady(sim) {
-				return
-			}
-			icd.Use(sim)
-
-			if hasOverchargedRune {
-				// Deals damage to all targets within 8 yards and does not lose stacks
-				for _, aoeTarget := range sim.Encounter.TargetUnits {
-					if aoeTarget.DistanceFromTarget <= 8 {
-						shaman.LightningShieldProcs[rank].Cast(sim, aoeTarget)
-					}
-				}
-			} else {
+			if spell.ProcMask.Matches(core.ProcMaskMelee) && result.Landed() && icd.IsReady(sim) {
+				icd.Use(sim)
 				shaman.LightningShieldProcs[rank].Cast(sim, spell.Unit)
 			}
 		},

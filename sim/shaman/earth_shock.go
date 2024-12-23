@@ -2,7 +2,6 @@ package shaman
 
 import (
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const EarthShockRanks = 7
@@ -14,11 +13,6 @@ var EarthShockManaCost = [EarthShockRanks + 1]float64{0, 30, 50, 85, 145, 240, 3
 var EarthShockLevel = [EarthShockRanks + 1]int{0, 4, 8, 14, 24, 36, 48, 60}
 
 func (shaman *Shaman) registerEarthShockSpell(shockTimer *core.Timer) {
-	// Way of Earth gives earth shock a separate timer
-	if shaman.HasRune(proto.ShamanRune_RuneLegsWayOfEarth) {
-		shockTimer = shaman.NewTimer()
-	}
-
 	shaman.EarthShock = make([]*core.Spell, EarthShockRanks+1)
 
 	for rank := 1; rank <= EarthShockRanks; rank++ {

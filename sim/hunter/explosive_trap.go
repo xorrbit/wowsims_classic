@@ -69,7 +69,7 @@ func (hunter *Hunter) getExplosiveTrapConfig(rank int, timer *core.Timer) core.S
 		},
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			if hunter.DistanceFromTarget > hunter.trapRange() {
+			if hunter.DistanceFromTarget > 5 {
 				return
 			}
 
@@ -80,7 +80,6 @@ func (hunter *Hunter) getExplosiveTrapConfig(rank int, timer *core.Timer) core.S
 				spell.Unit.AddStatDynamic(sim, stats.SpellHit, spellHit*-1)
 				for hitIndex := int32(0); hitIndex < numHits; hitIndex++ {
 					baseDamage := sim.Roll(minDamage, maxDamage)
-					baseDamage += hunter.tntDamageFlatBonus()
 					baseDamage *= sim.Encounter.AOECapMultiplier()
 					spell.CalcAndDealDamage(sim, curTarget, baseDamage, spell.OutcomeMagicHitAndCrit)
 					curTarget = sim.Environment.NextTargetUnit(curTarget)

@@ -47,7 +47,7 @@ func (shaman *Shaman) newWindfuryImbueSpell(isMH bool) *core.Spell {
 		ThreatMultiplier: 1,
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			mAP := spell.MeleeAttackPower() + (bonusAP+shaman.bonusWindfuryWeaponAP)*ewMultiplier*ewMultiplier
+			mAP := spell.MeleeAttackPower() + bonusAP*ewMultiplier*ewMultiplier
 			baseDamage := weaponDamageFunc(sim, mAP)
 			spell.CalcAndDealDamage(sim, target, baseDamage, spell.OutcomeMeleeWeaponSpecialHitAndCrit)
 		},
@@ -84,7 +84,6 @@ func (shaman *Shaman) RegisterWindfuryImbue(procMask core.ProcMask) {
 	}
 
 	shaman.WindfuryWeaponMH = shaman.newWindfuryImbueSpell(true)
-	shaman.WindfuryWeaponOH = shaman.newWindfuryImbueSpell(false)
 
 	aura := shaman.RegisterAura(core.Aura{
 		Label:    "Windfury Imbue",
@@ -104,13 +103,10 @@ func (shaman *Shaman) RegisterWindfuryImbue(procMask core.ProcMask) {
 			if sim.RandomFloat("Windfury Imbue") < proc {
 				icd.Use(sim)
 
-				if spell.IsMH() {
-					shaman.WindfuryWeaponMH.Cast(sim, result.Target)
-					shaman.WindfuryWeaponMH.Cast(sim, result.Target)
-				} else {
-					shaman.WindfuryWeaponOH.Cast(sim, result.Target)
-					shaman.WindfuryWeaponOH.Cast(sim, result.Target)
-				}
+				// TODO: Vanilla uses two extra attacks but SoD replaced this with yellow hits
+				// This needs to be refactored
+				shaman.WindfuryWeaponMH.Cast(sim, result.Target)
+				shaman.WindfuryWeaponMH.Cast(sim, result.Target)
 			}
 		},
 	})

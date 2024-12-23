@@ -15,7 +15,6 @@ const (
 	SpellFlagShaman    = core.SpellFlagAgentReserved1
 	SpellFlagTotem     = core.SpellFlagAgentReserved2
 	SpellFlagLightning = core.SpellFlagAgentReserved3
-	SpellFlagMaelstrom = core.SpellFlagAgentReserved4
 )
 
 func NewShaman(character *core.Character, talents string) *Shaman {
@@ -40,10 +39,6 @@ func NewShaman(character *core.Character, talents string) *Shaman {
 	shaman.ApplyFrostbrandImbue(shaman.getImbueProcMask(proto.WeaponImbue_FrostbrandWeapon))
 	shaman.ApplyWindfuryImbue(shaman.getImbueProcMask(proto.WeaponImbue_WindfuryWeapon))
 
-	if shaman.HasRune(proto.ShamanRune_RuneCloakFeralSpirit) {
-		shaman.SpiritWolves = shaman.NewSpiritWolves()
-	}
-
 	guardians.ConstructGuardians(&shaman.Character)
 
 	return shaman
@@ -53,9 +48,6 @@ func (shaman *Shaman) getImbueProcMask(imbue proto.WeaponImbue) core.ProcMask {
 	mask := core.ProcMaskUnknown
 	if shaman.HasMHWeapon() && shaman.Consumes.MainHandImbue == imbue {
 		mask |= core.ProcMaskMeleeMH
-	}
-	if shaman.HasOHWeapon() && shaman.Consumes.OffHandImbue == imbue {
-		mask |= core.ProcMaskMeleeOH
 	}
 	return mask
 }
@@ -74,18 +66,14 @@ const (
 	SpellCode_ShamanChainHeal
 	SpellCode_ShamanChainLightning
 	SpellCode_ShamanEarthShock
-	SpellCode_ShamanFireNova
 	SpellCode_ShamanFireNovaTotem
 	SpellCode_ShamanFlameShock
 	SpellCode_ShamanFrostShock
 	SpellCode_ShamanHealingWave
-	SpellCode_ShamanLavaLash
 	SpellCode_ShamanLesserHealingWave
 	SpellCode_ShamanLightningBolt
 	SpellCode_ShamanLightningShield
-	SpellCode_ShamanLavaBurst
 	SpellCode_ShamanMagmaTotem
-	SpellCode_ShamanMoltenBlast
 	SpellCode_ShamanSearingTotem
 	SpellCode_ShamanStormstrike
 )
@@ -97,58 +85,36 @@ type Shaman struct {
 	Talents *proto.ShamanTalents
 
 	// Spells
-	AncestralAwakening     *core.Spell
-	ChainHeal              []*core.Spell
-	ChainHealOverload      []*core.Spell
-	ChainLightning         []*core.Spell
-	ChainLightningOverload []*core.Spell
-	EarthShield            *core.Spell
-	EarthShock             []*core.Spell
-	ElementalMastery       *core.Spell
-	FeralSpirit            *core.Spell
-	FireNova               *core.Spell
-	FireNovaTotem          []*core.Spell
-	FlameShock             []*core.Spell
-	FrostShock             []*core.Spell
-	GraceOfAirTotem        []*core.Spell
-	HealingStreamTotem     []*core.Spell
-	HealingWave            []*core.Spell
-	HealingWaveOverload    []*core.Spell
-	LavaBurst              *core.Spell
-	LavaBurstOverload      *core.Spell
-	LavaLash               *core.Spell
-	LesserHealingWave      []*core.Spell
-	LightningBolt          []*core.Spell
-	LightningBoltOverload  []*core.Spell
-	LightningShield        []*core.Spell
-	LightningShieldProcs   []*core.Spell // The damage component of lightning shield is a separate spell
-	MagmaTotem             []*core.Spell
-	ManaSpringTotem        []*core.Spell
-	MoltenBlast            *core.Spell
-	Riptide                *core.Spell
-	RollingThunder         *core.Spell
-	SearingTotem           []*core.Spell
-	StoneskinTotem         []*core.Spell
-	StormstrikeMH          *core.Spell
-	StormstrikeOH          *core.Spell
-	StrengthOfEarthTotem   []*core.Spell
-	TremorTotem            *core.Spell
-	WaterShield            *core.Spell
-	WaterShieldRestore     *core.Spell
-	WindfuryTotem          []*core.Spell
-	WindfuryWeaponMH       *core.Spell
-	WindfuryWeaponOH       *core.Spell
-	WindwallTotem          []*core.Spell
+	ChainHeal            []*core.Spell
+	ChainLightning       []*core.Spell
+	EarthShield          *core.Spell
+	EarthShock           []*core.Spell
+	ElementalMastery     *core.Spell
+	FireNovaTotem        []*core.Spell
+	FlameShock           []*core.Spell
+	FrostShock           []*core.Spell
+	GraceOfAirTotem      []*core.Spell
+	HealingStreamTotem   []*core.Spell
+	HealingWave          []*core.Spell
+	LesserHealingWave    []*core.Spell
+	LightningBolt        []*core.Spell
+	LightningShield      []*core.Spell
+	LightningShieldProcs []*core.Spell // The damage component of lightning shield is a separate spell
+	MagmaTotem           []*core.Spell
+	ManaSpringTotem      []*core.Spell
+	SearingTotem         []*core.Spell
+	StoneskinTotem       []*core.Spell
+	StormstrikeMH        *core.Spell
+	StrengthOfEarthTotem []*core.Spell
+	TremorTotem          *core.Spell
+	WindfuryTotem        []*core.Spell
+	WindfuryWeaponMH     *core.Spell
+	WindfuryWeaponOH     *core.Spell
+	WindwallTotem        []*core.Spell
 
 	// Auras
 	ClearcastingAura     *core.Aura
 	LightningShieldAuras []*core.Aura
-	LoyalBetaAura        *core.Aura
-	MaelstromWeaponAura  *core.Aura
-	PowerSurgeDamageAura *core.Aura
-	PowerSurgeHealAura   *core.Aura
-	SpiritOfTheAlphaAura *core.Aura
-	WaterShieldAura      *core.Aura
 
 	// Totems
 	ActiveTotems     [4]*core.Spell
@@ -162,21 +128,6 @@ type Shaman struct {
 	// Shield
 	ActiveShield     *core.Spell // Tracks the Shaman's active shield spell
 	ActiveShieldAura *core.Aura
-
-	// Pets
-	SpiritWolves *SpiritWolves
-
-	// Other data
-	ancestralHealingAmount   float64 // Used by Ancestral Awakening
-	bonusFlurrySpeed         float64 // Bonus added on top of the normal speed, e.g. Earthfury Impact 6pc
-	bonusWindfuryWeaponAP    float64
-	elementalFocusProcChance float64
-	lastFlameShockTarget     *core.Unit // Used by Ancestral Guidance rune
-	lightningShieldCanCrit   bool
-	maelstromWeaponPPMM      *core.PPMManager
-	powerSurgeProcChance     float64
-	staticSHocksProcChance   float64
-	useLavaBurstCritScaling  bool
 }
 
 // Implemented by each Shaman spec.
@@ -223,9 +174,6 @@ func (shaman *Shaman) Initialize() {
 	shaman.registerGraceOfAirTotemSpell()
 	shaman.registerWindwallTotemSpell()
 
-	// Other Abilities
-	shaman.registerShamanisticRageCD()
-
 	// // This registration must come after all the totems are registered
 	// shaman.registerCallOfTheElements()
 
@@ -236,14 +184,6 @@ func (shaman *Shaman) RegisterHealingSpells() {
 	shaman.registerLesserHealingWaveSpell()
 	shaman.registerHealingWaveSpell()
 	shaman.registerChainHealSpell()
-}
-
-func (shaman *Shaman) HasRune(rune proto.ShamanRune) bool {
-	return false // shaman.HasRuneById(int32(rune))
-}
-
-func (shaman *Shaman) baseRuneAbilityDamage() float64 {
-	return 7.583798 + 0.471881*float64(shaman.Level) + 0.036599*float64(shaman.Level*shaman.Level)
 }
 
 func (shaman *Shaman) Reset(_ *core.Simulation) {
