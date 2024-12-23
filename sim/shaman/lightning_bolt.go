@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const LightningBoltRanks = 10
@@ -17,23 +16,13 @@ var LightningBoltManaCost = [LightningBoltRanks + 1]float64{0, 15, 30, 45, 75, 1
 var LightningBoltLevel = [LightningBoltRanks + 1]int{0, 1, 8, 14, 20, 26, 32, 38, 44, 50, 56}
 
 func (shaman *Shaman) registerLightningBoltSpell() {
-	overloadRuneEquipped := shaman.HasRune(proto.ShamanRune_RuneChestOverload)
-
 	shaman.LightningBolt = make([]*core.Spell, LightningBoltRanks+1)
-
-	if overloadRuneEquipped {
-		shaman.LightningBoltOverload = make([]*core.Spell, LightningBoltRanks+1)
-	}
 
 	for rank := 1; rank <= LightningBoltRanks; rank++ {
 		config := shaman.newLightningBoltSpellConfig(rank, false)
 
 		if config.RequiredLevel <= int(shaman.Level) {
 			shaman.LightningBolt[rank] = shaman.RegisterSpell(config)
-
-			if overloadRuneEquipped {
-				shaman.LightningBoltOverload[rank] = shaman.RegisterSpell(shaman.newLightningBoltSpellConfig(rank, true))
-			}
 		}
 	}
 }
@@ -47,13 +36,10 @@ func (shaman *Shaman) newLightningBoltSpellConfig(rank int, isOverload bool) cor
 	manaCost := LightningBoltManaCost[rank]
 	level := LightningBoltLevel[rank]
 
-	canOverload := !isOverload && shaman.HasRune(proto.ShamanRune_RuneChestOverload)
-
 	spell := shaman.newElectricSpellConfig(
 		core.ActionID{SpellID: spellId},
 		manaCost,
 		time.Millisecond*time.Duration(castTime),
-		isOverload,
 	)
 	spell.SpellCode = SpellCode_ShamanLightningBolt
 	spell.MissileSpeed = 20
@@ -67,15 +53,7 @@ func (shaman *Shaman) newLightningBoltSpellConfig(rank int, isOverload bool) cor
 
 		spell.WaitTravelTime(sim, func(sim *core.Simulation) {
 			spell.DealDamage(sim, result)
-
-			if canOverload && sim.Proc(ShamanOverloadChance, "LB Overload") {
-				shaman.LightningBoltOverload[rank].Cast(sim, target)
-			}
 		})
-	}
-
-	if isOverload {
-		shaman.applyOverloadModifiers(&spell)
 	}
 
 	return spell

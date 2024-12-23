@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const HealingWaveRanks = 10
@@ -17,23 +16,13 @@ var HealingWaveManaCost = [HealingWaveRanks + 1]float64{0, 25, 45, 80, 155, 200,
 var HealingWaveLevel = [HealingWaveRanks + 1]int{0, 1, 6, 12, 18, 24, 32, 40, 48, 56, 60}
 
 func (shaman *Shaman) registerHealingWaveSpell() {
-	overloadRuneEquipped := shaman.HasRune(proto.ShamanRune_RuneChestOverload)
-
 	shaman.HealingWave = make([]*core.Spell, HealingWaveRanks+1)
-
-	if overloadRuneEquipped {
-		shaman.HealingWaveOverload = make([]*core.Spell, HealingWaveRanks+1)
-	}
 
 	for rank := 1; rank <= HealingWaveRanks; rank++ {
 		config := shaman.newHealingWaveSpellConfig(rank, false)
 
 		if config.RequiredLevel <= int(shaman.Level) {
 			shaman.HealingWave[rank] = shaman.RegisterSpell(config)
-
-			if overloadRuneEquipped {
-				shaman.HealingWaveOverload[rank] = shaman.RegisterSpell(shaman.newHealingWaveSpellConfig(rank, true))
-			}
 		}
 	}
 }
@@ -48,20 +37,13 @@ func (shaman *Shaman) newHealingWaveSpellConfig(rank int, isOverload bool) core.
 	manaCost := HealingWaveManaCost[rank]
 	level := HealingWaveLevel[rank]
 
-	flags := core.SpellFlagHelpful | SpellFlagShaman
-	if !isOverload {
-		flags |= core.SpellFlagAPL
-	}
-
-	canOverload := !isOverload && shaman.HasRune(proto.ShamanRune_RuneChestOverload)
-
-	spell := core.SpellConfig{
+	return core.SpellConfig{
 		ActionID:    core.ActionID{SpellID: spellId},
 		SpellCode:   SpellCode_ShamanHealingWave,
 		SpellSchool: core.SpellSchoolNature,
 		DefenseType: core.DefenseTypeMagic,
 		ProcMask:    core.ProcMaskSpellHealing,
-		Flags:       flags,
+		Flags:       core.SpellFlagHelpful | core.SpellFlagAPL | SpellFlagShaman,
 
 		RequiredLevel: level,
 		Rank:          rank,
@@ -85,27 +67,7 @@ func (shaman *Shaman) newHealingWaveSpellConfig(rank int, isOverload bool) core.
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 			// TODO: Take Healing Way into account 6% stacking up to 3x
-			result := spell.CalcAndDealHealing(sim, spell.Unit, sim.Roll(baseHealingLow, baseHealingHigh), spell.OutcomeHealingCrit)
-
-			if canOverload && sim.RandomFloat("HW Overload") < ShamanOverloadChance {
-				shaman.HealingWaveOverload[rank].Cast(sim, spell.Unit)
-			}
-
-			if result.Outcome.Matches(core.OutcomeCrit) {
-				if shaman.HasRune(proto.ShamanRune_RuneFeetAncestralAwakening) {
-					shaman.ancestralHealingAmount = result.Damage * AncestralAwakeningHealMultiplier
-
-					// TODO: this should actually target the lowest health target in the raid.
-					//  does it matter in a sim? We currently only simulate tanks taking damage (multiple tanks could be handled here though.)
-					shaman.AncestralAwakening.Cast(sim, spell.Unit)
-				}
-			}
+			spell.CalcAndDealHealing(sim, spell.Unit, sim.Roll(baseHealingLow, baseHealingHigh), spell.OutcomeHealingCrit)
 		},
 	}
-
-	if isOverload {
-		shaman.applyOverloadModifiers(&spell)
-	}
-
-	return spell
 }

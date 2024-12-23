@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const StrengthOfEarthTotemRanks = 5
@@ -38,13 +37,7 @@ func (shaman *Shaman) newStrengthOfEarthTotemSpellConfig(rank int) core.SpellCon
 	duration := time.Second * 120
 	multiplier := []float64{1, 1.08, 1.15}[shaman.Talents.EnhancingTotems]
 
-	hasFeralSpirit := shaman.HasRune(proto.ShamanRune_RuneCloakFeralSpirit)
-
-	strengthOfEarthTotemAuras := make([]*core.Aura, core.TernaryInt32(hasFeralSpirit, 2, 1))
-	strengthOfEarthTotemAuras[0] = core.StrengthOfEarthTotemAura(&shaman.Unit, multiplier)
-	if hasFeralSpirit {
-		strengthOfEarthTotemAuras[1] = core.StrengthOfEarthTotemAura(&shaman.SpiritWolves.Unit, multiplier)
-	}
+	buffAura := core.StrengthOfEarthTotemAura(&shaman.Unit, multiplier)
 
 	spell := shaman.newTotemSpellConfig(manaCost, spellId)
 	spell.RequiredLevel = level
@@ -52,9 +45,8 @@ func (shaman *Shaman) newStrengthOfEarthTotemSpellConfig(rank int) core.SpellCon
 	spell.ApplyEffects = func(sim *core.Simulation, _ *core.Unit, spell *core.Spell) {
 		shaman.TotemExpirations[EarthTotem] = sim.CurrentTime + duration
 		shaman.ActiveTotems[EarthTotem] = spell
-		for _, aura := range strengthOfEarthTotemAuras {
-			aura.Activate(sim)
-		}
+
+		buffAura.Activate(sim)
 	}
 	return spell
 }

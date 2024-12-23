@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const WindfuryTotemRanks = 3
@@ -81,8 +80,7 @@ func (shaman *Shaman) newGraceOfAirTotemSpellConfig(rank int) core.SpellConfig {
 	duration := time.Second * 120
 	multiplier := []float64{1, 1.08, 1.15}[shaman.Talents.EnhancingTotems]
 
-	graceOfAirTotemAuras := make([]*core.Aura, core.TernaryInt32(hasFeralSpirit, 2, 1))
-	graceOfAirTotemAuras[0] = core.GraceOfAirTotemAura(&shaman.Unit, multiplier)
+	buffAura := core.GraceOfAirTotemAura(&shaman.Unit, multiplier)
 
 	spell := shaman.newTotemSpellConfig(manaCost, spellId)
 	spell.RequiredLevel = level
@@ -91,9 +89,7 @@ func (shaman *Shaman) newGraceOfAirTotemSpellConfig(rank int) core.SpellConfig {
 		shaman.TotemExpirations[AirTotem] = sim.CurrentTime + duration
 		shaman.ActiveTotems[AirTotem] = spell
 
-		for _, aura := range graceOfAirTotemAuras {
-			aura.Activate(sim)
-		}
+		buffAura.Activate(sim)
 	}
 	return spell
 }

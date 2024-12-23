@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const ChainLightningRanks = 4
@@ -22,7 +21,7 @@ func (shaman *Shaman) registerChainLightningSpell() {
 	cdTimer := shaman.NewTimer()
 
 	for rank := 1; rank <= ChainLightningRanks; rank++ {
-		config := shaman.newChainLightningSpellConfig(rank, cdTimer, false)
+		config := shaman.newChainLightningSpellConfig(rank, cdTimer)
 
 		if config.RequiredLevel <= int(shaman.Level) {
 			shaman.ChainLightning[rank] = shaman.RegisterSpell(config)
@@ -43,9 +42,6 @@ func (shaman *Shaman) newChainLightningSpellConfig(rank int, cdTimer *core.Timer
 
 	bounceCoef := .7 // 30% reduction per bounce
 	targetCount := ChainLightningTargetCount
-
-	canOverload := !isOverload && hasOverloadRune
-	overloadChance := .1667
 
 	spell := shaman.newElectricSpellConfig(
 		core.ActionID{SpellID: spellId},

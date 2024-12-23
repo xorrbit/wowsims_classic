@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const SearingTotemRanks = 6
@@ -225,10 +224,6 @@ var FireNovaTotemManaCost = [FireNovaTotemRanks + 1]float64{0, 95, 170, 280, 395
 var FireNovaTotemLevel = [FireNovaTotemRanks + 1]int{0, 12, 22, 32, 42, 52}
 
 func (shaman *Shaman) registerFireNovaTotemSpell() {
-	if shaman.HasRune(proto.ShamanRune_RuneWaistFireNova) {
-		return
-	}
-
 	shaman.FireNovaTotem = make([]*core.Spell, FireNovaTotemRanks+1)
 
 	for rank := 1; rank <= FireNovaTotemRanks; rank++ {
