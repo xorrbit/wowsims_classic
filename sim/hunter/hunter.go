@@ -217,21 +217,11 @@ func (hunter *Hunter) Initialize() {
 	hunter.registerWingClipSpell()
 	hunter.registerVolleySpell()
 
-	// Trap Launcher rune also splits the cooldowns between frost traps and fire traps, without the rune all traps share a cd
-	if hunter.HasRune(proto.HunterRune_RuneBootsTrapLauncher) {
-		fireTraps := hunter.NewTimer()
-		frostTraps := hunter.NewTimer()
+	traps := hunter.NewTimer()
 
-		hunter.registerExplosiveTrapSpell(fireTraps)
-		hunter.registerImmolationTrapSpell(fireTraps)
-		hunter.registerFreezingTrapSpell(frostTraps)
-	} else {
-		traps := hunter.NewTimer()
-
-		hunter.registerExplosiveTrapSpell(traps)
-		hunter.registerImmolationTrapSpell(traps)
-		hunter.registerFreezingTrapSpell(traps)
-	}
+	hunter.registerExplosiveTrapSpell(traps)
+	hunter.registerImmolationTrapSpell(traps)
+	hunter.registerFreezingTrapSpell(traps)
 
 	// hunter.registerKillCommand()
 	hunter.registerRapidFire()
@@ -352,14 +342,6 @@ func NewHunter(character *core.Character, options *proto.Player) *Hunter {
 	guardians.ConstructGuardians(&hunter.Character)
 
 	return hunter
-}
-
-func (hunter *Hunter) HasRune(rune proto.HunterRune) bool {
-	return false // hunter.HasRuneById(int32(rune))
-}
-
-func (hunter *Hunter) baseRuneAbilityDamage() float64 {
-	return 2.976264 + 0.641066*float64(hunter.Level) + 0.022519*float64(hunter.Level*hunter.Level)
 }
 
 func (hunter *Hunter) OnGCDReady(_ *core.Simulation) {
