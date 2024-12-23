@@ -1,6 +1,7 @@
 package shaman
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
@@ -54,6 +55,10 @@ func (shaman *Shaman) newFlameShockSpell(rank int, shockTimer *core.Timer) core.
 	spell.BonusCoefficient = baseSpellCoeff
 
 	spell.Dot = core.DotConfig{
+		Aura: core.Aura{
+			Label: fmt.Sprintf("Flame Shock (Rank %d)", rank),
+		},
+
 		NumberOfTicks:    int32(numTicks),
 		TickLength:       tickDuration,
 		BonusCoefficient: dotSpellCoeff,
