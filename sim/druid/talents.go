@@ -17,8 +17,7 @@ func (druid *Druid) ApplyTalents() {
 	druid.applyMoonglow()
 	druid.applyMoonfury()
 
-	// SoD tuning made this all damage, not just physical damage
-	druid.PseudoStats.DamageDealtMultiplier *= 1 + 0.02*float64(druid.Talents.NaturalWeapons)
+	druid.PseudoStats.SchoolDamageDealtMultiplier[stats.SchoolIndexPhysical] *= 1 + 0.02*float64(druid.Talents.NaturalWeapons)
 
 	// Feral
 	druid.applyBloodFrenzy()
