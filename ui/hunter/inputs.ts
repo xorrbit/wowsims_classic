@@ -1,6 +1,6 @@
 import * as InputHelpers from '../core/components/input_helpers.js';
 import { Player } from '../core/player.js';
-import { ItemSlot, Spec } from '../core/proto/common.js';
+import { Spec } from '../core/proto/common.js';
 import {
 	Hunter_Options_Ammo as Ammo,
 	Hunter_Options_PetAttackSpeed as PetAttackSpeed,
@@ -8,7 +8,6 @@ import {
 	Hunter_Options_QuiverBonus as QuiverBonus,
 	Hunter_Rotation_RotationType as RotationType,
 	Hunter_Rotation_StingType as StingType,
-	HunterRune,
 } from '../core/proto/hunter.js';
 import { ActionId } from '../core/proto_utils/action_id.js';
 import { makePetTypeInputConfig } from '../core/talents/hunter_pet.js';
