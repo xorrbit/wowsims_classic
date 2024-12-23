@@ -16,7 +16,6 @@ import {
 	FrostPowerBuff,
 	HealthElixir,
 	ItemSlot,
-	MageScroll,
 	ManaRegenElixir,
 	Potions,
 	Profession,
@@ -560,41 +559,6 @@ export const makeMiscDefensiveConsumesInput = makeMultiIconConsumesInputFactory(
 	direction: IconPickerDirection.Vertical,
 	tooltip: 'Misc Defensive',
 });
-
-export const MageScrollArcaneRecovery: ConsumableInputConfig<MageScroll> = {
-	actionId: () => ActionId.fromItemId(211953),
-	value: MageScroll.MageScrollArcaneRecovery,
-	showWhen: player => player.isClass(Class.ClassMage),
-};
-export const MageScrollArcaneAccuracy: ConsumableInputConfig<MageScroll> = {
-	actionId: () => ActionId.fromItemId(211954),
-	value: MageScroll.MageScrollArcaneAccuracy,
-	showWhen: player => player.isClass(Class.ClassMage),
-};
-export const MageScrollArcanePower: ConsumableInputConfig<MageScroll> = {
-	actionId: () => ActionId.fromItemId(211957),
-	value: MageScroll.MageScrollArcanePower,
-	showWhen: player => player.isClass(Class.ClassMage),
-};
-export const MageScrollFireProtection: ConsumableInputConfig<MageScroll> = {
-	actionId: () => ActionId.fromItemId(211955),
-	value: MageScroll.MageScrollFireProtection,
-	showWhen: player => player.isClass(Class.ClassMage),
-};
-export const MageScrollFrostProtection: ConsumableInputConfig<MageScroll> = {
-	actionId: () => ActionId.fromItemId(211956),
-	value: MageScroll.MageScrollFrostProtection,
-	showWhen: player => player.isClass(Class.ClassMage),
-};
-
-export const MAGE_SCROLL_CONSUMES_CONFIG: ConsumableStatOption<MageScroll>[] = [
-	{ config: MageScrollArcaneRecovery, stats: [] },
-	{ config: MageScrollArcaneAccuracy, stats: [] },
-	{ config: MageScrollArcanePower, stats: [] },
-	{ config: MageScrollFireProtection, stats: [] },
-	{ config: MageScrollFrostProtection, stats: [] },
-];
-export const makeMageScrollsInput = makeConsumeInputFactory({ consumesFieldName: 'mageScroll' });
 
 ///////////////////////////////////////////////////////////////////////////
 //                                 PET

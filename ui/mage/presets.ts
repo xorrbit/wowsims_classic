@@ -9,7 +9,6 @@ import {
 	Food,
 	FrostPowerBuff,
 	IndividualBuffs,
-	MageScroll,
 	ManaRegenElixir,
 	Potions,
 	Profession,
@@ -58,7 +57,7 @@ export const DefaultAPL = APLPresets[Phase.Phase1][0];
 // Default talents. Uses the wowhead calculator format, make the talents on
 // https://wowhead.com/classic/talent-calc and copy the numbers in the url.
 
-export const TalentsP1DPS = PresetUtils.makePresetTalents('DPS', SavedTalents.create({ talentsString: '-0550320003021-2035020310035105' }));
+export const TalentsP1DPS = PresetUtils.makePresetTalents('Frost DPS', SavedTalents.create({ talentsString: '230205021002--05353203102351001' }));
 
 export const TalentPresets = {
 	[Phase.Phase1]: [TalentsP1DPS],
@@ -81,7 +80,6 @@ export const DefaultConsumes = Consumes.create({
 	flask: Flask.FlaskOfSupremePower,
 	food: Food.FoodRunnTumTuberSurprise,
 	frostPowerBuff: FrostPowerBuff.ElixirOfFrostPower,
-	mageScroll: MageScroll.MageScrollArcanePower,
 	mainHandImbue: WeaponImbue.BrilliantWizardOil,
 	manaRegenElixir: ManaRegenElixir.MagebloodPotion,
 
