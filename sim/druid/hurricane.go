@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 func (druid *Druid) registerHurricaneSpell() {
@@ -38,7 +37,7 @@ func (druid *Druid) registerHurricaneSpell() {
 			Rank:          i + 1,
 
 			ManaCost: core.ManaCostOptions{
-				FlatCost:   rank.manaCost,
+				FlatCost: rank.manaCost,
 			},
 			Cast: core.CastConfig{
 				DefaultCast: core.Cast{

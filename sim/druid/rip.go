@@ -101,8 +101,9 @@ func (druid *Druid) newRipSpellConfig(ripRank RipRankInfo) core.SpellConfig {
 			TickLength:    time.Second * 2,
 
 			OnSnapshot: func(sim *core.Simulation, target *core.Unit, dot *core.Dot, isRollover bool) {
-				cpScaling := core.TernaryFloat64(cp == 5, 4, float64(druid.ComboPoints()))
-				baseDamage := ripRank.dmgTickBase + ripRank.dmgTickPerCombo*cp
+				cp := float64(druid.ComboPoints())
+				cpScaling := core.TernaryFloat64(cp == 5, 4, cp)
+				baseDamage := ripRank.dmgTickBase + ripRank.dmgTickPerCombo*cpScaling
 				dot.Snapshot(target, baseDamage, isRollover)
 			},
 			OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {

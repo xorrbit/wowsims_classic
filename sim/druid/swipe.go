@@ -1,10 +1,7 @@
 package druid
 
 import (
-	"time"
-
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const SwipeRanks = 5
@@ -30,8 +27,7 @@ func (druid *Druid) registerSwipeBearSpell() {
 	baseDamage := SwipeBaseDamage[rank]
 
 	rageCost := 20 - float64(druid.Talents.Ferocity)
-	targetCount := 3
-	numHits := min(targetCount, druid.Env.GetNumTargets())
+	numHits := min(3, druid.Env.GetNumTargets())
 	results := make([]*core.SpellResult, numHits)
 
 	switch druid.Ranged().ID {

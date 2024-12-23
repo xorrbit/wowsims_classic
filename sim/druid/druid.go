@@ -1,8 +1,6 @@
 package druid
 
 import (
-	"time"
-
 	"github.com/wowsims/classic/sim/common/guardians"
 	"github.com/wowsims/classic/sim/core"
 	"github.com/wowsims/classic/sim/core/proto"
@@ -92,7 +90,7 @@ type Druid struct {
 	PredatoryInstinctsAura   *core.Aura
 	TigersFuryAura           *core.Aura
 
-	BleedCategories         core.ExclusiveCategoryArray
+	BleedCategories core.ExclusiveCategoryArray
 
 	form         DruidForm
 	disabledMCDs []*core.MajorCooldown

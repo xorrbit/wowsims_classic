@@ -1,8 +1,6 @@
 package druid
 
 import (
-	"slices"
-
 	"github.com/wowsims/classic/sim/core"
 )
 
