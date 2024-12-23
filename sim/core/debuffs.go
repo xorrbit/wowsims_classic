@@ -501,7 +501,7 @@ func HemorrhageAura(target *Unit) *Aura {
 	return target.GetOrRegisterAura(Aura{
 		Label:     "Hemorrhage",
 		ActionID:  ActionID{SpellID: spellID},
-		Duration:  time.Second * 8,
+		Duration:  time.Second * 15,
 		MaxStacks: 30,
 		OnGain: func(aura *Aura, sim *Simulation) {
 			aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexPhysical] += debuffBonusDamage
