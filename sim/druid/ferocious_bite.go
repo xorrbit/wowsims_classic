@@ -103,11 +103,8 @@ func (druid *Druid) newFerociousBiteSpellConfig(rank FerociousBiteRankInfo) core
 
 			baseDamage := rank.dmgBase + rank.dmgRange*sim.RandomFloat("Ferocious Bite") +
 				rank.dmgPerCombo*comboPoints +
-				attackPower*0.03*comboPoints
-
-			if !druid.FerociousBiteExcessEnergyOverride {
-				baseDamage += rank.dmgPerEnergy * excessEnergy
-			}
+				attackPower*0.03*comboPoints +
+				rank.dmgPerEnergy * excessEnergy
 
 			result := spell.CalcAndDealDamage(sim, target, baseDamage, spell.OutcomeMeleeSpecialHitAndCrit)
 
