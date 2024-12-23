@@ -415,8 +415,7 @@ export class ActionId {
 				else if (this.spellId === 427066) name = `${name} (Wrecking Crew)`;
 				break;
 			case 'Raptor Strike':
-				if (this.tag === 1) name = `${name} (Main-Hand)`;
-				else if (this.tag === 2) name = `${name} (Off-Hand)`;
+				if (this.tag === 1) name = `${name} (Hit)`;
 				else if (this.tag === 3) name = `${name} (Queue)`;
 				break;
 			case 'Thunderfury':
