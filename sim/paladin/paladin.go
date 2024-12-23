@@ -192,10 +192,6 @@ func NewPaladin(character *core.Character, options *proto.Player, paladinOptions
 	return paladin
 }
 
-func (paladin *Paladin) hasRune(rune proto.PaladinRune) bool {
-	return false // paladin.HasRuneById(int32(rune))
-}
-
 func (paladin *Paladin) has2hEquipped() bool {
 	return paladin.MainHand().HandType == proto.HandType_HandTypeTwoHand
 }
@@ -206,7 +202,6 @@ func (paladin *Paladin) ResetPrimarySeal(primarySeal proto.PaladinSeal) {
 }
 
 func (paladin *Paladin) registerStopAttackMacros() {
-
 	if paladin.divineStorm != nil && paladin.Options.IsUsingDivineStormStopAttack {
 		paladin.divineStorm.Flags |= core.SpellFlagBatchStopAttackMacro
 	}
@@ -288,8 +283,4 @@ func (paladin *Paladin) getLibramSealCostReduction() float64 {
 		return 20
 	}
 	return 0
-}
-
-func (paladin *Paladin) baseRuneAbilityDamage() float64 {
-	return 9.046514 + 0.676562*float64(paladin.Level) + 0.019349*float64(paladin.Level*paladin.Level)
 }
