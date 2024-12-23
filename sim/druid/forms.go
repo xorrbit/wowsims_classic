@@ -13,8 +13,7 @@ const (
 	Bear
 	Cat
 	Moonkin
-	Tree
-	Any = Humanoid | Bear | Cat | Moonkin | Tree
+	Any = Humanoid | Bear | Cat | Moonkin
 )
 
 func (form DruidForm) Matches(other DruidForm) bool {
@@ -411,9 +410,6 @@ func (druid *Druid) registerMoonkinFormSpell() {
 
 	actionID := core.ActionID{SpellID: 24858}
 
-	druid.MoonfireDotMultiplier = 1.0
-	druid.SunfireDotMultiplier = 1.0
-
 	druid.MoonkinFormAura = druid.RegisterAura(core.Aura{
 		Label:    "Moonkin Form",
 		ActionID: actionID,
@@ -423,37 +419,9 @@ func (druid *Druid) registerMoonkinFormSpell() {
 				druid.CancelShapeshift(sim)
 			}
 			druid.form = Moonkin
-
-			druid.AddStatDynamic(sim, stats.SpellDamage, float64(2*druid.Level))
-
-			druid.MoonfireDotMultiplier *= 2.0
-			core.Each(druid.Moonfire, func(spell *DruidSpell) {
-				if spell != nil {
-					spell.Spell.Cost.Multiplier -= 50
-				}
-			})
-
-			if druid.HasRune(proto.DruidRune_RuneHandsSunfire) {
-				druid.Sunfire.Cost.Multiplier -= 50
-				druid.SunfireDotMultiplier *= 2.0
-			}
 		},
 		OnExpire: func(aura *core.Aura, sim *core.Simulation) {
 			druid.form = Humanoid
-
-			druid.AddStatDynamic(sim, stats.SpellDamage, float64(-2*druid.Level))
-
-			core.Each(druid.Moonfire, func(spell *DruidSpell) {
-				if spell != nil {
-					spell.Spell.Cost.Multiplier += 50
-				}
-			})
-			druid.MoonfireDotMultiplier /= 2.0
-
-			if druid.HasRune(proto.DruidRune_RuneHandsSunfire) {
-				druid.Sunfire.Cost.Multiplier += 50
-				druid.SunfireDotMultiplier /= 2.0
-			}
 		},
 	})
 
