@@ -5,8 +5,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
-	"github.com/wowsims/classic/sim/core/stats"
 )
 
 func (hunter *Hunter) registerVolleySpell() {
@@ -31,7 +29,7 @@ func (hunter *Hunter) getVolleyConfig(rank int) core.SpellConfig {
 	manaCostModifer := 100 - 2*hunter.Talents.Efficiency
 
 	return core.SpellConfig{
-		SpellCode: SpellCode_HunterVolley,
+		SpellCode:   SpellCode_HunterVolley,
 		ActionID:    core.ActionID{SpellID: spellId},
 		SpellSchool: core.SpellSchoolArcane,
 		ProcMask:    core.ProcMaskSpellDamage,
@@ -41,7 +39,7 @@ func (hunter *Hunter) getVolleyConfig(rank int) core.SpellConfig {
 		Rank:          rank,
 
 		ManaCost: core.ManaCostOptions{
-			FlatCost: manaCost,
+			FlatCost:   manaCost,
 			Multiplier: manaCostModifer,
 		},
 		Cast: core.CastConfig{

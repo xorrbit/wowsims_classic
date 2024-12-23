@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const RaptorStrikeRanks = 8
@@ -69,7 +68,6 @@ func (hunter *Hunter) getRaptorStrikeConfig(rank int) core.SpellConfig {
 func (hunter *Hunter) newRaptorStrikeHitSpell(rank int) *core.Spell {
 	spellID := RaptorStrikeSpellId[rank]
 	baseDamage := RaptorStrikeBaseDamage[rank]
-	damageFunc := hunter.MHWeaponDamage
 
 	return hunter.RegisterSpell(core.SpellConfig{
 		SpellCode:   SpellCode_HunterRaptorStrikeHit,

@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 )
 
 func (hunter *Hunter) registerRapidFire() {
@@ -12,10 +11,8 @@ func (hunter *Hunter) registerRapidFire() {
 		return
 	}
 
-	hasRapidKilling := hunter.HasRune(proto.HunterRune_RuneHelmRapidKilling)
-
 	actionID := core.ActionID{SpellID: 3045}
-	cooldown := core.TernaryDuration(hasRapidKilling, time.Minute*1, time.Minute*5)
+	cooldown := time.Minute * 5
 
 	hunter.RapidFireAura = hunter.RegisterAura(core.Aura{
 		Label:    "Rapid Fire",
@@ -24,15 +21,9 @@ func (hunter *Hunter) registerRapidFire() {
 
 		OnGain: func(aura *core.Aura, sim *core.Simulation) {
 			aura.Unit.MultiplyRangedSpeed(sim, 1.4)
-			if hasRapidKilling {
-				aura.Unit.MultiplyMeleeSpeed(sim, 1.4)
-			}
 		},
 		OnExpire: func(aura *core.Aura, sim *core.Simulation) {
 			aura.Unit.MultiplyRangedSpeed(sim, 1/1.4)
-			if hasRapidKilling {
-				aura.Unit.MultiplyMeleeSpeed(sim, 1/1.4)
-			}
 		},
 	})
 
