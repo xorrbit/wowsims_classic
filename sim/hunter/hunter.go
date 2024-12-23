@@ -24,17 +24,11 @@ const (
 	// Shots
 	SpellCode_HunterAimedShot
 	SpellCode_HunterArcaneShot
-	SpellCode_HunterChimeraShot
-	SpellCode_HunterExplosiveShot
-	SpellCode_HunterKillShot
 	SpellCode_HunterMultiShot
-	SpellCode_HunterSteadyShot
 
 	// Strikes
-	SpellCode_HunterFlankingStrike
 	SpellCode_HunterRaptorStrike
 	SpellCode_HunterRaptorStrikeHit
-	SpellCode_HunterWyvernStrike
 
 	// Stings
 	SpellCode_HunterSerpentSting
@@ -45,15 +39,11 @@ const (
 	SpellCode_HunterImmolationTrap
 
 	// Other
-	SpellCode_HunterCarve
-	SpellCode_HunterCarveHit
 	SpellCode_HunterMongooseBite
 	SpellCode_HunterWingClip
 	SpellCode_HunterVolley
-	SpellCode_HunterChimeraSerpent
 
 	// Pet Spells
-	SpellCode_HunterPetFlankingStrike
 	SpellCode_HunterPetClaw
 	SpellCode_HunterPetBite
 	SpellCode_HunterPetLightningBreath
@@ -99,29 +89,18 @@ type Hunter struct {
 
 	AimedShot      *core.Spell
 	ArcaneShot     *core.Spell
-	ChimeraShot    *core.Spell
-	ExplosiveShot  *core.Spell
 	ExplosiveTrap  *core.Spell
 	ImmolationTrap *core.Spell
 	FreezingTrap   *core.Spell
 	KillCommand    *core.Spell
-	KillShot       *core.Spell
 	MultiShot      *core.Spell
-	FocusFire      *core.Spell
 	RapidFire      *core.Spell
 	RaptorStrike   *core.Spell
-	RaptorStrikeMH *core.Spell
-	RaptorStrikeOH *core.Spell
-	FlankingStrike *core.Spell
-	WyvernStrike   *core.Spell
 	MongooseBite   *core.Spell
 	ScorpidSting   *core.Spell
 	SerpentSting   *core.Spell
 	SilencingShot  *core.Spell
-	SteadyShot     *core.Spell
 	Volley         *core.Spell
-	CarveMH        *core.Spell
-	CarveOH        *core.Spell
 	WingClip       *core.Spell
 
 	Shots       []*core.Spell
@@ -129,19 +108,9 @@ type Hunter struct {
 	MeleeSpells []*core.Spell
 	LastShot    *core.Spell
 
-	SerpentStingChimeraShot *core.Spell
-
-	FlankingStrikeAura *core.Aura
-	RaptorFuryAura     *core.Aura
-	SniperTrainingAura *core.Aura
-	CobraStrikesAura   *core.Aura
-	HitAndRunAura      *core.Aura
-
 	// The aura that allows you to cast Mongoose Bite
 	DefensiveState *core.Aura
 
-	ImprovedSteadyShotAura *core.Aura
-	LockAndLoadAura        *core.Aura
 	RapidFireAura          *core.Aura
 	BestialWrathPetAura    *core.Aura
 }
@@ -193,7 +162,6 @@ func (hunter *Hunter) Initialize() {
 	})
 
 	hunter.registerAspectOfTheHawkSpell()
-	hunter.registerAspectOfTheFalconSpell()
 	hunter.registerAspectOfTheViperSpell()
 
 	multiShotTimer := hunter.NewTimer()
@@ -204,16 +172,9 @@ func (hunter *Hunter) Initialize() {
 	hunter.registerArcaneShotSpell(arcaneShotTimer)
 	hunter.registerAimedShotSpell(arcaneShotTimer)
 	hunter.registerMultiShotSpell(multiShotTimer)
-	hunter.registerExplosiveShotSpell()
-	hunter.registerChimeraShotSpell()
-	hunter.registerSteadyShotSpell()
-	hunter.registerKillShotSpell()
 
 	hunter.registerRaptorStrikeSpell()
-	hunter.registerFlankingStrikeSpell()
-	hunter.registerWyvernStrikeSpell()
 	hunter.registerMongooseBiteSpell()
-	hunter.registerCarveSpell()
 	hunter.registerWingClipSpell()
 	hunter.registerVolleySpell()
 
@@ -225,7 +186,6 @@ func (hunter *Hunter) Initialize() {
 
 	// hunter.registerKillCommand()
 	hunter.registerRapidFire()
-	hunter.registerFocusFireSpell()
 }
 
 func (hunter *Hunter) Reset(sim *core.Simulation) {
