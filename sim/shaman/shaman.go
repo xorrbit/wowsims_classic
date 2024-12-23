@@ -40,10 +40,6 @@ func NewShaman(character *core.Character, talents string) *Shaman {
 	shaman.ApplyFrostbrandImbue(shaman.getImbueProcMask(proto.WeaponImbue_FrostbrandWeapon))
 	shaman.ApplyWindfuryImbue(shaman.getImbueProcMask(proto.WeaponImbue_WindfuryWeapon))
 
-	if shaman.HasRune(proto.ShamanRune_RuneCloakFeralSpirit) {
-		shaman.SpiritWolves = shaman.NewSpiritWolves()
-	}
-
 	guardians.ConstructGuardians(&shaman.Character)
 
 	return shaman
@@ -236,14 +232,6 @@ func (shaman *Shaman) RegisterHealingSpells() {
 	shaman.registerLesserHealingWaveSpell()
 	shaman.registerHealingWaveSpell()
 	shaman.registerChainHealSpell()
-}
-
-func (shaman *Shaman) HasRune(rune proto.ShamanRune) bool {
-	return false // shaman.HasRuneById(int32(rune))
-}
-
-func (shaman *Shaman) baseRuneAbilityDamage() float64 {
-	return 7.583798 + 0.471881*float64(shaman.Level) + 0.036599*float64(shaman.Level*shaman.Level)
 }
 
 func (shaman *Shaman) Reset(_ *core.Simulation) {
