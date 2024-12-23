@@ -1,8 +1,6 @@
 package paladin
 
 import (
-	"time"
-
 	"github.com/wowsims/classic/sim/common/guardians"
 	"github.com/wowsims/classic/sim/core"
 	"github.com/wowsims/classic/sim/core/proto"
@@ -12,8 +10,7 @@ import (
 var TalentTreeSizes = [3]int{14, 15, 15}
 
 const (
-	SpellFlag_RV          = core.SpellFlagAgentReserved1
-	SpellFlag_Forbearance = core.SpellFlagAgentReserved2
+	SpellFlag_Forbearance = core.SpellFlagAgentReserved1
 )
 
 const (
@@ -24,20 +21,17 @@ const (
 	SpellCode_PaladinHolyWrath
 	SpellCode_PaladinJudgementOfCommand
 	SpellCode_PaladinConsecration
-	SpellCode_PaladinAvengersShield
 	SpellCode_PaladinHolyShield
 	SpellCode_PaladinHolyShieldProc
 	SpellCode_PaladinLayOnHands
 	SpellCode_PaladinHammerOfWrath
-	SpellCode_PaladinCrusaderStrike
 )
 
 type SealJudgeCode uint8
 
 const (
-	SealJudgeCodeNone        SealJudgeCode = 0
-	SealJudgeOfMartyrdomCode SealJudgeCode = 1 << iota
-	SealJudgeOfRighteousnessCode
+	SealJudgeCodeNone            SealJudgeCode = 0
+	SealJudgeOfRighteousnessCode SealJudgeCode = 1 << iota
 	SealJudgeOfCommandCode
 	SealJudgeOfTheCrusaderCode
 )
@@ -52,42 +46,29 @@ type Paladin struct {
 	primaryPaladinAura proto.PaladinAura
 	currentPaladinAura *core.Aura
 
-	currentSeal      *core.Aura
-	prevSeal         *core.Aura
-	allSealAuras     [][]*core.Aura
-	aurasSoM         []*core.Aura
-	aurasSoR         []*core.Aura
-	aurasSoC         []*core.Aura
-	aurasSotC        []*core.Aura
+	currentSeal  *core.Aura
+	allSealAuras [][]*core.Aura
+	aurasSoR     []*core.Aura
+	aurasSoC     []*core.Aura
+	aurasSotC    []*core.Aura
+
 	currentJudgement *core.Spell
-	prevJudgement    *core.Spell
 	allJudgeSpells   [][]*core.Spell
-	spellsJoM        []*core.Spell
 	spellsJoR        []*core.Spell
 	spellsJoC        []*core.Spell
 	spellsJotC       []*core.Spell
 
 	// Active abilities and shared cooldowns that are externally manipulated.
-	holyShockCooldown *core.Cooldown
-	exorcismCooldown  *core.Cooldown
-	crusaderStrike    *core.Spell
-	divineStorm       *core.Spell
-	exorcism          []*core.Spell
-	judgement         *core.Spell
-	rv                *core.Spell
-	holyShieldAura    [3]*core.Aura
-	holyShieldProc    [3]*core.Spell
-	redoubtAura       *core.Aura
-	holyWrath         []*core.Spell
+	exorcism       []*core.Spell
+	judgement      *core.Spell
+	holyShieldAura [3]*core.Aura
+	holyShieldProc [3]*core.Spell
+	redoubtAura    *core.Aura
+	holyWrath      []*core.Spell
 
 	// highest rank seal spell if available
 	sealOfRighteousness *core.Spell
 	sealOfCommand       *core.Spell
-	sealOfMartyrdom     *core.Spell
-
-	enableMultiJudge    bool
-	lingerDuration      time.Duration
-	consumeSealsOnJudge bool
 }
 
 // Implemented by each Paladin spec.
@@ -117,23 +98,18 @@ func (paladin *Paladin) Initialize() {
 
 	paladin.registerSealOfRighteousness()
 	paladin.registerSealOfCommand()
-	paladin.registerSealOfMartyrdom()
 	paladin.registerSealOfTheCrusader()
 
-	paladin.allJudgeSpells = append(paladin.allJudgeSpells, paladin.spellsJoM)
 	paladin.allJudgeSpells = append(paladin.allJudgeSpells, paladin.spellsJoR)
 	paladin.allJudgeSpells = append(paladin.allJudgeSpells, paladin.spellsJoC)
 	paladin.allJudgeSpells = append(paladin.allJudgeSpells, paladin.spellsJotC)
 
-	paladin.allSealAuras = append(paladin.allSealAuras, paladin.aurasSoM)
 	paladin.allSealAuras = append(paladin.allSealAuras, paladin.aurasSoR)
 	paladin.allSealAuras = append(paladin.allSealAuras, paladin.aurasSoC)
 	paladin.allSealAuras = append(paladin.allSealAuras, paladin.aurasSotC)
 
 	// Active abilities
 	paladin.registerForbearance()
-	paladin.registerCrusaderStrike()
-	paladin.registerDivineStorm()
 	paladin.registerConsecration()
 	paladin.registerHolyShock()
 	paladin.registerExorcism()
@@ -141,15 +117,9 @@ func (paladin *Paladin) Initialize() {
 	paladin.registerHammerOfWrath()
 	paladin.registerHolyWrath()
 	paladin.registerAvengingWrath()
-	paladin.registerAuraMastery()
 	paladin.registerHolyShield()
-	paladin.registerShieldOfRighteousness()
 	paladin.registerBlessingOfSanctuary()
 	paladin.registerLayOnHands()
-
-	paladin.enableMultiJudge = false // Was previously true in Phase 4 but disabled in Phase 5
-	paladin.lingerDuration = time.Millisecond * 400
-	paladin.consumeSealsOnJudge = true
 
 	paladin.registerStopAttackMacros()
 
@@ -202,14 +172,6 @@ func (paladin *Paladin) ResetPrimarySeal(primarySeal proto.PaladinSeal) {
 }
 
 func (paladin *Paladin) registerStopAttackMacros() {
-	if paladin.divineStorm != nil && paladin.Options.IsUsingDivineStormStopAttack {
-		paladin.divineStorm.Flags |= core.SpellFlagBatchStopAttackMacro
-	}
-
-	if paladin.crusaderStrike != nil && paladin.Options.IsUsingCrusaderStrikeStopAttack {
-		paladin.crusaderStrike.Flags |= core.SpellFlagBatchStopAttackMacro
-	}
-
 	for _, spellsJoX := range paladin.allJudgeSpells {
 		for _, v := range spellsJoX {
 			if v != nil && paladin.Options.IsUsingJudgementStopAttack {
@@ -229,8 +191,6 @@ func (paladin *Paladin) ResetCurrentPaladinAura() {
 func (paladin *Paladin) getPrimarySealSpell(primarySeal proto.PaladinSeal) *core.Spell {
 	// Used in the Cast Primary Seal APLAction to get the max rank spell for the level.
 	switch primarySeal {
-	case proto.PaladinSeal_Martyrdom:
-		return paladin.sealOfMartyrdom
 	case proto.PaladinSeal_Command:
 		return paladin.sealOfCommand
 	case proto.PaladinSeal_Righteousness:
@@ -241,38 +201,13 @@ func (paladin *Paladin) getPrimarySealSpell(primarySeal proto.PaladinSeal) *core
 }
 
 func (paladin *Paladin) applySeal(newSeal *core.Aura, judgement *core.Spell, sim *core.Simulation) {
-	isSameSealType := false
-
 	if paladin.currentSeal != nil {
-		if newSeal.Label[:10] == paladin.currentSeal.Label[:10] {
-			isSameSealType = true
-
-			paladin.currentSeal.Deactivate(sim)
-			paladin.currentSeal = newSeal
-			paladin.currentJudgement = judgement
-			paladin.currentSeal.Activate(sim)
-
-			// Set To nil to avoid issues with multi judging during linger window
-			if paladin.prevSeal != nil && paladin.prevSeal.IsActive() {
-				paladin.prevSeal.Deactivate(sim)
-			}
-
-			paladin.prevSeal = nil
-			paladin.prevJudgement = nil
-		}
+		paladin.currentSeal.Deactivate(sim)
 	}
 
-	if !isSameSealType {
-		if paladin.currentSeal.IsActive() {
-			paladin.currentSeal.UpdateExpires(sim, sim.CurrentTime+paladin.lingerDuration) // always update, even if it extends duration
-		}
-
-		paladin.prevSeal = paladin.currentSeal
-		paladin.currentSeal = newSeal
-		paladin.prevJudgement = paladin.currentJudgement // Judgment Spell for the previous Seal (doesn't mean it was cast)
-		paladin.currentJudgement = judgement
-		paladin.currentSeal.Activate(sim)
-	}
+	paladin.currentSeal = newSeal
+	paladin.currentJudgement = judgement
+	paladin.currentSeal.Activate(sim)
 }
 
 func (paladin *Paladin) getLibramSealCostReduction() float64 {

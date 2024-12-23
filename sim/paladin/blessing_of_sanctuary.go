@@ -23,18 +23,13 @@ func (paladin *Paladin) registerBlessingOfSanctuary() {
 		{minLevel: 60, maxLevel: 60, spellID: 20914, absorb: 24, damage: 35},
 	}
 
-	hasImpSanc := paladin.hasRune(proto.PaladinRune_RuneHeadImprovedSanctuary)
-	absorbMult := core.TernaryFloat64(hasImpSanc, 2, 1)
-	bonusDamage := core.TernaryFloat64(hasImpSanc, 0.3, 0.0)
-
 	for i, values := range sanctuaryValues {
 
 		if (values.minLevel <= paladin.Level) && (paladin.Level <= values.maxLevel) {
 
 			rank := i + 1
 			actionID := core.ActionID{SpellID: values.spellID}
-			absorb := values.absorb * absorbMult
-			damage := values.damage + bonusDamage*paladin.BlockValue()
+			damage := values.damage
 
 			sanctuaryProc := paladin.RegisterSpell(core.SpellConfig{
 				ActionID:    actionID,
@@ -61,12 +56,12 @@ func (paladin *Paladin) registerBlessingOfSanctuary() {
 				},
 				OnGain: func(aura *core.Aura, sim *core.Simulation) {
 					for i := range paladin.PseudoStats.BonusDamageTakenBeforeModifiers {
-						paladin.PseudoStats.BonusDamageTakenBeforeModifiers[i] -= absorb
+						paladin.PseudoStats.BonusDamageTakenBeforeModifiers[i] -= values.absorb
 					}
 				},
 				OnExpire: func(aura *core.Aura, sim *core.Simulation) {
 					for i := range paladin.PseudoStats.BonusDamageTakenBeforeModifiers {
-						paladin.PseudoStats.BonusDamageTakenBeforeModifiers[i] += absorb
+						paladin.PseudoStats.BonusDamageTakenBeforeModifiers[i] += values.absorb
 					}
 				},
 				OnSpellHitTaken: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {

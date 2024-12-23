@@ -26,8 +26,6 @@ func (paladin *Paladin) registerHammerOfWrath() {
 		Duration: time.Second * 6,
 	}
 
-	hasImprovedHammerOfWrath := paladin.hasRune(proto.PaladinRune_RuneWristImprovedHammerOfWrath)
-
 	for i, rank := range ranks {
 		rank := rank
 		if paladin.Level < rank.level {
@@ -52,7 +50,7 @@ func (paladin *Paladin) registerHammerOfWrath() {
 			Cast: core.CastConfig{
 				DefaultCast: core.Cast{
 					GCD:      time.Second,
-					CastTime: core.TernaryDuration(hasImprovedHammerOfWrath, 0, time.Second),
+					CastTime: time.Second,
 				},
 				IgnoreHaste: true,
 				CD:          cd,
@@ -69,12 +67,7 @@ func (paladin *Paladin) registerHammerOfWrath() {
 
 			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 				damage := sim.Roll(rank.minDamage, rank.maxDamage)
-				result := spell.CalcAndDealDamage(sim, target, damage, spell.OutcomeRangedHitAndCrit)
-
-				// should be based on target.CurrentHealthPercent(), which is not available
-				if hasImprovedHammerOfWrath && result.Landed() && sim.CurrentTime >= time.Duration(0.9*float64(sim.Duration)) {
-					cd.Reset()
-				}
+				spell.CalcAndDealDamage(sim, target, damage, spell.OutcomeRangedHitAndCrit)
 			},
 		})
 	}

@@ -4,9 +4,6 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/wowsims/classic/sim/core/proto"
-	"github.com/wowsims/classic/sim/core/stats"
-
 	"github.com/wowsims/classic/sim/core"
 )
 
@@ -32,8 +29,6 @@ func (paladin *Paladin) registerConsecration() {
 		Timer:    paladin.NewTimer(),
 		Duration: time.Second * 8,
 	}
-
-	hasWrath := paladin.hasRune(proto.PaladinRune_RuneHeadWrath)
 
 	for i, rank := range ranks {
 		rank := rank
@@ -76,18 +71,12 @@ func (paladin *Paladin) registerConsecration() {
 
 				OnSnapshot: func(sim *core.Simulation, target *core.Unit, dot *core.Dot, isRollover bool) {
 					dot.Snapshot(target, rank.damage, isRollover)
-					if hasWrath {
-						dot.Spell.BonusCritRating += paladin.GetStat(stats.MeleeCrit)
-						dot.SnapshotCritChance = dot.Spell.SpellCritChance(target)
-						dot.Spell.BonusCritRating -= paladin.GetStat(stats.MeleeCrit)
-					}
 				},
 				OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
 					// Consecration can miss, showing up as either a resist in logs or a
 					// silent failure (missing damage tick).
-					outcomeApplier := core.Ternary(hasWrath, dot.OutcomeMagicHitAndSnapshotCrit, dot.Spell.OutcomeMagicHit)
 					for _, aoeTarget := range sim.Encounter.TargetUnits {
-						dot.CalcAndDealPeriodicSnapshotDamage(sim, aoeTarget, outcomeApplier)
+						dot.CalcAndDealPeriodicSnapshotDamage(sim, aoeTarget, dot.Spell.OutcomeMagicHit)
 					}
 				},
 			},

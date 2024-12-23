@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core/proto"
-	"github.com/wowsims/classic/sim/core/stats"
 
 	"github.com/wowsims/classic/sim/core"
 )
@@ -22,9 +21,6 @@ func (paladin *Paladin) registerHolyWrath() {
 		{level: 50, spellID: 2812, manaCost: 645, scaleLevel: 54, minDamage: 362, maxDamage: 428, scale: 1.6},
 		{level: 60, spellID: 10318, manaCost: 805, scaleLevel: 60, minDamage: 490, maxDamage: 576, scale: 1.9},
 	}
-
-	hasPurifyingPower := paladin.hasRune(proto.PaladinRune_RuneWristPurifyingPower)
-	hasWrath := paladin.hasRune(proto.PaladinRune_RuneHeadWrath)
 
 	var results []*core.SpellResult
 
@@ -68,12 +64,9 @@ func (paladin *Paladin) registerHolyWrath() {
 			BonusCoefficient: 0.19,
 
 			ApplyEffects: func(sim *core.Simulation, _ *core.Unit, spell *core.Spell) {
-				bonusCrit := core.TernaryFloat64(hasWrath, paladin.GetStat(stats.MeleeCrit), 0)
-				spell.BonusCritRating += bonusCrit
-
 				results = results[:0]
 				for _, target := range paladin.Env.Encounter.TargetUnits {
-					if hasPurifyingPower || (target.MobType == proto.MobType_MobTypeDemon || target.MobType == proto.MobType_MobTypeUndead) {
+					if target.MobType == proto.MobType_MobTypeDemon || target.MobType == proto.MobType_MobTypeUndead {
 						damage := sim.Roll(minDamage, maxDamage)
 						result := spell.CalcDamage(sim, target, damage, spell.OutcomeMagicHitAndCrit)
 						results = append(results, result)
@@ -83,8 +76,6 @@ func (paladin *Paladin) registerHolyWrath() {
 				for _, result := range results {
 					spell.DealDamage(sim, result)
 				}
-
-				spell.BonusCritRating -= bonusCrit
 			},
 		})
 

@@ -3,8 +3,6 @@ package paladin
 import (
 	"time"
 
-	"github.com/wowsims/classic/sim/core/stats"
-
 	"github.com/wowsims/classic/sim/core"
 	"github.com/wowsims/classic/sim/core/proto"
 )
@@ -25,13 +23,6 @@ func (paladin *Paladin) registerExorcism() {
 		{level: 44, spellID: 415071, manaCost: 235, scaleLevel: 49, minDamage: 304, maxDamage: 342, scale: 2.4},
 		{level: 52, spellID: 415072, manaCost: 285, scaleLevel: 57, minDamage: 393, maxDamage: 439, scale: 2.8},
 		{level: 60, spellID: 415073, manaCost: 345, scaleLevel: 60, minDamage: 505, maxDamage: 563, scale: 3.2},
-	}
-
-	hasWrath := paladin.hasRune(proto.PaladinRune_RuneHeadWrath)
-
-	paladin.exorcismCooldown = &core.Cooldown{
-		Timer:    paladin.NewTimer(),
-		Duration: time.Second * 15,
 	}
 
 	for i, rank := range ranks {
@@ -55,15 +46,17 @@ func (paladin *Paladin) registerExorcism() {
 
 			SpellCode: SpellCode_PaladinExorcism,
 			ManaCost: core.ManaCostOptions{
-				FlatCost:   rank.manaCost,
-				Multiplier: core.TernaryInt32(paladin.hasRune(proto.PaladinRune_RuneFeetTheArtOfWar), 20, 100),
+				FlatCost: rank.manaCost,
 			},
 
 			Cast: core.CastConfig{
 				DefaultCast: core.Cast{
 					GCD: core.GCDDefault,
 				},
-				CD: *paladin.exorcismCooldown,
+				CD: core.Cooldown{
+					Timer:    paladin.NewTimer(),
+					Duration: time.Second * 15,
+				},
 			},
 
 			DamageMultiplier: 1,
@@ -75,9 +68,6 @@ func (paladin *Paladin) registerExorcism() {
 				bonusCrit := 0.0
 				if target.MobType == proto.MobType_MobTypeDemon || target.MobType == proto.MobType_MobTypeUndead {
 					bonusCrit += 100 * core.CritRatingPerCritChance
-				}
-				if hasWrath {
-					bonusCrit += paladin.GetStat(stats.MeleeCrit)
 				}
 
 				spell.BonusCritRating += bonusCrit
