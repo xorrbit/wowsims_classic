@@ -242,40 +242,11 @@ export class ActionId {
 		const baseName = tooltipData['name'];
 		let name = baseName;
 		switch (baseName) {
-			case 'Arcane Blast':
-				if (this.tag === 1) {
-					name += ' (No Stacks)';
-				} else if (this.tag === 2) {
-					name += ` (1 Stack)`;
-				} else if (this.tag > 2) {
-					name += ` (${this.tag - 1} Stacks)`;
-				}
-				break;
-			// Arcane Missiles hits are a separate spell and have to use a tag to differentiate from the cast
-			case 'Arcane Missiles':
-			// Balefire Bolt's aura uses the same spell ID as the cast
-			case 'Balefire Bolt':
-				break;
 			case 'Berserking':
 				if (this.tag !== 0) name = `${name} (${this.tag * 5}%)`;
 				break;
-			case 'Explosive Trap':
-				if (this.tag === 1) {
-					name += ' (Weaving)';
-				}
-				break;
-			case 'Hot Streak':
-				if (this.tag) name = 'Heating Up';
-				break;
-			// DoT then Explode Spells
-			case 'Living Bomb':
-			case 'Seed of Corruption':
-				if (this.tag === 0) name = `${name} (DoT)`;
-				else if (this.tag === 1) name = `${name} (Explosion)`;
-				break;
 			// Burn Spells
 			case 'Fireball':
-			case 'Frostfire Bolt':
 			case 'Pyroblast':
 			case 'Flame Shock':
 				if (this.tag === 1) name = `${name} (DoT)`;
@@ -283,16 +254,9 @@ export class ActionId {
 			// Channeled Tick Spells
 			case 'Evocation':
 			case 'Mind Flay':
-			case 'Mind Sear':
 				if (this.tag > 0) name = `${name} (${this.tag} Tick)`;
 				break;
-			case 'Shattering Throw':
-				if (this.tag === playerIndex) {
-					name += ` (self)`;
-				}
-				break;
 			// Combo Point Spenders
-			case 'Envenom':
 			case 'Eviscerate':
 			case 'Expose Armor':
 			case 'Rupture':
@@ -311,7 +275,6 @@ export class ActionId {
 			case 'Instant Poison V':
 			case 'Instant Poison VI':
 			case 'Wound Poison':
-			case 'Occult Poison':
 				if (this.tag === 1) {
 					name += ' (Shiv)';
 				} else if (this.tag === 2) {
@@ -320,18 +283,7 @@ export class ActionId {
 					name += ' (Tick)';
 				}
 				break;
-			case 'Saber Slash':
-				if (this.tag === 100) {
-					name += ' (Tick)';
-				}
-				break;
 			// Dual-hit MH/OH spells and weapon imbues
-			case 'Mutilate':
-			case 'Stormstrike':
-			case 'Carve':
-			case 'Whirlwind':
-			case 'Slam':
-			case 'Windfury Weapon':
 			case 'Holy Strength': // Crusader Enchant
 				if (this.tag === 1) {
 					name = `${name} (Main-Hand)`;
@@ -339,43 +291,13 @@ export class ActionId {
 					name = `${name} (Off-Hand)`;
 				}
 				break;
-			// Shaman Overload + Maelstrom Weapon
-			case 'Lightning Bolt':
-			case 'Chain Lightning':
-			case 'Lava Burst':
-			case 'Healing Wave':
-			case 'Lesser Healing Wave':
-			case 'Chain Heal':
-				if (this.tag === 6) {
-					name = `${name} OL`;
-				} else if (this.tag) {
-					name = `${name} (${this.tag} MSW)`;
-				}
-				break;
 			case 'Holy Shield':
 				if (this.tag === 1) {
 					name += ' (Proc)';
 				}
 				break;
-			case 'Righteous Vengeance':
-				if (this.tag === 1) {
-					name += ' (Application)';
-				} else if (this.tag === 2) {
-					name += ' (DoT)';
-				}
-				break;
-			case 'Holy Vengeance':
-				if (this.tag === 1) {
-					name += ' (Application)';
-				} else if (this.tag === 2) {
-					name += ' (DoT)';
-				}
-				break;
 			// For targetted buffs, tag is the source player's raid index or -1 if none.
-			case 'Bloodlust':
-			case 'Ferocious Inspiration':
 			case 'Innervate':
-			case 'Focus Magic':
 			case 'Mana Tide Totem':
 			case 'Power Infusion':
 				if (this.tag !== -1) {
@@ -386,13 +308,6 @@ export class ActionId {
 					}
 				} else {
 					name += ' (raid)';
-				}
-				break;
-			case 'Darkmoon Card: Crusade':
-				if (this.tag === 1) {
-					name += ' (Melee)';
-				} else if (this.tag === 2) {
-					name += ' (Spell)';
 				}
 				break;
 			case 'Battle Shout':
@@ -407,13 +322,6 @@ export class ActionId {
 					name += ' (Queue)';
 				}
 				break;
-			// There are many different types of enrages. Try to give clarity to users.
-			case 'Enrage':
-				if (this.spellId === 13048) name = `${name} (Talent)`;
-				else if (this.spellId === 14201) name = `${name} (Fresh Meat)`;
-				else if (this.spellId === 425415) name = `${name} (Consumed by Rage)`;
-				else if (this.spellId === 427066) name = `${name} (Wrecking Crew)`;
-				break;
 			case 'Raptor Strike':
 				if (this.tag === 1) name = `${name} (Hit)`;
 				else if (this.tag === 3) name = `${name} (Queue)`;
@@ -425,46 +333,6 @@ export class ActionId {
 					name += ' (Bounce)';
 				}
 				break;
-			case 'Sunfire':
-				if (this.spellId === 414689) {
-					name = `${name} (Cat)`;
-				}
-				break;
-			case 'Mangle':
-				name = this.spellId === 409828 ? `${name} (Cat)` : `${name} (Bear)`;
-				break;
-			case 'Swipe':
-				name = this.spellId === 411128 ? `${name} (Cat)` : `${name} (Bear)`;
-				break;
-			case 'Starfall':
-				if (this.tag === 1) name = `${name} (Tick)`;
-				else if (this.tag === 2) name = `${name} (Splash)`;
-				break;
-			case 'S03 - Item - T1 - Mage - Damage 4P Bonus':
-				// Tags correspond to each non-physical spell school
-				if (this.tag === 2) name = `${name} (Arcane)`;
-				if (this.tag === 3) name = `${name} (Fire)`;
-				if (this.tag === 4) name = `${name} (Frost)`;
-				if (this.tag === 5) name = `${name} (Holy)`;
-				if (this.tag === 6) name = `${name} (Nature)`;
-				if (this.tag === 7) name = `${name} (Shadow)`;
-				break;
-			// Don't do anything for these but avoid adding "(??)"
-			case 'S03 - Item - T1 - Shaman - Tank 6P Bonus':
-				break;
-			case 'Vampiric Touch':
-				// Vampiric touch provided to the party
-				if (this.tag === 1) name = `${name} (External)`;
-				break;
-			case 'Totem of Raging Fire':
-				if (this.tag === 1) name = `${name} (1H)`;
-				else if (this.tag === 2) name = `${name} (2H)`;
-				break;
-			// Warlock T2 6 Piece Needs Heals to trigger for the player
-			case 'Drain Life':
-			case 'Death Coil':
-				if (this.tag === 1) name += ` (Heal)`
-				break;
 			default:
 				if (this.tag) {
 					name += ' (??)';
@@ -472,23 +340,7 @@ export class ActionId {
 				break;
 		}
 
-		let iconOverrideId = this.spellIconOverride;
-
-		// Icon Overrides based on tags
-		switch (this.spellId) {
-			// https://www.wowhead.com/classic/spell=457544/s03-item-t1-shaman-tank-6p-bonus
-			case 457544: {
-				// Show Stoneskin / Windwall respectively
-				if (this.tag === 1) iconOverrideId = ActionId.fromSpellId(10408);
-				else if (this.tag === 2) iconOverrideId = ActionId.fromSpellId(15112);
-			}
-		}
-
-		let iconUrl = ActionId.makeIconUrl(tooltipData['icon']);
-		if (iconOverrideId) {
-			const overrideTooltipData = await ActionId.getTooltipData(iconOverrideId);
-			iconUrl = ActionId.makeIconUrl(overrideTooltipData['icon']);
-		}
+		const iconUrl = ActionId.makeIconUrl(tooltipData['icon']);
 
 		return new ActionId(this.itemId, this.spellId, this.otherId, this.tag, baseName, name, iconUrl, this.rank || tooltipData.rank, this.randomSuffixId);
 	}
@@ -714,21 +566,8 @@ const spellIDsToShowBuffs = new Set([
 	24932, // https://www.wowhead.com/classic/spell=24932/leader-of-the-pack
 	402808, // https://www.wowhead.com/classic/spell=402808/cripple
 	425415, // https://www.wowhead.com/classic/spell=425415/enrage
-	426969, // https://www.wowhead.com/classic/spell=426969/taste-for-blood
-	440114, // https://www.wowhead.com/classic/spell=440114/sudden-death
-	446393, // https://www.wowhead.com/classic/spell=446393/decay
-	457699, // https://www.wowhead.com/classic/spell=457699/echoes-of-defensive-stance
-	457706, // https://www.wowhead.com/classic/spell=457706/echoes-of-battle-stance
-	457708, // https://www.wowhead.com/classic/spell=457708/echoes-of-berserker-stance
-	457814, // https://www.wowhead.com/classic/spell=457814/defensive-forecast
-	457816, // https://www.wowhead.com/classic/spell=457816/battle-forecast
-	457817, // https://www.wowhead.com/classic/spell=457817/berserker-forecast
-	457819, // https://www.wowhead.com/classic/spell=457819/echoes-of-gladiator-stance
-	458403, // https://www.wowhead.com/classic/spell=458403/stalker
 	461252, // https://www.wowhead.com/classic/spell=461252/shadowflame-fury
 	461270, // https://www.wowhead.com/classic/spell=461270/magmadars-return
-	461615, // https://www.wowhead.com/classic/spell=461615/mark-of-chaos
-	456393, // https://www.wowhead.com/classic/spell=456393/stalked
 	1214279, // https://www.wowhead.com/classic/spell=1214279/spell-blasting
 ]);
 
