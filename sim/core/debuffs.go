@@ -493,18 +493,10 @@ func GiftOfArthasAura(target *Unit) *Aura {
 	})
 }
 
-func HemorrhageAura(target *Unit, casterLevel int32) *Aura {
-	debuffBonusDamage := map[int32]float64{
-		40: 3,
-		50: 5,
-		60: 7,
-	}[casterLevel]
+func HemorrhageAura(target *Unit) *Aura {
+	debuffBonusDamage := 7.0
 
-	spellID := map[int32]int32{
-		40: 16511,
-		50: 17347,
-		60: 17348,
-	}[casterLevel]
+	spellID := int32(17348)
 
 	return target.GetOrRegisterAura(Aura{
 		Label:     "Hemorrhage",

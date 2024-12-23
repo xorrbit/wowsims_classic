@@ -11,28 +11,14 @@ func (rogue *Rogue) registerHemorrhageSpell() {
 		return
 	}
 
-	spellID := map[int32]int32{
-		40: 16511,
-		50: 17347,
-		60: 17348,
-	}[rogue.Level]
+	spellID := int32(17348)
 
 	actionID := core.ActionID{SpellID: spellID}
 
-	var numPlayers int
-	for _, u := range rogue.Env.Raid.AllUnits {
-		if u.Type == core.PlayerUnit {
-			numPlayers++
-		}
-	}
-
 	var hemoAuras core.AuraArray
-
-	if numPlayers >= 2 {
-		hemoAuras = rogue.NewEnemyAuraArray(func(target *core.Unit) *core.Aura {
-			return core.HemorrhageAura(target, rogue.Level)
-		})
-	}
+	hemoAuras = rogue.NewEnemyAuraArray(func(target *core.Unit) *core.Aura {
+			return core.HemorrhageAura(target)
+	})
 
 	rogue.Hemorrhage = rogue.RegisterSpell(core.SpellConfig{
 		SpellCode:   SpellCode_RogueHemorrhage,
