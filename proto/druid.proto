@@ -60,45 +60,6 @@ message DruidTalents {
 	bool swiftmend = 47;
 }
 
-enum DruidRune {
-	DruidRuneNone = 0;
-
-	RuneHelmGaleWinds				= 417135;
-	RuneHelmGore					= 417145;
-	RuneHelmImprovedBarkskin		= 431388;
-
-	RuneCloakImprovedSwipe			= 439510;
-	RuneCloakTreeofLife				= 439733;
-	RuneCloakStarfall				= 439748;
-
-	RuneChestFuryOfStormrage		= 414799;
-	RuneChestLivingSeed				= 414677;
-	RuneChestSurvivalOfTheFittest	= 411115;
-	RuneChestWildStrikes			= 407977;
-
-	RuneBracersEfflorescence		= 417149;
-	RuneBracersElunesFires			= 414719;
-	RuneBracersImpFrenziedRegen		= 431389;
-
-	RuneHandsMangle					= 407995;
-	RuneHandsSunfire				= 414684;
-	RuneHandsWildGrowth				= 408120;
-	RuneHandsSkullBash				= 410176;
-
-	RuneBeltBerserk					= 417141;
-	RuneBeltEclipse					= 408248;
-	RuneBeltNourish					= 408247;
-
-	RuneLegsStarsurge				= 417157;
-	RuneLegsSavageRoar				= 407988;
-	RuneLegsLifebloom				= 409824;
-	RuneLegsLacerate				= 414644;
-
-	RuneFeetDreamstate				= 408258;
-	RuneFeetKingOfTheJungle			= 417046;
-	RuneFeetSurvivalInstincts		= 408024;
-}
-
 message BalanceDruid {
   message Rotation {
 	}
