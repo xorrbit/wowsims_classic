@@ -82,7 +82,7 @@ message APLAction {
     }
 }
 
-// NextIndex: 74
+// NextIndex: 78
 message APLValue {
     oneof value {
         // Operators
@@ -106,13 +106,18 @@ message APLValue {
         // Resource values
         APLValueCurrentHealth current_health = 26;
         APLValueCurrentHealthPercent current_health_percent = 27;
+        APLValueMaxHealth max_health = 76;
         APLValueCurrentMana current_mana = 11;
         APLValueCurrentManaPercent current_mana_percent = 12;
+        APLValueMaxMana max_mana = 75;
         APLValueCurrentRage current_rage = 14;
         APLValueCurrentEnergy current_energy = 15;
         APLValueCurrentComboPoints current_combo_points = 16;
         APLValueTimeToEnergyTick time_to_energy_tick = 66;
         APLValueEnergyThreshold energy_threshold = 72;
+        
+        // Stats
+        APLValueCurrentAttackPower current_attack_power = 77;
 
         // GCD values
         APLValueGCDIsReady gcd_is_ready = 17;
@@ -374,12 +379,14 @@ message APLValueCurrentHealth {
 message APLValueCurrentHealthPercent {
     UnitReference source_unit = 1;
 }
+message APLValueMaxHealth {}
 message APLValueCurrentMana {
     UnitReference source_unit = 1;
 }
 message APLValueCurrentManaPercent {
     UnitReference source_unit = 1;
 }
+message APLValueMaxMana {}
 message APLValueCurrentRage {}
 message APLValueCurrentEnergy {}
 message APLValueCurrentComboPoints {}
@@ -387,6 +394,8 @@ message APLValueTimeToEnergyTick {}
 message APLValueEnergyThreshold {
     int32 threshold = 1;
 }
+
+message APLValueCurrentAttackPower {}
 
 message APLValueGCDIsReady {}
 message APLValueGCDTimeToReady {}

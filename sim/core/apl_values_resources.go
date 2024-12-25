@@ -63,6 +63,31 @@ func (value *APLValueCurrentHealthPercent) String() string {
 	return fmt.Sprintf("Current Health %%")
 }
 
+type APLValueMaxHealth struct {
+	DefaultAPLValueImpl
+	unit *Unit
+}
+
+func (rot *APLRotation) newValueMaxHealth(_ *proto.APLValueMaxHealth) APLValue {
+	unit := rot.unit
+	if !unit.HasHealthBar() {
+		rot.ValidationWarning("%s does not use Health", unit.Label)
+		return nil
+	}
+	return &APLValueMaxHealth{
+		unit: unit,
+	}
+}
+func (value *APLValueMaxHealth) Type() proto.APLValueType {
+	return proto.APLValueType_ValueTypeFloat
+}
+func (value *APLValueMaxHealth) GetFloat(_ *Simulation) float64 {
+	return value.unit.MaxHealth()
+}
+func (value *APLValueMaxHealth) String() string {
+	return "Max Health"
+}
+
 type APLValueCurrentMana struct {
 	DefaultAPLValueImpl
 	unit UnitReference
@@ -117,6 +142,31 @@ func (value *APLValueCurrentManaPercent) GetFloat(_ *Simulation) float64 {
 }
 func (value *APLValueCurrentManaPercent) String() string {
 	return fmt.Sprintf("Current Mana %%")
+}
+
+type APLValueMaxMana struct {
+	DefaultAPLValueImpl
+	unit *Unit
+}
+
+func (rot *APLRotation) newValueMaxMana(_ *proto.APLValueMaxMana) APLValue {
+	unit := rot.unit
+	if !unit.HasManaBar() {
+		rot.ValidationWarning("%s does not use Mana", unit.Label)
+		return nil
+	}
+	return &APLValueMaxMana{
+		unit: unit,
+	}
+}
+func (value *APLValueMaxMana) Type() proto.APLValueType {
+	return proto.APLValueType_ValueTypeFloat
+}
+func (value *APLValueMaxMana) GetFloat(_ *Simulation) float64 {
+	return value.unit.MaxMana()
+}
+func (value *APLValueMaxMana) String() string {
+	return "Max Mana"
 }
 
 type APLValueCurrentRage struct {
