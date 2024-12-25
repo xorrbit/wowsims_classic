@@ -227,7 +227,7 @@ var ItemSetShadowcraftArmor = core.NewItemSet(core.ItemSet{
 				Name:     "Rogue Armor Energize",
 				Callback: core.CallbackOnSpellHitDealt,
 				Outcome:  core.OutcomeLanded,
-				ProcMask: core.ProcMaskMelee,
+				ProcMask: core.ProcMaskMeleeWhiteHit,
 				PPM:      1,
 				Handler: func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
 					if c.HasEnergyBar() {
@@ -256,8 +256,8 @@ var ItemSetTheElements = core.NewItemSet(core.ItemSet{
 		4: func(agent core.Agent) {
 			c := agent.GetCharacter()
 			c.AddStats(stats.Stats{
-				stats.SpellDamage:       23,
-				stats.HealingPower:      23,
+				stats.SpellDamage:  23,
+				stats.HealingPower: 23,
 			})
 		},
 		// Chance on spell cast to increase your damage and healing by up to 95 for 10 sec.

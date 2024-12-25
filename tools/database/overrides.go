@@ -49,6 +49,43 @@ var ItemOverrides = []*proto.UIItem{
 	{Id: 18408, Phase: 2},
 	{Id: 18409, Phase: 2},
 	{Id: 18413, Phase: 2},
+
+	// Sunken Temple Class Quests
+	{Id: 22274, Phase: 3},
+	{Id: 22272, Phase: 3},
+	{Id: 22458, Phase: 3},
+
+	{Id: 20083, Phase: 3},
+	{Id: 19991, Phase: 3},
+	{Id: 19992, Phase: 3},
+
+	{Id: 20035, Phase: 3},
+	{Id: 20037, Phase: 3},
+	{Id: 20036, Phase: 3},
+
+	{Id: 20504, Phase: 3},
+	{Id: 20512, Phase: 3},
+	{Id: 20505, Phase: 3},
+
+	{Id: 19990, Phase: 3},
+	{Id: 20082, Phase: 3},
+	{Id: 20006, Phase: 3},
+
+	{Id: 19984, Phase: 3},
+	{Id: 20255, Phase: 3},
+	{Id: 19982, Phase: 3},
+
+	{Id: 20369, Phase: 3},
+	{Id: 20556, Phase: 3},
+	{Id: 20503, Phase: 3},
+
+	{Id: 20536, Phase: 3},
+	{Id: 20534, Phase: 3},
+	{Id: 20530, Phase: 3},
+
+	{Id: 20130, Phase: 3},
+	{Id: 20521, Phase: 3},
+	{Id: 20517, Phase: 3},
 }
 
 // Keep these sorted by item ID.
