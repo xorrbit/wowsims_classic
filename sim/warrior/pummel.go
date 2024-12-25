@@ -9,7 +9,7 @@ import (
 func (warrior *Warrior) registerPummelSpell() {
 	damage := 50.0
 
-	warrior.Hamstring = warrior.RegisterSpell(BerserkerStance, core.SpellConfig{
+	warrior.RegisterSpell(BerserkerStance, core.SpellConfig{
 		ActionID:    core.ActionID{SpellID: 6554},
 		SpellSchool: core.SpellSchoolPhysical,
 		DefenseType: core.DefenseTypeMelee,
