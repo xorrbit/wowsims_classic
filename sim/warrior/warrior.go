@@ -184,6 +184,7 @@ func (warrior *Warrior) Initialize() {
 	warrior.registerWhirlwindSpell()
 	warrior.registerRendSpell()
 	warrior.registerHamstringSpell()
+	warrior.registerPummelSpell()
 
 	// The sim often re-enables heroic strike in an unrealistic amount of time.
 	// This can cause an unrealistic immediate double-hit around wild strikes procs
