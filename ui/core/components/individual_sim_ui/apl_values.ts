@@ -19,6 +19,7 @@ import {
 	APLValueCompare,
 	APLValueCompare_ComparisonOperator as ComparisonOperator,
 	APLValueConst,
+	APLValueCurrentAttackPower,
 	APLValueCurrentComboPoints,
 	APLValueCurrentEnergy,
 	APLValueCurrentHealth,
@@ -40,6 +41,8 @@ import {
 	APLValueMath,
 	APLValueMath_MathOperator as MathOperator,
 	APLValueMax,
+	APLValueMaxHealth,
+	APLValueMaxMana,
 	APLValueMin,
 	APLValueNot,
 	APLValueNumberTargets,
@@ -611,6 +614,13 @@ const valueKindFactories: { [f in NonNullable<APLValueKind>]: ValueKindConfig<AP
 		newValue: APLValueCurrentHealthPercent.create,
 		fields: [AplHelpers.unitFieldConfig('sourceUnit', 'aura_sources')],
 	}),
+	maxHealth: inputBuilder({
+		label: 'Max Health',
+		submenu: ['Resources'],
+		shortDescription: 'Maximum amount of Health.',
+		newValue: APLValueMaxHealth.create,
+		fields: [],
+	}),
 	currentMana: inputBuilder({
 		label: 'Mana',
 		submenu: ['Resources'],
@@ -624,6 +634,14 @@ const valueKindFactories: { [f in NonNullable<APLValueKind>]: ValueKindConfig<AP
 		submenu: ['Resources'],
 		shortDescription: 'Amount of currently available Mana, as a percentage.',
 		newValue: APLValueCurrentManaPercent.create,
+		fields: [],
+		includeIf: (player: Player<any>, _isPrepull: boolean) => player.getClass() !== Class.ClassRogue && player.getClass() !== Class.ClassWarrior,
+	}),
+	maxMana: inputBuilder({
+		label: 'Max Mana',
+		submenu: ['Resources'],
+		shortDescription: 'Maximum amount of Mana.',
+		newValue: APLValueMaxMana.create,
 		fields: [],
 		includeIf: (player: Player<any>, _isPrepull: boolean) => player.getClass() !== Class.ClassRogue && player.getClass() !== Class.ClassWarrior,
 	}),
@@ -671,6 +689,15 @@ const valueKindFactories: { [f in NonNullable<APLValueKind>]: ValueKindConfig<AP
 		newValue: APLValueCurrentComboPoints.create,
 		fields: [],
 		includeIf: (player: Player<any>, _isPrepull: boolean) => player.getClass() === Class.ClassRogue || player.getClass() === Class.ClassDruid,
+	}),
+
+	// Stats
+	currentAttackPower: inputBuilder({
+		label: 'Current Attack Power',
+		submenu: ['Stats'],
+		shortDescription: 'Current Attack Power includuing temporary bonuses.',
+		newValue: APLValueCurrentAttackPower.create,
+		fields: [],
 	}),
 
 	// GCD

@@ -99,10 +99,14 @@ func (rot *APLRotation) newAPLValue(config *proto.APLValue) APLValue {
 		return rot.newValueCurrentHealth(config.GetCurrentHealth())
 	case *proto.APLValue_CurrentHealthPercent:
 		return rot.newValueCurrentHealthPercent(config.GetCurrentHealthPercent())
+	case *proto.APLValue_MaxHealth:
+		return rot.newValueMaxHealth(config.GetMaxHealth())
 	case *proto.APLValue_CurrentMana:
 		return rot.newValueCurrentMana(config.GetCurrentMana())
 	case *proto.APLValue_CurrentManaPercent:
 		return rot.newValueCurrentManaPercent(config.GetCurrentManaPercent())
+	case *proto.APLValue_MaxMana:
+		return rot.newValueMaxMana(config.GetMaxMana())
 	case *proto.APLValue_CurrentRage:
 		return rot.newValueCurrentRage(config.GetCurrentRage())
 	case *proto.APLValue_CurrentEnergy:
@@ -113,6 +117,10 @@ func (rot *APLRotation) newAPLValue(config *proto.APLValue) APLValue {
 		return rot.newValueTimeToEnergyTick(config.GetTimeToEnergyTick())
 	case *proto.APLValue_EnergyThreshold:
 		return rot.newValueEnergyThreshold(config.GetEnergyThreshold())
+
+	// Stats
+	case *proto.APLValue_CurrentAttackPower:
+		return rot.newValueCurrentAttackPower(config.GetCurrentAttackPower())
 
 	// GCD
 	case *proto.APLValue_GcdIsReady:
