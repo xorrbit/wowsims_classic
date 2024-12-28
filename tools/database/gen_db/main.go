@@ -574,7 +574,7 @@ func GetPhaseData(item *proto.UIItem) int32 {
 				return 2
 			}
 
-			// Ony items don't have a ZoneID. Let's add it for UI filtering, then return phase 1
+			// Azzy items don't have a ZoneID. Let's add it for UI filtering, then return phase 1
 			if dropSource.NpcId == 6109 {
 				dropSource.ZoneId = 16
 				return 2
