@@ -4,7 +4,7 @@ import { ConsumableInputConfig } from './consumables';
 
 // Rogue Imbues
 export const InstantPoisonWeaponImbue: ConsumableInputConfig<WeaponImbue> = {
-	actionId: () => ActionId.fromItemId(8928),
+	actionId: () => ActionId.fromItemId(8985),
 	value: WeaponImbue.InstantPoison,
 	showWhen: player => player.getClass() == Class.ClassRogue,
 };
