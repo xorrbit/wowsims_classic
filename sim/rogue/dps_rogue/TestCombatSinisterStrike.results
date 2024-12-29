@@ -111,6 +111,13 @@ dps_results: {
  }
 }
 dps_results: {
+ key: "TestCombatSinisterStrike-Phase5-AllItems-Champion'sVestments"
+ value: {
+  dps: 919.47147
+  tps: 652.82474
+ }
+}
+dps_results: {
  key: "TestCombatSinisterStrike-Phase5-AllItems-DarkmantleArmor"
  value: {
   dps: 1058.47528
@@ -122,6 +129,13 @@ dps_results: {
  value: {
   dps: 1072.09324
   tps: 761.1862
+ }
+}
+dps_results: {
+ key: "TestCombatSinisterStrike-Phase5-AllItems-LieutenantCommander'sVestments"
+ value: {
+  dps: 919.47147
+  tps: 652.82474
  }
 }
 dps_results: {
