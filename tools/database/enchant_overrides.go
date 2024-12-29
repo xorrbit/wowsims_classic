@@ -38,9 +38,8 @@ var EnchantOverrides = []*proto.UIEnchant{
 	// Melee Haste isn't actually a stat, so use Pseudostats.MeleeSpeedMultiplier
 	{EffectId: 2543, ItemId: 18329, SpellId: 22840, Name: "Arcanum of Rapidity", Quality: proto.ItemQuality_ItemQualityUncommon, Stats: stats.Stats{}.ToFloatArray(), Type: proto.ItemType_ItemTypeHead, ExtraTypes: []proto.ItemType{proto.ItemType_ItemTypeLegs}, EnchantType: proto.EnchantType_EnchantTypeKit},
 
-	// Drop in ZG
-	{EffectId: 2681, ItemId: 22635, SpellId: 28161, Name: "Savage Guard", Quality: proto.ItemQuality_ItemQualityRare, Stats: stats.Stats{stats.NatureResistance: 10}.ToFloatArray(), Type: proto.ItemType_ItemTypeHead, ExtraTypes: []proto.ItemType{proto.ItemType_ItemTypeLegs}, EnchantType: proto.EnchantType_EnchantTypeKit},
 	// ZG Enchants
+	{EffectId: 2681, ItemId: 22635, SpellId: 28161, Name: "Savage Guard", Quality: proto.ItemQuality_ItemQualityRare, Stats: stats.Stats{stats.NatureResistance: 10}.ToFloatArray(), Type: proto.ItemType_ItemTypeHead, ExtraTypes: []proto.ItemType{proto.ItemType_ItemTypeLegs}, EnchantType: proto.EnchantType_EnchantTypeKit},
 	// Druid
 	{EffectId: 2591, ItemId: 19790, SpellId: 24168, Name: "Animist's Caress", Quality: proto.ItemQuality_ItemQualityRare, Stats: stats.Stats{stats.Stamina: 10, stats.Intellect: 10, stats.HealingPower: 24}.ToFloatArray(), Type: proto.ItemType_ItemTypeHead, ExtraTypes: []proto.ItemType{proto.ItemType_ItemTypeLegs}, EnchantType: proto.EnchantType_EnchantTypeKit, ClassAllowlist: []proto.Class{proto.Class_ClassDruid}},
 	// Hunter
@@ -68,10 +67,10 @@ var EnchantOverrides = []*proto.UIEnchant{
 	{EffectId: 2605, ItemId: 20076, SpellId: 24421, Name: "Zandalar Signet of Mojo", Quality: proto.ItemQuality_ItemQualityRare, Stats: stats.Stats{stats.SpellPower: 18, stats.HealingPower: 18}.ToFloatArray(), Type: proto.ItemType_ItemTypeShoulder},
 	{EffectId: 2606, ItemId: 20077, SpellId: 24422, Name: "Zandalar Signet of Might", Quality: proto.ItemQuality_ItemQualityRare, Stats: stats.Stats{stats.AttackPower: 30, stats.RangedAttackPower: 30}.ToFloatArray(), Type: proto.ItemType_ItemTypeShoulder},
 	// Drop in naxxramas
-	// {EffectId: 2715, ItemId: 23547, SpellId: 29475, Name: "Resilience of the Scourge", Quality: proto.ItemQuality_ItemQualityEpic, Stats: stats.Stats{stats.HealingPower: 31, stats.MP5: 5}.ToFloatArray(), Type: proto.ItemType_ItemTypeShoulder},
-	// {EffectId: 2717, ItemId: 23548, SpellId: 29483, Name: "Might of the Scourge", Quality: proto.ItemQuality_ItemQualityEpic, Stats: stats.Stats{stats.AttackPower: 26, stats.MeleeCrit: 0.01}.ToFloatArray(), Type: proto.ItemType_ItemTypeShoulder},
-	// {EffectId: 2716, ItemId: 23549, SpellId: 29480, Name: "Fortitude of the Scourge", Quality: proto.ItemQuality_ItemQualityEpic, Stats: stats.Stats{stats.Stamina: 16, stats.BonusArmor: 100}.ToFloatArray(), Type: proto.ItemType_ItemTypeShoulder},
-	// {EffectId: 2721, ItemId: 23545, SpellId: 29467, Name: "Power of the Scourge", Quality: proto.ItemQuality_ItemQualityEpic, Stats: stats.Stats{stats.SpellPower: 15, stats.HealingPower: 15, stats.SpellCrit: 0.01}.ToFloatArray(), Type: proto.ItemType_ItemTypeShoulder},
+	{EffectId: 2715, ItemId: 23547, SpellId: 29475, Name: "Resilience of the Scourge", Quality: proto.ItemQuality_ItemQualityEpic, Stats: stats.Stats{stats.HealingPower: 31, stats.MP5: 5}.ToFloatArray(), Type: proto.ItemType_ItemTypeShoulder},
+	{EffectId: 2717, ItemId: 23548, SpellId: 29483, Name: "Might of the Scourge", Quality: proto.ItemQuality_ItemQualityEpic, Stats: stats.Stats{stats.AttackPower: 26, stats.MeleeCrit: 0.01}.ToFloatArray(), Type: proto.ItemType_ItemTypeShoulder},
+	{EffectId: 2716, ItemId: 23549, SpellId: 29480, Name: "Fortitude of the Scourge", Quality: proto.ItemQuality_ItemQualityEpic, Stats: stats.Stats{stats.Stamina: 16, stats.BonusArmor: 100}.ToFloatArray(), Type: proto.ItemType_ItemTypeShoulder},
+	{EffectId: 2721, ItemId: 23545, SpellId: 29467, Name: "Power of the Scourge", Quality: proto.ItemQuality_ItemQualityEpic, Stats: stats.Stats{stats.SpellPower: 15, stats.HealingPower: 15, stats.SpellCrit: 0.01}.ToFloatArray(), Type: proto.ItemType_ItemTypeShoulder},
 
 	// Back
 	{EffectId: 2, SpellId: 7454, Name: "Enchant Cloak - Minor Resistance", Quality: proto.ItemQuality_ItemQualityCommon, Stats: stats.Stats{stats.ArcaneResistance: 1, stats.FrostResistance: 1, stats.FireResistance: 1, stats.NatureResistance: 1, stats.ShadowResistance: 1}.ToFloatArray(), Type: proto.ItemType_ItemTypeBack},
@@ -87,16 +86,13 @@ var EnchantOverrides = []*proto.UIEnchant{
 	{EffectId: 849, SpellId: 13882, Name: "Enchant Cloak - Lesser Agility", Quality: proto.ItemQuality_ItemQualityUncommon, Stats: stats.Stats{stats.Agility: 3}.ToFloatArray(), Type: proto.ItemType_ItemTypeBack},
 	{EffectId: 1888, SpellId: 20014, Name: "Enchant Cloak - Greater Resistance", Quality: proto.ItemQuality_ItemQualityCommon, Stats: stats.Stats{stats.ArcaneResistance: 5, stats.FireResistance: 5, stats.FrostResistance: 5, stats.NatureResistance: 5, stats.ShadowResistance: 5}.ToFloatArray(), Type: proto.ItemType_ItemTypeBack},
 	{EffectId: 1889, SpellId: 20015, Name: "Enchant Cloak - Superior Defense", Quality: proto.ItemQuality_ItemQualityCommon, Stats: stats.Stats{stats.BonusArmor: 70}.ToFloatArray(), Type: proto.ItemType_ItemTypeBack},
-	// Drop in AQ
-	{EffectId: 2622, SpellId: 25086, Name: "Enchant Cloak - Dodge", Quality: proto.ItemQuality_ItemQualityRare, Stats: stats.Stats{stats.Dodge: 1 * core.DodgeRatingPerDodgeChance}.ToFloatArray(), Type: proto.ItemType_ItemTypeBack},
-	// Requires Cenarion Circle - Friendly which doesn't seem doable until phase 4
-	// {EffectId: 2619, SpellId: 25081, Name: "Enchant Cloak - Greater Fire Resistance", Quality: proto.ItemQuality_ItemQualityCommon, Stats: stats.Stats{stats.FireResistance: 15}.ToFloatArray(), Type: proto.ItemType_ItemTypeBack},
-	// Requires Cenarion Circle - Honored which doesn't seem doable until phase 4
-	// {EffectId: 2620, SpellId: 25082, Name: "Enchant Cloak - Greater Nature Resistance", Quality: proto.ItemQuality_ItemQualityCommon, Stats: stats.Stats{stats.NatureResistance: 15}.ToFloatArray(), Type: proto.ItemType_ItemTypeBack},
+	// Requires Cenarion Circle - Friendly
+	{EffectId: 2619, SpellId: 25081, Name: "Enchant Cloak - Greater Fire Resistance", Quality: proto.ItemQuality_ItemQualityCommon, Stats: stats.Stats{stats.FireResistance: 15}.ToFloatArray(), Type: proto.ItemType_ItemTypeBack},
+	{EffectId: 2620, SpellId: 25082, Name: "Enchant Cloak - Greater Nature Resistance", Quality: proto.ItemQuality_ItemQualityCommon, Stats: stats.Stats{stats.NatureResistance: 15}.ToFloatArray(), Type: proto.ItemType_ItemTypeBack},
 	// Drop in AQ
 	{EffectId: 910, SpellId: 25083, Name: "Enchant Cloak - Stealth", Quality: proto.ItemQuality_ItemQualityRare, Stats: stats.Stats{}.ToFloatArray(), Type: proto.ItemType_ItemTypeBack},
-	// Drop in AQ
 	{EffectId: 2621, SpellId: 25084, Name: "Enchant Cloak - Subtlety", Quality: proto.ItemQuality_ItemQualityRare, Stats: stats.Stats{}.ToFloatArray(), Type: proto.ItemType_ItemTypeBack},
+	{EffectId: 2622, SpellId: 25086, Name: "Enchant Cloak - Dodge", Quality: proto.ItemQuality_ItemQualityRare, Stats: stats.Stats{stats.Dodge: 1 * core.DodgeRatingPerDodgeChance}.ToFloatArray(), Type: proto.ItemType_ItemTypeBack},
 
 	// Chest
 	{EffectId: 41, SpellId: 7420, Name: "Enchant Chest - Minor Health", Quality: proto.ItemQuality_ItemQualityCommon, Stats: stats.Stats{stats.Health: 5}.ToFloatArray(), Type: proto.ItemType_ItemTypeChest},
@@ -182,6 +178,7 @@ var EnchantOverrides = []*proto.UIEnchant{
 	{EffectId: 1887, SpellId: 20023, Name: "Enchant Boots - Greater Agility", Quality: proto.ItemQuality_ItemQualityUncommon, Stats: stats.Stats{stats.Agility: 7}.ToFloatArray(), Type: proto.ItemType_ItemTypeFeet},
 
 	// Weapon
+	{EffectId: 36, SpellId: 6296, Name: "Fiery Blaze Enchantment", Quality: proto.ItemQuality_ItemQualityCommon, Stats: stats.Stats{}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon},
 	{EffectId: 249, SpellId: 7786, Name: "Enchant Weapon - Minor Beastslayer", Quality: proto.ItemQuality_ItemQualityUncommon, Stats: stats.Stats{}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon},
 	{EffectId: 250, SpellId: 7788, Name: "Enchant Weapon - Minor Striking", Quality: proto.ItemQuality_ItemQualityCommon, Stats: stats.Stats{}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon},
 	{EffectId: 241, SpellId: 13503, Name: "Enchant Weapon - Lesser Striking", Quality: proto.ItemQuality_ItemQualityCommon, Stats: stats.Stats{}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon},
@@ -204,9 +201,9 @@ var EnchantOverrides = []*proto.UIEnchant{
 	{EffectId: 2567, SpellId: 23803, Name: "Enchant Weapon - Mighty Spirit", Quality: proto.ItemQuality_ItemQualityCommon, Stats: stats.Stats{stats.Spirit: 20}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon},
 	{EffectId: 2504, SpellId: 22749, Name: "Enchant Weapon - Spell Power", Quality: proto.ItemQuality_ItemQualityRare, Stats: stats.Stats{stats.SpellDamage: 30}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon},
 	{EffectId: 1897, SpellId: 20031, Name: "Enchant Weapon - Superior Striking", Quality: proto.ItemQuality_ItemQualityUncommon, Stats: stats.Stats{}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon},
-	{EffectId: 36, SpellId: 6296, Name: "Fiery Blaze Enchantment", Quality: proto.ItemQuality_ItemQualityCommon, Stats: stats.Stats{}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon},
 
 	// 2H Weapon
+	{EffectId: 34, SpellId: 7218, Name: "Iron Counterweight", Quality: proto.ItemQuality_ItemQualityCommon, Stats: stats.Stats{stats.MeleeHaste: 3}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon, EnchantType: proto.EnchantType_EnchantTypeTwoHand},
 	{EffectId: 723, SpellId: 7793, Name: "Enchant 2H Weapon - Lesser Intellect", Quality: proto.ItemQuality_ItemQualityCommon, Stats: stats.Stats{stats.Intellect: 3}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon, EnchantType: proto.EnchantType_EnchantTypeTwoHand},
 	{EffectId: 241, SpellId: 7745, Name: "Enchant 2H Weapon - Minor Impact", Quality: proto.ItemQuality_ItemQualityCommon, Stats: stats.Stats{}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon, EnchantType: proto.EnchantType_EnchantTypeTwoHand},
 	{EffectId: 255, SpellId: 13380, Name: "Enchant 2H Weapon - Lesser Spirit", Quality: proto.ItemQuality_ItemQualityUncommon, Stats: stats.Stats{stats.Spirit: 3}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon, EnchantType: proto.EnchantType_EnchantTypeTwoHand},
@@ -217,15 +214,14 @@ var EnchantOverrides = []*proto.UIEnchant{
 	{EffectId: 1896, SpellId: 20030, Name: "Enchant 2H Weapon - Superior Impact", Quality: proto.ItemQuality_ItemQualityUncommon, Stats: stats.Stats{}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon, EnchantType: proto.EnchantType_EnchantTypeTwoHand},
 	{EffectId: 1904, SpellId: 20036, Name: "Enchant 2H Weapon - Major Intellect", Quality: proto.ItemQuality_ItemQualityUncommon, Stats: stats.Stats{stats.Intellect: 9}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon, EnchantType: proto.EnchantType_EnchantTypeTwoHand},
 	{EffectId: 1903, SpellId: 20035, Name: "Enchant 2H Weapon - Major Spirit", Quality: proto.ItemQuality_ItemQualityUncommon, Stats: stats.Stats{stats.Spirit: 9}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon, EnchantType: proto.EnchantType_EnchantTypeTwoHand},
-	{EffectId: 34, SpellId: 7218, Name: "Iron Counterweight", Quality: proto.ItemQuality_ItemQualityCommon, Stats: stats.Stats{stats.MeleeHaste: 3}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon, EnchantType: proto.EnchantType_EnchantTypeTwoHand},
 
 	// Shields
 	{EffectId: 848, ItemId: 11081, SpellId: 13464, Name: "Enchant Shield - Lesser Protection", Quality: proto.ItemQuality_ItemQualityUncommon, Stats: stats.Stats{stats.Armor: 30}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon, EnchantType: proto.EnchantType_EnchantTypeShield},
-	{EffectId: 863, ItemId: 11168, SpellId: 13691, Name: "Enchant Shield - Lesser Block", Quality: proto.ItemQuality_ItemQualityUncommon, Stats: stats.Stats{stats.Block: 2 * core.BlockRatingPerBlockChance}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon, EnchantType: proto.EnchantType_EnchantTypeShield},
-	{EffectId: 852, ItemId: 11202, SpellId: 13818, Name: "Enchant Shield - Stamina", Quality: proto.ItemQuality_ItemQualityUncommon, Stats: stats.Stats{stats.Stamina: 5}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon, EnchantType: proto.EnchantType_EnchantTypeShield},
-	{EffectId: 926, ItemId: 11224, SpellId: 13934, Name: "Enchant Shield - Frost Resistance", Quality: proto.ItemQuality_ItemQualityUncommon, Stats: stats.Stats{stats.FrostResistance: 8}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon, EnchantType: proto.EnchantType_EnchantTypeShield},
-	{EffectId: 929, ItemId: 16217, SpellId: 20069, Name: "Enchant Shield - Greater Stamina", Quality: proto.ItemQuality_ItemQualityCommon, Stats: stats.Stats{stats.Stamina: 7}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon, EnchantType: proto.EnchantType_EnchantTypeShield},
-	{EffectId: 1890, ItemId: 16222, SpellId: 20074, Name: "Enchant Shield - Superior Spirit", Quality: proto.ItemQuality_ItemQualityUncommon, Stats: stats.Stats{stats.Spirit: 9}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon, EnchantType: proto.EnchantType_EnchantTypeShield},
+	{EffectId: 863, ItemId: 11168, SpellId: 13689, Name: "Enchant Shield - Lesser Block", Quality: proto.ItemQuality_ItemQualityUncommon, Stats: stats.Stats{stats.Block: 2 * core.BlockRatingPerBlockChance}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon, EnchantType: proto.EnchantType_EnchantTypeShield},
+	{EffectId: 852, ItemId: 11202, SpellId: 13817, Name: "Enchant Shield - Stamina", Quality: proto.ItemQuality_ItemQualityUncommon, Stats: stats.Stats{stats.Stamina: 5}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon, EnchantType: proto.EnchantType_EnchantTypeShield},
+	{EffectId: 926, ItemId: 11224, SpellId: 13933, Name: "Enchant Shield - Frost Resistance", Quality: proto.ItemQuality_ItemQualityUncommon, Stats: stats.Stats{stats.FrostResistance: 8}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon, EnchantType: proto.EnchantType_EnchantTypeShield},
+	{EffectId: 929, ItemId: 16217, SpellId: 20017, Name: "Enchant Shield - Greater Stamina", Quality: proto.ItemQuality_ItemQualityCommon, Stats: stats.Stats{stats.Stamina: 7}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon, EnchantType: proto.EnchantType_EnchantTypeShield},
+	{EffectId: 1890, ItemId: 16222, SpellId: 20016, Name: "Enchant Shield - Superior Spirit", Quality: proto.ItemQuality_ItemQualityUncommon, Stats: stats.Stats{stats.Spirit: 9}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon, EnchantType: proto.EnchantType_EnchantTypeShield},
 	{EffectId: 7603, ItemId: 228982, SpellId: 463871, Name: "Enchant Shield - Law of Nature", Quality: proto.ItemQuality_ItemQualityUncommon, Stats: stats.Stats{stats.SpellDamage: 30, stats.HealingPower: 55}.ToFloatArray(), Type: proto.ItemType_ItemTypeWeapon, EnchantType: proto.EnchantType_EnchantTypeShield},
 
 	// Ranged Scopes
