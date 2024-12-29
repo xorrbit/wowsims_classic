@@ -22,8 +22,6 @@ type APLRotation struct {
 
 	// If true, can recast channel when interrupted.
 	allowChannelRecastOnInterrupt bool
-	// Checking for cast-while-channeling spells to allow the APL to not evaluate during channels unless absolutely necessary
-	allowCastWhileChanneling bool
 
 	// Used inside of actions/value to determine whether they will occur during the prepull or regular rotation.
 	parsingPrepull bool
@@ -186,7 +184,11 @@ func (apl *APLRotation) DoNextAction(sim *Simulation) {
 		return
 	}
 
-	if apl.unit.IsChanneling(sim) && !apl.allowCastWhileChanneling {
+	if apl.shouldInterruptChannel(sim) {
+		apl.unit.ChanneledDot.Cancel(sim)
+	}
+
+	if apl.unit.IsChanneling(sim) {
 		return
 	}
 
