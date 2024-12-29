@@ -86,10 +86,8 @@ export const DefaultOptions = HunterOptions.create({
 	ammo: Ammo.ThoriumHeadedArrow,
 	quiverBonus: Hunter_Options_QuiverBonus.Speed15,
 	petAttackSpeed: 2.0,
-	petTalents: {},
 	petType: PetType.PetNone,
 	petUptime: 1,
-	sniperTrainingUptime: 1.0,
 });
 
 export const DefaultConsumes = Consumes.create({

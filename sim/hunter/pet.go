@@ -16,8 +16,6 @@ type HunterPet struct {
 
 	hunterOwner *Hunter
 
-	killCommandAura *core.Aura
-
 	specialAbility *core.Spell
 	focusDump      *core.Spell
 
@@ -63,68 +61,16 @@ func (hunter *Hunter) NewHunterPet() *HunterPet {
 		attackSpeed = 2.5
 	}
 
-	switch hunter.Level {
-	case 25:
-		baseMinDamage = 6.5 * attackSpeed
-		baseMaxDamage = 12.5 * attackSpeed
-		hunterPetBaseStats = stats.Stats{
-			stats.Strength:  53,
-			stats.Agility:   45,
-			stats.Stamina:   120,
-			stats.Intellect: 29,
-			stats.Spirit:    39,
+	baseMinDamage = 18.5 * attackSpeed
+	baseMaxDamage = 28.0 * attackSpeed
+	hunterPetBaseStats = stats.Stats{
+		stats.Strength:  136,
+		stats.Agility:   100,
+		stats.Stamina:   274,
+		stats.Intellect: 50,
+		stats.Spirit:    80,
 
-			stats.AttackPower: -20,
-
-			// Add 1.8% because pets aren't affected by that component of crit suppression.
-			stats.MeleeCrit: (3.2 + 1.8) * core.CritRatingPerCritChance,
-		}
-	case 40:
-		baseMinDamage = 9.5 * attackSpeed
-		baseMaxDamage = 15.5 * attackSpeed
-		hunterPetBaseStats = stats.Stats{
-			stats.Strength:  78,
-			stats.Agility:   66,
-			stats.Stamina:   160,
-			stats.Intellect: 37,
-			stats.Spirit:    55,
-
-			stats.AttackPower: -20,
-
-			// Add 1.8% because pets aren't affected by that component of crit suppression.
-			stats.MeleeCrit: (3.2 + 1.8) * core.CritRatingPerCritChance,
-		}
-	case 50:
-		baseMinDamage = 23.5 * attackSpeed
-		baseMaxDamage = 27.5 * attackSpeed
-		hunterPetBaseStats = stats.Stats{
-			stats.Strength:  113,
-			stats.Agility:   82,
-			stats.Stamina:   257,
-			stats.Intellect: 43,
-			stats.Spirit:    67,
-
-			stats.AttackPower: -20,
-
-			// Add 1.8% because pets aren't affected by that component of crit suppression.
-			stats.MeleeCrit: (3.2 + 1.8) * core.CritRatingPerCritChance,
-		}
-	case 60:
-		// TODO:
-		baseMinDamage = 18.5 * attackSpeed
-		baseMaxDamage = 28.0 * attackSpeed
-		hunterPetBaseStats = stats.Stats{
-			stats.Strength:  136,
-			stats.Agility:   100,
-			stats.Stamina:   274,
-			stats.Intellect: 50,
-			stats.Spirit:    80,
-
-			stats.AttackPower: -20,
-
-			// Add 1.8% because pets aren't affected by that component of crit suppression.
-			stats.MeleeCrit: (3.2 + 1.8) * core.CritRatingPerCritChance,
-		}
+		stats.AttackPower: -20,
 	}
 
 	hp := &HunterPet{
@@ -146,14 +92,10 @@ func (hunter *Hunter) NewHunterPet() *HunterPet {
 		AutoSwingMelee: true,
 	})
 
-	// After checking numerous logs it seems pet auto attacks are hitting for less then what they should if following standard attack formulas
-	// TODO: Figure out from where this difference comes
-	// TODO: Phase2 this no longer seems to apply
-	//hp.AutoAttacks.MHConfig().DamageMultiplier *= 0.45
-
 	// Happiness
 	hp.PseudoStats.DamageDealtMultiplier *= 1.25
 
+	// This stuff probably need removedD?
 	// Family scalars
 	hp.PseudoStats.SchoolDamageDealtMultiplier[stats.SchoolIndexPhysical] *= hp.config.Damage
 	hp.PseudoStats.ArmorMultiplier *= hp.config.Armor
@@ -174,13 +116,6 @@ func (hunter *Hunter) NewHunterPet() *HunterPet {
 
 func (hp *HunterPet) GetPet() *core.Pet {
 	return &hp.Pet
-}
-
-func (hp *HunterPet) Talents() *proto.HunterPetTalents {
-	if talents := hp.hunterOwner.Options.PetTalents; talents != nil {
-		return talents
-	}
-	return &proto.HunterPetTalents{}
 }
 
 func (hp *HunterPet) Initialize() {
@@ -250,13 +185,6 @@ func (hp *HunterPet) ExecuteCustomRotation(sim *core.Simulation) {
 			}
 		}
 	}
-}
-
-func (hp *HunterPet) killCommandMult() float64 {
-	if hp.killCommandAura == nil {
-		return 1
-	}
-	return 1 + 0.2*float64(hp.killCommandAura.GetStacks())
 }
 
 func (hunter *Hunter) makeStatInheritance() core.PetStatInheritance {
@@ -398,16 +326,6 @@ var PetConfigs = map[proto.Hunter_Options_PetType]PetConfig{
 		Health: 1.00,
 		Armor:  1.00,
 		Damage: 1.07,
-	},
-	proto.Hunter_Options_CoreHound: {
-		Name:    "Core Hound",
-		MobType: proto.MobType_MobTypeBeast,
-
-		FocusDump: LavaBreath,
-
-		Health: 1.06,
-		Armor:  1.01,
-		Damage: 1.02,
 	},
 	proto.Hunter_Options_Crab: {
 		Name:    "Crab",
