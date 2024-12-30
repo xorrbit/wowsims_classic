@@ -104,10 +104,10 @@ dps_results: {
  }
 }
 dps_results: {
- key: "TestP1Mage-Phase1-AllItems-Champion'sRegalia"
+ key: "TestP1Mage-Phase1-AllItems-Champion'sArcanum"
  value: {
-  dps: 479.60128
-  tps: 355.60874
+  dps: 512.72564
+  tps: 379.31583
  }
 }
 dps_results: {
@@ -146,10 +146,10 @@ dps_results: {
  }
 }
 dps_results: {
- key: "TestP1Mage-Phase1-AllItems-LieutenantCommander'sRegalia"
+ key: "TestP1Mage-Phase1-AllItems-LieutenantCommander'sArcanum"
  value: {
-  dps: 479.60128
-  tps: 355.60874
+  dps: 512.72564
+  tps: 379.31583
  }
 }
 dps_results: {

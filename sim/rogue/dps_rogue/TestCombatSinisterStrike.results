@@ -111,10 +111,10 @@ dps_results: {
  }
 }
 dps_results: {
- key: "TestCombatSinisterStrike-Phase5-AllItems-Champion'sVestments"
+ key: "TestCombatSinisterStrike-Phase5-AllItems-Champion'sGuard"
  value: {
-  dps: 919.47147
-  tps: 652.82474
+  dps: 965.37804
+  tps: 685.41841
  }
 }
 dps_results: {
@@ -132,10 +132,17 @@ dps_results: {
  }
 }
 dps_results: {
- key: "TestCombatSinisterStrike-Phase5-AllItems-LieutenantCommander'sVestments"
+ key: "TestCombatSinisterStrike-Phase5-AllItems-FieldMarshal'sVestments"
  value: {
-  dps: 919.47147
-  tps: 652.82474
+  dps: 1018.98979
+  tps: 723.48275
+ }
+}
+dps_results: {
+ key: "TestCombatSinisterStrike-Phase5-AllItems-LieutenantCommander'sGuard"
+ value: {
+  dps: 965.37804
+  tps: 685.41841
  }
 }
 dps_results: {
@@ -150,6 +157,13 @@ dps_results: {
  value: {
   dps: 1002.09227
   tps: 711.48551
+ }
+}
+dps_results: {
+ key: "TestCombatSinisterStrike-Phase5-AllItems-Warlord'sVestments"
+ value: {
+  dps: 1018.98979
+  tps: 723.48275
  }
 }
 dps_results: {

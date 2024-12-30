@@ -6,11 +6,11 @@ import (
 )
 
 ///////////////////////////////////////////////////////////////////////////
-//                            SoD Phase 4 Item Sets
+//                            Clasic Phase 2
 ///////////////////////////////////////////////////////////////////////////
 
-var ItemSetChampionsRegalia = core.NewItemSet(core.ItemSet{
-	Name: "Champion's Regalia",
+var ItemSetChampionsArcanum = core.NewItemSet(core.ItemSet{
+	Name: "Champion's Arcanum",
 	Bonuses: map[int32]core.ApplyEffect{
 		// Increases damage and healing done by magical spells and effects by up to 23.
 		2: func(agent core.Agent) {
@@ -29,8 +29,8 @@ var ItemSetChampionsRegalia = core.NewItemSet(core.ItemSet{
 	},
 })
 
-var ItemSetLieutenantCommandersRegalia = core.NewItemSet(core.ItemSet{
-	Name: "Lieutenant Commander's Regalia",
+var ItemSetLieutenantCommandersArcanum = core.NewItemSet(core.ItemSet{
+	Name: "Lieutenant Commander's Arcanum",
 	Bonuses: map[int32]core.ApplyEffect{
 		// Increases damage and healing done by magical spells and effects by up to 23.
 		2: func(agent core.Agent) {
@@ -50,7 +50,7 @@ var ItemSetLieutenantCommandersRegalia = core.NewItemSet(core.ItemSet{
 })
 
 ///////////////////////////////////////////////////////////////////////////
-//                            SoD Phase 4 Item Sets
+//                            Phase 3 Items
 ///////////////////////////////////////////////////////////////////////////
 
 var ItemSetWarlordsRegalia = core.NewItemSet(core.ItemSet{
