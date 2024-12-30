@@ -62,9 +62,9 @@ export function makePhaseSelector(parent: HTMLElement, sim: Sim): EnumPicker<Sim
 		extraCssClasses: ['phase-selector'],
 		values: [
 			{ name: 'Phase 6 - Naxx', value: 6 },
-			{ name: 'Phase 5 - AQ/R14', value: 5 },
+			{ name: 'Phase 5 - AQ', value: 5 },
 			{ name: 'Phase 4 - ZG/AB', value: 4 },
-			{ name: 'Phase 3 - BWL', value: 3 },
+			{ name: 'Phase 3 - BWL/R14', value: 3 },
 			{ name: 'Phase 2 - DM/WSG/AV', value: 2 },
 			{ name: 'Phase 1 - MC/Ony', value: 1 },
 		],

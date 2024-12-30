@@ -118,6 +118,13 @@ dps_results: {
  }
 }
 dps_results: {
+ key: "TestP1TankWarrior-Phase1-AllItems-Champion'sBattlegear"
+ value: {
+  dps: 176.5019
+  tps: 326.39273
+ }
+}
+dps_results: {
  key: "TestP1TankWarrior-Phase1-AllItems-Conqueror'sBattlegear"
  value: {
   dps: 194.91338
@@ -129,6 +136,13 @@ dps_results: {
  value: {
   dps: 181.27821
   tps: 335.07122
+ }
+}
+dps_results: {
+ key: "TestP1TankWarrior-Phase1-AllItems-LieutenantCommander'sBattlegear"
+ value: {
+  dps: 176.5019
+  tps: 326.39273
  }
 }
 dps_results: {

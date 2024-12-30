@@ -207,6 +207,49 @@ func init() {
 		w.BaseDamageMax += 5
 	})
 
+	// Weapon - Lifestealing
+	core.AddWeaponEffect(1898, func(agent core.Agent, slot proto.ItemSlot) {
+		character := agent.GetCharacter()
+
+		isMH := slot == proto.ItemSlot_ItemSlotMainHand
+		procMask := character.GetProcMaskForEnchant(1898)
+		ppmm := character.AutoAttacks.NewPPMManager(6.66, procMask)
+
+		procMaskOnAuto := core.ProcMaskDamageProc     // Both spell and melee proc combo
+		procMaskOnSpecial := core.ProcMaskSpellDamage // TODO: check if core.ProcMaskSpellDamage remains on special
+
+		procSpell := character.RegisterSpell(core.SpellConfig{
+			ActionID:    core.ActionID{SpellID: 20004}.WithTag(core.TernaryInt32(isMH, 1, 2)),
+			SpellSchool: core.SpellSchoolShadow,
+			DefenseType: core.DefenseTypeMagic,
+			ProcMask:    procMaskOnAuto,
+			Flags:       core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell,
+
+			DamageMultiplier: 1,
+			ThreatMultiplier: 1,
+
+			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+				spell.CalcAndDealDamage(sim, target, 30, spell.OutcomeMagicHitAndCrit)
+			},
+		})
+
+		aura := core.MakePermanent(character.GetOrRegisterAura(core.Aura{
+			Label: "Lifestealing Weapon",
+			OnSpellHitDealt: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
+				if result.Landed() && !spell.Flags.Matches(core.SpellFlagSuppressWeaponProcs) && ppmm.Proc(sim, spell.ProcMask, "Lifestealing Weapon") {
+					if spell.ProcMask.Matches(core.ProcMaskMeleeSpecial) {
+						procSpell.ProcMask = procMaskOnSpecial
+					} else {
+						procSpell.ProcMask = procMaskOnAuto
+					}
+					procSpell.Cast(sim, result.Target)
+				}
+			},
+		}))
+
+		character.ItemSwap.RegisterOnSwapItemForEffectWithPPMManager(1898, 6.66, &ppmm, aura)
+	})
+
 	// TODO: Crusader, Mongoose, and Executioner could also be modelled as AddWeaponEffect instead
 	// ApplyCrusaderEffect will be applied twice if there is two weapons with this enchant.
 	//   However, it will automatically overwrite one of them, so it should be ok.
