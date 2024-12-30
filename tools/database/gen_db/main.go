@@ -538,7 +538,7 @@ func GetPhaseData(item *proto.UIItem) int32 {
 				dropSource.ZoneId = 2159
 				return 1
 			}
-			
+
 			// P2 - Dire Maul
 			if dropSource.ZoneId == 2557 {
 				return 2
@@ -596,7 +596,7 @@ func GetPhaseData(item *proto.UIItem) int32 {
 			// PvP Rank gear. Phase determined by item quality (Rare/Epic)
 			if slices.Contains([]int32{14581, 12782, 12792, 12777}, vendorSource.NpcId) {
 				if item.Quality == proto.ItemQuality_ItemQualityEpic {
-					return 5
+					return 3
 				} else {
 					return 2
 				}
