@@ -1,4 +1,4 @@
-package vanilla
+package common
 
 import (
 	"fmt"
