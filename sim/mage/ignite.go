@@ -38,15 +38,15 @@ func (mage *Mage) applyIgnite() {
 		Flags:    core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell | SpellFlagMage,
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-//			result := spell.CalcAndDealOutcome(sim, target, spell.OutcomeMagicHit)
-	
+			//			result := spell.CalcAndDealOutcome(sim, target, spell.OutcomeMagicHit)
+
 			dot := mage.igniteTick.Dot(target)
 			dot.ApplyOrRefresh(sim)
-			if dot.GetStacks() < dot.MaxStacks{
+			if dot.GetStacks() < dot.MaxStacks {
 				dot.AddStack(sim)
 				dot.TakeSnapshot(sim, true)
-}
-			
+			}
+
 		},
 	})
 
@@ -67,9 +67,9 @@ func (mage *Mage) applyIgnite() {
 
 		Dot: core.DotConfig{
 			Aura: core.Aura{
-				Label: "Ignite",
+				Label:     "Ignite",
 				MaxStacks: 5,
-				Duration: time.Second * 4,
+				Duration:  time.Second * 4,
 			},
 			NumberOfTicks: IgniteTicks,
 			TickLength:    time.Second * 2,
@@ -82,11 +82,11 @@ func (mage *Mage) applyIgnite() {
 				// only the first stack snapshots the multiplier
 				if dot.GetStacks() == 1 {
 					attackTable := dot.Spell.Unit.AttackTables[target.UnitIndex][dot.Spell.CastType]
-					dot.SnapshotAttackerMultiplier = dot.Spell.AttackerDamageMultiplier(attackTable)
+					dot.SnapshotAttackerMultiplier = dot.Spell.AttackerDamageMultiplier(attackTable, true)
 					dot.SnapshotBaseDamage = newIgniteDamage
 				} else {
 					dot.SnapshotBaseDamage += newIgniteDamage
-				}	
+				}
 			},
 			OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
 				dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
