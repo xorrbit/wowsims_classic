@@ -1,7 +1,6 @@
 import Toast from './components/toast';
 import { getLanguageCode } from './constants/lang.js';
 import * as Mechanics from './constants/mechanics.js';
-import { simLaunchStatuses } from './launched_sims.js';
 import { MAX_PARTY_SIZE, Party } from './party.js';
 import {
 	AuraStats as AuraStatsProto,
@@ -41,7 +40,7 @@ import {
 	UIItem as Item,
 	UIItem_FactionRestriction,
 } from './proto/ui.js';
-import { ActionId, ActionIdConfig } from './proto_utils/action_id.js';
+import { ActionId } from './proto_utils/action_id.js';
 import { Database } from './proto_utils/database.js';
 import { EquippedItem, getWeaponDPS } from './proto_utils/equipped_item.js';
 import { Gear, ItemSwapGear } from './proto_utils/gear.js';
@@ -70,7 +69,7 @@ import {
 } from './proto_utils/utils.js';
 import { Raid } from './raid.js';
 import { Sim, SimSettingCategories } from './sim.js';
-import { playerTalentStringToProto, protoToTalentString } from './talents/factory.js';
+import { playerTalentStringToProto } from './talents/factory.js';
 import { EventID, TypedEvent } from './typed_event.js';
 import { stringComparator } from './utils.js';
 import { WorkerProgressCallback } from './worker_pool';
@@ -1190,23 +1189,11 @@ export class Player<SpecType extends Spec> {
 		}
 
 		if (!filters.sources.includes(SourceFilterOption.SourceWorldBOE)) {
-			for (const zoneName in RaidFilterOption) {
-				const zoneId = RaidFilterOption[zoneName];
-
-				if (typeof zoneId === 'number') {
-					itemData = filterItems(itemData, item => item.randomSuffixOptions.length === 0);
-				}
-			}
+			itemData = filterItems(itemData, item => item.randomSuffixOptions.length === 0);
 		}
 
 		if (Player.ARMOR_SLOTS.includes(slot)) {
-			itemData = filterItems(itemData, item => {
-				if (!filters.armorTypes.includes(item.armorType)) {
-					return false;
-				}
-
-				return true;
-			});
+			itemData = filterItems(itemData, item => filters.armorTypes.includes(item.armorType));
 		} else if (Player.WEAPON_SLOTS.includes(slot)) {
 			itemData = filterItems(itemData, item => {
 				if (!filters.weaponTypes.includes(item.weaponType)) {
