@@ -9,13 +9,12 @@ import (
 func (warrior *Warrior) registerThunderClapSpell() {
 	spellID := int32(11581)
 	baseDamage := 103.0
-	duration := time.Second * 30
 	has5pcConq := warrior.HasSetBonus(ItemSetConquerorsBattleGear, 5)
 	attackSpeedReduction := core.TernaryInt32(has5pcConq, 15, 10)
 	stanceMask := BattleStance
 
 	warrior.ThunderClapAuras = warrior.NewEnemyAuraArray(func(target *core.Unit) *core.Aura {
-		return core.ThunderClapAura(target, spellID, duration, attackSpeedReduction)
+		return core.ThunderClapAura(target, spellID, attackSpeedReduction)
 	})
 
 	results := make([]*core.SpellResult, min(4, warrior.Env.GetNumTargets()))

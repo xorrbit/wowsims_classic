@@ -163,7 +163,8 @@ func applyDebuffEffects(target *Unit, targetIdx int, debuffs *proto.Debuffs, rai
 
 	// Atk spd reduction
 	if debuffs.ThunderClap != proto.TristateEffect_TristateEffectMissing {
-		MakePermanent(ThunderClapAura(target, 8205, time.Second*22, GetTristateValueInt32(debuffs.ThunderClap, 10, 16)))
+		// +5% from Warrior's Conqueror's Battlegear 5pc
+		MakePermanent(ThunderClapAura(target, 8205, GetTristateValueInt32(debuffs.ThunderClap, 10, 15)))
 	}
 	if debuffs.Thunderfury {
 		MakePermanent(ThunderfuryASAura(target))
@@ -797,11 +798,11 @@ func apReductionEffect(aura *Aura, apReduction float64) *ExclusiveEffect {
 	})
 }
 
-func ThunderClapAura(target *Unit, spellID int32, duration time.Duration, atkSpeedReductionPercent int32) *Aura {
+func ThunderClapAura(target *Unit, spellID int32, atkSpeedReductionPercent int32) *Aura {
 	aura := target.GetOrRegisterAura(Aura{
 		Label:    "ThunderClap-" + strconv.Itoa(int(atkSpeedReductionPercent)),
 		ActionID: ActionID{SpellID: spellID},
-		Duration: duration,
+		Duration: time.Second * 30,
 	})
 	AtkSpeedReductionEffect(aura, 1+0.01*float64(atkSpeedReductionPercent))
 	return aura

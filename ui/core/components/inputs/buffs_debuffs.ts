@@ -6,7 +6,6 @@ import {
 	makeBooleanRaidBuffInput,
 	makeEnumIndividualBuffInput,
 	makeMultistateIndividualBuffInput,
-	makeMultistateMultiplierDebuffInput,
 	makeMultistateRaidBuffInput,
 	makeTristateDebuffInput,
 	makeTristateIndividualBuffInput,
@@ -431,7 +430,7 @@ export const MeleeAttackSpeedDebuff = InputHelpers.makeMultiIconInput({
 	values: [
 		makeTristateDebuffInput({
 			actionId: () => ActionId.fromSpellId(6343),
-			impId: ActionId.fromSpellId(12666),
+			impId: ActionId.fromSpellId(26110),
 			fieldName: 'thunderClap',
 		}),
 		makeBooleanDebuffInput({
