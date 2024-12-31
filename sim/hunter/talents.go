@@ -61,12 +61,13 @@ func (hunter *Hunter) ApplyTalents() {
 	hunter.AddStat(stats.MeleeCrit, float64(hunter.Talents.KillerInstinct)*1*core.CritRatingPerCritChance)
 
 	if hunter.Talents.LethalShots > 0 {
+		lethalBonus := 1*float64(hunter.Talents.LethalShots)*core.CritRatingPerCritChance
 		for _, spell := range hunter.Shots {
 			if spell != nil {
-				spell.BonusCritRating += 1*float64(hunter.Talents.LethalShots)*core.CritRatingPerCritChance
+				spell.BonusCritRating += lethalBonus
 			}
 		}
-		hunter.AutoAttacks.RangedConfig().BonusCritRating += 1*float64(hunter.Talents.LethalShots)*core.CritRatingPerCritChance
+		hunter.AutoAttacks.RangedConfig().BonusCritRating += lethalBonus
 	}
 
 	if hunter.Talents.RangedWeaponSpecialization > 0 {

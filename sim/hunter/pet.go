@@ -61,8 +61,9 @@ func (hunter *Hunter) NewHunterPet() *HunterPet {
 		attackSpeed = 2.5
 	}
 
-	baseMinDamage = 18.5 * attackSpeed
-	baseMaxDamage = 28.0 * attackSpeed
+	baseMinDamage = 18.17 * attackSpeed
+	baseMaxDamage = 27.66 * attackSpeed
+	
 	hunterPetBaseStats = stats.Stats{
 		stats.Strength:  136,
 		stats.Agility:   100,
@@ -95,7 +96,6 @@ func (hunter *Hunter) NewHunterPet() *HunterPet {
 	// Happiness
 	hp.PseudoStats.DamageDealtMultiplier *= 1.25
 
-	// This stuff probably need removedD?
 	// Family scalars
 	hp.PseudoStats.SchoolDamageDealtMultiplier[stats.SchoolIndexPhysical] *= hp.config.Damage
 	hp.PseudoStats.ArmorMultiplier *= hp.config.Armor
@@ -189,23 +189,8 @@ func (hp *HunterPet) ExecuteCustomRotation(sim *core.Simulation) {
 
 func (hunter *Hunter) makeStatInheritance() core.PetStatInheritance {
 	return func(ownerStats stats.Stats) stats.Stats {
-		// EJ posts claim this value is passed through math.Floor, but in-game testing
-		// shows pets benefit from each point of owner hit rating in WotLK Classic.
-		// https://web.archive.org/web/20120112003252/http://elitistjerks.com/f80/t100099-demonology_releasing_demon_you
-		ownerHitChance := ownerStats[stats.MeleeHit] / core.MeleeHitRatingPerHitChance
-		hitRatingFromOwner := ownerHitChance * core.MeleeHitRatingPerHitChance
-
-		return stats.Stats{
-			stats.Stamina:     ownerStats[stats.Stamina] * 0.3,
-			stats.Armor:       ownerStats[stats.Armor] * 0.35,
-			stats.AttackPower: ownerStats[stats.RangedAttackPower] * 0.22,
-
-			stats.MeleeCrit: ownerStats[stats.MeleeCrit],
-			stats.SpellCrit: ownerStats[stats.MeleeCrit],
-
-			stats.MeleeHit: hitRatingFromOwner,
-			stats.SpellHit: hitRatingFromOwner * 2,
-		}
+		// No stat inheritance in classic
+		return stats.Stats{}
 	}
 }
 

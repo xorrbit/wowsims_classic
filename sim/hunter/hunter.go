@@ -47,7 +47,6 @@ const (
 	SpellCode_HunterPetClaw
 	SpellCode_HunterPetBite
 	SpellCode_HunterPetLightningBreath
-	SpellCode_HunterPetLavaBreath
 	SpellCode_HunterPetScreech
 	SpellCode_HunterPetScorpidPoison
 )
