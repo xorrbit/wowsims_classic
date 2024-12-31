@@ -199,7 +199,7 @@ func init() {
 		return spell
 	})
 
-	// https://www.wowhead.com/classic/item=12592/blackblade-of-shahram
+	// https://www.wowhead.com/classic/item=228606/blackblade-of-shahram
 	// Chance on hit: Summons the infernal spirit of Shahram.
 	// Summons an NPC "Shahram" who has an equal chance to cast one of 6 spells:
 	// Curse of Shahram: -50% movement speed and -25% attack speed on all enemies within 10 yards of Shahram for 10 seconds.
@@ -210,6 +210,7 @@ func init() {
 	// Flames of Shahram: Deals 100-150 Fire damage to all enemies within 10 yards of Shahram. Damage scales at 100% with +spelldmg debuffs placed on enemies such as Flame Buffet.
 	//
 	// Implementing this without the guardian as it seems to just cast a spell and depart and guardians are expensive
+	// All spells use ProcMaskEmpty because they're not actually cast by the player
 	core.NewItemEffect(BlackbladeOfShahram, func(agent core.Agent) {
 		character := agent.GetCharacter()
 
@@ -228,11 +229,14 @@ func init() {
 			core.AtkSpeedReductionEffect(aura, 1.25)
 			return aura
 		})
+
 		curseOfShahram := character.GetOrRegisterSpell(core.SpellConfig{
 			ActionID:    core.ActionID{SpellID: 16597},
 			SpellSchool: core.SpellSchoolArcane,
 			DefenseType: core.DefenseTypeMagic,
 			ProcMask:    core.ProcMaskEmpty,
+			Flags:       core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell,
+
 			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 				curseOfShahramAuras.Get(target).Activate(sim)
 			},
@@ -257,6 +261,8 @@ func init() {
 			SpellSchool: core.SpellSchoolArcane,
 			DefenseType: core.DefenseTypeMagic,
 			ProcMask:    core.ProcMaskEmpty,
+			Flags:       core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell,
+
 			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 				for _, aoeTarget := range sim.Encounter.TargetUnits {
 					mightOfShahramAuras.Get(aoeTarget).Activate(sim)
@@ -264,34 +270,36 @@ func init() {
 			},
 		})
 
+		// This isn't explicit in-game but using a safe value that will likely never be hit
+		numFistOfShahramAuras := 8
+		fistOfShahramAuras := []*core.Aura{}
+		for i := 0; i < numFistOfShahramAuras; i++ {
+			fistOfShahramAuras = append(fistOfShahramAuras, character.GetOrRegisterAura(core.Aura{
+				ActionID: core.ActionID{SpellID: 16601},
+				Label:    fmt.Sprintf("Fist of Shahram (%d)", i),
+				Duration: time.Second * 8,
+				OnGain: func(aura *core.Aura, sim *core.Simulation) {
+					character.MultiplyAttackSpeed(sim, 1.3)
+				},
+				OnExpire: func(aura *core.Aura, sim *core.Simulation) {
+					character.MultiplyAttackSpeed(sim, 1/(1.3))
+				},
+			}))
+		}
+
 		fistOfShahram := character.GetOrRegisterSpell(core.SpellConfig{
 			ActionID:    core.ActionID{SpellID: 16601},
 			SpellSchool: core.SpellSchoolArcane,
 			DefenseType: core.DefenseTypeMagic,
 			ProcMask:    core.ProcMaskEmpty,
+			Flags:       core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell,
+
 			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-				counter := 0
-
-				for counter < 10 {
-					fistOfShahramAura := character.GetOrRegisterAura(core.Aura{
-						ActionID: core.ActionID{SpellID: 16601},
-						Label:    fmt.Sprintf("Fist of Shahram (%d)", counter),
-						Duration: time.Second * 8,
-						OnGain: func(aura *core.Aura, sim *core.Simulation) {
-							character.MultiplyAttackSpeed(sim, 1.3)
-						},
-						OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-							character.MultiplyAttackSpeed(sim, 1/(1.3))
-						},
-					})
-
-					if !fistOfShahramAura.IsActive() {
-						fistOfShahramAura.Activate(sim)
+				for i := 0; i < numFistOfShahramAuras; i++ {
+					if aura := fistOfShahramAuras[i]; !aura.IsActive() {
+						aura.Activate(sim)
 						break
 					}
-
-					counter += 1
-
 				}
 			},
 		})
@@ -303,6 +311,7 @@ func init() {
 			DefenseType: core.DefenseTypeMagic,
 			ProcMask:    core.ProcMaskEmpty,
 			Flags:       core.SpellFlagIgnoreAttackerModifiers | core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell,
+
 			Hot: core.DotConfig{
 				Aura: core.Aura{
 					Label: "Blessing of Shahram",
@@ -319,6 +328,7 @@ func init() {
 					}
 				},
 			},
+
 			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 				for _, agent := range character.Party.PlayersAndPets {
 					spell.Hot(&agent.GetCharacter().Unit).Apply(sim)
@@ -326,55 +336,58 @@ func init() {
 			},
 		})
 
+		// This isn't explicit in-game but using a safe value that will likely never be hit
+		numWillOfShahramAuras := 8
+		willOfShahramAuras := []*core.Aura{}
+		willOfShahramStats := stats.Stats{
+			stats.Agility:   50,
+			stats.Intellect: 50,
+			stats.Stamina:   50,
+			stats.Spirit:    50,
+			stats.Strength:  50,
+		}
+
+		for i := 0; i < numWillOfShahramAuras; i++ {
+			willOfShahramAuras = append(willOfShahramAuras, character.GetOrRegisterAura(core.Aura{
+				ActionID: core.ActionID{SpellID: 16598},
+				Label:    fmt.Sprintf("Will of Shahram (%d)", i),
+				Duration: time.Second * 20,
+				OnGain: func(aura *core.Aura, sim *core.Simulation) {
+					character.AddStatsDynamic(sim, willOfShahramStats)
+				},
+				OnExpire: func(aura *core.Aura, sim *core.Simulation) {
+					character.AddStatsDynamic(sim, willOfShahramStats.Invert())
+				},
+			}))
+		}
+
 		willOfShahram := character.GetOrRegisterSpell(core.SpellConfig{
 			ActionID:    core.ActionID{SpellID: 16598},
 			SpellSchool: core.SpellSchoolArcane,
 			DefenseType: core.DefenseTypeMagic,
 			ProcMask:    core.ProcMaskEmpty,
+			Flags:       core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell,
 
 			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-				counter := 0
-
-				stats := stats.Stats{
-					stats.Agility:   50,
-					stats.Intellect: 50,
-					stats.Stamina:   50,
-					stats.Spirit:    50,
-					stats.Strength:  50,
-				}
-
-				for counter < 10 {
-					willOfShahram := character.GetOrRegisterAura(core.Aura{
-						ActionID: core.ActionID{SpellID: 16598},
-						Label:    fmt.Sprintf("Will of Shahram (%d)", counter),
-						Duration: time.Second * 20,
-						OnGain: func(aura *core.Aura, sim *core.Simulation) {
-							character.AddStatsDynamic(sim, stats)
-						},
-						OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-							character.AddStatsDynamic(sim, stats.Multiply(-1.0))
-						},
-					})
-
-					if !willOfShahram.IsActive() {
-						willOfShahram.Activate(sim)
+				for i := 0; i < numWillOfShahramAuras; i++ {
+					if aura := willOfShahramAuras[i]; !aura.IsActive() {
+						aura.Activate(sim)
 						break
 					}
-
-					counter += 1
-
 				}
 			},
 		})
 
 		flamesOfShahram := character.GetOrRegisterSpell(core.SpellConfig{
-			ActionID:         core.ActionID{SpellID: 16596},
-			SpellSchool:      core.SpellSchoolFire,
-			DefenseType:      core.DefenseTypeMagic,
-			ProcMask:         core.ProcMaskEmpty,
-			Flags:            core.SpellFlagIgnoreAttackerModifiers | core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell,
+			ActionID:    core.ActionID{SpellID: 16596},
+			SpellSchool: core.SpellSchoolFire,
+			DefenseType: core.DefenseTypeMagic,
+			ProcMask:    core.ProcMaskEmpty,
+			Flags:       core.SpellFlagIgnoreAttackerModifiers | core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell,
+
 			DamageMultiplier: 1,
 			ThreatMultiplier: 1,
+
 			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 				for _, aoeTarget := range sim.Encounter.TargetUnits {
 					spell.CalcAndDealDamage(sim, aoeTarget, 90, spell.OutcomeMagicCrit)
