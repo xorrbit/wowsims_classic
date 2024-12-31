@@ -38,8 +38,7 @@ func (hunter *Hunter) getMultiShotConfig(rank int, timer *core.Timer) core.Spell
 			},
 			ModifyCast: func(sim *core.Simulation, spell *core.Spell, cast *core.Cast) {
 				cast.CastTime = spell.CastTime()
-				// + 1ms to fix engine issue with clipping
-				hunter.AutoAttacks.DelayRangedUntil(sim, sim.CurrentTime+spell.CastTime() + time.Millisecond *1)
+				hunter.Unit.AutoAttacks.CancelAutoSwing(sim)
 			},
 			IgnoreHaste: true, // Hunter GCD is locked at 1.5s
 			CD: core.Cooldown{
@@ -72,7 +71,7 @@ func (hunter *Hunter) getMultiShotConfig(rank int, timer *core.Timer) core.Spell
 
 				curTarget = sim.Environment.NextTargetUnit(curTarget)
 			}
-
+			hunter.Unit.AutoAttacks.EnableAutoSwing(sim)
 			spell.WaitTravelTime(sim, func(s *core.Simulation) {
 				for hitIndex := int32(0); hitIndex < numHits; hitIndex++ {
 					spell.DealDamage(sim, results[hitIndex])
@@ -80,7 +79,7 @@ func (hunter *Hunter) getMultiShotConfig(rank int, timer *core.Timer) core.Spell
 					curTarget = sim.Environment.NextTargetUnit(curTarget)
 				}
 			})
-
+			
 		},
 	}
 }
