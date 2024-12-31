@@ -1,4 +1,4 @@
-package mage
+package rogue
 
 import (
 	"github.com/wowsims/classic/sim/core"
@@ -6,18 +6,21 @@ import (
 )
 
 ///////////////////////////////////////////////////////////////////////////
-//                            Clasic Phase 2
+//                          Classic Phase 2
 ///////////////////////////////////////////////////////////////////////////
 
-var ItemSetChampionsArcanum = core.NewItemSet(core.ItemSet{
-	Name: "Champion's Arcanum",
+var ItemSetChampionsGuard = core.NewItemSet(core.ItemSet{
+	Name: "Champion's Guard",
 	Bonuses: map[int32]core.ApplyEffect{
-		// Increases damage and healing done by magical spells and effects by up to 23.
+		// +40 Attack Power.
 		2: func(agent core.Agent) {
 			c := agent.GetCharacter()
-			c.AddStat(stats.SpellPower, 23)
+			c.AddStats(stats.Stats{
+				stats.AttackPower:       40,
+				stats.RangedAttackPower: 40,
+			})
 		},
-		// Reduces the cooldown of your Blink spell by 1.5 sec.
+		// Reduces the cooldown of your Gouge ability by 1 sec.
 		4: func(agent core.Agent) {
 			// Nothing to do
 		},
@@ -29,15 +32,18 @@ var ItemSetChampionsArcanum = core.NewItemSet(core.ItemSet{
 	},
 })
 
-var ItemSetLieutenantCommandersArcanum = core.NewItemSet(core.ItemSet{
-	Name: "Lieutenant Commander's Arcanum",
+var ItemSetLieutenantCommandersGuard = core.NewItemSet(core.ItemSet{
+	Name: "Lieutenant Commander's Guard",
 	Bonuses: map[int32]core.ApplyEffect{
-		// Increases damage and healing done by magical spells and effects by up to 23.
+		// +40 Attack Power.
 		2: func(agent core.Agent) {
 			c := agent.GetCharacter()
-			c.AddStat(stats.SpellPower, 23)
+			c.AddStats(stats.Stats{
+				stats.AttackPower:       40,
+				stats.RangedAttackPower: 40,
+			})
 		},
-		// Reduces the cooldown of your Blink spell by 1.5 sec.
+		// Reduces the cooldown of your Gouge ability by 1 sec.
 		4: func(agent core.Agent) {
 			// Nothing to do
 		},
@@ -49,46 +55,48 @@ var ItemSetLieutenantCommandersArcanum = core.NewItemSet(core.ItemSet{
 	},
 })
 
-///////////////////////////////////////////////////////////////////////////
-//                            Phase 3 Items
-///////////////////////////////////////////////////////////////////////////
-
-var ItemSetWarlordsRegalia = core.NewItemSet(core.ItemSet{
-	Name: "Warlord's Regalia",
+var ItemSetWarlordsVestments = core.NewItemSet(core.ItemSet{
+	Name: "Warlord's Vestments",
 	Bonuses: map[int32]core.ApplyEffect{
 		// +20 Stamina.
 		2: func(agent core.Agent) {
 			c := agent.GetCharacter()
 			c.AddStat(stats.Stamina, 20)
 		},
-		// Reduces the cooldown of your Blink spell by 1.5 sec.
+		// Reduces the cooldown of your Gouge ability by 1 sec.
 		4: func(agent core.Agent) {
 			// Nothing to do
 		},
-		// Increases damage and healing done by magical spells and effects by up to 23.
+		// +40 Attack Power.
 		6: func(agent core.Agent) {
 			c := agent.GetCharacter()
-			c.AddStat(stats.SpellPower, 23)
+			c.AddStats(stats.Stats{
+				stats.AttackPower:       40,
+				stats.RangedAttackPower: 40,
+			})
 		},
 	},
 })
 
-var ItemSetFieldMarshalsRegalia = core.NewItemSet(core.ItemSet{
-	Name: "Field Marshal's Regalia",
+var ItemSetFieldMarshalsVestments = core.NewItemSet(core.ItemSet{
+	Name: "Field Marshal's Vestments",
 	Bonuses: map[int32]core.ApplyEffect{
 		// +20 Stamina.
 		2: func(agent core.Agent) {
 			c := agent.GetCharacter()
 			c.AddStat(stats.Stamina, 20)
 		},
-		// Reduces the cooldown of your Blink spell by 1.5 sec.
+		// Reduces the cooldown of your Gouge ability by 1 sec.
 		4: func(agent core.Agent) {
 			// Nothing to do
 		},
-		// Increases damage and healing done by magical spells and effects by up to 23.
+		// +40 Attack Power.
 		6: func(agent core.Agent) {
 			c := agent.GetCharacter()
-			c.AddStat(stats.SpellPower, 23)
+			c.AddStats(stats.Stats{
+				stats.AttackPower:       40,
+				stats.RangedAttackPower: 40,
+			})
 		},
 	},
 })

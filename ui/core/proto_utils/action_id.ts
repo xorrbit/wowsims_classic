@@ -284,7 +284,7 @@ export class ActionId {
 				}
 				break;
 			// Dual-hit MH/OH spells and weapon imbues
-			case 'Holy Strength': // Crusader Enchant
+			case 'Holy Strength': // Weapon - Crusader Enchant
 				if (this.tag === 1) {
 					name = `${name} (Main-Hand)`;
 				} else if (this.tag === 2) {

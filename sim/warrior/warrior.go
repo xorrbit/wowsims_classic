@@ -57,12 +57,10 @@ type Warrior struct {
 	revengeProcAura *core.Aura
 	OverpowerAura   *core.Aura
 
-	lastMeleeAutoTarget *core.Unit
-
 	// Enrage Auras
-	BerserkerRageAura      *core.Aura
-	BloodrageAura          *core.Aura
-	EnrageAura             *core.Aura
+	BerserkerRageAura *core.Aura
+	BloodrageAura     *core.Aura
+	EnrageAura        *core.Aura
 
 	// Reaction time values
 	reactionTime time.Duration
@@ -194,8 +192,6 @@ func (warrior *Warrior) Initialize() {
 	}
 	warrior.registerHeroicStrikeSpell(queuedRealismICD)
 	warrior.registerCleaveSpell(queuedRealismICD)
-
-	
 
 	warrior.registerBloodrageCD()
 	warrior.RegisterRecklessnessCD()

@@ -37,14 +37,14 @@ func (warrior *Warrior) applyDeepWounds() {
 			TickLength:    time.Second * 3,
 
 			OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
-				attackTable := warrior.AttackTables[target.UnitIndex][proto.CastType_CastTypeMainHand] 
-				dot.SnapshotAttackerMultiplier = dot.Spell.AttackerDamageMultiplier(attackTable)  // Double dips on attackers mods
+				attackTable := warrior.AttackTables[target.UnitIndex][proto.CastType_CastTypeMainHand]
+				dot.SnapshotAttackerMultiplier = dot.Spell.AttackerDamageMultiplier(attackTable, true) // Double dips on attackers mods
 				dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
 			},
 		},
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			spell.Dot(target).Apply(sim)  //Resets the tick counter with Apply vs ApplyorRefresh
+			spell.Dot(target).Apply(sim) //Resets the tick counter with Apply vs ApplyorRefresh
 			spell.CalcAndDealOutcome(sim, target, spell.OutcomeAlwaysHitNoHitCounter)
 		},
 	})
@@ -74,11 +74,11 @@ func (warrior *Warrior) procDeepWounds(sim *core.Simulation, target *core.Unit, 
 	var awd float64
 	if isOh {
 		attackTableOh := warrior.AttackTables[target.UnitIndex][proto.CastType_CastTypeOffHand]
-		adm := warrior.AutoAttacks.OHAuto().AttackerDamageMultiplier(attackTableOh)
+		adm := warrior.AutoAttacks.OHAuto().AttackerDamageMultiplier(attackTableOh, true)
 		awd = warrior.AutoAttacks.OH().CalculateAverageWeaponDamage(dot.Spell.MeleeAttackPower()) * 0.5 * adm
 	} else { // MH
 		attackTableMh := warrior.AttackTables[target.UnitIndex][proto.CastType_CastTypeMainHand]
-		adm := warrior.AutoAttacks.MHAuto().AttackerDamageMultiplier(attackTableMh)
+		adm := warrior.AutoAttacks.MHAuto().AttackerDamageMultiplier(attackTableMh, true)
 		awd = warrior.AutoAttacks.MH().CalculateAverageWeaponDamage(dot.Spell.MeleeAttackPower()) * adm
 	}
 

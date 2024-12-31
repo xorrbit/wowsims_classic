@@ -1,4 +1,4 @@
-package vanilla
+package common
 
 import (
 	"fmt"
@@ -70,6 +70,7 @@ const (
 	EbonHiltOfMarduk         = 14576
 	FrightskullShaft         = 14531
 	BarovianFamilySword      = 14541
+	CloudkeeperLegplates     = 14554
 	Frightalon               = 14024
 	// HeadmastersCharge         = 13937
 	GravestoneWarAxe          = 13983
@@ -2667,6 +2668,10 @@ func init() {
 		character := agent.GetCharacter()
 		BlazefuryTriggerAura(character, 7712, core.SpellSchoolFire, 2)
 	})
+
+	// https://www.wowhead.com/classic/item=14554/cloudkeeper-legplates
+	// Use: Increases Attack Power by 100 for 30 sec. (15 Min Cooldown)
+	core.NewSimpleStatOffensiveTrinketEffect(CloudkeeperLegplates, stats.Stats{stats.AttackPower: 100, stats.RangedAttackPower: 100}, time.Second*30, time.Minute*15)
 
 	// https://www.wowhead.com/classic/item=1168/skullflame-shield
 	// Equip: When struck in combat has a 3% chance of stealing 35 life from target enemy. (Proc chance: 3%)

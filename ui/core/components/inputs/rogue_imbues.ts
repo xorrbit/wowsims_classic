@@ -10,7 +10,7 @@ export const InstantPoisonWeaponImbue: ConsumableInputConfig<WeaponImbue> = {
 };
 
 export const DeadlyPoisonWeaponImbue: ConsumableInputConfig<WeaponImbue> = {
-	actionId: () => ActionId.fromItemId(20844),
+	actionId: () => ActionId.fromItemId(8985),
 	value: WeaponImbue.DeadlyPoison,
 	showWhen: player => player.getClass() == Class.ClassRogue,
 };

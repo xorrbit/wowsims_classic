@@ -111,6 +111,13 @@ dps_results: {
  }
 }
 dps_results: {
+ key: "TestCombatDaggers-Phase5-AllItems-Champion'sGuard"
+ value: {
+  dps: 951.86163
+  tps: 675.82176
+ }
+}
+dps_results: {
  key: "TestCombatDaggers-Phase5-AllItems-DarkmantleArmor"
  value: {
   dps: 1003.38314
@@ -125,6 +132,20 @@ dps_results: {
  }
 }
 dps_results: {
+ key: "TestCombatDaggers-Phase5-AllItems-FieldMarshal'sVestments"
+ value: {
+  dps: 980.51726
+  tps: 696.16726
+ }
+}
+dps_results: {
+ key: "TestCombatDaggers-Phase5-AllItems-LieutenantCommander'sGuard"
+ value: {
+  dps: 951.86163
+  tps: 675.82176
+ }
+}
+dps_results: {
  key: "TestCombatDaggers-Phase5-AllItems-Madcap'sOutfit"
  value: {
   dps: 949.34829
@@ -136,6 +157,13 @@ dps_results: {
  value: {
   dps: 953.69678
   tps: 677.12471
+ }
+}
+dps_results: {
+ key: "TestCombatDaggers-Phase5-AllItems-Warlord'sVestments"
+ value: {
+  dps: 980.51726
+  tps: 696.16726
  }
 }
 dps_results: {

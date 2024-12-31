@@ -41,7 +41,7 @@ character_stats_results: {
   final_stats: 60
   final_stats: 60
   final_stats: 60
-  final_stats: 484
+  final_stats: 384
   final_stats: 0
   final_stats: 0
   final_stats: 0
@@ -111,6 +111,13 @@ dps_results: {
  }
 }
 dps_results: {
+ key: "TestCombatSinisterStrike-Phase5-AllItems-Champion'sGuard"
+ value: {
+  dps: 965.37804
+  tps: 685.41841
+ }
+}
+dps_results: {
  key: "TestCombatSinisterStrike-Phase5-AllItems-DarkmantleArmor"
  value: {
   dps: 1058.47528
@@ -125,6 +132,20 @@ dps_results: {
  }
 }
 dps_results: {
+ key: "TestCombatSinisterStrike-Phase5-AllItems-FieldMarshal'sVestments"
+ value: {
+  dps: 1018.98979
+  tps: 723.48275
+ }
+}
+dps_results: {
+ key: "TestCombatSinisterStrike-Phase5-AllItems-LieutenantCommander'sGuard"
+ value: {
+  dps: 965.37804
+  tps: 685.41841
+ }
+}
+dps_results: {
  key: "TestCombatSinisterStrike-Phase5-AllItems-Madcap'sOutfit"
  value: {
   dps: 1004.1078
@@ -136,6 +157,13 @@ dps_results: {
  value: {
   dps: 1002.09227
   tps: 711.48551
+ }
+}
+dps_results: {
+ key: "TestCombatSinisterStrike-Phase5-AllItems-Warlord'sVestments"
+ value: {
+  dps: 1018.98979
+  tps: 723.48275
  }
 }
 dps_results: {

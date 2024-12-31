@@ -538,7 +538,7 @@ func GetPhaseData(item *proto.UIItem) int32 {
 				dropSource.ZoneId = 2159
 				return 1
 			}
-			
+
 			// P2 - Dire Maul
 			if dropSource.ZoneId == 2557 {
 				return 2
@@ -570,7 +570,13 @@ func GetPhaseData(item *proto.UIItem) int32 {
 			}
 
 			// Kazzak and Azuregos
-			if slices.Contains([]int32{12397, 6109}, dropSource.NpcId) {
+			if slices.Contains([]int32{12397}, dropSource.NpcId) {
+				return 2
+			}
+
+			// Azzy items don't have a ZoneID. Let's add it for UI filtering, then return phase 1
+			if dropSource.NpcId == 6109 {
+				dropSource.ZoneId = 16
 				return 2
 			}
 
@@ -590,7 +596,7 @@ func GetPhaseData(item *proto.UIItem) int32 {
 			// PvP Rank gear. Phase determined by item quality (Rare/Epic)
 			if slices.Contains([]int32{14581, 12782, 12792, 12777}, vendorSource.NpcId) {
 				if item.Quality == proto.ItemQuality_ItemQualityEpic {
-					return 5
+					return 3
 				} else {
 					return 2
 				}

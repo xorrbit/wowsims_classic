@@ -118,6 +118,13 @@ dps_results: {
  }
 }
 dps_results: {
+ key: "TestP1DPSWarrior-Phase1-AllItems-Champion'sBattlearmor"
+ value: {
+  dps: 1281.15573
+  tps: 1120.66888
+ }
+}
+dps_results: {
  key: "TestP1DPSWarrior-Phase1-AllItems-Conqueror'sBattlegear"
  value: {
   dps: 1355.13247
@@ -132,10 +139,31 @@ dps_results: {
  }
 }
 dps_results: {
+ key: "TestP1DPSWarrior-Phase1-AllItems-FieldMarshal'sBattlegear"
+ value: {
+  dps: 1351.18502
+  tps: 1181.04309
+ }
+}
+dps_results: {
+ key: "TestP1DPSWarrior-Phase1-AllItems-LieutenantCommander'sBattlearmor"
+ value: {
+  dps: 1281.15573
+  tps: 1120.66888
+ }
+}
+dps_results: {
  key: "TestP1DPSWarrior-Phase1-AllItems-Vindicator'sBattlegear"
  value: {
   dps: 1367.97332
   tps: 1198.43317
+ }
+}
+dps_results: {
+ key: "TestP1DPSWarrior-Phase1-AllItems-Warlord'sBattlegear"
+ value: {
+  dps: 1351.18502
+  tps: 1181.04309
  }
 }
 dps_results: {
