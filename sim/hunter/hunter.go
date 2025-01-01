@@ -81,7 +81,7 @@ type Hunter struct {
 	NormalizedAmmoDamageBonus float64
 
 	// Miscellaneous set bonuses that require extra logic inside of spells
-	SerpentStingAPCoeff float64
+	AspectOfTheHawkAPMultiplier float64
 
 	curQueueAura       *core.Aura
 	curQueuedAutoSpell *core.Spell

@@ -49,7 +49,6 @@ func init() {
 				return rogue.CurrentEnergy() <= 40
 			},
 		})
-
 	})
 
 	// https://www.wowhead.com/classic/item=230250/venomous-totem

@@ -1,11 +1,11 @@
 character_stats_results: {
  key: "TestP1Hunter-Phase1-CharacterStats-Default"
  value: {
-  final_stats: 264.385
-  final_stats: 497.145
-  final_stats: 490.25075
-  final_stats: 217.58
-  final_stats: 244.145
+  final_stats: 240.35
+  final_stats: 451.95
+  final_stats: 445.6825
+  final_stats: 197.8
+  final_stats: 221.95
   final_stats: 150
   final_stats: 0
   final_stats: 0
@@ -15,27 +15,27 @@ character_stats_results: {
   final_stats: 0
   final_stats: 47.25
   final_stats: 3
-  final_stats: 28.19007
+  final_stats: 27.8637
   final_stats: 0
   final_stats: 0
-  final_stats: 1622.53
+  final_stats: 1553.3
   final_stats: 3
-  final_stats: 31.39604
+  final_stats: 25.54186
   final_stats: 0
   final_stats: 0
   final_stats: 0
-  final_stats: 4703.7
+  final_stats: 4407
   final_stats: 0
   final_stats: 0
-  final_stats: 3241.29
-  final_stats: 1714.29
-  final_stats: 0
-  final_stats: 5
-  final_stats: 0
+  final_stats: 3150.9
+  final_stats: 1623.9
   final_stats: 0
   final_stats: 5
   final_stats: 0
-  final_stats: 6878.87795
+  final_stats: 0
+  final_stats: 5
+  final_stats: 0
+  final_stats: 6406.4545
   final_stats: 35
   final_stats: 68
   final_stats: 68
@@ -51,7 +51,7 @@ stat_weights_results: {
  key: "TestP1Hunter-Phase1-StatWeights-Default"
  value: {
   weights: 0
-  weights: 0.27871
+  weights: 0.13131
   weights: 0
   weights: 0
   weights: 0
@@ -67,17 +67,9 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.09096
-  weights: 6.3706
-  weights: 2.00452
-  weights: 0
-  weights: 0
-  weights: 0
-  weights: 0
-  weights: 0
-  weights: 0
-  weights: 0
-  weights: 0.04101
+  weights: 0.08555
+  weights: 1.45092
+  weights: 1.46158
   weights: 0
   weights: 0
   weights: 0
@@ -94,105 +86,162 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+ }
+}
+dps_results: {
+ key: "TestP1Hunter-Phase1-AllItems-BeastmasterArmor"
+ value: {
+  dps: 295.25177
+  tps: 148.05127
+ }
+}
+dps_results: {
+ key: "TestP1Hunter-Phase1-AllItems-CryptstalkerArmor"
+ value: {
+  dps: 326.50148
+  tps: 179.28647
  }
 }
 dps_results: {
  key: "TestP1Hunter-Phase1-AllItems-DevilsaurEye-19991"
  value: {
-  dps: 486.76691
-  tps: 162.94333
+  dps: 295.59501
+  tps: 148.39451
  }
 }
 dps_results: {
  key: "TestP1Hunter-Phase1-AllItems-DevilsaurTooth-19992"
  value: {
-  dps: 481.62357
-  tps: 159.59641
+  dps: 293.0934
+  tps: 145.25309
+ }
+}
+dps_results: {
+ key: "TestP1Hunter-Phase1-AllItems-DragonstalkerArmor"
+ value: {
+  dps: 305.55196
+  tps: 158.34988
+ }
+}
+dps_results: {
+ key: "TestP1Hunter-Phase1-AllItems-GiantstalkerArmor"
+ value: {
+  dps: 302.92974
+  tps: 155.72767
+ }
+}
+dps_results: {
+ key: "TestP1Hunter-Phase1-AllItems-Predator'sArmor"
+ value: {
+  dps: 296.76353
+  tps: 149.55692
+ }
+}
+dps_results: {
+ key: "TestP1Hunter-Phase1-AllItems-Renataki'sCharmofBeasts-19953"
+ value: {
+  dps: 292.46447
+  tps: 145.26397
+ }
+}
+dps_results: {
+ key: "TestP1Hunter-Phase1-AllItems-Striker'sGarb"
+ value: {
+  dps: 301.97156
+  tps: 154.88863
  }
 }
 dps_results: {
  key: "TestP1Hunter-Phase1-Average-Default"
  value: {
-  dps: 477.36962
-  tps: 159.07056
+  dps: 291.06476
+  tps: 144.34627
  }
 }
 dps_results: {
  key: "TestP1Hunter-Phase1-Settings-Dwarf-p0.bis-Hunter-p1-FullBuffs-P1-Consumes-LongMultiTarget"
  value: {
-  dps: 305.40016
+  dps: 138.81564
  }
 }
 dps_results: {
  key: "TestP1Hunter-Phase1-Settings-Dwarf-p0.bis-Hunter-p1-FullBuffs-P1-Consumes-LongSingleTarget"
  value: {
-  dps: 305.40016
+  dps: 138.81564
  }
 }
 dps_results: {
  key: "TestP1Hunter-Phase1-Settings-Dwarf-p0.bis-Hunter-p1-FullBuffs-P1-Consumes-ShortSingleTarget"
  value: {
-  dps: 320.75686
+  dps: 143.24669
  }
 }
 dps_results: {
  key: "TestP1Hunter-Phase1-Settings-Dwarf-p0.bis-Hunter-p1-NoBuffs-P1-Consumes-LongMultiTarget"
  value: {
-  dps: 82.02021
+  dps: 44.29107
  }
 }
 dps_results: {
  key: "TestP1Hunter-Phase1-Settings-Dwarf-p0.bis-Hunter-p1-NoBuffs-P1-Consumes-LongSingleTarget"
  value: {
-  dps: 82.02021
+  dps: 44.29107
  }
 }
 dps_results: {
  key: "TestP1Hunter-Phase1-Settings-Dwarf-p0.bis-Hunter-p1-NoBuffs-P1-Consumes-ShortSingleTarget"
  value: {
-  dps: 88.52133
+  dps: 46.16053
  }
 }
 dps_results: {
  key: "TestP1Hunter-Phase1-Settings-Orc-p0.bis-Hunter-p1-FullBuffs-P1-Consumes-LongMultiTarget"
  value: {
-  dps: 319.99574
+  dps: 146.2664
  }
 }
 dps_results: {
  key: "TestP1Hunter-Phase1-Settings-Orc-p0.bis-Hunter-p1-FullBuffs-P1-Consumes-LongSingleTarget"
  value: {
-  dps: 319.99574
+  dps: 146.2664
  }
 }
 dps_results: {
  key: "TestP1Hunter-Phase1-Settings-Orc-p0.bis-Hunter-p1-FullBuffs-P1-Consumes-ShortSingleTarget"
  value: {
-  dps: 336.90654
+  dps: 151.46541
  }
 }
 dps_results: {
  key: "TestP1Hunter-Phase1-Settings-Orc-p0.bis-Hunter-p1-NoBuffs-P1-Consumes-LongMultiTarget"
  value: {
-  dps: 86.22379
+  dps: 46.50562
  }
 }
 dps_results: {
  key: "TestP1Hunter-Phase1-Settings-Orc-p0.bis-Hunter-p1-NoBuffs-P1-Consumes-LongSingleTarget"
  value: {
-  dps: 86.22379
+  dps: 46.50562
  }
 }
 dps_results: {
  key: "TestP1Hunter-Phase1-Settings-Orc-p0.bis-Hunter-p1-NoBuffs-P1-Consumes-ShortSingleTarget"
  value: {
-  dps: 93.06899
+  dps: 48.46856
  }
 }
 dps_results: {
  key: "TestP1Hunter-Phase1-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 457.42663
-  tps: 136.77363
+  dps: 270.50999
+  tps: 123.30949
  }
 }

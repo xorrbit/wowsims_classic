@@ -76,7 +76,6 @@ func (hunter *Hunter) getSerpentStingConfig(rank int) core.SpellConfig {
 }
 
 func (hunter *Hunter) registerSerpentStingSpell() {
-	hunter.SerpentStingAPCoeff = 0
 
 	maxRank := core.TernaryInt(core.IncludeAQ, 9, 8)
 	for rank := maxRank; rank >= 0; rank-- {

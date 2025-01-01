@@ -8,11 +8,46 @@ import (
 )
 
 const (
+	RenatakisCharmofBeasts = 19953
 	DevilsaurEye   = 19991
 	DevilsaurTooth = 19992
 )
 
 func init() {
+	// Use: Instantly clears the cooldowns of Aimed Shot, Multishot, Volley, and Arcane Shot. (cooldown 3 min)
+	core.NewItemEffect(RenatakisCharmofBeasts, func(agent core.Agent) {
+		hunter := agent.(HunterAgent).GetHunter()
+
+		spell := hunter.RegisterSpell(core.SpellConfig{
+			ActionID: core.ActionID{ItemID: RenatakisCharmofBeasts},
+			ProcMask: core.ProcMaskEmpty,
+			Flags:    core.SpellFlagNoOnCastComplete | core.SpellFlagOffensiveEquipment,
+
+			Cast: core.CastConfig{
+				CD: core.Cooldown{
+					Timer:    hunter.NewTimer(),
+					Duration: time.Second * 180,
+				},
+				SharedCD: core.Cooldown{
+					Timer:    hunter.GetOffensiveTrinketCD(),
+					Duration: time.Second * 10,
+				},
+			},
+
+			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+				hunter.AimedShot.CD.Reset()
+				hunter.MultiShot.CD.Reset()
+				hunter.Volley.CD.Reset()
+				hunter.ArcaneShot.CD.Reset()
+			},
+		})
+
+		hunter.AddMajorCooldown(core.MajorCooldown{
+			Type:  core.CooldownTypeDPS,
+			Spell: spell,
+		})
+	})
+	
 	core.NewItemEffect(DevilsaurEye, func(agent core.Agent) {
 		hunter := agent.(HunterAgent).GetHunter()
 
