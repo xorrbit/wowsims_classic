@@ -86,10 +86,8 @@ export const DefaultOptions = HunterOptions.create({
 	ammo: Ammo.ThoriumHeadedArrow,
 	quiverBonus: Hunter_Options_QuiverBonus.Speed15,
 	petAttackSpeed: 2.0,
-	petTalents: {},
 	petType: PetType.PetNone,
 	petUptime: 1,
-	sniperTrainingUptime: 1.0,
 });
 
 export const DefaultConsumes = Consumes.create({
@@ -122,7 +120,7 @@ export const DefaultRaidBuffs = RaidBuffs.create({
 	fireResistanceTotem: true,
 	giftOfTheWild: TristateEffect.TristateEffectImproved,
 	graceOfAirTotem: TristateEffect.TristateEffectImproved,
-	leaderOfThePack: true,
+	leaderOfThePack: false,
 	manaSpringTotem: TristateEffect.TristateEffectRegular,
 	powerWordFortitude: TristateEffect.TristateEffectImproved,
 	strengthOfEarthTotem: TristateEffect.TristateEffectImproved,
@@ -133,13 +131,13 @@ export const DefaultIndividualBuffs = IndividualBuffs.create({
 	blessingOfMight: TristateEffect.TristateEffectRegular,
 	blessingOfWisdom: TristateEffect.TristateEffectImproved,
 	fengusFerocity: true,
-	moldarsMoxie: true,
+	moldarsMoxie: false,
 	rallyingCryOfTheDragonslayer: true,
 	saygesFortune: SaygesFortune.SaygesDamage,
-	slipkiksSavvy: true,
+	slipkiksSavvy: false,
 	songflowerSerenade: true,
-	spiritOfZandalar: true,
-	warchiefsBlessing: true,
+	spiritOfZandalar: false,
+	warchiefsBlessing: false,
 });
 
 export const DefaultDebuffs = Debuffs.create({

@@ -38,10 +38,6 @@ func (hunter *Hunter) registerRapidFire() {
 				Timer:    hunter.NewTimer(),
 				Duration: cooldown,
 			},
-			SharedCD: core.Cooldown{
-				Timer:    hunter.GetAttackSpeedBuffCD(),
-				Duration: cooldown,
-			},
 		},
 
 		ApplyEffects: func(sim *core.Simulation, _ *core.Unit, _ *core.Spell) {

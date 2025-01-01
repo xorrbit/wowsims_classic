@@ -295,12 +295,13 @@ export const BattleSquawkBuff = makeMultistateRaidBuffInput({
 //                                 WORLD BUFFS
 ///////////////////////////////////////////////////////////////////////////
 
-export const RallyingCryOfTheDragonslayer = makeBooleanIndividualBuffInput({
-	actionId: () => ActionId.fromSpellId(22888),
-	fieldName: 'rallyingCryOfTheDragonslayer',
-});
-export const DragonslayerBuffInput = InputHelpers.makeMultiIconInput({ values: [RallyingCryOfTheDragonslayer], label: 'Dragonslayer Buff' });
-
+export const RallyingCryOfTheDragonslayer = withLabel(
+	makeBooleanIndividualBuffInput({
+		actionId: () => ActionId.fromSpellId(22888),
+		fieldName: 'rallyingCryOfTheDragonslayer',
+	}),
+	'Rallying Cry Of The Dragonslayer',
+);
 export const SpiritOfZandalar = withLabel(
 	makeBooleanIndividualBuffInput({
 		actionId: () => ActionId.fromSpellId(24425),
@@ -678,20 +679,10 @@ export const MISC_BUFFS_CONFIG = [
 ] as PickerStatOptions[];
 
 export const WORLD_BUFFS_CONFIG = [
-	// {
-	// 	config: RallyingCryOfTheDragonslayer,
-	// 	picker: IconPicker,
-	// 	stats: [
-	// 		Stat.StatMeleeCrit,
-	// 		// TODO: Stat.StatRangedCrit,
-	// 		Stat.StatSpellCrit,
-	// 		Stat.StatAttackPower,
-	// 	],
-	// },
 	{
-		config: DragonslayerBuffInput,
-		picker: MultiIconPicker,
-		stats: [],
+		config: RallyingCryOfTheDragonslayer,
+		picker: IconPicker,
+		stats: [Stat.StatMeleeCrit, Stat.StatSpellCrit, Stat.StatAttackPower],
 	},
 	{
 		config: SongflowerSerenade,

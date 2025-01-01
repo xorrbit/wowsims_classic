@@ -744,6 +744,24 @@ func HuntersMarkAura(target *Unit, points int32) *Aura {
 	return aura
 }
 
+func ExposeWeaknessAura(target *Unit) *Aura {
+	bonus := 450.0
+
+	aura := target.GetOrRegisterAura(Aura{
+		ActionID: ActionID{SpellID: 23577},
+		Label:    "Expose Weakness",
+		Duration: time.Second * 7,
+		OnGain: func(aura *Aura, sim *Simulation)  {
+			target.PseudoStats.BonusRangedAttackPowerTaken += bonus
+		},
+		OnExpire: func(aura *Aura, sim *Simulation)  {
+			target.PseudoStats.BonusRangedAttackPowerTaken -= bonus
+		},
+	})
+
+	return aura
+}
+
 func DemoralizingRoarAura(target *Unit, points int32) *Aura {
 	baseAPReduction := 138.0
 

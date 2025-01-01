@@ -47,7 +47,6 @@ const (
 	SpellCode_HunterPetClaw
 	SpellCode_HunterPetBite
 	SpellCode_HunterPetLightningBreath
-	SpellCode_HunterPetLavaBreath
 	SpellCode_HunterPetScreech
 	SpellCode_HunterPetScorpidPoison
 )
@@ -82,7 +81,7 @@ type Hunter struct {
 	NormalizedAmmoDamageBonus float64
 
 	// Miscellaneous set bonuses that require extra logic inside of spells
-	SerpentStingAPCoeff float64
+	AspectOfTheHawkAPMultiplier float64
 
 	curQueueAura       *core.Aura
 	curQueuedAutoSpell *core.Spell
@@ -134,13 +133,6 @@ func (hunter *Hunter) AddRaidBuffs(raidBuffs *proto.RaidBuffs) {
 		}[hunter.Level])
 	}
 
-	// Hunter gains an additional 10% stats from Aspect of the Lion
-	statMultiply := 1.1
-	hunter.MultiplyStat(stats.Strength, statMultiply)
-	hunter.MultiplyStat(stats.Stamina, statMultiply)
-	hunter.MultiplyStat(stats.Agility, statMultiply)
-	hunter.MultiplyStat(stats.Intellect, statMultiply)
-	hunter.MultiplyStat(stats.Spirit, statMultiply)
 }
 func (hunter *Hunter) AddPartyBuffs(_ *proto.PartyBuffs) {
 }
@@ -163,7 +155,6 @@ func (hunter *Hunter) Initialize() {
 	})
 
 	hunter.registerAspectOfTheHawkSpell()
-	hunter.registerAspectOfTheViperSpell()
 
 	multiShotTimer := hunter.NewTimer()
 	arcaneShotTimer := hunter.NewTimer()
@@ -185,7 +176,6 @@ func (hunter *Hunter) Initialize() {
 	hunter.registerImmolationTrapSpell(traps)
 	hunter.registerFreezingTrapSpell(traps)
 
-	// hunter.registerKillCommand()
 	hunter.registerRapidFire()
 }
 

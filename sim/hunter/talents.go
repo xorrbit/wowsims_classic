@@ -61,7 +61,13 @@ func (hunter *Hunter) ApplyTalents() {
 	hunter.AddStat(stats.MeleeCrit, float64(hunter.Talents.KillerInstinct)*1*core.CritRatingPerCritChance)
 
 	if hunter.Talents.LethalShots > 0 {
-		hunter.AddStat(stats.MeleeCrit, 1*float64(hunter.Talents.LethalShots)*core.CritRatingPerCritChance)
+		lethalBonus := 1*float64(hunter.Talents.LethalShots)*core.CritRatingPerCritChance
+		for _, spell := range hunter.Shots {
+			if spell != nil {
+				spell.BonusCritRating += lethalBonus
+			}
+		}
+		hunter.AutoAttacks.RangedConfig().BonusCritRating += lethalBonus
 	}
 
 	if hunter.Talents.RangedWeaponSpecialization > 0 {
@@ -198,8 +204,8 @@ func (hunter *Hunter) applyCleverTraps() {
 
 func (hunter *Hunter) applyEfficiency() {
 	hunter.OnSpellRegistered(func(spell *core.Spell) {
-		// applies to Stings, Shots, Strikes and Volley
-		if spell.Cost != nil && spell.Flags.Matches(SpellFlagSting|SpellFlagShot|SpellFlagStrike) || spell.SpellCode == SpellCode_HunterVolley {
+		// applies to Stings, Shots, and Volley
+		if spell.Cost != nil && spell.Flags.Matches(SpellFlagSting|SpellFlagShot) || spell.SpellCode == SpellCode_HunterVolley {
 			spell.Cost.Multiplier -= 2 * hunter.Talents.Efficiency
 		}
 	})
