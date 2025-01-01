@@ -104,6 +104,27 @@ dps_results: {
  }
 }
 dps_results: {
+ key: "TestP1Hunter-Phase1-AllItems-BloodGuard'sChainGauntlets-16530"
+ value: {
+  dps: 292.04584
+  tps: 144.84534
+ }
+}
+dps_results: {
+ key: "TestP1Hunter-Phase1-AllItems-BloodGuard'sChainVices-22862"
+ value: {
+  dps: 293.022
+  tps: 145.8215
+ }
+}
+dps_results: {
+ key: "TestP1Hunter-Phase1-AllItems-Champion'sPursuance"
+ value: {
+  dps: 298.93967
+  tps: 151.7376
+ }
+}
+dps_results: {
  key: "TestP1Hunter-Phase1-AllItems-CryptstalkerArmor"
  value: {
   dps: 326.50148
@@ -132,10 +153,52 @@ dps_results: {
  }
 }
 dps_results: {
+ key: "TestP1Hunter-Phase1-AllItems-FieldMarshal'sPursuit"
+ value: {
+  dps: 306.67445
+  tps: 159.47237
+ }
+}
+dps_results: {
+ key: "TestP1Hunter-Phase1-AllItems-General'sChainGloves-16571"
+ value: {
+  dps: 294.73892
+  tps: 147.53842
+ }
+}
+dps_results: {
  key: "TestP1Hunter-Phase1-AllItems-GiantstalkerArmor"
  value: {
   dps: 302.92974
   tps: 155.72767
+ }
+}
+dps_results: {
+ key: "TestP1Hunter-Phase1-AllItems-Knight-Lieutenant'sChainGauntlets-16403"
+ value: {
+  dps: 292.04584
+  tps: 144.84534
+ }
+}
+dps_results: {
+ key: "TestP1Hunter-Phase1-AllItems-Knight-Lieutenant'sChainVices-23279"
+ value: {
+  dps: 293.022
+  tps: 145.8215
+ }
+}
+dps_results: {
+ key: "TestP1Hunter-Phase1-AllItems-LieutenantCommander'sPursuance"
+ value: {
+  dps: 298.93967
+  tps: 151.7376
+ }
+}
+dps_results: {
+ key: "TestP1Hunter-Phase1-AllItems-Marshal'sChainGrips-16463"
+ value: {
+  dps: 294.73892
+  tps: 147.53842
  }
 }
 dps_results: {
@@ -157,6 +220,13 @@ dps_results: {
  value: {
   dps: 301.97156
   tps: 154.88863
+ }
+}
+dps_results: {
+ key: "TestP1Hunter-Phase1-AllItems-Warlord'sPursuit"
+ value: {
+  dps: 306.67445
+  tps: 159.47237
  }
 }
 dps_results: {
