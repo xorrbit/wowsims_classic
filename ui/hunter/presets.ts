@@ -106,7 +106,7 @@ export const DefaultConsumes = Consumes.create({
 	petAttackPowerConsumable: 1,
 	petAgilityConsumable: 1,
 	petStrengthConsumable: 1,
-	sapperExplosive: SapperExplosive.SapperGoblinSapper,
+	sapperExplosive: SapperExplosive.SapperUnknown,
 	spellPowerBuff: SpellPowerBuff.GreaterArcaneElixir,
 	strengthBuff: StrengthBuff.JujuPower,
 	zanzaBuff: ZanzaBuff.GroundScorpokAssay,
