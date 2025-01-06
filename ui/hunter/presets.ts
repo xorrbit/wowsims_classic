@@ -28,6 +28,7 @@ import {
 	Hunter_Options as HunterOptions,
 	Hunter_Options_Ammo as Ammo,
 	Hunter_Options_PetType as PetType,
+	Hunter_Options_PetAttackSpeed as PetAttackSpeed,
 	Hunter_Options_QuiverBonus,
 } from '../core/proto/hunter.js';
 import { SavedTalents } from '../core/proto/ui.js';
@@ -85,8 +86,8 @@ export const DefaultTalents = TalentPresets[Phase.Phase1][0];
 export const DefaultOptions = HunterOptions.create({
 	ammo: Ammo.ThoriumHeadedArrow,
 	quiverBonus: Hunter_Options_QuiverBonus.Speed15,
-	petAttackSpeed: 2.0,
-	petType: PetType.PetNone,
+	petAttackSpeed: PetAttackSpeed.OneTwo,
+	petType: PetType.Cat,
 	petUptime: 1,
 });
 
