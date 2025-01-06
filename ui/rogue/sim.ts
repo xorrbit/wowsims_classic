@@ -139,15 +139,15 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecRogue, {
 	presets: {
 		// Preset talents that the user can quickly select.
 		talents: [
-			...Presets.TalentPresets[Phase.Phase1],
+			...Presets.TalentPresets[Phase.Phase2],
 		],
 		// Preset rotations that the user can quickly select.
 		rotations: [
-			...Presets.APLPresets[Phase.Phase1],
+			...Presets.APLPresets[Phase.Phase2],
 		],
 		// Preset gear configurations that the user can quickly select.
 		gear: [
-			...Presets.GearPresets[Phase.Phase1],
+			...Presets.GearPresets[Phase.Phase2],
 		],
 		builds: [
 			Presets.PresetBuildBackstab,
