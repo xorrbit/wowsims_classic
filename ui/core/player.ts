@@ -30,6 +30,7 @@ import {
 	Stat,
 	UnitReference,
 	UnitStats,
+	WeaponType,
 } from './proto/common.js';
 import {
 	DungeonFilterOption,
@@ -181,9 +182,9 @@ export interface MeleeCritCapInfo {
 	debuffCrit: number;
 	hasOffhandWeapon: boolean;
 	meleeHitCap: number;
-	expertiseCap: number;
 	remainingMeleeHitCap: number;
-	remainingExpertiseCap: number;
+	dodgeCap: number;
+	parryCap: number;
 	baseCritCap: number;
 	specSpecificOffset: number;
 	playerCritCapDelta: number;
@@ -688,20 +689,67 @@ export class Player<SpecType extends Spec> {
 		this.bonusStatsChangeEmitter.emit(eventID);
 	}
 
-	getMeleeCritCapInfo(): MeleeCritCapInfo {
-		const meleeCrit = (this.currentStats.finalStats?.stats[Stat.StatMeleeCrit] || 0.0) / Mechanics.MELEE_CRIT_RATING_PER_CRIT_CHANCE;
-		const meleeHit = (this.currentStats.finalStats?.stats[Stat.StatMeleeHit] || 0.0) / Mechanics.MELEE_HIT_RATING_PER_HIT_CHANCE;
-		const expertise = (this.currentStats.finalStats?.stats[Stat.StatExpertise] || 0.0) / Mechanics.EXPERTISE_PER_QUARTER_PERCENT_REDUCTION / 4;
+	getMeleeCritCapInfo(weapon: WeaponType, has2hWeapon: boolean): MeleeCritCapInfo {
+		let defenderDefense = 315.0; // Initializes at level 63 until UI is loaded
+		if (this.sim.encounter.targets) {
+			const targetlevel = this.sim.encounter?.primaryTarget.level;
+			defenderDefense = targetlevel * 5;
+		}
 		const suppression = 4.8;
 		const glancing = 40.0;
 
-		const hasOffhandWeapon = this.getGear().getEquippedItem(ItemSlot.ItemSlotOffHand)?.item.weaponSpeed !== undefined;
-		// Due to warrior HS bug, hit cap for crit cap calculation should be 8% instead of 27%
-		const meleeHitCap = hasOffhandWeapon && this.spec !== Spec.SpecWarrior ? 27.0 : 8.0;
-		const dodgeCap = 6.5;
-		const parryCap = this.getInFrontOfTarget() ? 14.0 : 0;
-		const expertiseCap = dodgeCap + parryCap;
+		let weaponSkill = 300.0;
+		const meleeCrit = (this.currentStats.finalStats?.stats[Stat.StatMeleeCrit] || 0.0) / Mechanics.MELEE_CRIT_RATING_PER_CRIT_CHANCE;
+		const meleeHit = (this.currentStats.finalStats?.stats[Stat.StatMeleeHit] || 0.0) / Mechanics.MELEE_HIT_RATING_PER_HIT_CHANCE;
+		const expertise = (this.currentStats.finalStats?.stats[Stat.StatExpertise] || 0.0) / Mechanics.EXPERTISE_PER_QUARTER_PERCENT_REDUCTION / 4;
+		const hasOffhandWeapon = this.getGear().getEquippedItem(ItemSlot.ItemSlotOffHand)?.item.weaponType !== undefined;
 
+		if (!has2hWeapon) {
+			switch (weapon) {
+				case WeaponType.WeaponTypeUnknown:
+					break;
+				case WeaponType.WeaponTypeAxe:
+					weaponSkill += this.currentStats.talentsStats?.pseudoStats[PseudoStat.PseudoStatAxesSkill] || 0.0;
+					break;
+				case WeaponType.WeaponTypeDagger:
+					weaponSkill += this.currentStats.talentsStats?.pseudoStats[PseudoStat.PseudoStatDaggersSkill] || 0.0;
+					break;
+				case WeaponType.WeaponTypeFist:
+					weaponSkill += this.currentStats.talentsStats?.pseudoStats[PseudoStat.PseudoStatUnarmedSkill] || 0.0;
+					break;
+				case WeaponType.WeaponTypeMace:
+					weaponSkill += this.currentStats.talentsStats?.pseudoStats[PseudoStat.PseudoStatMacesSkill] || 0.0;
+					break;
+				case WeaponType.WeaponTypeSword:
+					weaponSkill += this.currentStats.talentsStats?.pseudoStats[PseudoStat.PseudoStatSwordsSkill] || 0.0;
+					break;
+			}
+		}
+		if (has2hWeapon) {
+			switch (weapon) {
+				case WeaponType.WeaponTypeUnknown:
+					break;
+				case WeaponType.WeaponTypeAxe:
+					weaponSkill += this.currentStats.talentsStats?.pseudoStats[PseudoStat.PseudoStatTwoHandedAxesSkill] || 0.0;
+					break;
+				case WeaponType.WeaponTypeMace:
+					weaponSkill += this.currentStats.talentsStats?.pseudoStats[PseudoStat.PseudoStatTwoHandedMacesSkill] || 0.0;
+					break;
+				case WeaponType.WeaponTypeSword:
+					weaponSkill += this.currentStats.talentsStats?.pseudoStats[PseudoStat.PseudoStatTwoHandedSwordsSkill] || 0.0;
+					break;
+			}
+		}
+
+		// Due to warrior HS bug, hit cap for crit cap calculation ignores the 19% penalty
+		let meleeHitCap =
+			defenderDefense - weaponSkill <= 10
+				? 5.0 + (defenderDefense - weaponSkill) * 0.1
+				: 5.0 + (defenderDefense - weaponSkill) * 0.2 + (defenderDefense - weaponSkill - 10) * 0.2;
+		meleeHitCap = hasOffhandWeapon && this.spec !== Spec.SpecWarrior ? meleeHitCap + 19.0 : meleeHitCap + 0.0;
+
+		const dodgeCap = 5.0 + (defenderDefense - weaponSkill) * 0.1;
+		const parryCap = this.getInFrontOfTarget() ? 14.0 : 0;
 		const remainingMeleeHitCap = Math.max(meleeHitCap - meleeHit, 0.0);
 		const remainingDodgeCap = Math.max(dodgeCap - expertise, 0.0);
 		const remainingParryCap = Math.max(parryCap - expertise, 0.0);
@@ -731,17 +779,13 @@ export class Player<SpecType extends Spec> {
 			debuffCrit,
 			hasOffhandWeapon,
 			meleeHitCap,
-			expertiseCap,
-			remainingMeleeHitCap,
-			remainingExpertiseCap,
+			dodgeCap,
+			parryCap,
 			baseCritCap,
 			specSpecificOffset,
 			playerCritCapDelta,
+			remainingMeleeHitCap,
 		};
-	}
-
-	getMeleeCritCap() {
-		return this.getMeleeCritCapInfo().playerCritCapDelta;
 	}
 
 	getSimpleRotation(): SpecRotation<SpecType> {
@@ -1112,7 +1156,7 @@ export class Player<SpecType extends Spec> {
 
 	filterItemData<T>(itemData: Array<T>, getItemFunc: (val: T) => Item, slot: ItemSlot): Array<T> {
 		const filters = this.sim.getFilters();
-		
+
 		const filterItems = (itemData: Array<T>, filterFunc: (item: Item) => boolean) => {
 			return itemData.filter(itemElem => filterFunc(getItemFunc(itemElem)));
 		};
@@ -1150,7 +1194,7 @@ export class Player<SpecType extends Spec> {
 				const zoneId = DungeonFilterOption[zoneName];
 
 				if (typeof zoneId === 'number' && zoneId !== 0 && !filters.raids.includes(zoneId)) {
-					zoneIds.push(zoneId)
+					zoneIds.push(zoneId);
 				}
 			}
 
@@ -1167,7 +1211,7 @@ export class Player<SpecType extends Spec> {
 				const zoneId = RaidFilterOption[zoneName];
 
 				if (typeof zoneId === 'number' && zoneId !== 0 && !filters.raids.includes(zoneId)) {
-					zoneIds.push(zoneId)
+					zoneIds.push(zoneId);
 				}
 			}
 

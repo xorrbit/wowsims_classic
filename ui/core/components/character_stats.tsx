@@ -3,7 +3,7 @@ import { ref } from 'tsx-vanilla';
 
 import * as Mechanics from '../constants/mechanics.js';
 import { Player } from '../player.js';
-import { PseudoStat, Spec, Stat } from '../proto/common.js';
+import { HandType, ItemSlot, PseudoStat, Spec, Stat, WeaponType } from '../proto/common.js';
 import { Stats, UnitStat } from '../proto_utils/stats.js';
 import { EventID, TypedEvent } from '../typed_event.js';
 import { Component } from './component.js';
@@ -12,13 +12,7 @@ import { NumberPicker } from './number_picker';
 export type StatMods = { talents?: Stats; buffs?: Stats };
 
 const statGroups = new Map<string, Array<UnitStat>>([
-	[
-		'Primary',
-		[
-			UnitStat.fromStat(Stat.StatHealth),
-			UnitStat.fromStat(Stat.StatMana),
-		],
-	],
+	['Primary', [UnitStat.fromStat(Stat.StatHealth), UnitStat.fromStat(Stat.StatMana)]],
 	[
 		'Attributes',
 		[
@@ -27,7 +21,7 @@ const statGroups = new Map<string, Array<UnitStat>>([
 			UnitStat.fromStat(Stat.StatStamina),
 			UnitStat.fromStat(Stat.StatIntellect),
 			UnitStat.fromStat(Stat.StatSpirit),
-		]
+		],
 	],
 	[
 		'Physical',
@@ -40,7 +34,7 @@ const statGroups = new Map<string, Array<UnitStat>>([
 			UnitStat.fromStat(Stat.StatMeleeCrit),
 			UnitStat.fromStat(Stat.StatMeleeHaste),
 			UnitStat.fromPseudoStat(PseudoStat.BonusPhysicalDamage),
-		]
+		],
 	],
 	[
 		'Spell',
@@ -58,7 +52,7 @@ const statGroups = new Map<string, Array<UnitStat>>([
 			UnitStat.fromStat(Stat.StatSpellHaste),
 			UnitStat.fromStat(Stat.StatSpellPenetration),
 			UnitStat.fromStat(Stat.StatMP5),
-		]
+		],
 	],
 	[
 		'Defense',
@@ -70,7 +64,7 @@ const statGroups = new Map<string, Array<UnitStat>>([
 			UnitStat.fromStat(Stat.StatParry),
 			UnitStat.fromStat(Stat.StatBlock),
 			UnitStat.fromStat(Stat.StatBlockValue),
-		]
+		],
 	],
 	[
 		'Resistance',
@@ -80,13 +74,10 @@ const statGroups = new Map<string, Array<UnitStat>>([
 			UnitStat.fromStat(Stat.StatFrostResistance),
 			UnitStat.fromStat(Stat.StatNatureResistance),
 			UnitStat.fromStat(Stat.StatShadowResistance),
-		]
+		],
 	],
-	[
-		'Misc',
-		[]
-	],
-])
+	['Misc', []],
+]);
 
 export class CharacterStats extends Component {
 	readonly stats: Array<UnitStat>;
@@ -248,45 +239,45 @@ export class CharacterStats extends Component {
 						<div className="character-stats-tooltip-row">
 							<span>Axes</span>
 							<span>
-								{this.weaponSkillDisplayString(gearStats, PseudoStat.PseudoStatAxesSkill)} /{' '}
-								{this.weaponSkillDisplayString(gearStats, PseudoStat.PseudoStatTwoHandedAxesSkill)}
+								{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatAxesSkill)} /{' '}
+								{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatTwoHandedAxesSkill)}
 							</span>
 						</div>
 						<div className="character-stats-tooltip-row">
 							<span>Daggers</span>
-							<span>{this.weaponSkillDisplayString(gearStats, PseudoStat.PseudoStatDaggersSkill)}</span>
+							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatDaggersSkill)}</span>
 						</div>
 						{player.spec === Spec.SpecFeralDruid && (
 							<div className="character-stats-tooltip-row">
 								<span>Feral Combat</span>
-								<span>{this.weaponSkillDisplayString(gearStats, PseudoStat.PseudoStatFeralCombatSkill)}</span>
+								<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatFeralCombatSkill)}</span>
 							</div>
 						)}
 						<div className="character-stats-tooltip-row">
 							<span>Maces</span>
 							<span>
-								{this.weaponSkillDisplayString(gearStats, PseudoStat.PseudoStatMacesSkill)} /{' '}
-								{this.weaponSkillDisplayString(gearStats, PseudoStat.PseudoStatTwoHandedMacesSkill)}
+								{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatMacesSkill)} /{' '}
+								{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatTwoHandedMacesSkill)}
 							</span>
 						</div>
 						<div className="character-stats-tooltip-row">
 							<span>Polearms</span>
-							<span>{this.weaponSkillDisplayString(gearStats, PseudoStat.PseudoStatPolearmsSkill)}</span>
+							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatPolearmsSkill)}</span>
 						</div>
 						<div className="character-stats-tooltip-row">
 							<span>Staves</span>
-							<span>{this.weaponSkillDisplayString(gearStats, PseudoStat.PseudoStatStavesSkill)}</span>
+							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatStavesSkill)}</span>
 						</div>
 						<div className="character-stats-tooltip-row">
 							<span>Swords</span>
 							<span>
-								{this.weaponSkillDisplayString(gearStats, PseudoStat.PseudoStatSwordsSkill)} /{' '}
-								{this.weaponSkillDisplayString(gearStats, PseudoStat.PseudoStatTwoHandedSwordsSkill)}
+								{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatSwordsSkill)} /{' '}
+								{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatTwoHandedSwordsSkill)}
 							</span>
 						</div>
 						<div className="character-stats-tooltip-row">
 							<span>Unarmed</span>
-							<span>{this.weaponSkillDisplayString(gearStats, PseudoStat.PseudoStatUnarmedSkill)}</span>
+							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatUnarmedSkill)}</span>
 						</div>
 					</div>,
 				);
@@ -327,15 +318,27 @@ export class CharacterStats extends Component {
 		});
 
 		if (this.meleeCritCapValueElem) {
-			const meleeCritCapInfo = player.getMeleeCritCapInfo();
+			const has2hWeapon = player.getGear().getEquippedItem(ItemSlot.ItemSlotMainHand)?.item.handType == HandType.HandTypeTwoHand;
+			const mhWeapon: WeaponType = player.getGear().getEquippedItem(ItemSlot.ItemSlotMainHand)?.item.weaponType as WeaponType;
+			const ohWeapon: WeaponType = player.getGear().getEquippedItem(ItemSlot.ItemSlotOffHand)?.item.weaponType as WeaponType;
+			const mhCritCapInfo = player.getMeleeCritCapInfo(mhWeapon, has2hWeapon);
+			const ohCritCapInfo = player.getMeleeCritCapInfo(ohWeapon, has2hWeapon);
+
+			const playerCritCapDelta = mhCritCapInfo.playerCritCapDelta;
+
+			if (playerCritCapDelta === 0.0) {
+				const prefix = 'Exact';
+			}
+
+			const prefix = playerCritCapDelta > 0 ? 'Over by ' : 'Under by ';
 
 			const valueElem = (
 				<a href="javascript:void(0)" className="stat-value-link" attributes={{ role: 'button' }}>
-					{`${this.meleeCritCapDisplayString(player, finalStats)} `}
+					{`${prefix} ${Math.abs(playerCritCapDelta).toFixed(2)}%`}
 				</a>
 			);
 
-			const capDelta = meleeCritCapInfo.playerCritCapDelta;
+			const capDelta = mhCritCapInfo.playerCritCapDelta;
 			if (capDelta === 0) {
 				valueElem.classList.add('text-white');
 			} else if (capDelta > 0) {
@@ -349,40 +352,90 @@ export class CharacterStats extends Component {
 
 			const tooltipContent = (
 				<div>
-					<div className="character-stats-tooltip-row">
-						<span>Glancing:</span>
-						<span>{`${meleeCritCapInfo.glancing.toFixed(2)}%`}</span>
-					</div>
-					<div className="character-stats-tooltip-row">
-						<span>Suppression:</span>
-						<span>{`${meleeCritCapInfo.suppression.toFixed(2)}%`}</span>
-					</div>
-					<div className="character-stats-tooltip-row">
-						<span>To Hit Cap:</span>
-						<span>{`${meleeCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
-					</div>
-					<div className="character-stats-tooltip-row">
-						<span>To Exp Cap:</span>
-						<span>{`${meleeCritCapInfo.remainingExpertiseCap.toFixed(2)}%`}</span>
-					</div>
-					<div className="character-stats-tooltip-row">
-						<span>Debuffs:</span>
-						<span>{`${meleeCritCapInfo.debuffCrit.toFixed(2)}%`}</span>
-					</div>
-					{meleeCritCapInfo.specSpecificOffset != 0 && (
+					<div className="character-stats-tooltip-column">
 						<div className="character-stats-tooltip-row">
-							<span>Spec Offsets:</span>
-							<span>{`${meleeCritCapInfo.specSpecificOffset.toFixed(2)}%`}</span>
+							<span>Main Hand</span>
+							<span></span>
 						</div>
-					)}
-					<div className="character-stats-tooltip-row">
-						<span>Final Crit Cap:</span>
-						<span>{`${meleeCritCapInfo.baseCritCap.toFixed(2)}%`}</span>
+						<hr />
+						<div className="character-stats-tooltip-row">
+							<span>Glancing:</span>
+							<span>{`${mhCritCapInfo.glancing.toFixed(2)}%`}</span>
+						</div>
+						<div className="character-stats-tooltip-row">
+							<span>Suppression:</span>
+							<span>{`${mhCritCapInfo.suppression.toFixed(2)}%`}</span>
+						</div>
+						<div className="character-stats-tooltip-row">
+							<span>White Miss:</span>
+							<span>{`${mhCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
+						</div>
+						<div className="character-stats-tooltip-row">
+							<span>Dodge:</span>
+							<span>{`${mhCritCapInfo.dodgeCap.toFixed(2)}%`}</span>
+						</div>
+						<div className="character-stats-tooltip-row">
+							<span>Parry:</span>
+							<span>{`${mhCritCapInfo.parryCap.toFixed(2)}%`}</span>
+						</div>
+						{mhCritCapInfo.specSpecificOffset != 0 && (
+							<div className="character-stats-tooltip-row">
+								<span>Spec Offsets:</span>
+								<span>{`${mhCritCapInfo.specSpecificOffset.toFixed(2)}%`}</span>
+							</div>
+						)}
+						<div className="character-stats-tooltip-row">
+							<span>Final Crit Cap:</span>
+							<span>{`${mhCritCapInfo.baseCritCap.toFixed(2)}%`}</span>
+						</div>
+						<hr />
+						<div className="character-stats-tooltip-row">
+							<span>Can Raise By:</span>
+							<span>{`${mhCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
+						</div>
+						<hr />
 					</div>
-					<hr />
-					<div className="character-stats-tooltip-row">
-						<span>Can Raise By:</span>
-						<span>{`${(meleeCritCapInfo.remainingExpertiseCap + meleeCritCapInfo.remainingMeleeHitCap).toFixed(2)}%`}</span>
+					<div className="character-stats-tooltip-column">
+						<div className="character-stats-tooltip-row">
+							<span>Off Hand</span>
+							<span></span>
+						</div>
+						<hr />
+						<div className="character-stats-tooltip-row">
+							<span>Glancing:</span>
+							<span>{`${ohCritCapInfo.glancing.toFixed(2)}%`}</span>
+						</div>
+						<div className="character-stats-tooltip-row">
+							<span>Suppression:</span>
+							<span>{`${ohCritCapInfo.suppression.toFixed(2)}%`}</span>
+						</div>
+						<div className="character-stats-tooltip-row">
+							<span>White Miss:</span>
+							<span>{`${ohCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
+						</div>
+						<div className="character-stats-tooltip-row">
+							<span>Dodge:</span>
+							<span>{`${ohCritCapInfo.dodgeCap.toFixed(2)}%`}</span>
+						</div>
+						<div className="character-stats-tooltip-row">
+							<span>Parry:</span>
+							<span>{`${ohCritCapInfo.parryCap.toFixed(2)}%`}</span>
+						</div>
+						{ohCritCapInfo.specSpecificOffset != 0 && (
+							<div className="character-stats-tooltip-row">
+								<span>Spec Offsets:</span>
+								<span>{`${ohCritCapInfo.specSpecificOffset.toFixed(2)}%`}</span>
+							</div>
+						)}
+						<div className="character-stats-tooltip-row">
+							<span>Final Crit Cap:</span>
+							<span>{`${ohCritCapInfo.baseCritCap.toFixed(2)}%`}</span>
+						</div>
+						<hr />
+						<div className="character-stats-tooltip-row">
+							<span>Can Raise By:</span>
+							<span>{`${ohCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
+						</div>
 					</div>
 				</div>
 			);
@@ -403,7 +456,7 @@ export class CharacterStats extends Component {
 			if (stat === Stat.StatBlockValue) {
 				const mult = stats.getPseudoStat(PseudoStat.PseudoStatBlockValueMultiplier) || 1;
 				const perStr = Math.max(0, stats.getPseudoStat(PseudoStat.PseudoStatBlockValuePerStrength) * deltaStats.getStat(Stat.StatStrength) - 1);
-				displayStr = String(Math.round((rawValue * mult) + perStr));
+				displayStr = String(Math.round(rawValue * mult + perStr));
 			} else if (stat === Stat.StatMeleeHit) {
 				displayStr = `${(rawValue / Mechanics.MELEE_HIT_RATING_PER_HIT_CHANCE).toFixed(2)}%`;
 			} else if (stat === Stat.StatSpellHit) {
@@ -447,7 +500,7 @@ export class CharacterStats extends Component {
 				displayStr = `${rawValue} (${(rawValue / Mechanics.RESILIENCE_RATING_PER_CRIT_REDUCTION_CHANCE).toFixed(2)}%)`;
 			}
 		}
-		
+
 		if (!displayStr) displayStr = String(Math.round(rawValue));
 
 		return displayStr;
@@ -516,12 +569,10 @@ export class CharacterStats extends Component {
 	}
 
 	private shouldShowMeleeCritCap(player: Player<any>): boolean {
-		// TODO: Disabled for now while we fix displayed crit cap
-		return false;
-		// return [Spec.SpecEnhancementShaman, Spec.SpecRetributionPaladin, Spec.SpecRogue, Spec.SpecWarrior, Spec.SpecHunter].includes(player.spec);
+		return [Spec.SpecEnhancementShaman, Spec.SpecRetributionPaladin, Spec.SpecRogue, Spec.SpecWarrior, Spec.SpecHunter].includes(player.spec);
 	}
 
-	private meleeCritCapDisplayString(player: Player<any>, _: Stats): string {
+	/*private meleeCritCapDisplayString(player: Player<any>, _: Stats): string {
 		const playerCritCapDelta = player.getMeleeCritCap();
 
 		if (playerCritCapDelta === 0.0) {
@@ -530,5 +581,5 @@ export class CharacterStats extends Component {
 
 		const prefix = playerCritCapDelta > 0 ? 'Over by ' : 'Under by ';
 		return `${prefix} ${Math.abs(playerCritCapDelta).toFixed(2)}%`;
-	}
+	}*/
 }
