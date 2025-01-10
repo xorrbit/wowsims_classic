@@ -238,27 +238,31 @@ export class CharacterStats extends Component {
 					<div className="ps-2">
 						<div className="character-stats-tooltip-row">
 							<span>Axes</span>
-							<span>
-								{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatAxesSkill)} /{' '}
-								{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatTwoHandedAxesSkill)}
-							</span>
+							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatAxesSkill)}</span>
+						</div>
+						<div className="character-stats-tooltip-row">
+							<span>2H Axes</span>
+							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatTwoHandedAxesSkill)}</span>
 						</div>
 						<div className="character-stats-tooltip-row">
 							<span>Daggers</span>
 							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatDaggersSkill)}</span>
 						</div>
+						{/*  Commenting out feral combat skill since not present in Classic.
 						{player.spec === Spec.SpecFeralDruid && (
 							<div className="character-stats-tooltip-row">
 								<span>Feral Combat</span>
 								<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatFeralCombatSkill)}</span>
 							</div>
 						)}
+						*/}
 						<div className="character-stats-tooltip-row">
 							<span>Maces</span>
-							<span>
-								{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatMacesSkill)} /{' '}
-								{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatTwoHandedMacesSkill)}
-							</span>
+							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatMacesSkill)}</span>
+						</div>
+						<div className="character-stats-tooltip-row">
+							<span>2H Maces</span>
+							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatTwoHandedMacesSkill)}</span>
 						</div>
 						<div className="character-stats-tooltip-row">
 							<span>Polearms</span>
@@ -270,10 +274,11 @@ export class CharacterStats extends Component {
 						</div>
 						<div className="character-stats-tooltip-row">
 							<span>Swords</span>
-							<span>
-								{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatSwordsSkill)} /{' '}
-								{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatTwoHandedSwordsSkill)}
-							</span>
+							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatSwordsSkill)}</span>
+						</div>
+						<div className="character-stats-tooltip-row">
+							<span>2H Swords</span>
+							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatTwoHandedSwordsSkill)}</span>
 						</div>
 						<div className="character-stats-tooltip-row">
 							<span>Unarmed</span>
@@ -352,91 +357,90 @@ export class CharacterStats extends Component {
 
 			const tooltipContent = (
 				<div>
-					<div className="character-stats-tooltip-column">
-						<div className="character-stats-tooltip-row">
-							<span>Main Hand</span>
-							<span></span>
-						</div>
-						<hr />
-						<div className="character-stats-tooltip-row">
-							<span>Glancing:</span>
-							<span>{`${mhCritCapInfo.glancing.toFixed(2)}%`}</span>
-						</div>
-						<div className="character-stats-tooltip-row">
-							<span>Suppression:</span>
-							<span>{`${mhCritCapInfo.suppression.toFixed(2)}%`}</span>
-						</div>
-						<div className="character-stats-tooltip-row">
-							<span>White Miss:</span>
-							<span>{`${mhCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
-						</div>
-						<div className="character-stats-tooltip-row">
-							<span>Dodge:</span>
-							<span>{`${mhCritCapInfo.dodgeCap.toFixed(2)}%`}</span>
-						</div>
-						<div className="character-stats-tooltip-row">
-							<span>Parry:</span>
-							<span>{`${mhCritCapInfo.parryCap.toFixed(2)}%`}</span>
-						</div>
-						{mhCritCapInfo.specSpecificOffset != 0 && (
-							<div className="character-stats-tooltip-row">
-								<span>Spec Offsets:</span>
-								<span>{`${mhCritCapInfo.specSpecificOffset.toFixed(2)}%`}</span>
-							</div>
-						)}
-						<div className="character-stats-tooltip-row">
-							<span>Final Crit Cap:</span>
-							<span>{`${mhCritCapInfo.baseCritCap.toFixed(2)}%`}</span>
-						</div>
-						<hr />
-						<div className="character-stats-tooltip-row">
-							<span>Can Raise By:</span>
-							<span>{`${mhCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
-						</div>
-						<hr />
+					<div className="character-stats-tooltip-row">
+						<span>Main Hand</span>
+						<span></span>
 					</div>
-					<div className="character-stats-tooltip-column">
-						<div className="character-stats-tooltip-row">
-							<span>Off Hand</span>
-							<span></span>
-						</div>
-						<hr />
-						<div className="character-stats-tooltip-row">
-							<span>Glancing:</span>
-							<span>{`${ohCritCapInfo.glancing.toFixed(2)}%`}</span>
-						</div>
-						<div className="character-stats-tooltip-row">
-							<span>Suppression:</span>
-							<span>{`${ohCritCapInfo.suppression.toFixed(2)}%`}</span>
-						</div>
-						<div className="character-stats-tooltip-row">
-							<span>White Miss:</span>
-							<span>{`${ohCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
-						</div>
-						<div className="character-stats-tooltip-row">
-							<span>Dodge:</span>
-							<span>{`${ohCritCapInfo.dodgeCap.toFixed(2)}%`}</span>
-						</div>
-						<div className="character-stats-tooltip-row">
-							<span>Parry:</span>
-							<span>{`${ohCritCapInfo.parryCap.toFixed(2)}%`}</span>
-						</div>
-						{ohCritCapInfo.specSpecificOffset != 0 && (
-							<div className="character-stats-tooltip-row">
-								<span>Spec Offsets:</span>
-								<span>{`${ohCritCapInfo.specSpecificOffset.toFixed(2)}%`}</span>
-							</div>
-						)}
-						<div className="character-stats-tooltip-row">
-							<span>Final Crit Cap:</span>
-							<span>{`${ohCritCapInfo.baseCritCap.toFixed(2)}%`}</span>
-						</div>
-						<hr />
-						<div className="character-stats-tooltip-row">
-							<span>Can Raise By:</span>
-							<span>{`${ohCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
-						</div>
+					<hr />
+					<div className="character-stats-tooltip-row">
+						<span>Glancing:</span>
+						<span>{`${mhCritCapInfo.glancing.toFixed(2)}%`}</span>
 					</div>
+					<div className="character-stats-tooltip-row">
+						<span>Suppression:</span>
+						<span>{`${mhCritCapInfo.suppression.toFixed(2)}%`}</span>
+					</div>
+					<div className="character-stats-tooltip-row">
+						<span>White Miss:</span>
+						<span>{`${mhCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
+					</div>
+					<div className="character-stats-tooltip-row">
+						<span>Dodge:</span>
+						<span>{`${mhCritCapInfo.dodgeCap.toFixed(2)}%`}</span>
+					</div>
+					<div className="character-stats-tooltip-row">
+						<span>Parry:</span>
+						<span>{`${mhCritCapInfo.parryCap.toFixed(2)}%`}</span>
+					</div>
+					{mhCritCapInfo.specSpecificOffset != 0 && (
+						<div className="character-stats-tooltip-row">
+							<span>Spec Offsets:</span>
+							<span>{`${mhCritCapInfo.specSpecificOffset.toFixed(2)}%`}</span>
+						</div>
+					)}
+					<div className="character-stats-tooltip-row">
+						<span>Final Crit Cap:</span>
+						<span>{`${mhCritCapInfo.baseCritCap.toFixed(2)}%`}</span>
+					</div>
+					<div className="character-stats-tooltip-row">
+						<span>Can Raise By:</span>
+						<span>{`${mhCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
+					</div>
+					{!has2hWeapon && (
+						<div>
+							<hr />
+
+							<div className="character-stats-tooltip-row">
+								<span>Off Hand</span>
+								<span></span>
+							</div>
+							<hr />
+							<div className="character-stats-tooltip-row">
+								<span>Glancing:</span>
+								<span>{`${ohCritCapInfo.glancing.toFixed(2)}%`}</span>
+							</div>
+							<div className="character-stats-tooltip-row">
+								<span>Suppression:</span>
+								<span>{`${ohCritCapInfo.suppression.toFixed(2)}%`}</span>
+							</div>
+							<div className="character-stats-tooltip-row">
+								<span>White Miss:</span>
+								<span>{`${ohCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
+							</div>
+							<div className="character-stats-tooltip-row">
+								<span>Dodge:</span>
+								<span>{`${ohCritCapInfo.dodgeCap.toFixed(2)}%`}</span>
+							</div>
+							<div className="character-stats-tooltip-row">
+								<span>Parry:</span>
+								<span>{`${ohCritCapInfo.parryCap.toFixed(2)}%`}</span>
+							</div>
+							{ohCritCapInfo.specSpecificOffset != 0 && (
+								<div className="character-stats-tooltip-row">
+									<span>Spec Offsets:</span>
+									<span>{`${ohCritCapInfo.specSpecificOffset.toFixed(2)}%`}</span>
+								</div>
+							)}
+							<div className="character-stats-tooltip-row">
+								<span>Final Crit Cap:</span>
+								<span>{`${ohCritCapInfo.baseCritCap.toFixed(2)}%`}</span>
+							</div>
+							<div className="character-stats-tooltip-row">
+								<span>Can Raise By:</span>
+								<span>{`${ohCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
+							</div>
+						</div>
+					)}
 				</div>
 			);
 
