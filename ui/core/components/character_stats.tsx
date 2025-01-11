@@ -575,15 +575,4 @@ export class CharacterStats extends Component {
 	private shouldShowMeleeCritCap(player: Player<any>): boolean {
 		return [Spec.SpecEnhancementShaman, Spec.SpecRetributionPaladin, Spec.SpecRogue, Spec.SpecWarrior, Spec.SpecHunter].includes(player.spec);
 	}
-
-	/*private meleeCritCapDisplayString(player: Player<any>, _: Stats): string {
-		const playerCritCapDelta = player.getMeleeCritCap();
-
-		if (playerCritCapDelta === 0.0) {
-			return 'Exact';
-		}
-
-		const prefix = playerCritCapDelta > 0 ? 'Over by ' : 'Under by ';
-		return `${prefix} ${Math.abs(playerCritCapDelta).toFixed(2)}%`;
-	}*/
 }
