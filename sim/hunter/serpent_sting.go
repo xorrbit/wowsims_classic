@@ -53,8 +53,7 @@ func (hunter *Hunter) getSerpentStingConfig(rank int) core.SpellConfig {
 			BonusCoefficient: spellCoeff,
 
 			OnSnapshot: func(sim *core.Simulation, target *core.Unit, dot *core.Dot, isRollover bool) {
-				// As of phase 5 the only time serpent sting scales with AP is using the Dragonstalker's Pursuit 6P - this AP scaling doesn't benefit from target AP modifiers
-				damage := baseDamage + (hunter.SerpentStingAPCoeff*dot.Spell.RangedAttackPower(target, true))/5
+				damage := baseDamage
 				dot.Snapshot(target, damage, isRollover)
 			},
 			OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
@@ -77,7 +76,6 @@ func (hunter *Hunter) getSerpentStingConfig(rank int) core.SpellConfig {
 }
 
 func (hunter *Hunter) registerSerpentStingSpell() {
-	hunter.SerpentStingAPCoeff = 0
 
 	maxRank := core.TernaryInt(core.IncludeAQ, 9, 8)
 	for rank := maxRank; rank >= 0; rank-- {

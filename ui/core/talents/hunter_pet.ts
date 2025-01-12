@@ -1,10 +1,8 @@
+import * as InputHelpers from '../components/input_helpers.js';
 import { Player } from '../player.js';
 import { Spec } from '../proto/common.js';
 import { Hunter_Options_PetType as PetType } from '../proto/hunter.js';
 import { ActionId } from '../proto_utils/action_id.js';
-
-
-import * as InputHelpers from '../components/input_helpers.js';
 
 export function makePetTypeInputConfig(_: boolean): InputHelpers.TypedIconEnumPickerConfig<Player<Spec.SpecHunter>, PetType> {
 	return InputHelpers.makeSpecOptionsEnumIconInput<Spec.SpecHunter, PetType>({
@@ -15,7 +13,6 @@ export function makePetTypeInputConfig(_: boolean): InputHelpers.TypedIconEnumPi
 			// TODO: Organize pets into phases maybe?
 			{ value: PetType.PetNone, tooltip: 'No Pet' },
 			{ actionId: () => ActionId.fromPetName('Cat'), tooltip: 'Cat', value: PetType.Cat },
-			{ actionId: () => ActionId.fromPetName('Core Hound'), tooltip: 'Core Hound (Exotic)', value: PetType.CoreHound },
 			{ actionId: () => ActionId.fromPetName('Raptor'), tooltip: 'Raptor', value: PetType.Raptor },
 			{ actionId: () => ActionId.fromPetName('Owl'), tooltip: 'Owl', value: PetType.Owl },
 			{ actionId: () => ActionId.fromPetName('Carrion Bird'), tooltip: 'Carrion Bird', value: PetType.CarrionBird },

@@ -28,6 +28,7 @@ import {
 	Hunter_Options as HunterOptions,
 	Hunter_Options_Ammo as Ammo,
 	Hunter_Options_PetType as PetType,
+	Hunter_Options_PetAttackSpeed as PetAttackSpeed,
 	Hunter_Options_QuiverBonus,
 } from '../core/proto/hunter.js';
 import { SavedTalents } from '../core/proto/ui.js';
@@ -70,7 +71,7 @@ export const DefaultAPL = APLPresets[Phase.Phase1][0];
 // Default talents. Uses the wowhead calculator format, make the talents on
 // https://wowhead.com/classic/talent-calc and copy the numbers in the url.
 
-export const TalentsP1 = PresetUtils.makePresetTalents('Marksmanship', SavedTalents.create({ talentsString: '-05451002503051-33400023023' }));
+export const TalentsP1 = PresetUtils.makePresetTalents('Marksmanship', SavedTalents.create({ talentsString: '55000000505-05451002503051' }));
 
 export const TalentPresets = {
 	[Phase.Phase1]: [TalentsP1],
@@ -85,11 +86,9 @@ export const DefaultTalents = TalentPresets[Phase.Phase1][0];
 export const DefaultOptions = HunterOptions.create({
 	ammo: Ammo.ThoriumHeadedArrow,
 	quiverBonus: Hunter_Options_QuiverBonus.Speed15,
-	petAttackSpeed: 2.0,
-	petTalents: {},
-	petType: PetType.PetNone,
+	petAttackSpeed: PetAttackSpeed.OneTwo,
+	petType: PetType.Cat,
 	petUptime: 1,
-	sniperTrainingUptime: 1.0,
 });
 
 export const DefaultConsumes = Consumes.create({
@@ -108,7 +107,7 @@ export const DefaultConsumes = Consumes.create({
 	petAttackPowerConsumable: 1,
 	petAgilityConsumable: 1,
 	petStrengthConsumable: 1,
-	sapperExplosive: SapperExplosive.SapperGoblinSapper,
+	sapperExplosive: SapperExplosive.SapperUnknown,
 	spellPowerBuff: SpellPowerBuff.GreaterArcaneElixir,
 	strengthBuff: StrengthBuff.JujuPower,
 	zanzaBuff: ZanzaBuff.GroundScorpokAssay,
@@ -122,7 +121,7 @@ export const DefaultRaidBuffs = RaidBuffs.create({
 	fireResistanceTotem: true,
 	giftOfTheWild: TristateEffect.TristateEffectImproved,
 	graceOfAirTotem: TristateEffect.TristateEffectImproved,
-	leaderOfThePack: true,
+	leaderOfThePack: false,
 	manaSpringTotem: TristateEffect.TristateEffectRegular,
 	powerWordFortitude: TristateEffect.TristateEffectImproved,
 	strengthOfEarthTotem: TristateEffect.TristateEffectImproved,
@@ -130,16 +129,16 @@ export const DefaultRaidBuffs = RaidBuffs.create({
 
 export const DefaultIndividualBuffs = IndividualBuffs.create({
 	blessingOfKings: true,
-	blessingOfMight: TristateEffect.TristateEffectRegular,
+	blessingOfMight: TristateEffect.TristateEffectImproved,
 	blessingOfWisdom: TristateEffect.TristateEffectImproved,
-	fengusFerocity: true,
-	moldarsMoxie: true,
+	fengusFerocity: false,
+	moldarsMoxie: false,
 	rallyingCryOfTheDragonslayer: true,
 	saygesFortune: SaygesFortune.SaygesDamage,
-	slipkiksSavvy: true,
+	slipkiksSavvy: false,
 	songflowerSerenade: true,
-	spiritOfZandalar: true,
-	warchiefsBlessing: true,
+	spiritOfZandalar: false,
+	warchiefsBlessing: false,
 });
 
 export const DefaultDebuffs = Debuffs.create({
@@ -149,7 +148,7 @@ export const DefaultDebuffs = Debuffs.create({
 	huntersMark: TristateEffect.TristateEffectImproved,
 	improvedScorch: true,
 	judgementOfWisdom: true,
-	stormstrike: true,
+	stormstrike: false,
 	sunderArmor: true,
 });
 
