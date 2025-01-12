@@ -35,6 +35,7 @@ const (
 	Firebreather             = 10797
 	VilerendSlicer           = 11603
 	HookfangShanker          = 11635
+	Naglering                = 11669
 	LinkensSwordOfMastery    = 11902
 	SearingNeedle            = 12531
 	PipsSkinner              = 12709
@@ -45,11 +46,14 @@ const (
 	TheNeedler               = 13060
 	SealOfTheDawn            = 13209
 	JoonhosMercy             = 17054
+	DrillborerDisk           = 17066
 	Deathbringer             = 17068
 	ViskagTheBloodletter     = 17075
 	ThrashBlade              = 17705
 	SatyrsLash               = 17752
 	MarkOfTheChosen          = 17774
+	ForceReactiveDisk        = 18168
+	RazorGauntlets           = 18326
 	Nightfall                = 19169
 	EbonHand                 = 19170
 	RuneOfTheDawn            = 19812
@@ -136,7 +140,22 @@ func init() {
 	// https://www.wowhead.com/classic/spell=16916/strength-of-the-champion
 	// Chance on hit: Heal self for 270 to 450 and Increases Strength by 120 for 30 sec.
 	// TODO: Proc rate assumed and needs testing
-	itemhelpers.CreateWeaponProcAura(ArcaniteChampion, "Arcanite Champion", 1.0, StrengthOfTheChampionAura)
+	itemhelpers.CreateWeaponProcAura(ArcaniteChampion, "Arcanite Champion", 1.0, func(character *core.Character) *core.Aura {
+		actionID := core.ActionID{SpellID: 16916}
+		healthMetrics := character.NewHealthMetrics(actionID)
+		return character.GetOrRegisterAura(core.Aura{
+			Label:    "Strength of the Champion",
+			ActionID: actionID,
+			Duration: time.Second * 30,
+			OnGain: func(aura *core.Aura, sim *core.Simulation) {
+				character.GainHealth(sim, sim.Roll(270, 450), healthMetrics)
+				character.AddStatDynamic(sim, stats.Strength, 120)
+			},
+			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
+				character.AddStatDynamic(sim, stats.Strength, -120)
+			},
+		})
+	})
 
 	// https://www.wowhead.com/classic/item=14541/barovian-family-sword
 	// Chance on hit: Deals 30 Shadow damage every 3 sec for 15 sec. All damage done is then transferred to the caster.
@@ -1297,8 +1316,45 @@ func init() {
 	itemhelpers.CreateWeaponCoHProcDamage(Nightblade, "Nightblade", 1.0, 18211, core.SpellSchoolShadow, 125, 150, 0, core.DefenseTypeMagic)
 
 	// https://www.wowhead.com/classic/item=19169/nightfall
+	// Chance on hit: Spell damage taken by target increased by 15% for 5 sec.
 	core.NewItemEffect(Nightfall, func(agent core.Agent) {
-		makeNightfallProc(agent.GetCharacter(), "Nightfall")
+		character := agent.GetCharacter()
+
+		procAuras := character.NewEnemyAuraArray(func(target *core.Unit) *core.Aura {
+			return target.GetOrRegisterAura(core.Aura{
+				Label:    "Spell Vulnerability",
+				ActionID: core.ActionID{SpellID: 23605},
+				Duration: time.Second * 5,
+				OnGain: func(aura *core.Aura, sim *core.Simulation) {
+					aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexArcane] *= 1.15
+					aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexFire] *= 1.15
+					aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexFrost] *= 1.15
+					aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexHoly] *= 1.15
+					aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexNature] *= 1.15
+					aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexShadow] *= 1.15
+				},
+				OnExpire: func(aura *core.Aura, sim *core.Simulation) {
+					aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexArcane] /= 1.15
+					aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexFire] /= 1.15
+					aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexFrost] /= 1.15
+					aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexHoly] /= 1.15
+					aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexNature] /= 1.15
+					aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexShadow] /= 1.15
+				},
+			})
+		})
+
+		core.MakeProcTriggerAura(&character.Unit, core.ProcTrigger{
+			Name:              "Nightfall Trigger",
+			Callback:          core.CallbackOnSpellHitDealt,
+			Outcome:           core.OutcomeLanded,
+			ProcMask:          core.ProcMaskMelee,
+			SpellFlagsExclude: core.SpellFlagSuppressWeaponProcs,
+			PPM:               2,
+			Handler: func(sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
+				procAuras.Get(result.Target).Activate(sim)
+			},
+		})
 	})
 
 	// https://www.wowhead.com/classic/item=9425/pendulum-of-doom
@@ -2679,12 +2735,92 @@ func init() {
 	// Equip: Adds 2 fire damage to your melee attacks.
 	core.NewItemEffect(BlazefuryMedallion, func(agent core.Agent) {
 		character := agent.GetCharacter()
-		BlazefuryTriggerAura(character, 7712, core.SpellSchoolFire, 2)
+
+		procSpell := character.RegisterSpell(core.SpellConfig{
+			ActionID:         core.ActionID{SpellID: 7712},
+			SpellSchool:      core.SpellSchoolFire,
+			DefenseType:      core.DefenseTypeMagic,
+			ProcMask:         core.ProcMaskMeleeDamageProc,
+			Flags:            core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell,
+			DamageMultiplier: 1,
+			ThreatMultiplier: 1,
+			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+				spell.CalcAndDealDamage(sim, target, 2, spell.OutcomeMagicCrit)
+			},
+		})
+
+		core.MakeProcTriggerAura(&character.Unit, core.ProcTrigger{
+			Name:              "Blazefury Medallion Trigger",
+			Callback:          core.CallbackOnSpellHitDealt,
+			Outcome:           core.OutcomeLanded,
+			ProcMask:          core.ProcMaskMelee,
+			SpellFlagsExclude: core.SpellFlagSuppressEquipProcs,
+			Handler: func(sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
+				if spell.ProcMask.Matches(core.ProcMaskMeleeSpecial) {
+					procSpell.ProcMask = core.ProcMaskEmpty
+				} else {
+					procSpell.ProcMask = core.ProcMaskDamageProc // Both spell and melee procs
+				}
+				procSpell.Cast(sim, result.Target)
+			},
+		})
 	})
 
 	// https://www.wowhead.com/classic/item=14554/cloudkeeper-legplates
 	// Use: Increases Attack Power by 100 for 30 sec. (15 Min Cooldown)
 	core.NewSimpleStatOffensiveTrinketEffect(CloudkeeperLegplates, stats.Stats{stats.AttackPower: 100, stats.RangedAttackPower: 100}, time.Second*30, time.Minute*15)
+
+	// https://www.wowhead.com/classic/item=228266/drillborer-disk
+	// Equip: When struck in combat inflicts 3 Arcane damage to the attacker.
+	core.NewItemEffect(DrillborerDisk, func(agent core.Agent) {
+		thornsArcaneDamageEffect(agent, DrillborerDisk, "Drillborer Disk", 3)
+	})
+
+	// https://www.wowhead.com/classic/item=18168/force-reactive-disk
+	// Equip: When the shield blocks it releases an electrical charge that damages all nearby enemies. (1s cooldown)
+	core.NewItemEffect(ForceReactiveDisk, func(agent core.Agent) {
+		character := agent.GetCharacter()
+
+		procSpell := character.RegisterSpell(core.SpellConfig{
+			ActionID:    core.ActionID{ItemID: ForceReactiveDisk},
+			SpellSchool: core.SpellSchoolNature,
+			DefenseType: core.DefenseTypeMagic,
+			ProcMask:    core.ProcMaskEmpty,
+			Flags:       core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell,
+
+			DamageMultiplier: 1,
+			ThreatMultiplier: 1,
+
+			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+				for _, aoeTarget := range sim.Encounter.TargetUnits {
+					spell.CalcAndDealDamage(sim, aoeTarget, 25, spell.OutcomeMagicHitAndCrit)
+				}
+			},
+		})
+
+		core.MakeProcTriggerAura(&character.Unit, core.ProcTrigger{
+			Name:     "Force Reactive Disk",
+			Callback: core.CallbackOnSpellHitTaken,
+			ProcMask: core.ProcMaskMelee,
+			Outcome:  core.OutcomeBlock,
+			ICD:      time.Second,
+			Handler: func(sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
+				procSpell.Cast(sim, spell.Unit)
+			},
+		})
+	})
+
+	// https://www.wowhead.com/classic/item=11669/naglering
+	// Equip: When struck in combat inflicts 3 Arcane damage to the attacker.
+	core.NewItemEffect(Naglering, func(agent core.Agent) {
+		thornsArcaneDamageEffect(agent, Naglering, "Naglering", 3)
+	})
+
+	// https://www.wowhead.com/classic/item=18326/razor-gauntlets
+	// Equip: When struck in combat inflicts 3 Arcane damage to the attacker.
+	core.NewItemEffect(RazorGauntlets, func(agent core.Agent) {
+		thornsArcaneDamageEffect(agent, RazorGauntlets, "Razor Gauntlets", 3)
+	})
 
 	// https://www.wowhead.com/classic/item=1168/skullflame-shield
 	// Equip: When struck in combat has a 3% chance of stealing 35 life from target enemy. (Proc chance: 3%)
@@ -2775,93 +2911,29 @@ func init() {
 	core.AddEffectsToTest = true
 }
 
-func BlazefuryTriggerAura(character *core.Character, spellID int32, spellSchool core.SpellSchool, damage float64) {
-	if character.GetSpell(core.ActionID{SpellID: spellID}) != nil {
-		return
-	}
+func thornsArcaneDamageEffect(agent core.Agent, itemID int32, itemName string, damage float64) {
+	character := agent.GetCharacter()
 
 	procSpell := character.RegisterSpell(core.SpellConfig{
-		ActionID:         core.ActionID{SpellID: spellID},
-		SpellSchool:      spellSchool,
-		DefenseType:      core.DefenseTypeMagic,
-		ProcMask:         core.ProcMaskMeleeDamageProc,
-		Flags:            core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell,
+		ActionID:    core.ActionID{ItemID: itemID},
+		SpellSchool: core.SpellSchoolArcane,
+		ProcMask:    core.ProcMaskEmpty,
+		Flags:       core.SpellFlagBinary | core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell,
+
 		DamageMultiplier: 1,
 		ThreatMultiplier: 1,
+
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			spell.CalcAndDealDamage(sim, target, damage, spell.OutcomeMagicCrit)
+			spell.CalcAndDealDamage(sim, target, damage, spell.OutcomeMagicHit)
 		},
 	})
 
-	core.MakeProcTriggerAura(&character.Unit, core.ProcTrigger{
-		Name:              fmt.Sprintf("Blazefury Trigger (%d)", spellID),
-		Callback:          core.CallbackOnSpellHitDealt,
-		Outcome:           core.OutcomeLanded,
-		ProcMask:          core.ProcMaskMelee,
-		SpellFlagsExclude: core.SpellFlagSuppressEquipProcs,
-		Handler: func(sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
-			if spell.ProcMask.Matches(core.ProcMaskMeleeSpecial) {
-				procSpell.ProcMask = core.ProcMaskEmpty
-			} else {
-				procSpell.ProcMask = core.ProcMaskDamageProc // Both spell and melee procs
+	core.MakePermanent(character.GetOrRegisterAura(core.Aura{
+		Label: fmt.Sprintf("Thorns (%s)", itemName),
+		OnSpellHitTaken: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
+			if result.Landed() && spell.ProcMask.Matches(core.ProcMaskMelee) {
+				procSpell.Cast(sim, spell.Unit)
 			}
-			procSpell.Cast(sim, result.Target)
 		},
-	})
-}
-
-// Chance on hit: Spell damage taken by target increased by 15% for 5 sec.
-func makeNightfallProc(character *core.Character, itemName string) {
-	procAuras := character.NewEnemyAuraArray(func(target *core.Unit) *core.Aura {
-		return target.GetOrRegisterAura(core.Aura{
-			Label:    fmt.Sprintf("Spell Vulnerability (%s)", itemName),
-			ActionID: core.ActionID{SpellID: 23605},
-			Duration: time.Second * 5,
-			OnGain: func(aura *core.Aura, sim *core.Simulation) {
-				aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexArcane] *= 1.15
-				aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexFire] *= 1.15
-				aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexFrost] *= 1.15
-				aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexHoly] *= 1.15
-				aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexNature] *= 1.15
-				aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexShadow] *= 1.15
-			},
-			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-				aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexArcane] /= 1.15
-				aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexFire] /= 1.15
-				aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexFrost] /= 1.15
-				aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexHoly] /= 1.15
-				aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexNature] /= 1.15
-				aura.Unit.PseudoStats.SchoolBonusDamageTaken[stats.SchoolIndexShadow] /= 1.15
-			},
-		})
-	})
-
-	core.MakeProcTriggerAura(&character.Unit, core.ProcTrigger{
-		Name:              fmt.Sprintf("%s Trigger", itemName),
-		Callback:          core.CallbackOnSpellHitDealt,
-		Outcome:           core.OutcomeLanded,
-		ProcMask:          core.ProcMaskMelee,
-		SpellFlagsExclude: core.SpellFlagSuppressWeaponProcs,
-		PPM:               2,
-		Handler: func(sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
-			procAuras.Get(result.Target).Activate(sim)
-		},
-	})
-}
-
-func StrengthOfTheChampionAura(character *core.Character) *core.Aura {
-	actionID := core.ActionID{SpellID: 16916}
-	healthMetrics := character.NewHealthMetrics(actionID)
-	return character.GetOrRegisterAura(core.Aura{
-		Label:    "Strength of the Champion",
-		ActionID: actionID,
-		Duration: time.Second * 30,
-		OnGain: func(aura *core.Aura, sim *core.Simulation) {
-			character.GainHealth(sim, sim.Roll(270, 450), healthMetrics)
-			character.AddStatDynamic(sim, stats.Strength, 120)
-		},
-		OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-			character.AddStatDynamic(sim, stats.Strength, -120)
-		},
-	})
+	}))
 }
