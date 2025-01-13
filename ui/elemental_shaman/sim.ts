@@ -125,11 +125,15 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecElementalShaman, {
 		],
 		// Preset gear configurations that the user can quickly select.
 		gear: [
-			Presets.DefaultGear,
+			...Presets.GearPresets[Phase.Phase5],
+			...Presets.GearPresets[Phase.Phase4],
+			...Presets.GearPresets[Phase.Phase3],
+			...Presets.GearPresets[Phase.Phase2],
+			...Presets.GearPresets[Phase.Phase1],
 		],
 	},
 
-	autoRotation: player => {
+	autoRotation: () => {
 		return Presets.DefaultAPL.rotation.rotation!;
 	},
 

@@ -92,8 +92,8 @@ func applyDebuffEffects(target *Unit, targetIdx int, debuffs *proto.Debuffs, rai
 		}, raid)
 	}
 
-	if debuffs.Stormstrike {
-		MakePermanent(StormstrikeAura(target))
+	if debuffs.Stormstrike && targetIdx == 0 {
+		ExternalStormstrikeCaster(debuffs, target)
 	}
 
 	if debuffs.GiftOfArthas {
@@ -179,21 +179,90 @@ func applyDebuffEffects(target *Unit, targetIdx int, debuffs *proto.Debuffs, rai
 	}
 }
 
+type StormstrikeConfig struct {
+	stormstrikeFrequency     float64
+	natureAttackersFrequency float64
+}
+
+func (character *Character) createStormstrikeConfig(player *proto.Player) {
+	character.StormstrikeConfig = StormstrikeConfig{
+		stormstrikeFrequency:     player.StormstrikeFrequency,
+		natureAttackersFrequency: player.StormstrikeNatureAttackerFrequency,
+	}
+	// Defaults if not configured
+	if character.StormstrikeConfig.stormstrikeFrequency == 0.0 {
+		character.StormstrikeConfig.stormstrikeFrequency = 20.0
+	}
+}
+
+const (
+	StormstrikeCooldown = time.Second * 20
+)
+
+func ExternalStormstrikeCaster(_ *proto.Debuffs, target *Unit) {
+	stormstrikeConfig := target.Env.Raid.Parties[0].Players[0].GetCharacter().StormstrikeConfig
+	stormstrikeAura := StormstrikeAura(target)
+	var pa *PendingAction
+	MakePermanent(target.GetOrRegisterAura(Aura{
+		Label: "Stormstrike External Proc Aura",
+		OnGain: func(aura *Aura, sim *Simulation) {
+			pa = NewPeriodicAction(sim, PeriodicActionOptions{
+				Period:          DurationFromSeconds(stormstrikeConfig.stormstrikeFrequency),
+				TickImmediately: true,
+				OnAction: func(s *Simulation) {
+					stormstrikeAura.Activate(sim)
+					stormstrikeAura.SetStacks(sim, stormstrikeAura.MaxStacks)
+				},
+			})
+			sim.AddPendingAction(pa)
+		},
+		OnExpire: func(aura *Aura, sim *Simulation) {
+			pa.Cancel(sim)
+		},
+	}))
+}
+
 func StormstrikeAura(unit *Unit) *Aura {
+	stormstrikeConfig := unit.Env.Raid.Parties[0].Players[0].GetCharacter().StormstrikeConfig
+
 	aura := unit.GetOrRegisterAura(Aura{
-		Label:    "Stormstrike",
-		ActionID: ActionID{SpellID: 17364},
-		Duration: time.Second * 12,
+		Label:     "Stormstrike",
+		ActionID:  ActionID{SpellID: 17364},
+		Duration:  time.Second * 12,
+		MaxStacks: 2,
+		OnGain: func(aura *Aura, sim *Simulation) {
+			aura.Unit.PseudoStats.SchoolDamageTakenMultiplier[stats.SchoolIndexNature] *= 1.20
+		},
+		OnExpire: func(aura *Aura, sim *Simulation) {
+			aura.Unit.PseudoStats.SchoolDamageTakenMultiplier[stats.SchoolIndexNature] /= 1.20
+		},
+		OnSpellHitTaken: func(aura *Aura, sim *Simulation, spell *Spell, result *SpellResult) {
+			if spell.SpellSchool.Matches(SpellSchoolNature) && result.Landed() && result.Damage > 0 {
+				aura.RemoveStack(sim)
+			}
+		},
 	})
 
-	//Needs updating to classic version
+	// External attacks using nature strike
+	if stormstrikeConfig.natureAttackersFrequency > 0 {
+		aura.OnReset = func(aura *Aura, sim *Simulation) {
+			sim.AddPendingAction(
+				NewPeriodicAction(sim, PeriodicActionOptions{
+					Period: DurationFromSeconds(stormstrikeConfig.natureAttackersFrequency),
+					OnAction: func(s *Simulation) {
+						aura.RemoveStack(sim)
+					},
+				}),
+			)
+		}
+	}
+
 	return aura
 }
 
 func ExternalIsbCaster(_ *proto.Debuffs, target *Unit) {
 	isbConfig := target.Env.Raid.Parties[0].Players[0].GetCharacter().IsbConfig
-	baseStacks := int32(ISBNumStacksBase)
-	isbAura := ImprovedShadowBoltAura(target, 5, baseStacks)
+	isbAura := ImprovedShadowBoltAura(target, 5)
 	isbCrit := isbConfig.casterCrit / 100.0
 	var pa *PendingAction
 	MakePermanent(target.GetOrRegisterAura(Aura{
@@ -205,7 +274,7 @@ func ExternalIsbCaster(_ *proto.Debuffs, target *Unit) {
 					for i := 0; i < int(isbConfig.isbWarlocks); i++ {
 						if sim.Proc(isbCrit, "External Isb Crit") {
 							isbAura.Activate(sim)
-							isbAura.SetStacks(sim, baseStacks)
+							isbAura.SetStacks(sim, isbAura.MaxStacks)
 						} else if isbAura.IsActive() {
 							isbAura.RemoveStack(sim)
 						}
@@ -250,7 +319,7 @@ const (
 	ISBNumStacksBase = 4
 )
 
-func ImprovedShadowBoltAura(unit *Unit, rank int32, stackCount int32) *Aura {
+func ImprovedShadowBoltAura(unit *Unit, rank int32) *Aura {
 	isbLabel := "Improved Shadow Bolt"
 	if unit.GetAura(isbLabel) != nil {
 		return unit.GetAura(isbLabel)
@@ -268,7 +337,7 @@ func ImprovedShadowBoltAura(unit *Unit, rank int32, stackCount int32) *Aura {
 		Label:     isbLabel,
 		ActionID:  ActionID{SpellID: 17800},
 		Duration:  12 * time.Second,
-		MaxStacks: stackCount,
+		MaxStacks: ISBNumStacksBase,
 		OnReset: func(aura *Aura, sim *Simulation) {
 			// External shadow priests simulation
 			if externalShadowPriests > 0 {
@@ -751,10 +820,10 @@ func ExposeWeaknessAura(target *Unit) *Aura {
 		ActionID: ActionID{SpellID: 23577},
 		Label:    "Expose Weakness",
 		Duration: time.Second * 7,
-		OnGain: func(aura *Aura, sim *Simulation)  {
+		OnGain: func(aura *Aura, sim *Simulation) {
 			target.PseudoStats.BonusRangedAttackPowerTaken += bonus
 		},
-		OnExpire: func(aura *Aura, sim *Simulation)  {
+		OnExpire: func(aura *Aura, sim *Simulation) {
 			target.PseudoStats.BonusRangedAttackPowerTaken -= bonus
 		},
 	})

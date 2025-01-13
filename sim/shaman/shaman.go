@@ -104,7 +104,7 @@ type Shaman struct {
 	ManaSpringTotem      []*core.Spell
 	SearingTotem         []*core.Spell
 	StoneskinTotem       []*core.Spell
-	StormstrikeMH        *core.Spell
+	Stormstrike          *core.Spell
 	StrengthOfEarthTotem []*core.Spell
 	TremorTotem          *core.Spell
 	WindfuryTotem        []*core.Spell
@@ -128,6 +128,8 @@ type Shaman struct {
 	// Shield
 	ActiveShield     *core.Spell // Tracks the Shaman's active shield spell
 	ActiveShieldAura *core.Aura
+
+	ChainLightningBounceCoefficient float64
 }
 
 // Implemented by each Shaman spec.
@@ -173,17 +175,6 @@ func (shaman *Shaman) Initialize() {
 	shaman.registerWindfuryTotemSpell()
 	shaman.registerGraceOfAirTotemSpell()
 	shaman.registerWindwallTotemSpell()
-
-	// // This registration must come after all the totems are registered
-	// shaman.registerCallOfTheElements()
-
-	shaman.RegisterHealingSpells()
-}
-
-func (shaman *Shaman) RegisterHealingSpells() {
-	shaman.registerLesserHealingWaveSpell()
-	shaman.registerHealingWaveSpell()
-	shaman.registerChainHealSpell()
 }
 
 func (shaman *Shaman) Reset(_ *core.Simulation) {

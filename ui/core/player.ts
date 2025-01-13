@@ -244,11 +244,13 @@ export class Player<SpecType extends Spec> {
 	private healingModel: HealingModel = HealingModel.create();
 	private healingEnabled = false;
 
-	private isbUsingShadowflame = true;
 	private isbSbFrequency = 3.0;
 	private isbCrit = 25.0;
 	private isbWarlocks = 1.0;
 	private isbSpriests = 0;
+
+	private stormstrikeFrequency = 20.0;
+	private stormstrikeNatureAttackerFrequency = 0.0;
 
 	private readonly autoRotationGenerator: AutoRotationGenerator<SpecType> | null = null;
 	private readonly simpleRotationGenerator: SimpleRotationGenerator<SpecType> | null = null;
@@ -609,12 +611,8 @@ export class Player<SpecType extends Spec> {
 		this.consumesChangeEmitter.emit(eventID);
 	}
 
-	canDualWield2H(): boolean {
-		return false;
-	}
-
 	equipItem(eventID: EventID, slot: ItemSlot, newItem: EquippedItem | null) {
-		this.setGear(eventID, this.gear.withEquippedItem(slot, newItem, this.canDualWield2H()));
+		this.setGear(eventID, this.gear.withEquippedItem(slot, newItem));
 	}
 
 	getEquippedItem(slot: ItemSlot): EquippedItem | null {
@@ -644,7 +642,7 @@ export class Player<SpecType extends Spec> {
 	}
 
 	equipItemSwapitem(eventID: EventID, slot: ItemSlot, newItem: EquippedItem | null) {
-		this.setItemSwapGear(eventID, this.itemSwapGear.withEquippedItem(slot, newItem, this.canDualWield2H()));
+		this.setItemSwapGear(eventID, this.itemSwapGear.withEquippedItem(slot, newItem));
 	}
 
 	getItemSwapItem(slot: ItemSlot): EquippedItem | null {
@@ -1000,17 +998,6 @@ export class Player<SpecType extends Spec> {
 		this.healingModelChangeEmitter.emit(eventID);
 	}
 
-	getIsbUsingShadowflame(): boolean {
-		return this.isbUsingShadowflame;
-	}
-
-	setIsbUsingShadowflame(eventID: EventID, newValue: boolean) {
-		if (newValue === this.isbUsingShadowflame) return;
-
-		this.isbUsingShadowflame = newValue;
-		this.changeEmitter.emit(eventID);
-	}
-
 	getIsbSbFrequency(): number {
 		return this.isbSbFrequency;
 	}
@@ -1052,6 +1039,28 @@ export class Player<SpecType extends Spec> {
 		if (newIsbSpriests === this.isbSpriests) return;
 
 		this.isbSpriests = newIsbSpriests;
+		this.changeEmitter.emit(eventID);
+	}
+
+	getStormstrikeFrequency(): number {
+		return this.stormstrikeFrequency;
+	}
+
+	setStormstrikeFrequency(eventID: EventID, newStormstrikeFrequency: number) {
+		if (newStormstrikeFrequency === this.stormstrikeFrequency) return;
+
+		this.stormstrikeFrequency = newStormstrikeFrequency;
+		this.changeEmitter.emit(eventID);
+	}
+
+	getStormstrikeNatureAttackerFrequency(): number {
+		return this.stormstrikeNatureAttackerFrequency;
+	}
+
+	setStormstrikeNatureAttackerFrequency(eventID: EventID, newStormstrikeNatureAttackerFrequency: number) {
+		if (newStormstrikeNatureAttackerFrequency === this.stormstrikeNatureAttackerFrequency) return;
+
+		this.stormstrikeNatureAttackerFrequency = newStormstrikeNatureAttackerFrequency;
 		this.changeEmitter.emit(eventID);
 	}
 
@@ -1368,6 +1377,8 @@ export class Player<SpecType extends Spec> {
 				isbCrit: this.getIsbCrit(),
 				isbWarlocks: this.getIsbWarlocks(),
 				isbSpriests: this.getIsbSpriests(),
+				stormstrikeFrequency: this.getStormstrikeFrequency(),
+				stormstrikeNatureAttackerFrequency: this.getStormstrikeNatureAttackerFrequency(),
 			});
 			player = withSpecProto(this.spec, player, this.getSpecOptions());
 		}
@@ -1425,6 +1436,8 @@ export class Player<SpecType extends Spec> {
 				this.setIsbCrit(eventID, proto.isbCrit);
 				this.setIsbWarlocks(eventID, proto.isbWarlocks);
 				this.setIsbSpriests(eventID, proto.isbSpriests);
+				this.setStormstrikeFrequency(eventID, proto.stormstrikeFrequency);
+				this.setStormstrikeNatureAttackerFrequency(eventID, proto.stormstrikeNatureAttackerFrequency);
 			}
 			if (loadCategory(SimSettingCategories.External)) {
 				this.setBuffs(eventID, proto.buffs || IndividualBuffs.create());

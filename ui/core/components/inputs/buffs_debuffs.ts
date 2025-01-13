@@ -474,6 +474,14 @@ export const SpellWintersChillDebuff = withLabel(
 	'Frost Damage',
 );
 
+export const SpellStormstrikeDebuff = withLabel(
+	makeBooleanDebuffInput({
+		actionId: () => ActionId.fromSpellId(17364),
+		fieldName: 'stormstrike',
+	}),
+	'Stormstrike',
+)
+
 export const SpellShadowWeavingDebuff = withLabel(
 	makeBooleanDebuffInput({
 		actionId: () => ActionId.fromSpellId(15334),
@@ -782,6 +790,11 @@ export const DEBUFFS_CONFIG = [
 		config: SpellWintersChillDebuff,
 		picker: IconPicker,
 		stats: [Stat.StatFrostPower],
+	},
+	{
+		config: SpellStormstrikeDebuff,
+		picker: IconPicker,
+		stats: [Stat.StatNaturePower],
 	},
 	{
 		config: SpellShadowWeavingDebuff,
