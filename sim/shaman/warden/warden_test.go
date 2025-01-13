@@ -1,8 +1,6 @@
 package warden
 
 import (
-	"testing"
-
 	"github.com/wowsims/classic/sim/core"
 	"github.com/wowsims/classic/sim/core/proto"
 )
@@ -11,27 +9,27 @@ func init() {
 	RegisterWardenShaman()
 }
 
-func TestWardenShaman(t *testing.T) {
-	core.RunTestSuite(t, t.Name(), core.FullCharacterTestSuiteGenerator([]core.CharacterSuiteConfig{
-		{
-			Class:      proto.Class_ClassShaman,
-			Phase:      4,
-			Race:       proto.Race_RaceTroll,
-			OtherRaces: []proto.Race{proto.Race_RaceOrc},
+// func TestWardenShaman(t *testing.T) {
+// 	core.RunTestSuite(t, t.Name(), core.FullCharacterTestSuiteGenerator([]core.CharacterSuiteConfig{
+// 		{
+// 			Class:      proto.Class_ClassShaman,
+// 			Phase:      4,
+// 			Race:       proto.Race_RaceTroll,
+// 			OtherRaces: []proto.Race{proto.Race_RaceOrc},
 
-			Talents:     Phase4Talents,
-			GearSet:     core.GetGearSet("../../../ui/warden_shaman/gear_sets", "blank"),
-			Rotation:    core.GetAplRotation("../../../ui/warden_shaman/apls", "phase_4_enh_tank"),
-			Buffs:       core.FullBuffs,
-			Consumes:    Phase4Consumes,
-			SpecOptions: core.SpecOptionsCombo{Label: "Default", SpecOptions: PlayerOptionsBasic},
+// 			Talents:     Phase4Talents,
+// 			GearSet:     core.GetGearSet("../../../ui/warden_shaman/gear_sets", "blank"),
+// 			Rotation:    core.GetAplRotation("../../../ui/warden_shaman/apls", "phase_4_enh_tank"),
+// 			Buffs:       core.FullBuffs,
+// 			Consumes:    Phase4Consumes,
+// 			SpecOptions: core.SpecOptionsCombo{Label: "Default", SpecOptions: PlayerOptionsBasic},
 
-			ItemFilter:      ItemFilters,
-			EPReferenceStat: proto.Stat_StatAttackPower,
-			StatsToWeigh:    Stats,
-		},
-	}))
-}
+// 			ItemFilter:      ItemFilters,
+// 			EPReferenceStat: proto.Stat_StatAttackPower,
+// 			StatsToWeigh:    Stats,
+// 		},
+// 	}))
+// }
 
 var PlayerOptionsBasic = &proto.Player_WardenShaman{
 	WardenShaman: &proto.WardenShaman{

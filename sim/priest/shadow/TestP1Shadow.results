@@ -53,17 +53,17 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.35086
+  weights: 0.34801
   weights: 0
-  weights: 0.29454
-  weights: 0
-  weights: 0
+  weights: 0.29455
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.29454
   weights: 0
-  weights: 5.04465
+  weights: 0
+  weights: 0.29455
+  weights: 0
+  weights: 5.04844
   weights: 0.47054
   weights: 0
   weights: 0
@@ -99,29 +99,29 @@ stat_weights_results: {
 dps_results: {
  key: "TestP1Shadow-Phase1-AllItems-IronweaveBattlesuit"
  value: {
-  dps: 426.19902
-  tps: 422.03243
+  dps: 426.23566
+  tps: 422.0676
  }
 }
 dps_results: {
  key: "TestP1Shadow-Phase1-Average-Default"
  value: {
-  dps: 492.24694
-  tps: 485.41017
+  dps: 492.25971
+  tps: 485.42242
  }
 }
 dps_results: {
  key: "TestP1Shadow-Phase1-Settings-Dwarf-p0.bis-Basic-p1-FullBuffs-P1-Consumes-LongMultiTarget"
  value: {
-  dps: 517.34195
-  tps: 757.48523
+  dps: 517.35618
+  tps: 757.49889
  }
 }
 dps_results: {
  key: "TestP1Shadow-Phase1-Settings-Dwarf-p0.bis-Basic-p1-FullBuffs-P1-Consumes-LongSingleTarget"
  value: {
-  dps: 517.34195
-  tps: 509.69012
+  dps: 517.35618
+  tps: 509.70378
  }
 }
 dps_results: {
@@ -155,15 +155,15 @@ dps_results: {
 dps_results: {
  key: "TestP1Shadow-Phase1-Settings-Undead-p0.bis-Basic-p1-FullBuffs-P1-Consumes-LongMultiTarget"
  value: {
-  dps: 494.22915
-  tps: 732.37054
+  dps: 494.24338
+  tps: 732.3842
  }
 }
 dps_results: {
  key: "TestP1Shadow-Phase1-Settings-Undead-p0.bis-Basic-p1-FullBuffs-P1-Consumes-LongSingleTarget"
  value: {
-  dps: 494.22915
-  tps: 487.35551
+  dps: 494.24338
+  tps: 487.36917
  }
 }
 dps_results: {
@@ -197,7 +197,7 @@ dps_results: {
 dps_results: {
  key: "TestP1Shadow-Phase1-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 494.22915
-  tps: 487.35551
+  dps: 494.24338
+  tps: 487.36917
  }
 }

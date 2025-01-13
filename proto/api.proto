@@ -15,7 +15,7 @@ import "shaman.proto";
 import "warlock.proto";
 import "warrior.proto";
 
-// NextIndex: 47
+// NextIndex: 49
 message Player {
 	// Label used for logging.
 	string name = 1;
@@ -53,6 +53,10 @@ message Player {
 	double isb_crit = 42;
 	int32 isb_warlocks = 43;
 	int32 isb_spriests = 44;
+
+	// Stormstrike Info
+	double stormstrike_frequency = 47;
+	double stormstrike_nature_attacker_frequency = 48;
 
 	// Items/enchants/etc to include in the database.
 	SimDatabase database = 18;

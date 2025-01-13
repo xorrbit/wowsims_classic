@@ -26,7 +26,6 @@ import {
 	Stat,
 	StrengthBuff,
 	WeaponImbue,
-	WeaponType,
 	ZanzaBuff,
 } from '../../proto/common';
 import { ActionId } from '../../proto_utils/action_id';
@@ -969,9 +968,6 @@ const ROGUE_IMBUES: ConsumableStatOption<WeaponImbue>[] = [
 	{ config: InstantPoisonWeaponImbue, stats: [] },
 	{ config: DeadlyPoisonWeaponImbue, stats: [] },
 	{ config: WoundPoisonWeaponImbue, stats: [] },
-	// These are not yet implemented for rogues
-	// { config: OccultPoisonWeaponImbue, stats: [] },
-	// { config: SebaciousPoisonWeaponImbue, stats: [] },
 ];
 
 const CONSUMABLES_IMBUES = (slot: ItemSlot): ConsumableStatOption<WeaponImbue>[] => [

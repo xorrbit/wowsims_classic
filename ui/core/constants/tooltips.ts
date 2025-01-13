@@ -19,8 +19,6 @@ export const EP_TOOLTIP = `
 export const UNSPECT_TALENT_POINTS_WARNING = 'Unspent talent points.';
 export const TOO_MANY_TALENT_POINTS_WARNING = 'More talent points spent than current level selected.';
 
-export const TITANS_GRIP_WARNING = "Dual wielding two-handed weapon(s) without Titan's Grip spec.";
-
 export const GEAR_MIN_LEVEL_WARNING = (playerLevel: number) => `Wearing gear with a minumum level requirement above level ${playerLevel}.`;
 
 export const TOOLTIP_METRIC_LABELS = {

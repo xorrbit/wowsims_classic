@@ -21,7 +21,7 @@ import { MultiIconPicker, MultiIconPickerItemConfig } from '../multi_icon_picker
 import { NumberPicker } from '../number_picker';
 import { SavedDataManager } from '../saved_data_manager';
 import { SimTab } from '../sim_tab';
-import { IsbConfig } from './../other_inputs';
+import { IsbConfig, StormstrikeConfig } from './../other_inputs';
 import { ConsumesPicker } from './consumes_picker';
 import { ItemSwapPicker } from './item_swap_picker';
 import { PresetConfigurationPicker } from './preset_configuration_picker';
@@ -74,6 +74,7 @@ export class SettingsTab extends SimTab {
 			this.buildConsumesSection();
 			this.buildOtherSettings();
 			this.buildIsbSettings();
+			this.buildStormstrikeSettings();
 
 			if (!this.simUI.isWithinRaidSim) {
 				this.buildBuffsSettings();
@@ -214,6 +215,24 @@ export class SettingsTab extends SimTab {
 				const isWlAndIsb = (this.simUI.player as Player<Spec.SpecWarlock>)?.getTalents().improvedShadowBolt > 0;
 				const externalIsb = this.simUI.player.getRaid()?.getDebuffs()?.improvedShadowBolt == true;
 				if (externalIsb || isWlAndIsb) {
+					contentBlock.rootElem.classList.remove('hide');
+				} else {
+					contentBlock.rootElem.classList.add('hide');
+				}
+			});
+		}
+	}
+
+	private buildStormstrikeSettings() {
+		if (!this.simUI.isWithinRaidSim) {
+			const contentBlock = new ContentBlock(this.column1, 'other-settings', {
+				header: { title: 'Stormstrike' },
+			});
+
+			this.configureInputSection(contentBlock.bodyElement, StormstrikeConfig);
+
+			this.simUI.player.getRaid()!.debuffsChangeEmitter.on(() => {
+				if (this.simUI.player.getRaid()?.getDebuffs()?.stormstrike) {
 					contentBlock.rootElem.classList.remove('hide');
 				} else {
 					contentBlock.rootElem.classList.add('hide');

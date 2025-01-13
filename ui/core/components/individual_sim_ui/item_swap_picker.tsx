@@ -90,8 +90,8 @@ export class ItemSwapPicker<SpecType extends Spec> extends Component {
 			const gearItem = player.getGear().getEquippedItem(slot);
 			const swapItem = player.getItemSwapGear().getEquippedItem(slot);
 
-			newGear = newGear.withEquippedItem(slot, swapItem, player.canDualWield2H());
-			newIsg = newIsg.withEquippedItem(slot, gearItem, player.canDualWield2H());
+			newGear = newGear.withEquippedItem(slot, swapItem);
+			newIsg = newIsg.withEquippedItem(slot, gearItem);
 		});
 
 		TypedEvent.freezeAllAndDo(() => {
