@@ -698,33 +698,6 @@ func faerieFireAuraInternal(target *Unit, label string, spellID int32) *Aura {
 	return aura
 }
 
-func PunctureArmorAura(target *Unit) *Aura {
-	arpen := float64(200)
-	
-	var effect *ExclusiveEffect
-	aura := target.GetOrRegisterAura(Aura{
-		Label: "Puncture Armor",
-		ActionID: ActionID{SpellID: 17315},
-		Duration: time.Second * 30,
-		MaxStacks: 3,
-		OnStacksChange: func(aura *Aura, sim *Simulation, oldStacks int32, newStacks int32) {
-			effect.SetPriority(sim, arpen*float64(newStacks))
-		},
-	})
-
-	effect = aura.NewExclusiveEffect(minorArmorReductionEffectCategory, true, ExclusiveEffect{
-		Priority: 0,
-		OnGain: func(ee *ExclusiveEffect, sim *Simulation) {
-			ee.Aura.Unit.AddStatDynamic(sim, stats.Armor, -ee.Priority)
-		},
-		OnExpire: func(ee *ExclusiveEffect, sim *Simulation) {
-			ee.Aura.Unit.AddStatDynamic(sim, stats.Armor, ee.Priority)
-		},
-	})
-
-	return aura
-}
-
 func CurseOfWeaknessAura(target *Unit, points int32) *Aura {
 	modDmgReduction := -31.0
 
