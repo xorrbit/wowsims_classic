@@ -1651,11 +1651,20 @@ func init() {
 
 	// https://www.wowhead.com/classic/item=23221/misplaced-servo-arm
 	// Equip: Chance to discharge electricity causing 100 to 150 Nature damage to your target.
+	// If dual-wielding, your other weapon can proc the Misplaced Servo Arm when it strikes as well. 
+	// Chance-on-hit for the other weapon is determined by it's base weapon speed, set to 2PPM. 
+	// Same interaction when dual-wielding two Misplaced Servo Arms, one melee from one Arm has a chance to proc both Arms.
 	
 	core.NewItemEffect(MisplacedServoArm, func(agent core.Agent) {
 		character := agent.GetCharacter()
 		actionID := core.ActionID{SpellID: 29150}
 		label := "Electric Discharge Trigger"
+		ppm := 2.0
+		procMask := character.GetProcMaskForItem(MisplacedServoArm)
+		if procMask == core.ProcMaskMelee {
+			ppm = 4.0
+		}
+		ppmm := character.AutoAttacks.NewPPMManager(ppm, core.ProcMaskMelee)
 
 		procSpell := character.GetOrRegisterSpell(core.SpellConfig{
 			ActionID:    actionID,
@@ -1672,19 +1681,16 @@ func init() {
 			},
 		})
 
-		if character.HasAura(label) {
-			label += " Second Copy"
-		}
-
 		core.MakeProcTriggerAura(&character.Unit, core.ProcTrigger{
 			Name:              label,
 			Callback:          core.CallbackOnSpellHitDealt,
 			Outcome:           core.OutcomeLanded,
 			ProcMask:          core.ProcMaskMelee,
 			SpellFlagsExclude: core.SpellFlagSuppressEquipProcs,
-			PPM:               2.0,
 			Handler: func(sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
-				procSpell.Cast(sim, result.Target)
+				if ppmm.Proc(sim, spell.ProcMask, label) {
+					procSpell.Cast(sim, result.Target)
+				}
 			},
 		})
 	})
