@@ -73,6 +73,7 @@ func (shaman *Shaman) newWindfuryTotemSpellConfig(rank int) core.SpellConfig {
 		},
 		OnExpire: func(_ *core.Aura, sim *core.Simulation) {
 			shaman.ActiveWindfuryTotemPeriodicAction.Cancel(sim)
+			shaman.ActiveWindfuryTotemPeriodicAction = nil
 		},
 	})
 

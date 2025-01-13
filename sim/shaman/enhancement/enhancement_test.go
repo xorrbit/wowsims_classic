@@ -21,7 +21,7 @@ func TestEnhancement(t *testing.T) {
 			OtherRaces: []proto.Race{proto.Race_RaceOrc},
 
 			Talents:     DefaultTalents,
-			GearSet:     core.GetGearSet("../../../ui/enhancement_shaman/gear_sets", "blank"),
+			GearSet:     core.GetGearSet("../../../ui/enhancement_shaman/gear_sets", "phase_1"),
 			Rotation:    core.GetAplRotation("../../../ui/enhancement_shaman/apls", "default"),
 			Buffs:       core.FullBuffs,
 			Consumes:    Phase1Consumes,

@@ -186,7 +186,9 @@ func (shaman *Shaman) Reset(_ *core.Simulation) {
 	shaman.ActiveShield = nil
 	shaman.ActiveShieldAura = nil
 
-	for i := range shaman.TotemExpirations {
+	for i := range []int{EarthTotem, FireTotem, WaterTotem, AirTotem} {
+		shaman.ActiveTotems[i] = nil
 		shaman.TotemExpirations[i] = 0
+		shaman.ActiveTotemBuffs[i] = nil
 	}
 }
