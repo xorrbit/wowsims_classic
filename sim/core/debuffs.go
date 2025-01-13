@@ -237,7 +237,7 @@ func StormstrikeAura(unit *Unit) *Aura {
 			aura.Unit.PseudoStats.SchoolDamageTakenMultiplier[stats.SchoolIndexNature] /= 1.20
 		},
 		OnSpellHitTaken: func(aura *Aura, sim *Simulation, spell *Spell, result *SpellResult) {
-			if spell.SpellSchool.Matches(SpellSchoolNature) && result.Landed() && result.Damage > 0 {
+			if aura.IsActive() && spell.SpellSchool.Matches(SpellSchoolNature) && result.Landed() && result.Damage > 0 {
 				aura.RemoveStack(sim)
 			}
 		},

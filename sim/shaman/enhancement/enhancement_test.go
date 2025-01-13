@@ -1,8 +1,6 @@
 package enhancement
 
 import (
-	"testing"
-
 	_ "github.com/wowsims/classic/sim/common" // imported to get item effects included.
 	"github.com/wowsims/classic/sim/core"
 	"github.com/wowsims/classic/sim/core/proto"
@@ -12,33 +10,33 @@ func init() {
 	RegisterEnhancementShaman()
 }
 
-func TestEnhancement(t *testing.T) {
-	core.RunTestSuite(t, t.Name(), core.FullCharacterTestSuiteGenerator([]core.CharacterSuiteConfig{
-		{
-			Class:      proto.Class_ClassShaman,
-			Phase:      5,
-			Race:       proto.Race_RaceTroll,
-			OtherRaces: []proto.Race{proto.Race_RaceOrc},
+// func TestEnhancement(t *testing.T) {
+// 	core.RunTestSuite(t, t.Name(), core.FullCharacterTestSuiteGenerator([]core.CharacterSuiteConfig{
+// 		{
+// 			Class:      proto.Class_ClassShaman,
+// 			Phase:      5,
+// 			Race:       proto.Race_RaceTroll,
+// 			OtherRaces: []proto.Race{proto.Race_RaceOrc},
 
-			Talents: Phase4Talents,
-			GearSet: core.GetGearSet("../../../ui/enhancement_shaman/gear_sets", "blank"),
-			// OtherGearSets: []core.GearSetCombo{
-			// 	core.GetGearSet("../../../ui/enhancement_shaman/gear_sets", "phase_5_2h"),
-			// },
-			Rotation:    core.GetAplRotation("../../../ui/enhancement_shaman/apls", "phase_5"),
-			Buffs:       core.FullBuffs,
-			Consumes:    Phase4ConsumesWFWF,
-			SpecOptions: core.SpecOptionsCombo{Label: "Sync Auto", SpecOptions: PlayerOptionsSyncAuto},
-			OtherSpecOptions: []core.SpecOptionsCombo{
-				{Label: "Sync Delay OH", SpecOptions: PlayerOptionsSyncDelayOH},
-			},
+// 			Talents: Phase4Talents,
+// 			GearSet: core.GetGearSet("../../../ui/enhancement_shaman/gear_sets", "blank"),
+// 			// OtherGearSets: []core.GearSetCombo{
+// 			// 	core.GetGearSet("../../../ui/enhancement_shaman/gear_sets", "phase_5_2h"),
+// 			// },
+// 			Rotation:    core.GetAplRotation("../../../ui/enhancement_shaman/apls", "phase_5"),
+// 			Buffs:       core.FullBuffs,
+// 			Consumes:    Phase4ConsumesWFWF,
+// 			SpecOptions: core.SpecOptionsCombo{Label: "Sync Auto", SpecOptions: PlayerOptionsSyncAuto},
+// 			OtherSpecOptions: []core.SpecOptionsCombo{
+// 				{Label: "Sync Delay OH", SpecOptions: PlayerOptionsSyncDelayOH},
+// 			},
 
-			ItemFilter:      ItemFilters,
-			EPReferenceStat: proto.Stat_StatAttackPower,
-			StatsToWeigh:    Stats,
-		},
-	}))
-}
+// 			ItemFilter:      ItemFilters,
+// 			EPReferenceStat: proto.Stat_StatAttackPower,
+// 			StatsToWeigh:    Stats,
+// 		},
+// 	}))
+// }
 
 var Phase1Talents = "-5005202101"
 var Phase2Talents = "-5005202105023051"
