@@ -237,7 +237,7 @@ func StormstrikeAura(unit *Unit) *Aura {
 			aura.Unit.PseudoStats.SchoolDamageTakenMultiplier[stats.SchoolIndexNature] /= 1.20
 		},
 		OnSpellHitTaken: func(aura *Aura, sim *Simulation, spell *Spell, result *SpellResult) {
-			if aura.IsActive() && spell.SpellSchool.Matches(SpellSchoolNature) && result.Landed() && result.Damage > 0 {
+			if aura.GetStacks() > 0 && spell.SpellSchool.Matches(SpellSchoolNature) && result.Landed() && result.Damage > 0 {
 				aura.RemoveStack(sim)
 			}
 		},
@@ -250,7 +250,7 @@ func StormstrikeAura(unit *Unit) *Aura {
 				NewPeriodicAction(sim, PeriodicActionOptions{
 					Period: DurationFromSeconds(stormstrikeConfig.natureAttackersFrequency),
 					OnAction: func(s *Simulation) {
-						if aura.IsActive() {
+						if aura.GetStacks() > 0 {
 							aura.RemoveStack(sim)
 						}
 					},

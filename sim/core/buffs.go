@@ -1402,7 +1402,7 @@ func BattleShoutAura(unit *Unit, impBattleShout int32, boomingVoicePts int32, ha
 	rank := TernaryInt32(IncludeAQ, 7, 6)
 	spellId := BattleShoutSpellId[rank]
 	baseAP := BattleShoutBaseAP[rank]
-	
+
 	return unit.GetOrRegisterAura(Aura{
 		Label:      "Battle Shout",
 		ActionID:   ActionID{SpellID: spellId},
@@ -1410,12 +1410,12 @@ func BattleShoutAura(unit *Unit, impBattleShout int32, boomingVoicePts int32, ha
 		BuildPhase: CharacterBuildPhaseBuffs,
 		OnGain: func(aura *Aura, sim *Simulation) {
 			aura.Unit.AddStatsDynamic(sim, stats.Stats{
-				stats.AttackPower: math.Floor(baseAP * (1 + 0.05*float64(impBattleShout)) + TernaryFloat64(has3pcWrath, 30, 0)),
+				stats.AttackPower: math.Floor(baseAP*(1+0.05*float64(impBattleShout)) + TernaryFloat64(has3pcWrath, 30, 0)),
 			})
 		},
 		OnExpire: func(aura *Aura, sim *Simulation) {
 			aura.Unit.AddStatsDynamic(sim, stats.Stats{
-				stats.AttackPower: -1 * math.Floor(baseAP*(1+0.05*float64(impBattleShout)) + TernaryFloat64(has3pcWrath, 30, 0)),
+				stats.AttackPower: -1 * math.Floor(baseAP*(1+0.05*float64(impBattleShout))+TernaryFloat64(has3pcWrath, 30, 0)),
 			})
 		},
 	})
@@ -1433,8 +1433,8 @@ func TrueshotAura(unit *Unit) *Aura {
 	makeExclusiveBuff(aura, BuffConfig{
 		Category: "TrueshotAura",
 		Stats: []StatConfig{
-			{stats.AttackPower, rangedAP, false},
-			{stats.RangedAttackPower, meleeAP, false},
+			{stats.AttackPower, meleeAP, false},
+			{stats.RangedAttackPower, rangedAP, false},
 		},
 	})
 

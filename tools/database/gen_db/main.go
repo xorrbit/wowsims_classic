@@ -139,14 +139,11 @@ func main() {
 
 	for _, response := range itemTooltips {
 		if response.IsEquippable() {
-			// Item is not part of an item set OR the item set is not in the deny list
-			if itemSetID := response.GetItemSetID(); itemSetID == 0 || !slices.Contains(database.DenyItemSetIds, itemSetID) {
-				// Only included items that are in wowheads gearplanner db
-				// Wowhead doesn't seem to have a field/flag to signify 'not available / in game' but their gearplanner db has them filtered
-				item := response.ToItemProto()
-				if _, ok := filteredWHDBItems[strconv.Itoa(int(item.Id))]; ok {
-					db.MergeItem(item)
-				}
+			// Only included items that are in wowheads gearplanner db
+			// Wowhead doesn't seem to have a field/flag to signify 'not available / in game' but their gearplanner db has them filtered
+			item := response.ToItemProto()
+			if _, ok := filteredWHDBItems[strconv.Itoa(int(item.Id))]; ok {
+				db.MergeItem(item)
 			}
 		}
 	}

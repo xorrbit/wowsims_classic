@@ -118,12 +118,17 @@ type Shaman struct {
 
 	// Totems
 	ActiveTotems     [4]*core.Spell
-	EarthTotems      []*core.Spell
-	FireTotems       []*core.Spell
-	WaterTotems      []*core.Spell
-	AirTotems        []*core.Spell
-	Totems           *proto.ShamanTotems
+	ActiveTotemBuffs [4]*core.Aura
 	TotemExpirations [4]time.Duration // The expiration time of each totem (earth, air, fire, water).
+
+	EarthTotems []*core.Spell
+	FireTotems  []*core.Spell
+	WaterTotems []*core.Spell
+	AirTotems   []*core.Spell
+	Totems      *proto.ShamanTotems
+
+	WindfuryTotemPeriodicActions      []*core.PendingAction
+	ActiveWindfuryTotemPeriodicAction *core.PendingAction
 
 	// Shield
 	ActiveShield     *core.Spell // Tracks the Shaman's active shield spell

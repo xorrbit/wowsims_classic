@@ -5,6 +5,7 @@ import {
 	Alcohol,
 	ArmorElixir,
 	AttackPowerBuff,
+	Conjured,
 	Consumes,
 	Debuffs,
 	FirePowerBuff,
@@ -25,8 +26,7 @@ import {
 } from '../core/proto/common.js';
 import { EnhancementShaman_Options as EnhancementShamanOptions, ShamanSyncType } from '../core/proto/shaman.js';
 import { SavedTalents } from '../core/proto/ui.js';
-import Phase4EleTankAPLJSON from './apls/phase_4_ele_tank.apl.json';
-import Phase4EnhTankAPLJSON from './apls/phase_4_enh_tank.apl.json';
+import DefaultAPLJSON from './apls/default.apl.json';
 import BlankGear from './gear_sets/blank.gear.json';
 
 // Preset options for this spec.
@@ -39,7 +39,14 @@ import BlankGear from './gear_sets/blank.gear.json';
 
 export const GearBlank = PresetUtils.makePresetGear('Blank', BlankGear);
 
-export const GearPresets = {};
+export const GearPresets = {
+	[Phase.Phase1]: [GearBlank],
+	[Phase.Phase2]: [],
+	[Phase.Phase3]: [],
+	[Phase.Phase4]: [],
+	[Phase.Phase5]: [],
+	[Phase.Phase6]: [],
+};
 
 export const DefaultGear = GearBlank;
 
@@ -47,36 +54,35 @@ export const DefaultGear = GearBlank;
 //                                 APL Presets
 ///////////////////////////////////////////////////////////////////////////
 
-export const APLEnhTankPhase4 = PresetUtils.makePresetAPLRotation('P4 Enh', Phase4EnhTankAPLJSON);
-export const APLEleTankPhase4 = PresetUtils.makePresetAPLRotation('P4 Ele', Phase4EleTankAPLJSON);
+export const APLDefault = PresetUtils.makePresetAPLRotation('Default', DefaultAPLJSON);
 
 export const APLPresets = {
-	[Phase.Phase1]: [],
+	[Phase.Phase1]: [APLDefault],
 	[Phase.Phase2]: [],
 	[Phase.Phase3]: [],
-	[Phase.Phase4]: [APLEnhTankPhase4, APLEleTankPhase4],
+	[Phase.Phase4]: [],
 	[Phase.Phase5]: [],
+	[Phase.Phase6]: [],
 };
 
-export const DefaultAPL = APLPresets[Phase.Phase4][0];
+export const DefaultAPL = APLPresets[Phase.Phase1][0];
 
 ///////////////////////////////////////////////////////////////////////////
 //                                 Talent Presets
 ///////////////////////////////////////////////////////////////////////////
 
-export const TalentsHardCastPhase4 = PresetUtils.makePresetTalents('60 Ele', SavedTalents.create({ talentsString: '55030155000015-050003-500053' }));
-export const TalentsSpellhancePhase4 = PresetUtils.makePresetTalents('60 Spellhance', SavedTalents.create({ talentsString: '5503015000301-05250320550001' }));
-export const TalentsDeepEnhPhase4 = PresetUtils.makePresetTalents('60 Enh', SavedTalents.create({ talentsString: '05033150003-0505032015003151' }));
+export const TalentsLevel60 = PresetUtils.makePresetTalents('Level 60', SavedTalents.create({ talentsString: '5203015-0505000145503151' }));
 
 export const TalentPresets = {
-	[Phase.Phase1]: [],
+	[Phase.Phase1]: [TalentsLevel60],
 	[Phase.Phase2]: [],
 	[Phase.Phase3]: [],
-	[Phase.Phase4]: [TalentsDeepEnhPhase4, TalentsSpellhancePhase4, TalentsHardCastPhase4],
+	[Phase.Phase4]: [],
 	[Phase.Phase5]: [],
+	[Phase.Phase6]: [],
 };
 
-export const DefaultTalents = TalentPresets[Phase.Phase4][0];
+export const DefaultTalents = TalentPresets[Phase.Phase1][0];
 
 ///////////////////////////////////////////////////////////////////////////
 //                                 Options
@@ -91,6 +97,7 @@ export const DefaultConsumes = Consumes.create({
 	alcohol: Alcohol.AlcoholRumseyRumBlackLabel,
 	armorElixir: ArmorElixir.ElixirOfSuperiorDefense,
 	attackPowerBuff: AttackPowerBuff.JujuMight,
+	defaultConjured: Conjured.ConjuredDemonicRune,
 	defaultPotion: Potions.MajorManaPotion,
 	dragonBreathChili: true,
 	firePowerBuff: FirePowerBuff.ElixirOfGreaterFirepower,
@@ -111,11 +118,9 @@ export const DefaultRaidBuffs = RaidBuffs.create({
 	fireResistanceAura: true,
 	fireResistanceTotem: true,
 	giftOfTheWild: TristateEffect.TristateEffectImproved,
-	graceOfAirTotem: TristateEffect.TristateEffectImproved,
 	leaderOfThePack: true,
 	manaSpringTotem: TristateEffect.TristateEffectRegular,
 	powerWordFortitude: TristateEffect.TristateEffectImproved,
-	strengthOfEarthTotem: TristateEffect.TristateEffectImproved,
 });
 
 export const DefaultIndividualBuffs = IndividualBuffs.create({
@@ -135,8 +140,8 @@ export const DefaultDebuffs = Debuffs.create({
 	faerieFire: true,
 	improvedScorch: true,
 	insectSwarm: true,
-	stormstrike: true,
 	sunderArmor: true,
+	thunderClap: TristateEffect.TristateEffectRegular,
 });
 
 export const OtherDefaults = {

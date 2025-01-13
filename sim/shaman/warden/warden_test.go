@@ -1,6 +1,8 @@
 package warden
 
 import (
+	"testing"
+
 	"github.com/wowsims/classic/sim/core"
 	"github.com/wowsims/classic/sim/core/proto"
 )
@@ -9,27 +11,27 @@ func init() {
 	RegisterWardenShaman()
 }
 
-// func TestWardenShaman(t *testing.T) {
-// 	core.RunTestSuite(t, t.Name(), core.FullCharacterTestSuiteGenerator([]core.CharacterSuiteConfig{
-// 		{
-// 			Class:      proto.Class_ClassShaman,
-// 			Phase:      4,
-// 			Race:       proto.Race_RaceTroll,
-// 			OtherRaces: []proto.Race{proto.Race_RaceOrc},
+func TestWardenShaman(t *testing.T) {
+	core.RunTestSuite(t, t.Name(), core.FullCharacterTestSuiteGenerator([]core.CharacterSuiteConfig{
+		{
+			Class:      proto.Class_ClassShaman,
+			Phase:      1,
+			Race:       proto.Race_RaceTroll,
+			OtherRaces: []proto.Race{proto.Race_RaceOrc},
 
-// 			Talents:     Phase4Talents,
-// 			GearSet:     core.GetGearSet("../../../ui/warden_shaman/gear_sets", "blank"),
-// 			Rotation:    core.GetAplRotation("../../../ui/warden_shaman/apls", "phase_4_enh_tank"),
-// 			Buffs:       core.FullBuffs,
-// 			Consumes:    Phase4Consumes,
-// 			SpecOptions: core.SpecOptionsCombo{Label: "Default", SpecOptions: PlayerOptionsBasic},
+			Talents:     DefaultTalents,
+			GearSet:     core.GetGearSet("../../../ui/warden_shaman/gear_sets", "blank"),
+			Rotation:    core.GetAplRotation("../../../ui/warden_shaman/apls", "default"),
+			Buffs:       core.FullBuffs,
+			Consumes:    Phase1Consumes,
+			SpecOptions: core.SpecOptionsCombo{Label: "Default", SpecOptions: PlayerOptionsBasic},
 
-// 			ItemFilter:      ItemFilters,
-// 			EPReferenceStat: proto.Stat_StatAttackPower,
-// 			StatsToWeigh:    Stats,
-// 		},
-// 	}))
-// }
+			ItemFilter:      ItemFilters,
+			EPReferenceStat: proto.Stat_StatAttackPower,
+			StatsToWeigh:    Stats,
+		},
+	}))
+}
 
 var PlayerOptionsBasic = &proto.Player_WardenShaman{
 	WardenShaman: &proto.WardenShaman{
@@ -37,22 +39,22 @@ var PlayerOptionsBasic = &proto.Player_WardenShaman{
 	},
 }
 
-var Phase4Talents = "05033150003-0505032015003151"
+var DefaultTalents = "5203015-0505000145503151"
 
-var Phase4Consumes = core.ConsumesCombo{
-	Label: "P4-Consumes",
+var Phase1Consumes = core.ConsumesCombo{
+	Label: "P1-Consumes",
 	Consumes: &proto.Consumes{
 		AttackPowerBuff:   proto.AttackPowerBuff_JujuMight,
 		AgilityElixir:     proto.AgilityElixir_ElixirOfTheMongoose,
+		DefaultConjured:   proto.Conjured_ConjuredDemonicRune,
 		DefaultPotion:     proto.Potions_MajorManaPotion,
 		DragonBreathChili: true,
 		FirePowerBuff:     proto.FirePowerBuff_ElixirOfGreaterFirepower,
 		Flask:             proto.Flask_FlaskOfTheTitans,
 		Food:              proto.Food_FoodBlessSunfruit,
 		MainHandImbue:     proto.WeaponImbue_WindfuryWeapon,
-		//OffHandImbue:      proto.WeaponImbue_ConductiveShieldCoating,
-		SpellPowerBuff: proto.SpellPowerBuff_GreaterArcaneElixir,
-		StrengthBuff:   proto.StrengthBuff_JujuPower,
+		SpellPowerBuff:    proto.SpellPowerBuff_GreaterArcaneElixir,
+		StrengthBuff:      proto.StrengthBuff_JujuPower,
 	},
 }
 

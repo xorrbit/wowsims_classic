@@ -1,20 +1,35 @@
 package shaman
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
 )
 
+func (shaman *Shaman) setActiveAirTotem(sim *core.Simulation, spell *core.Spell, aura *core.Aura) {
+	shaman.TotemExpirations[AirTotem] = sim.CurrentTime + aura.Duration
+	shaman.ActiveTotems[AirTotem] = spell
+
+	if shaman.ActiveTotemBuffs[AirTotem] != nil {
+		shaman.ActiveTotemBuffs[AirTotem].Deactivate(sim)
+	}
+
+	shaman.ActiveTotemBuffs[AirTotem] = aura
+	aura.Activate(sim)
+}
+
 const WindfuryTotemRanks = 3
 
 var WindfuryTotemSpellId = [WindfuryTotemRanks + 1]int32{0, 8512, 10613, 10614}
+var WindfuryBuffAuraId = [WindfuryTotemRanks + 1]int32{0, 8514, 10607, 10611}
 var WindfuryTotemBonusDamage = [WindfuryTotemRanks + 1]float64{0, 122, 229, 315}
 var WindfuryTotemManaCost = [WindfuryTotemRanks + 1]float64{0, 115, 175, 250}
 var WindfuryTotemLevel = [WindfuryTotemRanks + 1]int{0, 32, 42, 52}
 
 func (shaman *Shaman) registerWindfuryTotemSpell() {
 	shaman.WindfuryTotem = make([]*core.Spell, WindfuryTotemRanks+1)
+	shaman.WindfuryTotemPeriodicActions = make([]*core.PendingAction, WindfuryTotemRanks+1)
 
 	for rank := 1; rank <= WindfuryTotemRanks; rank++ {
 		config := shaman.newWindfuryTotemSpellConfig(rank)
@@ -37,14 +52,35 @@ func (shaman *Shaman) newWindfuryTotemSpellConfig(rank int) core.SpellConfig {
 	manaCost := WindfuryTotemManaCost[rank]
 	level := WindfuryTotemLevel[rank]
 
-	duration := time.Second * 120
+	// Create a trackable aura for totem weaving
+	buffAura := shaman.RegisterAura(core.Aura{
+		ActionID: core.ActionID{SpellID: WindfuryBuffAuraId[rank]},
+		Label:    fmt.Sprintf("Windfury (Rank %d)", rank),
+		Duration: time.Second * 10,
+	})
+
+	periodicTriggerAura := shaman.RegisterAura(core.Aura{
+		Label:    fmt.Sprintf("Windfury Trigger Dummy (Rank %d)", rank),
+		Duration: time.Minute * 2,
+		OnGain: func(_ *core.Aura, sim *core.Simulation) {
+			shaman.ActiveWindfuryTotemPeriodicAction = core.StartPeriodicAction(sim, core.PeriodicActionOptions{
+				Period:          time.Second * 5, // Totem refreshes every 5 seconds
+				TickImmediately: true,
+				OnAction: func(_ *core.Simulation) {
+					buffAura.Activate(sim)
+				},
+			})
+		},
+		OnExpire: func(_ *core.Aura, sim *core.Simulation) {
+			shaman.ActiveWindfuryTotemPeriodicAction.Cancel(sim)
+		},
+	})
 
 	spell := shaman.newTotemSpellConfig(manaCost, spellId)
 	spell.RequiredLevel = level
 	spell.Rank = rank
 	spell.ApplyEffects = func(sim *core.Simulation, _ *core.Unit, spell *core.Spell) {
-		shaman.TotemExpirations[EarthTotem] = sim.CurrentTime + duration
-		shaman.ActiveTotems[EarthTotem] = spell
+		shaman.setActiveAirTotem(sim, spell, periodicTriggerAura)
 	}
 	return spell
 }
@@ -77,7 +113,6 @@ func (shaman *Shaman) newGraceOfAirTotemSpellConfig(rank int) core.SpellConfig {
 	manaCost := GraceOfAirTotemManaCost[rank]
 	level := GraceOfAirTotemLevel[rank]
 
-	duration := time.Second * 120
 	multiplier := []float64{1, 1.08, 1.15}[shaman.Talents.EnhancingTotems]
 
 	buffAura := core.GraceOfAirTotemAura(&shaman.Unit, multiplier)
@@ -86,10 +121,7 @@ func (shaman *Shaman) newGraceOfAirTotemSpellConfig(rank int) core.SpellConfig {
 	spell.RequiredLevel = level
 	spell.Rank = rank
 	spell.ApplyEffects = func(sim *core.Simulation, _ *core.Unit, spell *core.Spell) {
-		shaman.TotemExpirations[AirTotem] = sim.CurrentTime + duration
-		shaman.ActiveTotems[AirTotem] = spell
-
-		buffAura.Activate(sim)
+		shaman.setActiveAirTotem(sim, spell, buffAura)
 	}
 	return spell
 }
@@ -122,14 +154,11 @@ func (shaman *Shaman) newWindwallTotemSpellConfig(rank int) core.SpellConfig {
 	manaCost := WindwallTotemManaCost[rank]
 	level := WindwallTotemLevel[rank]
 
-	duration := time.Second * 120
-
 	spell := shaman.newTotemSpellConfig(manaCost, spellId)
 	spell.RequiredLevel = level
 	spell.Rank = rank
 	spell.ApplyEffects = func(sim *core.Simulation, _ *core.Unit, spell *core.Spell) {
-		shaman.TotemExpirations[AirTotem] = sim.CurrentTime + duration
-		shaman.ActiveTotems[AirTotem] = spell
+		shaman.setActiveAirTotem(sim, spell, nil)
 	}
 	return spell
 }
