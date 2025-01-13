@@ -250,7 +250,9 @@ func StormstrikeAura(unit *Unit) *Aura {
 				NewPeriodicAction(sim, PeriodicActionOptions{
 					Period: DurationFromSeconds(stormstrikeConfig.natureAttackersFrequency),
 					OnAction: func(s *Simulation) {
-						aura.RemoveStack(sim)
+						if aura.IsActive() {
+							aura.RemoveStack(sim)
+						}
 					},
 				}),
 			)

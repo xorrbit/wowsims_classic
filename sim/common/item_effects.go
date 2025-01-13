@@ -60,8 +60,6 @@ const (
 	ZandalariHeroBadge       = 19948
 	ZandalariHeroMedallion   = 19949
 	ZandalariHeroCharm       = 19950
-	MarkOfTheChampionPhys    = 23206
-	MarkOfTheChampionSpell   = 23207
 	Ragehammer               = 10626
 	SulfurasHandOfRagnaros   = 17182
 	SulfuronHammer           = 17193
@@ -2348,21 +2346,6 @@ func init() {
 			Spell: spell,
 		})
 	})
-
-	/* core.NewItemEffect(MarkOfTheChampionPhys, func(agent core.Agent) {
-		character := agent.GetCharacter()
-		if character.CurrentTarget.MobType == proto.MobType_MobTypeUndead || character.CurrentTarget.MobType == proto.MobType_MobTypeDemon {
-			character.PseudoStats.MobTypeAttackPower += 150
-		}
-	})
-
-	core.NewItemEffect(MarkOfTheChampionSpell, func(agent core.Agent) {
-		character := agent.GetCharacter()
-
-		if character.CurrentTarget.MobType == proto.MobType_MobTypeUndead || character.CurrentTarget.MobType == proto.MobType_MobTypeDemon {
-			character.PseudoStats.MobTypeSpellPower += 85
-		}
-	}) */
 
 	// https://www.wowhead.com/classic/item=17774/mark-of-the-chosen
 	core.NewItemEffect(MarkOfTheChosen, func(agent core.Agent) {

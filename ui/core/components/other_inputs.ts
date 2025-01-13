@@ -190,7 +190,7 @@ export const IsbConfig = {
 	inputs: [IsbSbFrequencey, IsbCrit, IsbWarlocks, IsbSpriests],
 };
 
-export const StormstrikeFrequencey = {
+export const StormstrikeFrequency = {
 	id: 'stormstrike-frequency',
 	type: 'number' as const,
 	label: 'Stormstrike Cast Frequency',
@@ -210,9 +210,9 @@ export const StormstrikeNatureAttackersFrequencey = {
 	id: 'stormstrike-attackers-frequency',
 	type: 'number' as const,
 	label: 'Other Nature Attacks Frequency',
-	labelTooltip: 'How often (in Seconds) that other attackers are dealing Nature damage.',
+	labelTooltip: 'How often (in Seconds) that external attackers deal Nature damage to the target.',
 	float: true,
-	defaultValue: 0.0,
+	defaultValue: 4.0,
 	inline: true,
 	changedEvent: (player: Player<any>) => TypedEvent.onAny([player.changeEmitter, player.getRaid()!.debuffsChangeEmitter]),
 	getValue: (player: Player<any>) => player.getStormstrikeNatureAttackerFrequency(),
@@ -224,7 +224,7 @@ export const StormstrikeNatureAttackersFrequencey = {
 
 export const StormstrikeConfig = {
 	tooltip: 'Stormstrike debuff configuration',
-	inputs: [StormstrikeFrequencey],
+	inputs: [StormstrikeFrequency, StormstrikeNatureAttackersFrequencey],
 };
 
 export const TankAssignment = {

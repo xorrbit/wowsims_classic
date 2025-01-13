@@ -250,7 +250,7 @@ export class Player<SpecType extends Spec> {
 	private isbSpriests = 0;
 
 	private stormstrikeFrequency = 20.0;
-	private stormstrikeNatureAttackerFrequency = 0.0;
+	private stormstrikeNatureAttackerFrequency = 4.0;
 
 	private readonly autoRotationGenerator: AutoRotationGenerator<SpecType> | null = null;
 	private readonly simpleRotationGenerator: SimpleRotationGenerator<SpecType> | null = null;
