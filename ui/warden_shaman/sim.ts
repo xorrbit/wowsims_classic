@@ -1,4 +1,5 @@
 import * as BuffDebuffInputs from '../core/components/inputs/buffs_debuffs';
+import * as ConsumesInputs from '../core/components/inputs/consumables';
 import * as OtherInputs from '../core/components/other_inputs.js';
 import { Phase } from '../core/constants/other.js';
 import { IndividualSimUI, registerSpecConfig } from '../core/individual_sim_ui.js';
@@ -142,7 +143,11 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWardenShaman, {
 	// IconInputs to include in the 'Player' section on the settings tab.
 	playerIconInputs: [],
 	// Buff and Debuff inputs to include/exclude, overriding the EP-based defaults.
-	includeBuffDebuffInputs: [BuffDebuffInputs.BlessingOfWisdom, BuffDebuffInputs.ManaSpringTotem, BuffDebuffInputs.SpiritBuff],
+	includeBuffDebuffInputs: [
+		BuffDebuffInputs.SpellWintersChillDebuff,
+		BuffDebuffInputs.SpiritBuff,
+		ConsumesInputs.ElixirOfFrostPower,
+	],
 	excludeBuffDebuffInputs: [],
 	// Inputs to include in the 'Other' section on the settings tab.
 	otherInputs: {

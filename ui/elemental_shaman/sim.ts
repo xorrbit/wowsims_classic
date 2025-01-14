@@ -92,7 +92,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecElementalShaman, {
 	// Buff and Debuff inputs to include/exclude, overriding the EP-based defaults.
 	includeBuffDebuffInputs: [
 		BuffDebuffInputs.SpellWintersChillDebuff,
-		BuffDebuffInputs.WarlockCursesConfig,
 		ConsumesInputs.ElixirOfFrostPower,
 	],
 	excludeBuffDebuffInputs: [],
