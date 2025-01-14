@@ -22,16 +22,14 @@ var ItemSetTheFiveThunders = core.NewItemSet(core.ItemSet{
 			c := agent.GetCharacter()
 
 			procAura := c.NewTemporaryStatsAura("The Furious Storm", core.ActionID{SpellID: 27775}, stats.Stats{stats.SpellPower: 95}, time.Second*10)
-			handler := func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
-				procAura.Activate(sim)
-			}
-
 			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
 				Name:       "Item - The Furious Storm Proc (Spell Cast)",
 				Callback:   core.CallbackOnCastComplete,
 				ProcMask:   core.ProcMaskSpellDamage | core.ProcMaskSpellHealing,
 				ProcChance: 0.04,
-				Handler:    handler,
+				Handler: func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
+					procAura.Activate(sim)
+				},
 			})
 		},
 		// Increases damage and healing done by magical spells and effects by up to 23.
@@ -107,7 +105,8 @@ var ItemSetStormcallersGarb = core.NewItemSet(core.ItemSet{
 
 			core.MakeProcTriggerAura(&shaman.Unit, core.ProcTrigger{
 				Name:     "Stormcaller Spelldamage Bonus",
-				Callback: core.CallbackOnCastComplete,
+				Callback: core.CallbackOnSpellHitDealt,
+				Outcome:  core.OutcomeLanded,
 				Handler: func(sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
 					if slices.Contains(affectedSpellCodes, spell.SpellCode) && sim.Proc(0.20, "Stormcaller's Wrath") {
 						buffAura.Activate(sim)
