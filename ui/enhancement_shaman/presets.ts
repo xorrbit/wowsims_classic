@@ -94,7 +94,7 @@ export const DefaultConsumes = Consumes.create({
 	defaultPotion: Potions.MajorManaPotion,
 	defaultConjured: Conjured.ConjuredDemonicRune,
 	dragonBreathChili: true,
-	firePowerBuff: FirePowerBuff.ElixirOfGreaterFirepower,
+	firePowerBuff: FirePowerBuff.ElixirOfFirepower,
 	flask: Flask.FlaskOfSupremePower,
 	food: Food.FoodBlessSunfruit,
 	mainHandImbue: WeaponImbue.WindfuryWeapon,
