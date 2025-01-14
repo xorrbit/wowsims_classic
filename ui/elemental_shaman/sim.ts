@@ -60,18 +60,18 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecElementalShaman, {
 		gear: Presets.DefaultGear.gear,
 		// Default EP weights for sorting gear in the gear picker.
 		epWeights: Stats.fromMap({
-			[Stat.StatIntellect]: 0.12,
+			[Stat.StatIntellect]: 0.14,
 			[Stat.StatSpellPower]: 1,
 			[Stat.StatSpellDamage]: 1,
-			[Stat.StatFirePower]: 0.3,
-			[Stat.StatNaturePower]: 0.7,
-			[Stat.StatSpellHit]: 20.08,
-			[Stat.StatSpellCrit]: 9.04,
-			[Stat.StatSpellHaste]: 9.32,
+			[Stat.StatFirePower]: 0.1, // Eles don't really use Fire much except for Niche situations or AOE
+			[Stat.StatNaturePower]: 1.00,
+			[Stat.StatSpellHit]: 12.37,
+			[Stat.StatSpellCrit]: 7.57,
+			[Stat.StatSpellHaste]: 1.49,
 			[Stat.StatMP5]: 0.02,
 			[Stat.StatStrength]: 0.01,
 			[Stat.StatAttackPower]: 0.01,
-			[Stat.StatFireResistance]: 0.5,
+			[Stat.StatFireResistance]: 0.01,
 		}),
 		// Default consumes settings.
 		consumes: Presets.DefaultConsumes,
