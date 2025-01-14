@@ -1,4 +1,5 @@
 import * as BuffDebuffInputs from '../core/components/inputs/buffs_debuffs';
+import * as ConsumesInputs from '../core/components/inputs/consumables';
 import * as OtherInputs from '../core/components/other_inputs';
 import { Phase } from '../core/constants/other';
 import { IndividualSimUI, registerSpecConfig } from '../core/individual_sim_ui';
@@ -92,6 +93,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecElementalShaman, {
 	includeBuffDebuffInputs: [
 		BuffDebuffInputs.SpellWintersChillDebuff,
 		BuffDebuffInputs.WarlockCursesConfig,
+		ConsumesInputs.ElixirOfFrostPower,
 	],
 	excludeBuffDebuffInputs: [],
 	// Inputs to include in the 'Other' section on the settings tab.

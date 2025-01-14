@@ -8,6 +8,7 @@ import {
 	FirePowerBuff,
 	Flask,
 	Food,
+	FrostPowerBuff,
 	IndividualBuffs,
 	ManaRegenElixir,
 	Potions,
@@ -103,9 +104,11 @@ export const DefaultConsumes = Consumes.create({
 	defaultConjured: Conjured.ConjuredDemonicRune,
 	defaultPotion: Potions.MajorManaPotion,
 	firePowerBuff: FirePowerBuff.ElixirOfGreaterFirepower,
+	frostPowerBuff: FrostPowerBuff.ElixirOfFrostPower,
 	flask: Flask.FlaskOfSupremePower,
 	food: Food.FoodRunnTumTuberSurprise,
-	mainHandImbue: WeaponImbue.LesserWizardOil,
+	// Not available until Phase 4
+	// mainHandImbue: WeaponImbue.BrilliantWizardOil,
 	manaRegenElixir: ManaRegenElixir.MagebloodPotion,
 	spellPowerBuff: SpellPowerBuff.GreaterArcaneElixir,
 	strengthBuff: StrengthBuff.JujuPower,
@@ -123,10 +126,10 @@ export const DefaultRaidBuffs = RaidBuffs.create({
 export const DefaultIndividualBuffs = IndividualBuffs.create({
 	fengusFerocity: true,
 	rallyingCryOfTheDragonslayer: true,
-	saygesFortune: SaygesFortune.SaygesDamage,
+	// saygesFortune: SaygesFortune.SaygesDamage,
 	slipkiksSavvy: true,
 	songflowerSerenade: true,
-	spiritOfZandalar: false,
+	// spiritOfZandalar: true,
 	warchiefsBlessing: true,
 });
 

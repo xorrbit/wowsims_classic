@@ -127,10 +127,10 @@ export const DefaultIndividualBuffs = IndividualBuffs.create({
 	fengusFerocity: true,
 	moldarsMoxie: true,
 	rallyingCryOfTheDragonslayer: true,
-	saygesFortune: SaygesFortune.SaygesDamage,
+	// saygesFortune: SaygesFortune.SaygesDamage,
 	slipkiksSavvy: true,
 	songflowerSerenade: true,
-	spiritOfZandalar: false,
+	// spiritOfZandalar: true,
 	warchiefsBlessing: true,
 });
 
