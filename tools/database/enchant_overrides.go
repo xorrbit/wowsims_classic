@@ -68,7 +68,7 @@ var EnchantOverrides = []*proto.UIEnchant{
 	{EffectId: 2606, ItemId: 20077, SpellId: 24422, Name: "Zandalar Signet of Might", Quality: proto.ItemQuality_ItemQualityRare, Stats: stats.Stats{stats.AttackPower: 30, stats.RangedAttackPower: 30}.ToFloatArray(), Type: proto.ItemType_ItemTypeShoulder, Phase: 4},
 	// Drop in naxxramas
 	{EffectId: 2715, ItemId: 23547, SpellId: 29475, Name: "Resilience of the Scourge", Quality: proto.ItemQuality_ItemQualityEpic, Stats: stats.Stats{stats.HealingPower: 31, stats.MP5: 5}.ToFloatArray(), Type: proto.ItemType_ItemTypeShoulder, Phase: 6},
-	{EffectId: 2717, ItemId: 23548, SpellId: 29483, Name: "Might of the Scourge", Quality: proto.ItemQuality_ItemQualityEpic, Stats: stats.Stats{stats.AttackPower: 26, stats.MeleeCrit: 0.01}.ToFloatArray(), Type: proto.ItemType_ItemTypeShoulder, Phase: 6},
+	{EffectId: 2717, ItemId: 23548, SpellId: 29483, Name: "Might of the Scourge", Quality: proto.ItemQuality_ItemQualityEpic, Stats: stats.Stats{stats.AttackPower: 26, stats.MeleeCrit: 1 * core.CritRatingPerCritChance}.ToFloatArray(), Type: proto.ItemType_ItemTypeShoulder, Phase: 6},
 	{EffectId: 2716, ItemId: 23549, SpellId: 29480, Name: "Fortitude of the Scourge", Quality: proto.ItemQuality_ItemQualityEpic, Stats: stats.Stats{stats.Stamina: 16, stats.BonusArmor: 100}.ToFloatArray(), Type: proto.ItemType_ItemTypeShoulder, Phase: 6},
 	{EffectId: 2721, ItemId: 23545, SpellId: 29467, Name: "Power of the Scourge", Quality: proto.ItemQuality_ItemQualityEpic, Stats: stats.Stats{stats.SpellPower: 15, stats.SpellCrit: 1 * core.SpellCritRatingPerCritChance}.ToFloatArray(), Type: proto.ItemType_ItemTypeShoulder, Phase: 6},
 
