@@ -118,7 +118,6 @@ export const DefaultRaidBuffs = RaidBuffs.create({
 	giftOfTheWild: TristateEffect.TristateEffectImproved,
 	manaSpringTotem: TristateEffect.TristateEffectRegular,
 	moonkinAura: true,
-	strengthOfEarthTotem: TristateEffect.TristateEffectImproved,
 });
 
 export const DefaultIndividualBuffs = IndividualBuffs.create({
@@ -132,11 +131,10 @@ export const DefaultIndividualBuffs = IndividualBuffs.create({
 });
 
 export const DefaultDebuffs = Debuffs.create({
-	curseOfRecklessness: true,
-	faerieFire: true,
+	curseOfElements: true,
 	improvedScorch: true,
 	stormstrike: true,
-	sunderArmor: true,
+	wintersChill: true,
 });
 
 export const OtherDefaults = {
