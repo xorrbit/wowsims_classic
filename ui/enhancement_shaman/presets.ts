@@ -13,6 +13,7 @@ import {
 	ManaRegenElixir,
 	Potions,
 	Profession,
+	Race,
 	RaidBuffs,
 	SaygesFortune,
 	SpellPowerBuff,
@@ -25,6 +26,9 @@ import { EnhancementShaman_Options as EnhancementShamanOptions, ShamanSyncType }
 import { SavedTalents } from '../core/proto/ui.js';
 import DefaultAPLJSON from './apls/default.apl.json';
 import Phase1GearJSON from './gear_sets/phase_1.gear.json';
+import Phase2GearJSON from './gear_sets/phase_2.gear.json';
+import Phase3GearJSON from './gear_sets/phase_3.gear.json';
+import Phase5GearJSON from './gear_sets/phase_5.gear.json';
 
 // Preset options for this spec.
 // Eventually we will import these values for the raid sim too, so its good to
@@ -34,13 +38,16 @@ import Phase1GearJSON from './gear_sets/phase_1.gear.json';
 ///////////////////////////////////////////////////////////////////////////
 
 export const GearPhase1 = PresetUtils.makePresetGear('Phase 1', Phase1GearJSON);
+export const GearPhase2 = PresetUtils.makePresetGear('Phase 2', Phase2GearJSON);
+export const GearPhase3 = PresetUtils.makePresetGear('Phase 3', Phase3GearJSON);
+export const GearPhase5 = PresetUtils.makePresetGear('Phase 5', Phase5GearJSON);
 
 export const GearPresets = {
 	[Phase.Phase1]: [GearPhase1],
-	[Phase.Phase2]: [],
-	[Phase.Phase3]: [],
+	[Phase.Phase2]: [GearPhase2],
+	[Phase.Phase3]: [GearPhase3],
 	[Phase.Phase4]: [],
-	[Phase.Phase5]: [],
+	[Phase.Phase5]: [GearPhase5],
 	[Phase.Phase6]: [],
 };
 
@@ -137,4 +144,5 @@ export const DefaultDebuffs = Debuffs.create({
 export const OtherDefaults = {
 	profession1: Profession.Alchemy,
 	profession2: Profession.Enchanting,
+	race: Race.RaceOrc,
 };
