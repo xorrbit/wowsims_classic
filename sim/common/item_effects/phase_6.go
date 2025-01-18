@@ -3,6 +3,7 @@ package item_effects
 import (
 	"time"
 
+	"github.com/wowsims/classic/sim/common/itemhelpers"
 	"github.com/wowsims/classic/sim/core"
 	"github.com/wowsims/classic/sim/core/proto"
 	"github.com/wowsims/classic/sim/core/stats"
@@ -10,7 +11,7 @@ import (
 
 const (
 	CorruptedAshbringer             = 22691
-	KissOfTheSider                  = 22954
+	KissOfTheSpider                 = 22954
 	GlyphOfDeflection               = 23040
 	SlayersCrest                    = 23041
 	TheRestrainedEssenceOfSapphiron = 23046
