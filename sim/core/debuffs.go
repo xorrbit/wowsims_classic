@@ -663,6 +663,7 @@ func WintersChillAura(target *Unit) *Aura {
 }
 
 var majorArmorReductionEffectCategory = "MajorArmorReduction"
+var minorArmorReductionEffectCategory = "MinorArmorReduction"
 
 func SunderArmorAura(target *Unit) *Aura {
 	arpen := 450.0
@@ -755,7 +756,7 @@ func faerieFireAuraInternal(target *Unit, label string, spellID int32) *Aura {
 		Duration: time.Second * 40,
 	})
 
-	aura.NewExclusiveEffect("Faerie Fire", true, ExclusiveEffect{
+	aura.NewExclusiveEffect(minorArmorReductionEffectCategory, true, ExclusiveEffect{
 		Priority: arPen,
 		OnGain: func(ee *ExclusiveEffect, sim *Simulation) {
 			ee.Aura.Unit.AddStatDynamic(sim, stats.Armor, -arPen)
