@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/wowsims/classic/sim/common/guardians"
 	"github.com/wowsims/classic/sim/common/itemhelpers"
 	"github.com/wowsims/classic/sim/core"
 	"github.com/wowsims/classic/sim/core/proto"
@@ -12,116 +13,144 @@ import (
 
 // Ordered by ID
 const (
-	ShortswordOfVengeance    = 754
-	FieryWarAxe              = 870
-	Bloodrazor               = 809
-	HammerOfTheNorthernWind  = 810
-	FlurryAxe                = 871
-	ManualCrowdPummeler      = 9449
-	SkullflameShield         = 1168
-	Nightblade               = 1982
-	Shadowblade              = 2163
-	GutRipper                = 2164
-	HandOfEdwardTheOdd       = 2243
-	BowOfSearingArrows       = 2825
-	Gutwrencher              = 5616
-	Ravager                  = 7717
-	HanzoSword               = 8190
-	TheJackhammer            = 9423
-	PendulumOfDoom           = 9425
-	BloodletterScalpel       = 9511
-	TheHandOfAntusul         = 9639
-	GryphonRidersStormhammer = 9651
-	Firebreather             = 10797
-	VilerendSlicer           = 11603
-	HookfangShanker          = 11635
-	Naglering                = 11669
-	LinkensSwordOfMastery    = 11902
-	SearingNeedle            = 12531
-	PipsSkinner              = 12709
-	ArcaniteChampion         = 12790
-	MasterworkStormhammer    = 12794
-	Frostguard               = 12797
-	SerpentSlicer            = 13035
-	TheNeedler               = 13060
-	SealOfTheDawn            = 13209
-	JoonhosMercy             = 17054
-	DrillborerDisk           = 17066
-	Deathbringer             = 17068
-	ViskagTheBloodletter     = 17075
-	ThrashBlade              = 17705
-	SatyrsLash               = 17752
-	MarkOfTheChosen          = 17774
-	ForceReactiveDisk        = 18168
-	RazorGauntlets           = 18326
-	Nightfall                = 19169
-	EbonHand                 = 19170
-	RuneOfTheDawn            = 19812
-	ZandalariHeroBadge       = 19948
-	ZandalariHeroMedallion   = 19949
-	ZandalariHeroCharm       = 19950
-	Ragehammer               = 10626
-	SulfurasHandOfRagnaros   = 17182
-	SulfuronHammer           = 17193
-	FlameWrath               = 11809
-	LordGeneralsSword        = 11817
-	WraithScythe             = 11920
-	SecondWind               = 11819
-	BurstOfKnowledge         = 11832
-	Ironfoe                  = 11684
-	EbonHiltOfMarduk         = 14576
-	FrightskullShaft         = 14531
-	BarovianFamilySword      = 14541
-	CloudkeeperLegplates     = 14554
-	Frightalon               = 14024
-	// HeadmastersCharge         = 13937
-	GravestoneWarAxe          = 13983
-	FiendishMachete           = 18310
-	TalismanOfEphemeralPower  = 18820
-	GutgoreRipper             = 17071
-	Shadowstrike              = 17074
-	Thunderstrike             = 17223
-	BonereaversEdge           = 17076
-	EssenceOfThePureFlame     = 18815
-	PerditionsBlade           = 18816
-	EskhandarsLeftClaw        = 18202
-	EskhandarsRightClaw       = 18203
-	BlazefuryMedallion        = 17111
-	EmpyreanDemolisher        = 17112
-	SkullforgeReaver          = 13361
-	RunebladeOfBaronRivendare = 13505
-	HeartOfWyrmthalak         = 22321
-	Venomspitter              = 13183
-	SmolderwebsEye            = 13213
-	Chillpike                 = 13148
-	FangOfTheCrystalSpider    = 13218
+	ShortswordOfVengeance     = 754
+	FieryWarAxe               = 870
+	Bloodrazor                = 809
+	HammerOfTheNorthernWind   = 810
+	FlurryAxe                 = 871
+	SkullflameShield          = 1168
+	TeebusBlazingLongsword    = 1728
+	Nightblade                = 1982
+	Shadowblade               = 2163
+	GutRipper                 = 2164
+	HandOfEdwardTheOdd        = 2243
+	BowOfSearingArrows        = 2825
+	Gutwrencher               = 5616
+	SwordOfZeal               = 6622
+	Ravager                   = 7717
+	HanzoSword                = 8190
+	TheJackhammer             = 9423
+	PendulumOfDoom            = 9425
+	ManualCrowdPummeler       = 9449
+	BloodletterScalpel        = 9511
+	TheHandOfAntusul          = 9639
+	GryphonRidersStormhammer  = 9651
+	Ragehammer                = 10626
+	EnchantedAzshariteSword   = 10696
+	ColdrageDagger            = 10761
+	Firebreather              = 10797
+	DragonsCall               = 10847
+	VilerendSlicer            = 11603
+	HookfangShanker           = 11635
+	Naglering                 = 11669
+	Ironfoe                   = 11684
+	Bloodfist                 = 11744
+	FlameWrath                = 11809
+	HandOfJustice             = 11815
+	LordGeneralsSword         = 11817
+	SecondWind                = 11819
+	BurstOfKnowledge          = 11832
+	WraithScythe              = 11920
+	LinkensSwordOfMastery     = 11902
+	SearingNeedle             = 12531
+	KerisOfZulSerak           = 12582
 	BlackhandDoomsaw          = 12583
 	BlackbladeOfShahram       = 12592
+	BarmanShanker             = 12791
+	VolcanicHammer            = 12792
 	SeepingWillow             = 12969
-	DraconicInfusedEmblem     = 22268
-	QuelSerrar                = 18348
-	HandOfJustice             = 11815
 	Felstriker                = 12590
+	PipsSkinner               = 12709
+	BlazingRapier             = 12777
+	ArcaniteChampion          = 12790
+	MasterworkStormhammer     = 12794
+	BloodTalon                = 12795
+	Frostguard                = 12797
+	Annihlator                = 12798
+	SerpentSlicer             = 13035
+	TheNeedler                = 13060
+	Chillpike                 = 13148
+	Venomspitter              = 13183
+	Bashguuder                = 13204
+	SealOfTheDawn             = 13209
+	SmolderwebsEye            = 13213
+	FangOfTheCrystalSpider    = 13218
+	ArgentAvenger             = 13246
+	Rivenspike                = 13286
+	SkullforgeReaver          = 13361
+	TheCruelHandOfTimmy       = 13401
+	RunebladeOfBaronRivendare = 13505
+	// HeadmastersCharge      = 13937
+	GravestoneWarAxe          = 13983
+	Darrowspike               = 13984
+	Frightalon                = 14024
+	BonechillHammer           = 14487
+	EbonHiltOfMarduk          = 14576
+	FrightskullShaft          = 14531
+	BarovianFamilySword       = 14541
+	CloudkeeperLegplates      = 14554
+	AlcorsSunrazor            = 14555
+	HameyasSlayer             = 15814
+	JoonhosMercy              = 17054
+	DrillborerDisk            = 17066
+	Deathbringer              = 17068
+	GutgoreRipper             = 17071
+	Shadowstrike              = 17074
+	ViskagTheBloodletter      = 17075
+	BonereaversEdge           = 17076
+	BlazefuryMedallion        = 17111
+	EmpyreanDemolisher        = 17112
+	SulfurasHandOfRagnaros    = 17182
+	SulfuronHammer            = 17193
+	Thunderstrike             = 17223
+	ThrashBlade               = 17705
+	SatyrsLash                = 17752
+	MarkOfTheChosen           = 17774
+	ForceReactiveDisk         = 18168
+	EskhandarsLeftClaw        = 18202
+	EskhandarsRightClaw       = 18203
+	FiendishMachete           = 18310
+	RazorGauntlets            = 18326
+	QuelSerrar                = 18348
+	BaronCharrsSceptre        = 18671
+	TalismanOfEphemeralPower  = 18820
+	EssenceOfThePureFlame     = 18815
+	PerditionsBlade           = 18816
 	Thunderfury               = 19019
-	TheUntamedBlade           = 19334
-	DrakeTalonCleaver         = 19353
-	JekliksCrusher            = 19918
-	ZulianSlicer              = 19901
-	HalberdOfSmiting          = 19874
-	NatPaglesBrokenReel       = 19947
-	TigulesHarpoon            = 19946
-	GrileksCarver             = 19962
-	GrileksGrinder            = 19961
-	PitchforkOfMadness        = 19963
-	ScarabBrooch              = 21625
-	KalimdorsRevenge          = 21679
-	JomGabbar                 = 23570
-	EyeOfMoam                 = 21473
+	GlacialBlade              = 19099
+	ElectrifiedDagger         = 19100
+	Nightfall                 = 19169
+	EbonHand                  = 19170
 	DarkmoonCardHeroism       = 19287
 	DarkmoonCardBlueDragon    = 19288
 	DarkmoonCardMaelstrom     = 19289
+	TheLobotomizer            = 19324
+	TheUntamedBlade           = 19334
+	DrakeTalonCleaver         = 19353
+	RuneOfTheDawn             = 19812
+	HalberdOfSmiting          = 19874
+	ZulianSlicer              = 19901
+	JekliksCrusher            = 19918
+	TigulesHarpoon            = 19946
+	NatPaglesBrokenReel       = 19947
+	ZandalariHeroBadge        = 19948
+	ZandalariHeroMedallion    = 19949
+	ZandalariHeroCharm        = 19950
+	GrileksGrinder            = 19961
+	GrileksCarver             = 19962
+	PitchforkOfMadness        = 19963
+	EmeraldDragonfang		  = 20578
 	Earthstrike               = 21180
 	WrathOfCenarius           = 21190
+	EyeOfMoam                 = 21473
+	ScarabBrooch              = 21625
+	KalimdorsRevenge          = 21679
+	DraconicInfusedEmblem     = 22268
+	HeartOfWyrmthalak         = 22321
+	MarkOfTheChampionPhys     = 23206
+	MarkOfTheChampionSpell    = 23207
+	MisplacedServoArm         = 23221
+	JomGabbar                 = 23570
 )
 
 func init() {
@@ -134,6 +163,35 @@ func init() {
 	///////////////////////////////////////////////////////////////////////////
 	//                                 Weapons
 	///////////////////////////////////////////////////////////////////////////
+
+	// https://www.wowhead.com/classic/item=14555/alcors-sunrazor
+	// Chance on hit: Blasts a target for 75 to 105 Fire damage.
+	// 1 PPM from Armaments Discord
+	itemhelpers.CreateWeaponCoHProcDamage(AlcorsSunrazor, "Alcor's Sunrazor", 1.0, 18833, core.SpellSchoolFire, 75, 30, 0, core.DefenseTypeMagic)
+
+	//https://www.wowhead.com/classic/item=12798/annihilator
+	// Chance on hit: Reduces an enemy's armor by 200.  Stacks up to 3 times.
+	// 1 PPM from Armaments Discord but may be higher
+	itemhelpers.CreateWeaponProcSpell(Annihlator, "Annihlator", 1.0, func(character *core.Character) *core.Spell {
+		armorShatterAuras := character.NewEnemyAuraArray(ArmorShatterAuras)
+		
+		return character.GetOrRegisterSpell(core.SpellConfig{
+			ActionID:         core.ActionID{SpellID: 16928},
+			SpellSchool:      core.SpellSchoolPhysical,
+			DefenseType:      core.DefenseTypeMelee,
+			ProcMask:         core.ProcMaskEmpty,
+			DamageMultiplier: 1,
+			ThreatMultiplier: 1,
+			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+				activateAura := armorShatterAuras.Get(target)
+				activateAura.Activate(sim)
+
+				if activateAura.IsActive(){
+					activateAura.AddStack(sim)
+				}	
+			},
+		})
+	})
 
 	// https://www.wowhead.com/classic/spell=16916/strength-of-the-champion
 	// Chance on hit: Heal self for 270 to 450 and Increases Strength by 120 for 30 sec.
@@ -154,6 +212,63 @@ func init() {
 			},
 		})
 	})
+
+	// https://www.wowhead.com/classic/item=13246/argent-avenger
+	// Chance on hit: Increases Attack Power against Undead by 200 for 10 sec.
+	// 1 PPM from Armaments Discord
+	itemhelpers.CreateWeaponProcAura(ArgentAvenger, "Argent Avenger", 1.0, func(character *core.Character) *core.Aura {
+		return character.GetOrRegisterAura(core.Aura{
+			ActionID: core.ActionID{SpellID: 17352},
+			Label:    "Argent Avenger",
+			Duration: time.Second * 10,
+			OnGain: func(aura *core.Aura, sim *core.Simulation) {
+				if character.CurrentTarget.MobType == proto.MobType_MobTypeUndead {
+					character.PseudoStats.MobTypeAttackPower += 200
+				}
+			},
+			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
+				if character.CurrentTarget.MobType == proto.MobType_MobTypeUndead {
+					character.PseudoStats.MobTypeAttackPower -= 200
+				}
+			},
+		})
+	})
+
+	// https://www.wowhead.com/classic/item=12791/barman-shanker
+	// Chance on hit: Wounds the target causing them to bleed for 100 damage over 30 sec.
+	// Assumed 1 PPM 
+	itemhelpers.CreateWeaponProcSpell(BarmanShanker, "Barman Shanker", 1.0, func(character *core.Character) *core.Spell {
+		return character.GetOrRegisterSpell(core.SpellConfig{
+			ActionID:         core.ActionID{SpellID: 13318},
+			SpellSchool:      core.SpellSchoolPhysical,
+			DefenseType:      core.DefenseTypeMelee,
+			ProcMask:         core.ProcMaskEmpty,
+			Flags:            core.SpellFlagPureDot,
+			DamageMultiplier: 1,
+			ThreatMultiplier: 1,
+			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+				result := spell.CalcAndDealOutcome(sim, target, spell.OutcomeMeleeSpecialHit)
+				if result.Landed() {
+					spell.Dot(target).Apply(sim)
+				}
+			},
+			Dot: core.DotConfig{
+				NumberOfTicks: 10,
+				TickLength:    time.Second * 3,
+				Aura: core.Aura{
+					Label: "Rend (Barman Shanker)",
+				},
+				OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
+					dot.Spell.CalcAndDealPeriodicDamage(sim, target, 10, dot.OutcomeTick)
+				},
+			},
+		})
+	})
+
+	// https://www.wowhead.com/classic/item=18671/baron-charrs-sceptre
+	// Chance on hit: Blasts a target for 35 Fire damage.
+	// 1 PPM assumed
+	itemhelpers.CreateWeaponCoHProcDamage(BaronCharrsSceptre, "Baron Charr's Sceptre", 1.0, 13442, core.SpellSchoolFire, 35, 0, 0, core.DefenseTypeMagic)
 
 	// https://www.wowhead.com/classic/item=14541/barovian-family-sword
 	// Chance on hit: Deals 30 Shadow damage every 3 sec for 15 sec. All damage done is then transferred to the caster.
@@ -214,6 +329,30 @@ func init() {
 		}
 
 		return spell
+	})
+
+	// https://www.wowhead.com/classic/item=13204/bashguuder
+	// Chance on hit: Punctures target's armor lowering it by 200. Can be applied up to 3 times.
+	// 2 PPM from Armaments Discord - same proc as Rivenspike
+	itemhelpers.CreateWeaponProcSpell(Bashguuder, "Bashguuder", 2.0, func(character *core.Character) *core.Spell {
+		punctureArmorAuras := character.NewEnemyAuraArray(PunctureArmorAura)
+		
+		return character.GetOrRegisterSpell(core.SpellConfig{
+			ActionID:         core.ActionID{SpellID: 17315},
+			SpellSchool:      core.SpellSchoolPhysical,
+			DefenseType:      core.DefenseTypeMelee,
+			ProcMask:         core.ProcMaskEmpty,
+			DamageMultiplier: 1,
+			ThreatMultiplier: 1,
+			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+				activateAura := punctureArmorAuras.Get(target)
+				activateAura.Activate(sim)
+
+				if activateAura.IsActive(){
+					activateAura.AddStack(sim)
+				}	
+			},
+		})
 	})
 
 	// https://www.wowhead.com/classic/item=228606/blackblade-of-shahram
@@ -432,24 +571,41 @@ func init() {
 	// TODO: Proc rate based on the original item
 	itemhelpers.CreateWeaponCoHProcDamage(BlackhandDoomsaw, "Blackhand Doomsaw", 0.4, 16549, core.SpellSchoolPhysical, 324, 216, 0, core.DefenseTypeMelee)
 
-	// https://www.wowhead.com/classic/item=10626/ragehammer
-	// Chance on hit: Increases damage done by 20 and attack speed by 5% for 15 sec.
-	// TODO: Proc rate assumed and needs testing
-	itemhelpers.CreateWeaponProcAura(Ragehammer, "Ragehammer", 1.0, func(character *core.Character) *core.Aura {
-		return character.GetOrRegisterAura(core.Aura{
-			ActionID: core.ActionID{SpellID: 12686},
-			Label:    "Enrage (12686)",
-			Duration: time.Second * 15,
-			OnGain: func(aura *core.Aura, sim *core.Simulation) {
-				character.PseudoStats.BonusPhysicalDamage += 20
-				character.MultiplyAttackSpeed(sim, 1.05)
+	// https://www.wowhead.com/classic/item=12777/blazing-rapier
+	// Chance on hit: Burns the enemy for 100 damage over 30 sec.
+	// 1 PPM Assumed
+	itemhelpers.CreateWeaponProcSpell(BlazingRapier, "Blazing Rapier", 1.0, func(character *core.Character) *core.Spell {
+		return character.GetOrRegisterSpell(core.SpellConfig{
+			ActionID:         core.ActionID{SpellID: 16898},
+			SpellSchool:      core.SpellSchoolFire,
+			DefenseType:      core.DefenseTypeMagic,
+			ProcMask:         core.ProcMaskEmpty,
+			Flags:            core.SpellFlagPureDot,
+			DamageMultiplier: 1,
+			ThreatMultiplier: 1,
+			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+				result := spell.CalcAndDealOutcome(sim, target, spell.OutcomeMeleeSpecialHit)
+				if result.Landed() {
+					spell.Dot(target).Apply(sim)
+				}
 			},
-			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-				character.PseudoStats.BonusPhysicalDamage -= 20
-				character.MultiplyAttackSpeed(sim, 1/1.05)
+			Dot: core.DotConfig{
+				NumberOfTicks: 10,
+				TickLength:    time.Second * 3,
+				Aura: core.Aura{
+					Label: "Blaze",
+				},
+				OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
+					dot.Spell.CalcAndDealPeriodicDamage(sim, target, 10, dot.OutcomeTick)
+				},
 			},
 		})
 	})
+
+	// https://www.wowhead.com/classic/item=11744/bloodfist
+	// Chance on hit: Wounds the target for 20 damage.
+	// 4 PPM from Armaments Discord
+	itemhelpers.CreateWeaponCoHProcDamage(Bloodfist, "Bloodfist", 4, 16433, core.SpellSchoolPhysical, 20, 0, 0, core.DefenseTypeMelee)
 
 	// https://www.wowhead.com/classic/item=9511/bloodletter-scalpel
 	itemhelpers.CreateWeaponCoHProcDamage(BloodletterScalpel, "Bloodletter Scalpel", 1.0, 18081, core.SpellSchoolPhysical, 60, 10, 0, core.DefenseTypeMelee)
@@ -482,6 +638,42 @@ func init() {
 			},
 		})
 	})
+
+	// https://www.wowhead.com/classic/item=12795/blood-talon
+	// Chance on hit: Wounds the target causing them to bleed for 100 damage over 30 sec.
+	// Assumed 1 PPM 
+	itemhelpers.CreateWeaponProcSpell(BloodTalon, "Blood Talon", 1.0, func(character *core.Character) *core.Spell {
+		return character.GetOrRegisterSpell(core.SpellConfig{
+			ActionID:         core.ActionID{SpellID: 13318},
+			SpellSchool:      core.SpellSchoolPhysical,
+			DefenseType:      core.DefenseTypeMelee,
+			ProcMask:         core.ProcMaskEmpty,
+			Flags:            core.SpellFlagPureDot,
+			DamageMultiplier: 1,
+			ThreatMultiplier: 1,
+			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+				result := spell.CalcAndDealOutcome(sim, target, spell.OutcomeMeleeSpecialHit)
+				if result.Landed() {
+					spell.Dot(target).Apply(sim)
+				}
+			},
+			Dot: core.DotConfig{
+				NumberOfTicks: 10,
+				TickLength:    time.Second * 3,
+				Aura: core.Aura{
+					Label: "Rend (Blood Talon)",
+				},
+				OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
+					dot.Spell.CalcAndDealPeriodicDamage(sim, target, 10, dot.OutcomeTick)
+				},
+			},
+		})
+	})
+
+	// https://www.wowhead.com/classic/item=14487/bonechill-hammer
+	// Chance on hit: Blasts a target for 90 Frost damage.
+	// 1 PPM from Armaments Discord
+	itemhelpers.CreateWeaponCoHProcDamage(BonechillHammer, "Bonechill Hammer", 1.0, 18276, core.SpellSchoolFrost, 90, 0, 0, core.DefenseTypeMagic)
 
 	// https://www.wowhead.com/classic/item=17076/bonereavers-edge
 	// Chance on hit: Your attacks ignore 700 of your enemies' armor for 10 sec. This effect stacks up to 3 times.
@@ -528,15 +720,50 @@ func init() {
 			},
 		})
 	})
-
 	// https://www.wowhead.com/classic/item=13148/chillpike
 	// Chance on hit: Blasts a target for 160 to 250 Frost damage.
 	// TODO: Proc rate assumed and needs testing
 	itemhelpers.CreateWeaponCoHProcDamage(Chillpike, "Chillpike", 1.0, 19260, core.SpellSchoolFrost, 160, 90, 0, core.DefenseTypeMagic)
 
+	// https://www.wowhead.com/classic/item=10761/coldrage-dagger
+	// Chance on hit: Launches a bolt of frost at the enemy causing 20 to 30 Frost damage and slowing movement speed by 50% for 5 sec.
+	// 2.2 PPM from Armaments Discord
+	itemhelpers.CreateWeaponCoHProcDamage(ColdrageDagger, "Coldrage Dagger", 2.2, 13439, core.SpellSchoolFrost, 20, 10, 0, core.DefenseTypeMagic)
+
+	// https://www.wowhead.com/classic/item=13984/darrowspike
+	// Chance on hit: Blasts a target for 90 Frost damage.
+	// 1 PPM from Armaments Discord
+	itemhelpers.CreateWeaponCoHProcDamage(Darrowspike, "Darrowspike", 1.0, 18276, core.SpellSchoolFrost, 90, 0, 0, core.DefenseTypeMagic)
+
 	// https://www.wowhead.com/classic/item=17068/deathbringer
 	// Chance on hit: Sends a shadowy bolt at the enemy causing 110 to 140 Shadow damage.
 	itemhelpers.CreateWeaponCoHProcDamage(Deathbringer, "Deathbringer", 1.0, 18138, core.SpellSchoolShadow, 110, 30, 0, core.DefenseTypeMagic)
+
+	// https://www.wowhead.com/classic/item=10847/dragons-call
+	// Chance on hit: Calls forth an Emerald Dragon Whelp to protect you in battle for a short period of time.
+	core.NewItemEffect(DragonsCall, func(agent core.Agent) {
+		character := agent.GetCharacter()
+
+		procMask := character.GetProcMaskForItem(DragonsCall)
+
+		core.MakeProcTriggerAura(&character.Unit, core.ProcTrigger{
+			Name:              "Emerald Dragon Whelp Proc",
+			Callback:          core.CallbackOnSpellHitDealt,
+			Outcome:           core.OutcomeLanded,
+			ProcMask:          procMask,
+			SpellFlagsExclude: core.SpellFlagSuppressEquipProcs,
+			PPM:               1.0, // Reported by armaments discord
+			//ICD:               time.Minute * 1,  Removed ICD due to comments on multiple from Classic but am not implementing multiple pets
+			Handler: func(sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
+				for _, petAgent := range character.PetAgents {
+					if whelp, ok := petAgent.(*guardians.EmeraldDragonWhelp); ok {
+						whelp.EnableWithTimeout(sim, whelp, time.Second*15)
+						break
+					}
+				}
+			},
+		})
+	})
 
 	// https://www.wowhead.com/classic/item=19353/drake-talon-cleaver
 	// Chance on hit: Delivers a fatal wound for 240 damage.
@@ -584,6 +811,16 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classicaitem=19100/electrified-dagger
+	// Chance on hit: Blasts a target for 45 Nature damage.
+	// 1.4 PPM from Armaments Discord - assumed same as horde Glacial Dagger
+	itemhelpers.CreateWeaponCoHProcDamage(ElectrifiedDagger, "Electrified Dagger", 1.4, 23592, core.SpellSchoolNature, 45, 0, 0, core.DefenseTypeMagic)
+
+	// https://www.wowhead.com/classic/item=20578/emerald-dragonfang
+	// Chance on hit: Blasts the enemy with acid for 87 to 105 Nature damage.
+	// Chance on Hit Assumed: 1 PPM
+	itemhelpers.CreateWeaponCoHProcDamage(EmeraldDragonfang, "Emerald Dragonfang", 1.0, 24993, core.SpellSchoolNature, 87, 18, 0, core.DefenseTypeMagic)
+	
 	// https://www.wowhead.com/classic/item=17112/empyrean-demolisher
 	// Chance on hit: Increases your attack speed by 20% for 10 sec.
 	itemhelpers.CreateWeaponProcAura(EmpyreanDemolisher, "Empyrean Demolisher", 1.0, func(character *core.Character) *core.Aura {
@@ -598,6 +835,15 @@ func init() {
 				character.MultiplyAttackSpeed(sim, 1/1.2)
 			},
 		})
+	})
+
+	// https://www.wowhead.com/classic/item=10696/enchanted-azsharite-felbane-sword
+	core.NewItemEffect(EnchantedAzshariteSword, func(agent core.Agent) {
+		character := agent.GetCharacter()
+
+		if character.CurrentTarget.MobType == proto.MobType_MobTypeElemental {
+			character.PseudoStats.MobTypeAttackPower += 33
+		}
 	})
 
 	// https://www.wowhead.com/classic/item=18202/eskhandars-left-claw
@@ -959,6 +1205,11 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=19099/glacial-blade
+	// Chance on hit: Blasts a target for 45 Frost damage.
+	// 1.4 PPM from Armaments Discord
+	itemhelpers.CreateWeaponCoHProcDamage(GlacialBlade, "Glacial Blade", 1.4, 18398, core.SpellSchoolFrost, 45, 0, 0, core.DefenseTypeMagic)
+
 	// https://www.wowhead.com/classic/item=13983/gravestone-war-axe
 	// Chance on hit: Diseases target enemy for 55 Nature damage every 3 sec for 15 sec.
 	// TODO: Proc rate assumed and needs testing
@@ -1098,6 +1349,37 @@ func init() {
 	// Equip: Chance to decapitate the target on a melee swing, causing 452 to 676 damage.
 	itemhelpers.CreateWeaponEquipProcDamage(HalberdOfSmiting, "Halberd of Smiting", 2.1, 467819, core.SpellSchoolPhysical, 452, 224, 0.0, core.DefenseTypeMelee) // Works as phantom strike
 
+	// https://www.wowhead.com/classic/item=15814/hameyas-slayer
+	// Chance on hit: Wounds the target causing them to bleed for 80 damage over 30 sec.
+	// Assumed 1 PPM 
+	itemhelpers.CreateWeaponProcSpell(HameyasSlayer, "Hameya's Slayer", 1.0, func(character *core.Character) *core.Spell {
+		return character.GetOrRegisterSpell(core.SpellConfig{
+			ActionID:         core.ActionID{SpellID: 16406},
+			SpellSchool:      core.SpellSchoolPhysical,
+			DefenseType:      core.DefenseTypeMelee,
+			ProcMask:         core.ProcMaskEmpty,
+			Flags:            core.SpellFlagPureDot,
+			DamageMultiplier: 1,
+			ThreatMultiplier: 1,
+			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+				result := spell.CalcAndDealOutcome(sim, target, spell.OutcomeMeleeSpecialHit)
+				if result.Landed() {
+					spell.Dot(target).Apply(sim)
+				}
+			},
+			Dot: core.DotConfig{
+				NumberOfTicks: 10,
+				TickLength:    time.Second * 3,
+				Aura: core.Aura{
+					Label: "Rend (Hameya's Slayer)",
+				},
+				OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
+					dot.Spell.CalcAndDealPeriodicDamage(sim, target, 8, dot.OutcomeTick)
+				},
+			},
+		})
+	})
+
 	// https://www.wowhead.com/classic/item=810/hammer-of-the-northern-wind
 	itemhelpers.CreateWeaponCoHProcDamage(HammerOfTheNorthernWind, "Hammer of the Northern Wind", 3.5, 13439, core.SpellSchoolFrost, 20, 10, 0, core.DefenseTypeMagic)
 
@@ -1225,8 +1507,84 @@ func init() {
 	// https://www.wowhead.com/classic/item=21679/kalimdors-revenge
 	itemhelpers.CreateWeaponCoHProcDamage(KalimdorsRevenge, "Kalimdor's Revenge", 1.25, 26415, core.SpellSchoolNature, 239, 38, 0, core.DefenseTypeMagic) // TODO Update PPM/scaling from PTR
 
+	// https://www.wowhead.com/classic/item=12582/keris-of-zulserak
+	// Chance on hit: Inflicts numbing pain that deals 10 Nature damage every 2 sec and increases time between target's attacks by 10% for 10 sec.
+	// 1 PPM assumed and needs testing
+	itemhelpers.CreateWeaponProcSpell(KerisOfZulSerak, "Keris of Zul'Serak", 1.0, func(character *core.Character) *core.Spell {
+		return character.GetOrRegisterSpell(core.SpellConfig{
+			ActionID:         core.ActionID{SpellID: 16528},
+			SpellSchool:      core.SpellSchoolNature,
+			DefenseType:      core.DefenseTypeMagic,
+			ProcMask:         core.ProcMaskEmpty,
+			Flags:            core.SpellFlagPoison | core.SpellFlagPureDot,
+			DamageMultiplier: 1,
+			ThreatMultiplier: 1,
+			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+				result := spell.CalcAndDealOutcome(sim, target, spell.OutcomeMagicHit)
+				if result.Landed() {
+					spell.Dot(target).Apply(sim)
+				}
+			},
+			Dot: core.DotConfig{
+				NumberOfTicks: 5,
+				TickLength:    time.Second * 2,
+				Aura: core.Aura{
+					Label: "Numbing Pain",
+					OnGain: func(aura *core.Aura, sim *core.Simulation) {
+						core.AtkSpeedReductionEffect(aura, 1.10)
+					},
+				},
+				OnSnapshot: func(sim *core.Simulation, target *core.Unit, dot *core.Dot, isRollover bool) {
+					dot.Snapshot(target, 8, isRollover)
+				},
+				OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
+					dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
+				},
+			},		
+		})
+	})
+
 	// https://www.wowhead.com/classic/item=11902/linkens-sword-of-mastery
 	itemhelpers.CreateWeaponCoHProcDamage(LinkensSwordOfMastery, "Linken's Sword of Mastery", 1.0, 18089, core.SpellSchoolNature, 45, 30, 0, core.DefenseTypeMagic)
+
+	//https://www.wowhead.com/classic/item=19324/the-lobotomizer
+	// Chance on hit: Wounds the target for 200 to 300 damage and lowers Intellect of target by 25 for 30 sec.
+	// 0.4 PPM from Armaments Disc
+	itemhelpers.CreateWeaponProcSpell(TheLobotomizer, "The Lobotomizer", .4, func(character *core.Character) *core.Spell {
+		procAuras := character.NewEnemyAuraArray(func(target *core.Unit) *core.Aura {
+			return target.GetOrRegisterAura(core.Aura{
+				ActionID: core.ActionID{SpellID: 24388},
+				Label:    "Brain Damage",
+				Duration: time.Second * 30,
+				OnGain: func(aura *core.Aura, sim *core.Simulation) {
+					aura.Unit.AddStatsDynamic(sim, stats.Stats{
+						stats.Intellect: -25,
+					})
+				},
+				OnExpire: func(aura *core.Aura, sim *core.Simulation) {
+					aura.Unit.AddStatsDynamic(sim, stats.Stats{
+						stats.Intellect: 25,
+					})
+				},
+			})
+		})
+
+		return character.GetOrRegisterSpell(core.SpellConfig{
+			ActionID:         core.ActionID{SpellID: 24388},
+			SpellSchool:      core.SpellSchoolPhysical,
+			DefenseType:      core.DefenseTypeMelee,
+			ProcMask:         core.ProcMaskEmpty,
+			DamageMultiplier: 1,
+			ThreatMultiplier: 1,
+			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+				damageRoll := sim.Roll(200,300)
+				result := spell.CalcAndDealDamage(sim, target, damageRoll, spell.OutcomeMagicHitAndCrit)
+				if result.Landed() {
+					procAuras.Get(target).Activate(sim)
+				}
+			},
+		})
+	})
 
 	// https://www.wowhead.com/classic/item=11817/lord-generals-sword
 	// Chance on hit: Increases attack power by 50 for 30 sec.
@@ -1305,6 +1663,52 @@ func init() {
 				for numHits := 0; numHits < maxHits; numHits++ {
 					spell.CalcAndDealDamage(sim, target, sim.Roll(105, 145), spell.OutcomeMagicHitAndCrit)
 					target = character.Env.NextTargetUnit(target)
+				}
+			},
+		})
+	})
+
+	// https://www.wowhead.com/classic/item=23221/misplaced-servo-arm
+	// Equip: Chance to discharge electricity causing 100 to 150 Nature damage to your target.
+	// If dual-wielding, your other weapon can proc the Misplaced Servo Arm when it strikes as well. 
+	// Chance-on-hit for the other weapon is determined by it's base weapon speed, set to 2PPM. 
+	// Same interaction when dual-wielding two Misplaced Servo Arms, one melee from one Arm has a chance to proc both Arms.
+	
+	core.NewItemEffect(MisplacedServoArm, func(agent core.Agent) {
+		character := agent.GetCharacter()
+		actionID := core.ActionID{SpellID: 29150}
+		label := "Electric Discharge Trigger"
+		ppm := 2.0
+		procMask := character.GetProcMaskForItem(MisplacedServoArm)
+		if procMask == core.ProcMaskMelee {
+			ppm = 4.0
+		}
+		ppmm := character.AutoAttacks.NewPPMManager(ppm, core.ProcMaskMelee)
+
+		procSpell := character.GetOrRegisterSpell(core.SpellConfig{
+			ActionID:    actionID,
+			SpellSchool: core.SpellSchoolNature,
+			DefenseType: core.DefenseTypeMagic,
+			ProcMask:    core.ProcMaskEmpty,
+			Flags:       core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell,
+
+			DamageMultiplier: 1,
+			ThreatMultiplier: 1,
+
+			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+				spell.CalcAndDealDamage(sim, target, sim.Roll(100, 150), spell.OutcomeMagicHitAndCrit)
+			},
+		})
+
+		core.MakeProcTriggerAura(&character.Unit, core.ProcTrigger{
+			Name:              label,
+			Callback:          core.CallbackOnSpellHitDealt,
+			Outcome:           core.OutcomeLanded,
+			ProcMask:          core.ProcMaskMelee,
+			SpellFlagsExclude: core.SpellFlagSuppressEquipProcs,
+			Handler: func(sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
+				if ppmm.Proc(sim, spell.ProcMask, label) {
+					procSpell.Cast(sim, result.Target)
 				}
 			},
 		})
@@ -1403,6 +1807,25 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=10626/ragehammer
+	// Chance on hit: Increases damage done by 20 and attack speed by 5% for 15 sec.
+	// TODO: Proc rate assumed and needs testing
+	itemhelpers.CreateWeaponProcAura(Ragehammer, "Ragehammer", 1.0, func(character *core.Character) *core.Aura {
+		return character.GetOrRegisterAura(core.Aura{
+			ActionID: core.ActionID{SpellID: 12686},
+			Label:    "Enrage (12686)",
+			Duration: time.Second * 15,
+			OnGain: func(aura *core.Aura, sim *core.Simulation) {
+				character.PseudoStats.BonusPhysicalDamage += 20
+				character.MultiplyAttackSpeed(sim, 1.05)
+			},
+			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
+				character.PseudoStats.BonusPhysicalDamage -= 20
+				character.MultiplyAttackSpeed(sim, 1/1.05)
+			},
+		})
+	})
+
 	// https://www.wowhead.com/classic/item=7717/ravager
 	itemhelpers.CreateWeaponProcAura(Ravager, "Ravager", 1.0, func(character *core.Character) *core.Aura {
 		tickActionID := core.ActionID{SpellID: 9633}
@@ -1460,6 +1883,30 @@ func init() {
 				character.AutoAttacks.EnableAutoSwing(sim)
 				dotSpell := character.GetSpell(procActionID)
 				dotSpell.AOEDot().Cancel(sim)
+			},
+		})
+	})
+
+	// https://www.wowhead.com/classic/item=13286/rivenspike
+	// Chance on hit: Punctures target's armor lowering it by 200. Can be applied up to 3 times.
+	// 2 PPM - Armaments Discord has 1 PPM recorded before it could record refreshes.  Bashguuder with same effect is recorded at 2PPM so setting to match
+	itemhelpers.CreateWeaponProcSpell(Rivenspike, "Rivenspike", 2.0, func(character *core.Character) *core.Spell {
+		punctureArmorAuras := character.NewEnemyAuraArray(PunctureArmorAura)
+
+		return character.GetOrRegisterSpell(core.SpellConfig{
+			ActionID:         core.ActionID{SpellID: 17315},
+			SpellSchool:      core.SpellSchoolPhysical,
+			DefenseType:      core.DefenseTypeMelee,
+			ProcMask:         core.ProcMaskEmpty,
+			DamageMultiplier: 1,
+			ThreatMultiplier: 1,
+			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+				activateAura := punctureArmorAuras.Get(target)
+				activateAura.Activate(sim)
+
+				if activateAura.IsActive(){
+					activateAura.AddStack(sim)
+				}	
 			},
 		})
 	})
@@ -1551,6 +1998,7 @@ func init() {
 	})
 
 	// https://www.wowhead.com/classic/item=13035/serpent-slicer
+	// Chance on hit: Poisons target for 8 Nature damage every 2 sec for 20 sec.
 	itemhelpers.CreateWeaponProcSpell(SerpentSlicer, "Serpent Slicer", 1.0, func(character *core.Character) *core.Spell {
 		return character.GetOrRegisterSpell(core.SpellConfig{
 			ActionID:         core.ActionID{SpellID: 17511},
@@ -1774,6 +2222,76 @@ func init() {
 		})
 	})
 
+	// https://www.wowhead.com/classic/item=6622/sword-of-zeal
+	// Chance on hit: A burst of energy fills the caster, increasing his damage by 10 and armor by 150 for 15 sec.
+	// 1.8 PPM from Armaments discord
+	itemhelpers.CreateWeaponProcAura(SwordOfZeal, "Sword of Zeal", 1.0, func(character *core.Character) *core.Aura {
+		return character.GetOrRegisterAura(core.Aura{
+			ActionID: core.ActionID{SpellID: 8191},
+			Label:    "Zeal",
+			Duration: time.Second * 15,
+			OnGain: func(aura *core.Aura, sim *core.Simulation) {
+				character.PseudoStats.BonusPhysicalDamage += 10
+				character.AddStatsDynamic(sim, stats.Stats{stats.Armor: 150})
+			},
+			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
+				character.PseudoStats.BonusPhysicalDamage -= 10
+				character.AddStatsDynamic(sim,stats.Stats{stats.Armor: -150})
+			},
+		})
+	})
+
+	// https://www.wowhead.com/classic/item=1728/teebus-blazing-longsword
+	// Chance on hit: Blasts a target for 150 Fire damage.
+	// Chance on Hit Assumed: 1 PPM
+	itemhelpers.CreateWeaponCoHProcDamage(TeebusBlazingLongsword, "Teebu's Blazing Longsword", 1.0, 18086, core.SpellSchoolFire, 150, 0, 0, core.DefenseTypeMagic)
+
+	// https://www.wowhead.com/classic/item=13401/the-cruel-hand-of-timmy
+	// Chance on hit: Lowers all attributes of target by 15 for 1 min.
+	// 0.65 PPM from Armaments Discord
+	core.NewItemEffect(TheCruelHandOfTimmy, func(agent core.Agent) {
+		character := agent.GetCharacter()
+		procMask := character.GetProcMaskForItem(TheCruelHandOfTimmy)
+
+		debuffAuraArray := character.NewEnemyAuraArray(func(target *core.Unit) *core.Aura {
+			return target.GetOrRegisterAura(core.Aura{
+				ActionID: core.ActionID{SpellID: 17505},
+				Label:    "Curse of Timmy",
+				Duration: time.Minute * 1,
+				OnGain: func(aura *core.Aura, sim *core.Simulation) {
+					aura.Unit.AddStatsDynamic(sim, stats.Stats{
+						stats.Agility:   -15,
+						stats.Intellect: -15,
+						stats.Stamina:   -15,
+						stats.Spirit:    -15,
+						stats.Strength:  -15,
+					})
+				},
+				OnExpire: func(aura *core.Aura, sim *core.Simulation) {
+					aura.Unit.AddStatsDynamic(sim, stats.Stats{
+						stats.Agility:   15,
+						stats.Intellect: 15,
+						stats.Stamina:   15,
+						stats.Spirit:    15,
+						stats.Strength:  15,
+					})
+				},
+			})
+		})
+
+		core.MakeProcTriggerAura(&character.Unit, core.ProcTrigger{
+			Name:              "Curse of Timmy Trigger",
+			Callback:          core.CallbackOnSpellHitDealt,
+			Outcome:           core.OutcomeLanded,
+			ProcMask:          procMask,
+			SpellFlagsExclude: core.SpellFlagSuppressWeaponProcs,
+			PPM:               0.65,
+			Handler: func(sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
+				debuffAuraArray.Get(result.Target).Activate(sim)
+			},
+		})
+	})
+	
 	// https://www.wowhead.com/classic/item=9639/the-hand-of-antusul
 	itemhelpers.CreateWeaponProcSpell(TheHandOfAntusul, "The Hand of Antu'sul", 1.0, func(character *core.Character) *core.Spell {
 		debuffAuras := character.NewEnemyAuraArray(func(unit *core.Unit) *core.Aura {
@@ -2017,6 +2535,45 @@ func init() {
 
 	// https://www.wowhead.com/classic/item=17075/viskag-the-bloodletter
 	itemhelpers.CreateWeaponCoHProcDamage(ViskagTheBloodletter, "Vis'kag the Bloodletter", 0.6, 21140, core.SpellSchoolPhysical, 240, 0, 0, core.DefenseTypeMelee)
+
+	// https://www.wowhead.com/classic/item=12792/volcanic-hammer
+	// Chance on hit: Hurls a fiery ball that causes 100 to 128 Fire damage and an additional 18 damage over 6 sec.
+	// Assumed 1 PPM
+	itemhelpers.CreateWeaponProcSpell(VolcanicHammer, "Volcanic Hammer", 1.0, func(character *core.Character) *core.Spell {
+		return character.GetOrRegisterSpell(core.SpellConfig{
+			ActionID:    core.ActionID{SpellID: 18082},
+			SpellSchool: core.SpellSchoolFire,
+			DefenseType: core.DefenseTypeMagic,
+			ProcMask:    core.ProcMaskEmpty,
+
+			DamageMultiplier: 1,
+			ThreatMultiplier: 1,
+
+			Dot: core.DotConfig{
+				Aura: core.Aura{
+					Label: "Fireball (Volcanic Hammer)",
+				},
+				TickLength:    2 * time.Second,
+				NumberOfTicks: 3,
+
+				OnSnapshot: func(sim *core.Simulation, target *core.Unit, dot *core.Dot, isRollover bool) {
+					dot.Snapshot(target, 6, isRollover)
+				},
+
+				OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
+					dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
+				},
+			},
+
+			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+				dmg := sim.Roll(100, 128)
+				result := spell.CalcAndDealDamage(sim, target, dmg, spell.OutcomeMagicHitAndCrit)
+				if result.Landed() {
+					spell.Dot(target).Apply(sim)
+				}
+			},
+		})
+	})
 
 	// https://www.wowhead.com/classic/item=11920/wraith-scythe
 	// Chance on hit: Steals 45 life from target enemy.
@@ -2927,4 +3484,60 @@ func thornsArcaneDamageEffect(agent core.Agent, itemID int32, itemName string, d
 			}
 		},
 	}))
+}
+
+var minorArmorReductionEffectCategory = "MinorArmorReduction"
+
+func PunctureArmorAura(target *core.Unit) *core.Aura {
+	arpen := float64(200)
+	
+	var effect *core.ExclusiveEffect
+	aura := target.GetOrRegisterAura(core.Aura{
+		Label: "Puncture Armor",
+		ActionID: core.ActionID{SpellID: 17315},
+		Duration: time.Second * 30,
+		MaxStacks: 3,
+		OnStacksChange: func(aura *core.Aura, sim *core.Simulation, oldStacks int32, newStacks int32) {
+			effect.SetPriority(sim, arpen*float64(newStacks))
+		},
+	})
+
+	effect = aura.NewExclusiveEffect(minorArmorReductionEffectCategory, true, core.ExclusiveEffect{
+		Priority: 0,
+		OnGain: func(ee *core.ExclusiveEffect, sim *core.Simulation) {
+			ee.Aura.Unit.AddStatDynamic(sim, stats.Armor, -ee.Priority)
+		},
+		OnExpire: func(ee *core.ExclusiveEffect, sim *core.Simulation) {
+			ee.Aura.Unit.AddStatDynamic(sim, stats.Armor, ee.Priority)
+		},
+	})
+
+	return aura
+}
+
+func ArmorShatterAuras(target *core.Unit) *core.Aura {
+	arpen := float64(200)
+	
+	var effect *core.ExclusiveEffect
+	aura := target.GetOrRegisterAura(core.Aura{
+		Label: "Armor Shatter",
+		ActionID: core.ActionID{SpellID: 16928},
+		Duration: time.Second * 45,
+		MaxStacks: 3,
+		OnStacksChange: func(aura *core.Aura, sim *core.Simulation, oldStacks int32, newStacks int32) {
+			effect.SetPriority(sim, arpen*float64(newStacks))
+		},
+	})
+
+	effect = aura.NewExclusiveEffect(minorArmorReductionEffectCategory, true, core.ExclusiveEffect{
+		Priority: 0,
+		OnGain: func(ee *core.ExclusiveEffect, sim *core.Simulation) {
+			ee.Aura.Unit.AddStatDynamic(sim, stats.Armor, -ee.Priority)
+		},
+		OnExpire: func(ee *core.ExclusiveEffect, sim *core.Simulation) {
+			ee.Aura.Unit.AddStatDynamic(sim, stats.Armor, ee.Priority)
+		},
+	})
+
+	return aura
 }

@@ -7,7 +7,7 @@ import (
 	"github.com/wowsims/classic/sim/core/stats"
 )
 
-var DragonsCry = int32(220582)
+var DragonsCall = int32(10847)
 
 type EmeraldDragonWhelp struct {
 	core.Pet
@@ -130,8 +130,8 @@ func (whelp *EmeraldDragonWhelp) registerAcidSpitSpell() {
 }
 
 func constructEmeralDragonWhelps(character *core.Character) {
-	if character.HasMHWeapon() && character.GetMHWeapon().ID == DragonsCry ||
-		character.HasOHWeapon() && character.GetOHWeapon().ID == DragonsCry {
+	if character.HasMHWeapon() && character.GetMHWeapon().ID == DragonsCall ||
+		character.HasOHWeapon() && character.GetOHWeapon().ID == DragonsCall {
 		// Original could have up to 3 whelps active at a time however the SoD version seems to only summon 1 whelp on a 1 minute cooldown
 		character.AddPet(NewEmeraldDragonWhelp(character))
 	}
