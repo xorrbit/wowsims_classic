@@ -16,13 +16,98 @@ func TestElemental(t *testing.T) {
 	core.RunTestSuite(t, t.Name(), core.FullCharacterTestSuiteGenerator([]core.CharacterSuiteConfig{
 		{
 			Class:      proto.Class_ClassShaman,
+			Phase:      1,
+			Race:       proto.Race_RaceTroll,
+			OtherRaces: []proto.Race{proto.Race_RaceOrc},
+
+			Talents:     DefaultTalents,
+			GearSet:     core.GetGearSet("../../../ui/elemental_shaman/gear_sets", "phase_1"),
+			Rotation:    core.GetAplRotation("../../../ui/elemental_shaman/apls", "default"),
+			Buffs:       core.FullBuffs,
+			Consumes:    Phase1Consumes,
+			SpecOptions: core.SpecOptionsCombo{Label: "Adaptive", SpecOptions: PlayerOptionsAdaptive},
+
+			ItemFilter:      ItemFilters,
+			EPReferenceStat: proto.Stat_StatSpellPower,
+			StatsToWeigh:    Stats,
+		},
+		{
+			Class:      proto.Class_ClassShaman,
+			Phase:      2,
+			Race:       proto.Race_RaceTroll,
+			OtherRaces: []proto.Race{proto.Race_RaceOrc},
+
+			Talents:     DefaultTalents,
+			GearSet:     core.GetGearSet("../../../ui/elemental_shaman/gear_sets", "phase_2"),
+			Rotation:    core.GetAplRotation("../../../ui/elemental_shaman/apls", "default"),
+			Buffs:       core.FullBuffs,
+			Consumes:    Phase2Consumes,
+			SpecOptions: core.SpecOptionsCombo{Label: "Adaptive", SpecOptions: PlayerOptionsAdaptive},
+
+			ItemFilter:      ItemFilters,
+			EPReferenceStat: proto.Stat_StatSpellPower,
+			StatsToWeigh:    Stats,
+		},
+		{
+			Class:      proto.Class_ClassShaman,
+			Phase:      3,
+			Race:       proto.Race_RaceTroll,
+			OtherRaces: []proto.Race{proto.Race_RaceOrc},
+
+			Talents:     DefaultTalents,
+			GearSet:     core.GetGearSet("../../../ui/elemental_shaman/gear_sets", "phase_3"),
+			Rotation:    core.GetAplRotation("../../../ui/elemental_shaman/apls", "default"),
+			Buffs:       core.FullBuffs,
+			Consumes:    Phase2Consumes,
+			SpecOptions: core.SpecOptionsCombo{Label: "Adaptive", SpecOptions: PlayerOptionsAdaptive},
+
+			ItemFilter:      ItemFilters,
+			EPReferenceStat: proto.Stat_StatSpellPower,
+			StatsToWeigh:    Stats,
+		},
+		{
+			Class:      proto.Class_ClassShaman,
+			Phase:      4,
+			Race:       proto.Race_RaceTroll,
+			OtherRaces: []proto.Race{proto.Race_RaceOrc},
+
+			Talents:     DefaultTalents,
+			GearSet:     core.GetGearSet("../../../ui/elemental_shaman/gear_sets", "phase_4"),
+			Rotation:    core.GetAplRotation("../../../ui/elemental_shaman/apls", "default"),
+			Buffs:       core.FullBuffs,
+			Consumes:    Phase2Consumes,
+			SpecOptions: core.SpecOptionsCombo{Label: "Adaptive", SpecOptions: PlayerOptionsAdaptive},
+
+			ItemFilter:      ItemFilters,
+			EPReferenceStat: proto.Stat_StatSpellPower,
+			StatsToWeigh:    Stats,
+		},
+		{
+			Class:      proto.Class_ClassShaman,
 			Phase:      5,
 			Race:       proto.Race_RaceTroll,
 			OtherRaces: []proto.Race{proto.Race_RaceOrc},
 
-			Talents:     Phase4Talents,
-			GearSet:     core.GetGearSet("../../../ui/elemental_shaman/gear_sets", "blank"),
-			Rotation:    core.GetAplRotation("../../../ui/elemental_shaman/apls", "phase_5"),
+			Talents:     DefaultTalents,
+			GearSet:     core.GetGearSet("../../../ui/elemental_shaman/gear_sets", "phase_5"),
+			Rotation:    core.GetAplRotation("../../../ui/elemental_shaman/apls", "default"),
+			Buffs:       core.FullBuffs,
+			Consumes:    Phase5Consumes,
+			SpecOptions: core.SpecOptionsCombo{Label: "Adaptive", SpecOptions: PlayerOptionsAdaptive},
+
+			ItemFilter:      ItemFilters,
+			EPReferenceStat: proto.Stat_StatSpellPower,
+			StatsToWeigh:    Stats,
+		},
+		{
+			Class:      proto.Class_ClassShaman,
+			Phase:      6,
+			Race:       proto.Race_RaceTroll,
+			OtherRaces: []proto.Race{proto.Race_RaceOrc},
+
+			Talents:     DefaultTalents,
+			GearSet:     core.GetGearSet("../../../ui/elemental_shaman/gear_sets", "phase_6"),
+			Rotation:    core.GetAplRotation("../../../ui/elemental_shaman/apls", "default"),
 			Buffs:       core.FullBuffs,
 			Consumes:    Phase5Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Adaptive", SpecOptions: PlayerOptionsAdaptive},
@@ -34,10 +119,7 @@ func TestElemental(t *testing.T) {
 	}))
 }
 
-var Phase1Talents = "25003105"
-var Phase2Talents = "550031550000151"
-var Phase3Talents = "550031550000151-500203"
-var Phase4Talents = "550301550000151--50205300005"
+var DefaultTalents = "550331050002151--50105301005"
 
 var PlayerOptionsAdaptive = &proto.Player_ElementalShaman{
 	ElementalShaman: &proto.ElementalShaman{
@@ -45,16 +127,42 @@ var PlayerOptionsAdaptive = &proto.Player_ElementalShaman{
 	},
 }
 
+var Phase1Consumes = core.ConsumesCombo{
+	Label: "P1-Consumes",
+	Consumes: &proto.Consumes{
+		DefaultConjured: proto.Conjured_ConjuredDemonicRune,
+		DefaultPotion:   proto.Potions_MajorManaPotion,
+		Flask:           proto.Flask_FlaskOfSupremePower,
+		FirePowerBuff:   proto.FirePowerBuff_ElixirOfGreaterFirepower,
+		Food:            proto.Food_FoodNightfinSoup,
+		MainHandImbue:   proto.WeaponImbue_LesserWizardOil,
+		SpellPowerBuff:  proto.SpellPowerBuff_GreaterArcaneElixir,
+	},
+}
+
+var Phase2Consumes = core.ConsumesCombo{
+	Label: "P2-Consumes",
+	Consumes: &proto.Consumes{
+		DefaultConjured: proto.Conjured_ConjuredDemonicRune,
+		DefaultPotion:   proto.Potions_MajorManaPotion,
+		Flask:           proto.Flask_FlaskOfSupremePower,
+		FirePowerBuff:   proto.FirePowerBuff_ElixirOfGreaterFirepower,
+		Food:            proto.Food_FoodRunnTumTuberSurprise,
+		MainHandImbue:   proto.WeaponImbue_LesserWizardOil,
+		SpellPowerBuff:  proto.SpellPowerBuff_GreaterArcaneElixir,
+	},
+}
+
 var Phase5Consumes = core.ConsumesCombo{
 	Label: "P5-Consumes",
 	Consumes: &proto.Consumes{
-		DefaultPotion: proto.Potions_MajorManaPotion,
-		Flask:         proto.Flask_FlaskOfSupremePower,
-		FirePowerBuff: proto.FirePowerBuff_ElixirOfGreaterFirepower,
-		Food:          proto.Food_FoodRunnTumTuberSurprise,
-		MainHandImbue: proto.WeaponImbue_FlametongueWeapon,
-		//OffHandImbue:   proto.WeaponImbue_MagnificentTrollshine,
-		SpellPowerBuff: proto.SpellPowerBuff_GreaterArcaneElixir,
+		DefaultConjured: proto.Conjured_ConjuredDemonicRune,
+		DefaultPotion:   proto.Potions_MajorManaPotion,
+		Flask:           proto.Flask_FlaskOfSupremePower,
+		FirePowerBuff:   proto.FirePowerBuff_ElixirOfGreaterFirepower,
+		Food:            proto.Food_FoodRunnTumTuberSurprise,
+		MainHandImbue:   proto.WeaponImbue_BrilliantWizardOil,
+		SpellPowerBuff:  proto.SpellPowerBuff_GreaterArcaneElixir,
 	},
 }
 

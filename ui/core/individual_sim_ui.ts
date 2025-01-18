@@ -29,9 +29,7 @@ import {
 	Encounter as EncounterProto,
 	EquipmentSpec,
 	Faction,
-	HandType,
 	IndividualBuffs,
-	ItemSlot,
 	PartyBuffs,
 	Profession,
 	PseudoStat,
@@ -224,21 +222,6 @@ export abstract class IndividualSimUI<SpecType extends Spec> extends SimUI {
 					return Tooltips.UNSPECT_TALENT_POINTS_WARNING;
 				} else if (talentPoints > MAX_TALENT_POINTS) {
 					return Tooltips.TOO_MANY_TALENT_POINTS_WARNING;
-				} else {
-					return '';
-				}
-			},
-		});
-		this.addWarning({
-			updateOn: TypedEvent.onAny([this.player.gearChangeEmitter, this.player.talentsChangeEmitter]),
-			getContent: () => {
-				if (
-					!this.player.canDualWield2H() &&
-					((this.player.getEquippedItem(ItemSlot.ItemSlotMainHand)?.item.handType == HandType.HandTypeTwoHand &&
-						this.player.getEquippedItem(ItemSlot.ItemSlotOffHand) != null) ||
-						this.player.getEquippedItem(ItemSlot.ItemSlotOffHand)?.item.handType == HandType.HandTypeTwoHand)
-				) {
-					return Tooltips.TITANS_GRIP_WARNING;
 				} else {
 					return '';
 				}

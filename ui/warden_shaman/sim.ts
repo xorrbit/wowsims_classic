@@ -1,4 +1,5 @@
 import * as BuffDebuffInputs from '../core/components/inputs/buffs_debuffs';
+import * as ConsumesInputs from '../core/components/inputs/consumables';
 import * as OtherInputs from '../core/components/other_inputs.js';
 import { Phase } from '../core/constants/other.js';
 import { IndividualSimUI, registerSpecConfig } from '../core/individual_sim_ui.js';
@@ -142,7 +143,11 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWardenShaman, {
 	// IconInputs to include in the 'Player' section on the settings tab.
 	playerIconInputs: [],
 	// Buff and Debuff inputs to include/exclude, overriding the EP-based defaults.
-	includeBuffDebuffInputs: [BuffDebuffInputs.BlessingOfWisdom, BuffDebuffInputs.ManaSpringTotem, BuffDebuffInputs.SpiritBuff],
+	includeBuffDebuffInputs: [
+		BuffDebuffInputs.SpellWintersChillDebuff,
+		BuffDebuffInputs.SpiritBuff,
+		ConsumesInputs.ElixirOfFrostPower,
+	],
 	excludeBuffDebuffInputs: [],
 	// Inputs to include in the 'Other' section on the settings tab.
 	otherInputs: {
@@ -168,6 +173,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWardenShaman, {
 
 	presets: {
 		talents: [
+			...Presets.TalentPresets[Phase.Phase6],
 			...Presets.TalentPresets[Phase.Phase5],
 			...Presets.TalentPresets[Phase.Phase4],
 			...Presets.TalentPresets[Phase.Phase3],
@@ -175,6 +181,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWardenShaman, {
 			...Presets.TalentPresets[Phase.Phase1],
 		],
 		rotations: [
+			...Presets.APLPresets[Phase.Phase6],
 			...Presets.APLPresets[Phase.Phase5],
 			...Presets.APLPresets[Phase.Phase4],
 			...Presets.APLPresets[Phase.Phase3],
@@ -182,11 +189,16 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWardenShaman, {
 			...Presets.APLPresets[Phase.Phase1],
 		],
 		gear: [
-			Presets.DefaultGear,
+			...Presets.GearPresets[Phase.Phase6],
+			...Presets.GearPresets[Phase.Phase5],
+			...Presets.GearPresets[Phase.Phase4],
+			...Presets.GearPresets[Phase.Phase3],
+			...Presets.GearPresets[Phase.Phase2],
+			...Presets.GearPresets[Phase.Phase1],
 		],
 	},
 
-	autoRotation: (player): APLRotation => {
+	autoRotation: (): APLRotation => {
 		return Presets.DefaultAPL.rotation.rotation!;
 	},
 

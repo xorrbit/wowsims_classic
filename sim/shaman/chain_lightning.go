@@ -40,7 +40,7 @@ func (shaman *Shaman) newChainLightningSpellConfig(rank int, cdTimer *core.Timer
 	cooldown := time.Second * 6
 	castTime := time.Millisecond * 2500
 
-	bounceCoef := .7 // 30% reduction per bounce
+	shaman.ChainLightningBounceCoefficient = .70 // 30% reduction per bounce
 	targetCount := ChainLightningTargetCount
 
 	spell := shaman.newElectricSpellConfig(
@@ -66,7 +66,7 @@ func (shaman *Shaman) newChainLightningSpellConfig(rank int, cdTimer *core.Timer
 			baseDamage := sim.Roll(baseDamageLow, baseDamageHigh)
 			results[hitIndex] = spell.CalcDamage(sim, target, baseDamage, spell.OutcomeMagicHitAndCrit)
 			target = sim.Environment.NextTargetUnit(target)
-			spell.DamageMultiplier *= bounceCoef
+			spell.DamageMultiplier *= shaman.ChainLightningBounceCoefficient
 		}
 
 		for _, result := range results {

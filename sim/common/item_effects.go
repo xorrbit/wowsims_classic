@@ -2904,21 +2904,6 @@ func init() {
 		})
 	})
 
-	/* core.NewItemEffect(MarkOfTheChampionPhys, func(agent core.Agent) {
-		character := agent.GetCharacter()
-		if character.CurrentTarget.MobType == proto.MobType_MobTypeUndead || character.CurrentTarget.MobType == proto.MobType_MobTypeDemon {
-			character.PseudoStats.MobTypeAttackPower += 150
-		}
-	})
-
-	core.NewItemEffect(MarkOfTheChampionSpell, func(agent core.Agent) {
-		character := agent.GetCharacter()
-
-		if character.CurrentTarget.MobType == proto.MobType_MobTypeUndead || character.CurrentTarget.MobType == proto.MobType_MobTypeDemon {
-			character.PseudoStats.MobTypeSpellPower += 85
-		}
-	}) */
-
 	// https://www.wowhead.com/classic/item=17774/mark-of-the-chosen
 	core.NewItemEffect(MarkOfTheChosen, func(agent core.Agent) {
 		character := agent.GetCharacter()

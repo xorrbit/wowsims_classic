@@ -51,6 +51,8 @@ type Character struct {
 
 	// ISB External configuration
 	IsbConfig IsbConfig
+	// Stormstrike External Configuration
+	StormstrikeConfig StormstrikeConfig
 
 	// Base stats for this Character.
 	baseStats stats.Stats
@@ -146,6 +148,7 @@ func NewCharacter(party *Party, partyIndex int, player *proto.Player) Character 
 	}
 
 	character.createIsbConfig(player)
+	character.createStormstrikeConfig(player)
 
 	character.baseStats = getBaseStatsCombo(character.Race, character.Class)
 

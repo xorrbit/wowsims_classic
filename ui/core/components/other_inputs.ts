@@ -1,6 +1,4 @@
 import { BooleanPicker } from '../components/boolean_picker.js';
-import { CURRENT_LEVEL_CAP } from '../constants/mechanics.js';
-import { CURRENT_PHASE } from '../constants/other.js';
 import { Player } from '../player.js';
 import { Spec, UnitReference } from '../proto/common.js';
 import { emptyUnitReference } from '../proto_utils/utils.js';
@@ -125,22 +123,6 @@ export const DistanceFromTarget = {
 	},
 };
 
-export const IsbUsingShadowflame = {
-	id: 'isb-using-shadowflame',
-	type: 'boolean' as const,
-	label: 'Has Shadowflame Rune',
-	labelTooltip: 'Whether or not the Warlock is using the Shadowflame rune (4 stacks of ISB vs. 10)',
-	float: true,
-	defaultValue: true,
-	inline: true,
-	changedEvent: (player: Player<any>) => TypedEvent.onAny([player.changeEmitter, player.getRaid()!.debuffsChangeEmitter]),
-	getValue: (player: Player<any>) => player.getIsbUsingShadowflame(),
-	setValue: (eventID: EventID, player: Player<any>, newValue: boolean) => {
-		player.setIsbUsingShadowflame(eventID, newValue);
-	},
-	showWhen: (player: Player<any>) => player.getRaid()?.getDebuffs().improvedShadowBolt == true,
-};
-
 export const IsbSbFrequencey = {
 	id: 'isb-sb-frequency',
 	type: 'number' as const,
@@ -154,7 +136,7 @@ export const IsbSbFrequencey = {
 	setValue: (eventID: EventID, player: Player<any>, newValue: number) => {
 		player.setIsbSbFrequency(eventID, newValue);
 	},
-	showWhen: (player: Player<any>) => player.getRaid()?.getDebuffs().improvedShadowBolt == true,
+	showWhen: (player: Player<any>) => player.getRaid()?.getDebuffs().improvedShadowBolt === true,
 };
 
 export const IsbCrit = {
@@ -170,7 +152,7 @@ export const IsbCrit = {
 	setValue: (eventID: EventID, player: Player<any>, newValue: number) => {
 		player.setIsbCrit(eventID, newValue);
 	},
-	showWhen: (player: Player<any>) => player.getRaid()?.getDebuffs().improvedShadowBolt == true,
+	showWhen: (player: Player<any>) => player.getRaid()?.getDebuffs().improvedShadowBolt === true,
 };
 
 export const IsbWarlocks = {
@@ -185,7 +167,7 @@ export const IsbWarlocks = {
 	setValue: (eventID: EventID, player: Player<any>, newValue: number) => {
 		player.setIsbWarlocks(eventID, newValue);
 	},
-	showWhen: (player: Player<any>) => player.getRaid()?.getDebuffs().improvedShadowBolt == true,
+	showWhen: (player: Player<any>) => player.getRaid()?.getDebuffs().improvedShadowBolt === true,
 };
 
 export const IsbSpriests = {
@@ -200,12 +182,49 @@ export const IsbSpriests = {
 		player.setIsbSpriests(eventID, newValue);
 	},
 	showWhen: (player: Player<any>) =>
-		player.getRaid()?.getDebuffs().improvedShadowBolt == true || (player as Player<Spec.SpecWarlock>)?.getTalents().improvedShadowBolt > 0,
+		player.getRaid()?.getDebuffs().improvedShadowBolt === true || (player as Player<Spec.SpecWarlock>)?.getTalents().improvedShadowBolt > 0,
 };
 
 export const IsbConfig = {
 	tooltip: 'Improved Shadow Bolt debuff configuration',
-	inputs: [IsbUsingShadowflame, IsbSbFrequencey, IsbCrit, IsbWarlocks, IsbSpriests],
+	inputs: [IsbSbFrequencey, IsbCrit, IsbWarlocks, IsbSpriests],
+};
+
+export const StormstrikeFrequency = {
+	id: 'stormstrike-frequency',
+	type: 'number' as const,
+	label: 'Stormstrike Cast Frequency',
+	labelTooltip: 'How often (in Seconds) that Stormstrike is cast by an external Enhancement Shaman.',
+	float: true,
+	defaultValue: 20.0,
+	inline: true,
+	changedEvent: (player: Player<any>) => TypedEvent.onAny([player.changeEmitter, player.getRaid()!.debuffsChangeEmitter]),
+	getValue: (player: Player<any>) => player.getStormstrikeFrequency(),
+	setValue: (eventID: EventID, player: Player<any>, newValue: number) => {
+		player.setStormstrikeFrequency(eventID, newValue);
+	},
+	showWhen: (player: Player<any>) => player.getRaid()?.getDebuffs().stormstrike === true,
+};
+
+export const StormstrikeNatureAttackersFrequencey = {
+	id: 'stormstrike-attackers-frequency',
+	type: 'number' as const,
+	label: 'Other Nature Attacks Frequency',
+	labelTooltip: 'How often (in Seconds) that external attackers deal Nature damage to the target.',
+	float: true,
+	defaultValue: 4.0,
+	inline: true,
+	changedEvent: (player: Player<any>) => TypedEvent.onAny([player.changeEmitter, player.getRaid()!.debuffsChangeEmitter]),
+	getValue: (player: Player<any>) => player.getStormstrikeNatureAttackerFrequency(),
+	setValue: (eventID: EventID, player: Player<any>, newValue: number) => {
+		player.setStormstrikeNatureAttackerFrequency(eventID, newValue);
+	},
+	showWhen: (player: Player<any>) => player.getRaid()?.getDebuffs().stormstrike === true,
+};
+
+export const StormstrikeConfig = {
+	tooltip: 'Stormstrike debuff configuration',
+	inputs: [StormstrikeFrequency, StormstrikeNatureAttackersFrequencey],
 };
 
 export const TankAssignment = {

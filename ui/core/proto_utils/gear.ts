@@ -47,7 +47,7 @@ abstract class BaseGear {
 	 *
 	 * Checks for validity and removes/exchanges items/gems as needed.
 	 */
-	protected withEquippedItemInternal(newSlot: ItemSlot, newItem: EquippedItem | null, canDualWield2H: boolean): Partial<InternalGear> {
+	protected withEquippedItemInternal(newSlot: ItemSlot, newItem: EquippedItem | null): Partial<InternalGear> {
 		// Create a new identical set of gear
 		const newInternalGear = this.asMap();
 
@@ -58,7 +58,7 @@ abstract class BaseGear {
 		// Actually assign the new item.
 		newInternalGear[newSlot] = newItem;
 
-		BaseGear.validateWeaponCombo(newInternalGear, newSlot, canDualWield2H);
+		BaseGear.validateWeaponCombo(newInternalGear, newSlot);
 
 		return newInternalGear;
 	}
@@ -75,9 +75,9 @@ abstract class BaseGear {
 		}
 	}
 
-	private static validateWeaponCombo(gear: Partial<InternalGear>, newSlot: ItemSlot, canDualWield2H: boolean) {
+	private static validateWeaponCombo(gear: Partial<InternalGear>, newSlot: ItemSlot) {
 		// Check for valid weapon combos.
-		if (!validWeaponCombo(gear[ItemSlot.ItemSlotMainHand]?.item, gear[ItemSlot.ItemSlotOffHand]?.item, canDualWield2H)) {
+		if (!validWeaponCombo(gear[ItemSlot.ItemSlotMainHand]?.item, gear[ItemSlot.ItemSlotOffHand]?.item)) {
 			if (newSlot == ItemSlot.ItemSlotOffHand) {
 				gear[ItemSlot.ItemSlotMainHand] = null;
 			} else {
@@ -120,8 +120,8 @@ export class Gear extends BaseGear {
 		return getEnumValues(ItemSlot);
 	}
 
-	withEquippedItem(newSlot: ItemSlot, newItem: EquippedItem | null, canDualWield2H: boolean): Gear {
-		return new Gear(this.withEquippedItemInternal(newSlot, newItem, canDualWield2H));
+	withEquippedItem(newSlot: ItemSlot, newItem: EquippedItem | null): Gear {
+		return new Gear(this.withEquippedItemInternal(newSlot, newItem));
 	}
 
 	getTrinkets(): Array<EquippedItem | null> {
@@ -189,8 +189,8 @@ export class ItemSwapGear extends BaseGear {
 		return [ItemSlot.ItemSlotMainHand, ItemSlot.ItemSlotOffHand, ItemSlot.ItemSlotRanged];
 	}
 
-	withEquippedItem(newSlot: ItemSlot, newItem: EquippedItem | null, canDualWield2H: boolean): ItemSwapGear {
-		return new ItemSwapGear(this.withEquippedItemInternal(newSlot, newItem, canDualWield2H));
+	withEquippedItem(newSlot: ItemSlot, newItem: EquippedItem | null): ItemSwapGear {
+		return new ItemSwapGear(this.withEquippedItemInternal(newSlot, newItem));
 	}
 
 	toProto(): ItemSwap {

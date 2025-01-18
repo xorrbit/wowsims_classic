@@ -1061,7 +1061,7 @@ export const specToEligibleRaces: Record<Spec, Array<Race>> = {
 
 // Specs that can dual wield. This could be based on class, except that
 // Enhancement Shaman learn dual wield from a talent.
-const dualWieldClasses: Array<Class> = [Class.ClassHunter, Class.ClassRogue, Class.ClassShaman, Class.ClassWarrior];
+const dualWieldClasses: Array<Class> = [Class.ClassHunter, Class.ClassRogue, Class.ClassWarrior];
 
 export function canDualWield(player: Player<Spec>): boolean {
 	return dualWieldClasses.includes(player.getClass());
@@ -1520,28 +1520,13 @@ export function getEligibleItemSlots(item: Item): Array<ItemSlot> {
 	throw new Error('Could not find item slots for item: ' + Item.toJsonString(item));
 }
 
-// Returns whether the given main-hand and off-hand items can be worn at the
-// same time.
-export function validWeaponCombo(mainHand: Item | null | undefined, offHand: Item | null | undefined, canDW2h: boolean): boolean {
-	if (mainHand == null || offHand == null) {
+// Returns whether the given main-hand and off-hand items can be worn at the same time.
+export function validWeaponCombo(mainHand: Item | null | undefined, offHand: Item | null | undefined): boolean {
+	if (!mainHand || !offHand) {
 		return true;
 	}
 
-	if (mainHand.handType == HandType.HandTypeTwoHand && !canDW2h) {
-		return false;
-	} else if (
-		mainHand.handType == HandType.HandTypeTwoHand &&
-		(mainHand.weaponType == WeaponType.WeaponTypePolearm || mainHand.weaponType == WeaponType.WeaponTypeStaff)
-	) {
-		return false;
-	}
-
-	if (offHand.handType == HandType.HandTypeTwoHand && !canDW2h) {
-		return false;
-	} else if (
-		offHand.handType == HandType.HandTypeTwoHand &&
-		(offHand.weaponType == WeaponType.WeaponTypePolearm || offHand.weaponType == WeaponType.WeaponTypeStaff)
-	) {
+	if (mainHand.handType === HandType.HandTypeTwoHand) {
 		return false;
 	}
 

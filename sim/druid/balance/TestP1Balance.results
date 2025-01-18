@@ -53,18 +53,18 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.02507
+  weights: 0.02529
   weights: 0
-  weights: 0.44857
-  weights: 0
-  weights: 0
+  weights: 0.46351
   weights: 0
   weights: 0
   weights: 0
   weights: 0
   weights: 0
-  weights: 2.16443
-  weights: 1.70064
+  weights: 0
+  weights: 0
+  weights: 2.16569
+  weights: 1.7517
   weights: 0
   weights: 0
   weights: 0
@@ -99,29 +99,29 @@ stat_weights_results: {
 dps_results: {
  key: "TestP1Balance-Phase1-Average-Default"
  value: {
-  dps: 155.39007
-  tps: 168.86746
+  dps: 160.65508
+  tps: 174.13247
  }
 }
 dps_results: {
  key: "TestP1Balance-Phase1-Settings-NightElf-p0.bis-Default-p1-FullBuffs-P1-Consumes-LongMultiTarget"
  value: {
-  dps: 154.27378
-  tps: 402.57966
+  dps: 157.76801
+  tps: 406.0739
  }
 }
 dps_results: {
  key: "TestP1Balance-Phase1-Settings-NightElf-p0.bis-Default-p1-FullBuffs-P1-Consumes-LongSingleTarget"
  value: {
-  dps: 154.27378
-  tps: 166.68907
+  dps: 157.76801
+  tps: 170.1833
  }
 }
 dps_results: {
  key: "TestP1Balance-Phase1-Settings-NightElf-p0.bis-Default-p1-FullBuffs-P1-Consumes-ShortSingleTarget"
  value: {
-  dps: 148.49645
-  tps: 157.09674
+  dps: 152.61124
+  tps: 161.21153
  }
 }
 dps_results: {
@@ -148,22 +148,22 @@ dps_results: {
 dps_results: {
  key: "TestP1Balance-Phase1-Settings-Tauren-p0.bis-Default-p1-FullBuffs-P1-Consumes-LongMultiTarget"
  value: {
-  dps: 153.21715
-  tps: 420.2473
+  dps: 156.60707
+  tps: 423.63721
  }
 }
 dps_results: {
  key: "TestP1Balance-Phase1-Settings-Tauren-p0.bis-Default-p1-FullBuffs-P1-Consumes-LongSingleTarget"
  value: {
-  dps: 153.21715
-  tps: 166.56866
+  dps: 156.60707
+  tps: 169.95858
  }
 }
 dps_results: {
  key: "TestP1Balance-Phase1-Settings-Tauren-p0.bis-Default-p1-FullBuffs-P1-Consumes-ShortSingleTarget"
  value: {
-  dps: 147.42161
-  tps: 156.0408
+  dps: 151.53758
+  tps: 160.15677
  }
 }
 dps_results: {
@@ -190,7 +190,7 @@ dps_results: {
 dps_results: {
  key: "TestP1Balance-Phase1-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 153.88456
-  tps: 167.30175
+  dps: 158.97674
+  tps: 172.39393
  }
 }

@@ -86,6 +86,17 @@ var ItemOverrides = []*proto.UIItem{
 	{Id: 20130, Phase: 3},
 	{Id: 20521, Phase: 3},
 	{Id: 20517, Phase: 3},
+
+	// AQ Patch Items with incorrect Phases
+	// Shaman Totems
+	{Id: 23199, Phase: 5},
+	{Id: 23200, Phase: 5},
+	{Id: 22345, Phase: 5},
+	{Id: 22395, Phase: 5},
+
+	// Crafted
+	{Id: 22191, Phase: 5},
+	{Id: 22195, Phase: 5},
 }
 
 // Keep these sorted by item ID.
@@ -426,7 +437,3 @@ var DenyListNameRegexes = []*regexp.Regexp{
 	regexp.MustCompile(`Test`),
 	regexp.MustCompile(`zOLD`),
 }
-
-// Data can easily be found here:
-// https://www.wowhead.com/classic/item-sets#item-sets
-var DenyItemSetIds = []int{}

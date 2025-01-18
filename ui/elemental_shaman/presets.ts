@@ -2,11 +2,13 @@ import { Phase } from '../core/constants/other.js';
 import * as PresetUtils from '../core/preset_utils.js';
 import {
 	AttackPowerBuff,
+	Conjured,
 	Consumes,
 	Debuffs,
 	FirePowerBuff,
 	Flask,
 	Food,
+	FrostPowerBuff,
 	IndividualBuffs,
 	ManaRegenElixir,
 	Potions,
@@ -21,12 +23,13 @@ import {
 } from '../core/proto/common.js';
 import { ElementalShaman_Options as ElementalShamanOptions } from '../core/proto/shaman.js';
 import { SavedTalents } from '../core/proto/ui.js';
-import Phase1APL from './apls/phase_1.apl.json';
-import Phase2APL from './apls/phase_2.apl.json';
-import Phase3APL from './apls/phase_3.apl.json';
-import Phase4APL from './apls/phase_4.apl.json';
-import Phase5APL from './apls/phase_5.apl.json';
-import BlankGear from './gear_sets/blank.gear.json';
+import DefaultAPLJson from './apls/default.apl.json';
+import Phase1GearJSON from './gear_sets/phase_1.gear.json';
+import Phase2GearJSON from './gear_sets/phase_2.gear.json';
+import Phase3GearJSON from './gear_sets/phase_3.gear.json';
+import Phase4GearJSON from './gear_sets/phase_4.gear.json';
+import Phase5GearJSON from './gear_sets/phase_5.gear.json';
+import Phase6GearJSON from './gear_sets/phase_6.gear.json';
 
 // Preset options for this spec.
 // Eventually we will import these values for the raid sim too, so its good to
@@ -36,50 +39,59 @@ import BlankGear from './gear_sets/blank.gear.json';
 //                                 Gear Presets
 ///////////////////////////////////////////////////////////////////////////
 
-export const GearBlank = PresetUtils.makePresetGear('Blank', BlankGear);
+export const GearPhase1 = PresetUtils.makePresetGear('Phase 1', Phase1GearJSON);
+export const GearPhase2 = PresetUtils.makePresetGear('Phase 2', Phase2GearJSON);
+export const GearPhase3 = PresetUtils.makePresetGear('Phase 3', Phase3GearJSON);
+export const GearPhase4 = PresetUtils.makePresetGear('Phase 4', Phase4GearJSON);
+export const GearPhase5 = PresetUtils.makePresetGear('Phase 5', Phase5GearJSON);
+export const GearPhase6 = PresetUtils.makePresetGear('Phase 6', Phase6GearJSON);
 
-export const GearPresets = {};
+export const GearPresets = {
+	[Phase.Phase1]: [GearPhase1],
+	[Phase.Phase2]: [GearPhase2],
+	[Phase.Phase3]: [GearPhase3],
+	[Phase.Phase4]: [GearPhase4],
+	[Phase.Phase5]: [GearPhase5],
+	[Phase.Phase6]: [GearPhase6],
 
-export const DefaultGear = GearBlank;
+};
+
+export const DefaultGear = GearPresets[Phase.Phase2][0];
 
 ///////////////////////////////////////////////////////////////////////////
 //                                 APL Presets
 ///////////////////////////////////////////////////////////////////////////
 
-export const APLPhase1 = PresetUtils.makePresetAPLRotation('Phase 1', Phase1APL);
-export const APLPhase2 = PresetUtils.makePresetAPLRotation('Phase 2', Phase2APL);
-export const APLPhase3 = PresetUtils.makePresetAPLRotation('Phase 3', Phase3APL);
-export const APLPhase4 = PresetUtils.makePresetAPLRotation('Phase 4', Phase4APL);
-export const APLPhase5 = PresetUtils.makePresetAPLRotation('Phase 5', Phase5APL);
+export const APLDefault = PresetUtils.makePresetAPLRotation('Default', DefaultAPLJson);
 
 export const APLPresets = {
-	[Phase.Phase1]: [APLPhase1],
-	[Phase.Phase2]: [APLPhase2],
-	[Phase.Phase3]: [APLPhase3],
-	[Phase.Phase4]: [APLPhase4],
-	[Phase.Phase5]: [APLPhase5],
+	[Phase.Phase1]: [APLDefault],
+	[Phase.Phase2]: [],
+	[Phase.Phase3]: [],
+	[Phase.Phase4]: [],
+	[Phase.Phase5]: [],
+	[Phase.Phase6]: [],
+
 };
 
-export const DefaultAPL = APLPresets[Phase.Phase5][0];
+export const DefaultAPL = APLPresets[Phase.Phase1][0];
 
 ///////////////////////////////////////////////////////////////////////////
 //                                 Talent Presets
 ///////////////////////////////////////////////////////////////////////////
 
-export const TalentsPhase1 = PresetUtils.makePresetTalents('Level 25', SavedTalents.create({ talentsString: '25003105' }));
-export const TalentsPhase2 = PresetUtils.makePresetTalents('Level 40', SavedTalents.create({ talentsString: '550031550000151' }));
-export const TalentsPhase3 = PresetUtils.makePresetTalents('Level 50', SavedTalents.create({ talentsString: '550031550000151-500203' }));
-export const TalentsPhase4 = PresetUtils.makePresetTalents('Level 60', SavedTalents.create({ talentsString: '550301550000151--50205300005' }));
+export const TalentsLevel60 = PresetUtils.makePresetTalents('Level 60', SavedTalents.create({ talentsString: '55001150003-5025002105023051' }));
 
 export const TalentPresets = {
-	[Phase.Phase1]: [TalentsPhase1],
-	[Phase.Phase2]: [TalentsPhase2],
-	[Phase.Phase3]: [TalentsPhase3],
-	[Phase.Phase4]: [TalentsPhase4],
+	[Phase.Phase1]: [TalentsLevel60],
+	[Phase.Phase2]: [],
+	[Phase.Phase3]: [],
+	[Phase.Phase4]: [],
 	[Phase.Phase5]: [],
+	[Phase.Phase6]: [],
 };
 
-export const DefaultTalents = TalentPresets[Phase.Phase4][0];
+export const DefaultTalents = TalentPresets[Phase.Phase1][0];
 
 ///////////////////////////////////////////////////////////////////////////
 //                                 Options
@@ -89,13 +101,15 @@ export const DefaultOptions = ElementalShamanOptions.create({});
 
 export const DefaultConsumes = Consumes.create({
 	attackPowerBuff: AttackPowerBuff.JujuMight,
+	defaultConjured: Conjured.ConjuredDemonicRune,
 	defaultPotion: Potions.MajorManaPotion,
-	firePowerBuff: FirePowerBuff.ElixirOfGreaterFirepower,
+	firePowerBuff: FirePowerBuff.ElixirOfFirepower,
+	frostPowerBuff: FrostPowerBuff.ElixirOfFrostPower,
 	flask: Flask.FlaskOfSupremePower,
 	food: Food.FoodRunnTumTuberSurprise,
-	mainHandImbue: WeaponImbue.FlametongueWeapon,
+	// Not available until Phase 4
+	// mainHandImbue: WeaponImbue.BrilliantWizardOil,
 	manaRegenElixir: ManaRegenElixir.MagebloodPotion,
-	//offHandImbue: WeaponImbue.MagnificentTrollshine,
 	spellPowerBuff: SpellPowerBuff.GreaterArcaneElixir,
 	strengthBuff: StrengthBuff.JujuPower,
 	zanzaBuff: ZanzaBuff.CerebralCortexCompound,
@@ -107,25 +121,23 @@ export const DefaultRaidBuffs = RaidBuffs.create({
 	giftOfTheWild: TristateEffect.TristateEffectImproved,
 	manaSpringTotem: TristateEffect.TristateEffectRegular,
 	moonkinAura: true,
-	strengthOfEarthTotem: TristateEffect.TristateEffectImproved,
 });
 
 export const DefaultIndividualBuffs = IndividualBuffs.create({
 	fengusFerocity: true,
 	rallyingCryOfTheDragonslayer: true,
-	saygesFortune: SaygesFortune.SaygesDamage,
+	// saygesFortune: SaygesFortune.SaygesDamage,
 	slipkiksSavvy: true,
 	songflowerSerenade: true,
-	spiritOfZandalar: true,
+	// spiritOfZandalar: true,
 	warchiefsBlessing: true,
 });
 
 export const DefaultDebuffs = Debuffs.create({
-	curseOfRecklessness: true,
-	faerieFire: true,
+	curseOfElements: true,
 	improvedScorch: true,
 	stormstrike: true,
-	sunderArmor: true,
+	wintersChill: true,
 });
 
 export const OtherDefaults = {

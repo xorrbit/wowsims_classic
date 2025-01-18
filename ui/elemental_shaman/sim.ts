@@ -1,4 +1,5 @@
 import * as BuffDebuffInputs from '../core/components/inputs/buffs_debuffs';
+import * as ConsumesInputs from '../core/components/inputs/consumables';
 import * as OtherInputs from '../core/components/other_inputs';
 import { Phase } from '../core/constants/other';
 import { IndividualSimUI, registerSpecConfig } from '../core/individual_sim_ui';
@@ -60,18 +61,18 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecElementalShaman, {
 		gear: Presets.DefaultGear.gear,
 		// Default EP weights for sorting gear in the gear picker.
 		epWeights: Stats.fromMap({
-			[Stat.StatIntellect]: 0.12,
+			[Stat.StatIntellect]: 0.14,
 			[Stat.StatSpellPower]: 1,
 			[Stat.StatSpellDamage]: 1,
-			[Stat.StatFirePower]: 0.3,
-			[Stat.StatNaturePower]: 0.7,
-			[Stat.StatSpellHit]: 20.08,
-			[Stat.StatSpellCrit]: 9.04,
-			[Stat.StatSpellHaste]: 9.32,
+			[Stat.StatFirePower]: 0.1, // Eles don't really use Fire much except for Niche situations or AOE
+			[Stat.StatNaturePower]: 1.00,
+			[Stat.StatSpellHit]: 12.37,
+			[Stat.StatSpellCrit]: 7.57,
+			[Stat.StatSpellHaste]: 1.49,
 			[Stat.StatMP5]: 0.02,
 			[Stat.StatStrength]: 0.01,
 			[Stat.StatAttackPower]: 0.01,
-			[Stat.StatFireResistance]: 0.5,
+			[Stat.StatFireResistance]: 0.01,
 		}),
 		// Default consumes settings.
 		consumes: Presets.DefaultConsumes,
@@ -89,7 +90,10 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecElementalShaman, {
 	// IconInputs to include in the 'Player' section on the settings tab.
 	playerIconInputs: [],
 	// Buff and Debuff inputs to include/exclude, overriding the EP-based defaults.
-	includeBuffDebuffInputs: [],
+	includeBuffDebuffInputs: [
+		BuffDebuffInputs.SpellWintersChillDebuff,
+		ConsumesInputs.ElixirOfFrostPower,
+	],
 	excludeBuffDebuffInputs: [],
 	// Inputs to include in the 'Other' section on the settings tab.
 	otherInputs: {
@@ -109,6 +113,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecElementalShaman, {
 	presets: {
 		// Preset talents that the user can quickly select.
 		talents: [
+			...Presets.TalentPresets[Phase.Phase6],
 			...Presets.TalentPresets[Phase.Phase5],
 			...Presets.TalentPresets[Phase.Phase4],
 			...Presets.TalentPresets[Phase.Phase3],
@@ -117,6 +122,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecElementalShaman, {
 		],
 		// Preset rotations that the user can quickly select.
 		rotations: [
+			...Presets.APLPresets[Phase.Phase6],
 			...Presets.APLPresets[Phase.Phase5],
 			...Presets.APLPresets[Phase.Phase4],
 			...Presets.APLPresets[Phase.Phase3],
@@ -125,11 +131,16 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecElementalShaman, {
 		],
 		// Preset gear configurations that the user can quickly select.
 		gear: [
-			Presets.DefaultGear,
+			...Presets.GearPresets[Phase.Phase6],
+			...Presets.GearPresets[Phase.Phase5],
+			...Presets.GearPresets[Phase.Phase4],
+			...Presets.GearPresets[Phase.Phase3],
+			...Presets.GearPresets[Phase.Phase2],
+			...Presets.GearPresets[Phase.Phase1],
 		],
 	},
 
-	autoRotation: player => {
+	autoRotation: () => {
 		return Presets.DefaultAPL.rotation.rotation!;
 	},
 

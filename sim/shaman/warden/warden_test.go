@@ -15,15 +15,15 @@ func TestWardenShaman(t *testing.T) {
 	core.RunTestSuite(t, t.Name(), core.FullCharacterTestSuiteGenerator([]core.CharacterSuiteConfig{
 		{
 			Class:      proto.Class_ClassShaman,
-			Phase:      4,
+			Phase:      1,
 			Race:       proto.Race_RaceTroll,
 			OtherRaces: []proto.Race{proto.Race_RaceOrc},
 
-			Talents:     Phase4Talents,
+			Talents:     DefaultTalents,
 			GearSet:     core.GetGearSet("../../../ui/warden_shaman/gear_sets", "blank"),
-			Rotation:    core.GetAplRotation("../../../ui/warden_shaman/apls", "phase_4_enh_tank"),
+			Rotation:    core.GetAplRotation("../../../ui/warden_shaman/apls", "default"),
 			Buffs:       core.FullBuffs,
-			Consumes:    Phase4Consumes,
+			Consumes:    Phase1Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "Default", SpecOptions: PlayerOptionsBasic},
 
 			ItemFilter:      ItemFilters,
@@ -39,22 +39,22 @@ var PlayerOptionsBasic = &proto.Player_WardenShaman{
 	},
 }
 
-var Phase4Talents = "05033150003-0505032015003151"
+var DefaultTalents = "5203015-0505000145503151"
 
-var Phase4Consumes = core.ConsumesCombo{
-	Label: "P4-Consumes",
+var Phase1Consumes = core.ConsumesCombo{
+	Label: "P1-Consumes",
 	Consumes: &proto.Consumes{
 		AttackPowerBuff:   proto.AttackPowerBuff_JujuMight,
 		AgilityElixir:     proto.AgilityElixir_ElixirOfTheMongoose,
+		DefaultConjured:   proto.Conjured_ConjuredDemonicRune,
 		DefaultPotion:     proto.Potions_MajorManaPotion,
 		DragonBreathChili: true,
 		FirePowerBuff:     proto.FirePowerBuff_ElixirOfGreaterFirepower,
 		Flask:             proto.Flask_FlaskOfTheTitans,
 		Food:              proto.Food_FoodBlessSunfruit,
-		MainHandImbue:     proto.WeaponImbue_WindfuryWeapon,
-		//OffHandImbue:      proto.WeaponImbue_ConductiveShieldCoating,
-		SpellPowerBuff: proto.SpellPowerBuff_GreaterArcaneElixir,
-		StrengthBuff:   proto.StrengthBuff_JujuPower,
+		MainHandImbue:     proto.WeaponImbue_RockbiterWeapon,
+		SpellPowerBuff:    proto.SpellPowerBuff_GreaterArcaneElixir,
+		StrengthBuff:      proto.StrengthBuff_JujuPower,
 	},
 }
 

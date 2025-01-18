@@ -104,7 +104,7 @@ type Shaman struct {
 	ManaSpringTotem      []*core.Spell
 	SearingTotem         []*core.Spell
 	StoneskinTotem       []*core.Spell
-	StormstrikeMH        *core.Spell
+	Stormstrike          *core.Spell
 	StrengthOfEarthTotem []*core.Spell
 	TremorTotem          *core.Spell
 	WindfuryTotem        []*core.Spell
@@ -118,16 +118,23 @@ type Shaman struct {
 
 	// Totems
 	ActiveTotems     [4]*core.Spell
-	EarthTotems      []*core.Spell
-	FireTotems       []*core.Spell
-	WaterTotems      []*core.Spell
-	AirTotems        []*core.Spell
-	Totems           *proto.ShamanTotems
+	ActiveTotemBuffs [4]*core.Aura
 	TotemExpirations [4]time.Duration // The expiration time of each totem (earth, air, fire, water).
+
+	EarthTotems []*core.Spell
+	FireTotems  []*core.Spell
+	WaterTotems []*core.Spell
+	AirTotems   []*core.Spell
+	Totems      *proto.ShamanTotems
+
+	WindfuryTotemPeriodicActions      []*core.PendingAction
+	ActiveWindfuryTotemPeriodicAction *core.PendingAction
 
 	// Shield
 	ActiveShield     *core.Spell // Tracks the Shaman's active shield spell
 	ActiveShieldAura *core.Aura
+
+	ChainLightningBounceCoefficient float64
 }
 
 // Implemented by each Shaman spec.
@@ -173,24 +180,15 @@ func (shaman *Shaman) Initialize() {
 	shaman.registerWindfuryTotemSpell()
 	shaman.registerGraceOfAirTotemSpell()
 	shaman.registerWindwallTotemSpell()
-
-	// // This registration must come after all the totems are registered
-	// shaman.registerCallOfTheElements()
-
-	shaman.RegisterHealingSpells()
-}
-
-func (shaman *Shaman) RegisterHealingSpells() {
-	shaman.registerLesserHealingWaveSpell()
-	shaman.registerHealingWaveSpell()
-	shaman.registerChainHealSpell()
 }
 
 func (shaman *Shaman) Reset(_ *core.Simulation) {
 	shaman.ActiveShield = nil
 	shaman.ActiveShieldAura = nil
 
-	for i := range shaman.TotemExpirations {
+	for i := range []int{EarthTotem, FireTotem, WaterTotem, AirTotem} {
+		shaman.ActiveTotems[i] = nil
 		shaman.TotemExpirations[i] = 0
+		shaman.ActiveTotemBuffs[i] = nil
 	}
 }
