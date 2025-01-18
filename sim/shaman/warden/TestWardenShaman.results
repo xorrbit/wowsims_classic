@@ -50,20 +50,12 @@ character_stats_results: {
 stat_weights_results: {
  key: "TestWardenShaman-Phase1-StatWeights-Default"
  value: {
-<<<<<<< HEAD
-  weights: 0.1395
-=======
   weights: 0.28026
->>>>>>> master
   weights: 0
   weights: 0
   weights: 0
   weights: 0
-<<<<<<< HEAD
-  weights: 0.24647
-=======
   weights: 0.16521
->>>>>>> master
   weights: 0
   weights: 0
   weights: 0
@@ -75,11 +67,7 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-<<<<<<< HEAD
-  weights: 0.06065
-=======
   weights: 0.12185
->>>>>>> master
   weights: 0
   weights: 0
   weights: 0
@@ -111,166 +99,97 @@ stat_weights_results: {
 dps_results: {
  key: "TestWardenShaman-Phase1-AllItems-Champion'sEarthshaker"
  value: {
-<<<<<<< HEAD
-  dps: 232.16486
-  tps: 235.68186
-=======
   dps: 344.73305
   tps: 478.32675
->>>>>>> master
  }
 }
 dps_results: {
  key: "TestWardenShaman-Phase1-AllItems-Champion'sStormcaller"
  value: {
-<<<<<<< HEAD
-  dps: 281.45011
-  tps: 311.77628
-=======
   dps: 350.971
   tps: 486.84384
->>>>>>> master
  }
 }
 dps_results: {
  key: "TestWardenShaman-Phase1-AllItems-GiftoftheGatheringStorm"
  value: {
-<<<<<<< HEAD
-  dps: 119.89253
-  tps: 113.06718
-=======
   dps: 490.77606
   tps: 701.91482
->>>>>>> master
  }
 }
 dps_results: {
  key: "TestWardenShaman-Phase1-AllItems-Stormcaller'sGarb"
  value: {
-<<<<<<< HEAD
-  dps: 203.3209
-  tps: 224.42687
-=======
   dps: 372.53749
   tps: 513.34504
->>>>>>> master
  }
 }
 dps_results: {
  key: "TestWardenShaman-Phase1-AllItems-TheEarthfury"
  value: {
-<<<<<<< HEAD
-  dps: 140.12039
-  tps: 217.7072
-=======
   dps: 328.17913
   tps: 465.17719
->>>>>>> master
  }
 }
 dps_results: {
  key: "TestWardenShaman-Phase1-AllItems-TheEarthshatterer"
  value: {
-<<<<<<< HEAD
-  dps: 64.40117
-  tps: 61.06575
-=======
   dps: 324.97995
   tps: 460.86574
->>>>>>> master
  }
 }
 dps_results: {
  key: "TestWardenShaman-Phase1-AllItems-TheFiveThunders"
  value: {
-<<<<<<< HEAD
-  dps: 104.41488
-  tps: 115.46625
-=======
   dps: 356.02553
   tps: 494.66139
->>>>>>> master
  }
 }
 dps_results: {
  key: "TestWardenShaman-Phase1-AllItems-TheTenStorms"
  value: {
-<<<<<<< HEAD
-  dps: 283.73536
-  tps: 304.69377
-=======
   dps: 341.27082
   tps: 483.13295
->>>>>>> master
  }
 }
 dps_results: {
  key: "TestWardenShaman-Phase1-AllItems-Warlord'sEarthshaker"
  value: {
-<<<<<<< HEAD
-  dps: 114.73953
-  tps: 106.55661
-=======
   dps: 366.26868
   tps: 502.77399
->>>>>>> master
  }
 }
 dps_results: {
  key: "TestWardenShaman-Phase1-Average-Default"
  value: {
-<<<<<<< HEAD
-  dps: 194.32659
-  tps: 209.26343
-=======
   dps: 308.80189
   tps: 430.05755
->>>>>>> master
  }
 }
 dps_results: {
  key: "TestWardenShaman-Phase1-Settings-Orc-blank-Default-default-FullBuffs-P1-Consumes-LongMultiTarget"
  value: {
-<<<<<<< HEAD
-  dps: 143.63913
-  tps: 214.71298
-=======
   dps: 101.15974
   tps: 453.94397
->>>>>>> master
  }
 }
 dps_results: {
  key: "TestWardenShaman-Phase1-Settings-Orc-blank-Default-default-FullBuffs-P1-Consumes-LongSingleTarget"
  value: {
-<<<<<<< HEAD
-  dps: 61.45225
-  tps: 57.74495
-=======
   dps: 94.60706
   tps: 146.28132
->>>>>>> master
  }
 }
 dps_results: {
  key: "TestWardenShaman-Phase1-Settings-Orc-blank-Default-default-FullBuffs-P1-Consumes-ShortSingleTarget"
  value: {
-<<<<<<< HEAD
-  dps: 105.22166
-  tps: 112.04356
-=======
   dps: 144.64969
   tps: 258.2944
->>>>>>> master
  }
 }
 dps_results: {
  key: "TestWardenShaman-Phase1-Settings-Orc-blank-Default-default-NoBuffs-P1-Consumes-LongMultiTarget"
  value: {
-<<<<<<< HEAD
-  dps: 218.1517
-  tps: 222.21128
-=======
   dps: 45.57112
   tps: 286.56929
  }
@@ -336,6 +255,5 @@ dps_results: {
  value: {
   dps: 285.82406
   tps: 410.83144
->>>>>>> master
  }
 }
