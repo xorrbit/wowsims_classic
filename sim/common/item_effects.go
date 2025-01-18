@@ -110,8 +110,8 @@ const (
 	HalberdOfSmiting          = 19874
 	NatPaglesBrokenReel       = 19947
 	TigulesHarpoon            = 19946
-	GrileksCarver             = 19962
 	GrileksGrinder            = 19961
+	GrileksCarver             = 19962
 	PitchforkOfMadness        = 19963
 	ScarabBrooch              = 21625
 	KalimdorsRevenge          = 21679
@@ -999,7 +999,7 @@ func init() {
 
 	// https://www.wowhead.com/classic/item=19961/grileks-grinder
 	// +48 Attack Power when fighting Dragonkin.
-	core.NewMobTypeAttackPowerEffect(GrileksCarver, []proto.MobType{proto.MobType_MobTypeDragonkin}, 48)
+	core.NewMobTypeAttackPowerEffect(GrileksGrinder, []proto.MobType{proto.MobType_MobTypeDragonkin}, 48)
 
 	// https://www.wowhead.com/classic/item=9651/gryphon-riders-stormhammer
 	itemhelpers.CreateWeaponCoHProcDamage(GryphonRidersStormhammer, "Gryphon Rider's Stormhammer", 1.0, 18081, core.SpellSchoolNature, 91, 34, 0, core.DefenseTypeMagic)
