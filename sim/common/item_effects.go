@@ -139,7 +139,7 @@ const (
 	GrileksGrinder            = 19961
 	GrileksCarver             = 19962
 	PitchforkOfMadness        = 19963
-	EmeraldDragonfang		  = 20578
+	EmeraldDragonfang		      = 20578
 	Earthstrike               = 21180
 	WrathOfCenarius           = 21190
 	EyeOfMoam                 = 21473
@@ -1246,21 +1246,11 @@ func init() {
 
 	// https://www.wowhead.com/classic/item=19962/grileks-carver
 	// +117 Attack Power when fighting Dragonkin.
-	core.NewItemEffect(GrileksCarver, func(agent core.Agent) {
-		character := agent.GetCharacter()
-		if character.CurrentTarget.MobType == proto.MobType_MobTypeDragonkin {
-			character.PseudoStats.MobTypeAttackPower += 117
-		}
-	})
+	core.NewMobTypeAttackPowerEffect(GrileksCarver, []proto.MobType{proto.MobType_MobTypeDragonkin}, 117)
 
 	// https://www.wowhead.com/classic/item=19961/grileks-grinder
 	// +48 Attack Power when fighting Dragonkin.
-	core.NewItemEffect(GrileksGrinder, func(agent core.Agent) {
-		character := agent.GetCharacter()
-		if character.CurrentTarget.MobType == proto.MobType_MobTypeDragonkin {
-			character.PseudoStats.MobTypeAttackPower += 48
-		}
-	})
+	core.NewMobTypeAttackPowerEffect(GrileksGrinder, []proto.MobType{proto.MobType_MobTypeDragonkin}, 48)
 
 	// https://www.wowhead.com/classic/item=9651/gryphon-riders-stormhammer
 	itemhelpers.CreateWeaponCoHProcDamage(GryphonRidersStormhammer, "Gryphon Rider's Stormhammer", 1.0, 18081, core.SpellSchoolNature, 91, 34, 0, core.DefenseTypeMagic)
@@ -1777,12 +1767,7 @@ func init() {
 
 	// https://www.wowhead.com/classic/item=19963/pitchfork-of-madness
 	// +117 Attack Power when fighting Demons.
-	core.NewItemEffect(PitchforkOfMadness, func(agent core.Agent) {
-		character := agent.GetCharacter()
-		if character.CurrentTarget.MobType == proto.MobType_MobTypeDemon {
-			character.PseudoStats.MobTypeAttackPower += 117
-		}
-	})
+	core.NewMobTypeAttackPowerEffect(PitchforkOfMadness, []proto.MobType{proto.MobType_MobTypeDemon}, 117)
 
 	// https://www.wowhead.com/classic/item=18348/quelserrar
 	// Chance on hit: When active, grants the wielder 13 defense and 300 armor for 10 sec.
@@ -2487,12 +2472,7 @@ func init() {
 
 	// https://www.wowhead.com/classic/item=19946/tigules-harpoon
 	// +60 Attack Power when fighting Beasts.
-	core.NewItemEffect(TigulesHarpoon, func(agent core.Agent) {
-		character := agent.GetCharacter()
-		if character.CurrentTarget.MobType == proto.MobType_MobTypeBeast {
-			character.PseudoStats.MobTypeAttackPower += 60
-		}
-	})
+	core.NewMobTypeAttackPowerEffect(TigulesHarpoon, []proto.MobType{proto.MobType_MobTypeBeast}, 60)
 
 	// https://www.wowhead.com/classic/item=13183/venomspitter
 	// Chance on hit: Poisons target for 7 Nature damage every 2 sec for 30 sec.
@@ -2952,13 +2932,7 @@ func init() {
 
 	// https://www.wowhead.com/classic/item=19812/rune-of-the-dawn
 	// Equip: Increases damage done to Undead by magical spells and effects by up to 48.
-	core.NewItemEffect(RuneOfTheDawn, func(agent core.Agent) {
-		character := agent.GetCharacter()
-
-		if character.CurrentTarget.MobType == proto.MobType_MobTypeUndead {
-			character.AddStat(stats.SpellDamage, 48)
-		}
-	})
+	core.NewMobTypeSpellPowerEffect(RuneOfTheDawn, []proto.MobType{proto.MobType_MobTypeUndead}, 48)
 
 	// https://www.wowhead.com/classic/item=21625/scarab-brooch
 	core.NewItemEffect(ScarabBrooch, func(agent core.Agent) {
@@ -3090,14 +3064,7 @@ func init() {
 
 	// https://www.wowhead.com/classic/item=13209/seal-of-the-dawn
 	// Equip: +81 Attack Power when fighting Undead.
-	core.NewItemEffect(SealOfTheDawn, func(agent core.Agent) {
-		character := agent.GetCharacter()
-
-		if character.CurrentTarget.MobType == proto.MobType_MobTypeUndead {
-			character.AddStat(stats.AttackPower, 81)
-			character.AddStat(stats.AttackPower, 81)
-		}
-	})
+	core.NewMobTypeAttackPowerEffect(SealOfTheDawn, []proto.MobType{proto.MobType_MobTypeUndead}, 81)
 
 	// https://www.wowhead.com/classic/item=18820/talisman-of-ephemeral-power
 	// Use: Increases damage and healing done by magical spells and effects by up to 175 for 15 sec. (1 Min, 30 Sec Cooldown)
