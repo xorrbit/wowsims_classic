@@ -22,7 +22,7 @@ const (
 
 func init() {
 	core.AddEffectsToTest = false
-	
+
 	// https://www.wowhead.com/classic/item=22691/corrupted-ashbringer
 	// Chance on hit: Steals 185 to 215 life from target enemy.
 	// Proc rate taken from Classic 2019 testing
@@ -31,11 +31,11 @@ func init() {
 		actionID := core.ActionID{SpellID: 29155}
 		healthMetrics := character.NewHealthMetrics(actionID)
 		return character.RegisterSpell(core.SpellConfig{
-			ActionID:    actionID,
-			SpellSchool: core.SpellSchoolShadow,
-			DefenseType: core.DefenseTypeMagic,
-			ProcMask:    core.ProcMaskSpellProc | core.ProcMaskSpellDamageProc,
-			Flags:       core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell,
+			ActionID:         actionID,
+			SpellSchool:      core.SpellSchoolShadow,
+			DefenseType:      core.DefenseTypeMagic,
+			ProcMask:         core.ProcMaskSpellProc | core.ProcMaskSpellDamageProc,
+			Flags:            core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell,
 			DamageMultiplier: 1,
 			ThreatMultiplier: 1,
 			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
@@ -48,16 +48,17 @@ func init() {
 	// https://www.wowhead.com/classic/item=23040/glyph-of-deflection
 	// Use: Increases the block value of your shield by 235 for 20 sec. (2 Min Cooldown)
 	core.NewSimpleStatDefensiveTrinketEffect(GlyphOfDeflection, stats.Stats{stats.BlockValue: 235}, time.Second*20, time.Minute*2)
-	
+
 	// https://www.wowhead.com/classic/item=22954/kiss-of-the-spider
 	// Use: Increases your attack speed by 20% for 15 sec. (2 Min Cooldown)
 	core.NewItemEffect(KissOfTheSpider, func(agent core.Agent) {
 		character := agent.GetCharacter()
 		actionID := core.ActionID{ItemID: KissOfTheSpider}
+		duration := time.Second * 15
 		buffAura := character.RegisterAura(core.Aura{
 			ActionID: actionID,
 			Label:    "Kiss of the Spider",
-			Duration: time.Second * 15,
+			Duration: duration,
 			OnGain: func(aura *core.Aura, sim *core.Simulation) {
 				character.MultiplyAttackSpeed(sim, 1.20)
 			},
@@ -72,8 +73,12 @@ func init() {
 			Flags:       core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell,
 			Cast: core.CastConfig{
 				CD: core.Cooldown{
-					Timer:    character.GetOffensiveTrinketCD(),
+					Timer:    character.NewTimer(),
 					Duration: time.Second * 120,
+				},
+				SharedCD: core.Cooldown{
+					Timer:    character.GetOffensiveTrinketCD(),
+					Duration: duration,
 				},
 			},
 			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
@@ -84,7 +89,7 @@ func init() {
 			Type:  core.CooldownTypeDPS,
 			Spell: spell,
 		})
-	})			
+	})
 
 	// https://wowhead.com/classic/item=23206?level=60&rand=0
 	// Equip: +150 Attack Power when fighting Undead and Demons.
