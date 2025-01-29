@@ -95,7 +95,6 @@ export const DefaultRaidBuffs = RaidBuffs.create({
 	giftOfTheWild: TristateEffect.TristateEffectImproved,
 	manaSpringTotem: TristateEffect.TristateEffectImproved,
 	moonkinAura: true,
-	powerWordFortitude: TristateEffect.TristateEffectImproved,
 });
 
 export const DefaultIndividualBuffs = IndividualBuffs.create({

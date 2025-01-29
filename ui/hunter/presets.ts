@@ -27,8 +27,8 @@ import {
 import {
 	Hunter_Options as HunterOptions,
 	Hunter_Options_Ammo as Ammo,
-	Hunter_Options_PetType as PetType,
 	Hunter_Options_PetAttackSpeed as PetAttackSpeed,
+	Hunter_Options_PetType as PetType,
 	Hunter_Options_QuiverBonus,
 } from '../core/proto/hunter.js';
 import { SavedTalents } from '../core/proto/ui.js';
@@ -123,7 +123,6 @@ export const DefaultRaidBuffs = RaidBuffs.create({
 	graceOfAirTotem: TristateEffect.TristateEffectImproved,
 	leaderOfThePack: false,
 	manaSpringTotem: TristateEffect.TristateEffectRegular,
-	powerWordFortitude: TristateEffect.TristateEffectImproved,
 	strengthOfEarthTotem: TristateEffect.TristateEffectImproved,
 });
 
