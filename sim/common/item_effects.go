@@ -81,76 +81,77 @@ const (
 	TheCruelHandOfTimmy       = 13401
 	RunebladeOfBaronRivendare = 13505
 	// HeadmastersCharge      = 13937
-	GravestoneWarAxe          = 13983
-	Darrowspike               = 13984
-	Frightalon                = 14024
-	BonechillHammer           = 14487
-	EbonHiltOfMarduk          = 14576
-	FrightskullShaft          = 14531
-	BarovianFamilySword       = 14541
-	CloudkeeperLegplates      = 14554
-	AlcorsSunrazor            = 14555
-	HameyasSlayer             = 15814
-	JoonhosMercy              = 17054
-	DrillborerDisk            = 17066
-	Deathbringer              = 17068
-	GutgoreRipper             = 17071
-	Shadowstrike              = 17074
-	ViskagTheBloodletter      = 17075
-	BonereaversEdge           = 17076
-	BlazefuryMedallion        = 17111
-	EmpyreanDemolisher        = 17112
-	SulfurasHandOfRagnaros    = 17182
-	SulfuronHammer            = 17193
-	Thunderstrike             = 17223
-	ThrashBlade               = 17705
-	SatyrsLash                = 17752
-	MarkOfTheChosen           = 17774
-	ForceReactiveDisk         = 18168
-	EskhandarsLeftClaw        = 18202
-	EskhandarsRightClaw       = 18203
-	FiendishMachete           = 18310
-	RazorGauntlets            = 18326
-	QuelSerrar                = 18348
-	BaronCharrsSceptre        = 18671
-	TalismanOfEphemeralPower  = 18820
-	EssenceOfThePureFlame     = 18815
-	PerditionsBlade           = 18816
-	Thunderfury               = 19019
-	GlacialBlade              = 19099
-	ElectrifiedDagger         = 19100
-	Nightfall                 = 19169
-	EbonHand                  = 19170
-	DarkmoonCardHeroism       = 19287
-	DarkmoonCardBlueDragon    = 19288
-	DarkmoonCardMaelstrom     = 19289
-	TheLobotomizer            = 19324
-	TheUntamedBlade           = 19334
-	DrakeTalonCleaver         = 19353
-	RuneOfTheDawn             = 19812
-	HalberdOfSmiting          = 19874
-	ZulianSlicer              = 19901
-	JekliksCrusher            = 19918
-	TigulesHarpoon            = 19946
-	NatPaglesBrokenReel       = 19947
-	ZandalariHeroBadge        = 19948
-	ZandalariHeroMedallion    = 19949
-	ZandalariHeroCharm        = 19950
-	GrileksGrinder            = 19961
-	GrileksCarver             = 19962
-	PitchforkOfMadness        = 19963
-	EmeraldDragonfang		      = 20578
-	Earthstrike               = 21180
-	WrathOfCenarius           = 21190
-	EyeOfMoam                 = 21473
-	ScarabBrooch              = 21625
-	KalimdorsRevenge          = 21679
-	DraconicInfusedEmblem     = 22268
-	HeartOfWyrmthalak         = 22321
-	MarkOfTheChampionPhys     = 23206
-	MarkOfTheChampionSpell    = 23207
-	MisplacedServoArm         = 23221
-	JomGabbar                 = 23570
+	GravestoneWarAxe         = 13983
+	Darrowspike              = 13984
+	Frightalon               = 14024
+	BonechillHammer          = 14487
+	EbonHiltOfMarduk         = 14576
+	FrightskullShaft         = 14531
+	BarovianFamilySword      = 14541
+	CloudkeeperLegplates     = 14554
+	AlcorsSunrazor           = 14555
+	HameyasSlayer            = 15814
+	JoonhosMercy             = 17054
+	DrillborerDisk           = 17066
+	Deathbringer             = 17068
+	GutgoreRipper            = 17071
+	Shadowstrike             = 17074
+	ViskagTheBloodletter     = 17075
+	BonereaversEdge          = 17076
+	BlazefuryMedallion       = 17111
+	EmpyreanDemolisher       = 17112
+	SulfurasHandOfRagnaros   = 17182
+	SulfuronHammer           = 17193
+	Thunderstrike            = 17223
+	ThrashBlade              = 17705
+	SatyrsLash               = 17752
+	MarkOfTheChosen          = 17774
+	ForceReactiveDisk        = 18168
+	EskhandarsLeftClaw       = 18202
+	EskhandarsRightClaw      = 18203
+	FiendishMachete          = 18310
+	RazorGauntlets           = 18326
+	QuelSerrar               = 18348
+	BaronCharrsSceptre       = 18671
+	TalismanOfEphemeralPower = 18820
+	EssenceOfThePureFlame    = 18815
+	PerditionsBlade          = 18816
+	Thunderfury              = 19019
+	GlacialBlade             = 19099
+	ElectrifiedDagger        = 19100
+	Nightfall                = 19169
+	EbonHand                 = 19170
+	DarkmoonCardHeroism      = 19287
+	DarkmoonCardBlueDragon   = 19288
+	DarkmoonCardMaelstrom    = 19289
+	TheLobotomizer           = 19324
+	TheUntamedBlade          = 19334
+	DrakeTalonCleaver        = 19353
+	RuneOfTheDawn            = 19812
+	HalberdOfSmiting         = 19874
+	ZulianSlicer             = 19901
+	JekliksCrusher           = 19918
+	TigulesHarpoon           = 19946
+	NatPaglesBrokenReel      = 19947
+	ZandalariHeroBadge       = 19948
+	ZandalariHeroMedallion   = 19949
+	ZandalariHeroCharm       = 19950
+	GrileksGrinder           = 19961
+	GrileksCarver            = 19962
+	PitchforkOfMadness       = 19963
+	EmeraldDragonfang        = 20578
+	Earthstrike              = 21180
+	WrathOfCenarius          = 21190
+	EyeOfMoam                = 21473
+	ScarabBrooch             = 21625
+	KalimdorsRevenge         = 21679
+	DraconicInfusedEmblem    = 22268
+	HeartOfWyrmthalak        = 22321
+	TalismanOfAscendance     = 22678
+	MarkOfTheChampionPhys    = 23206
+	MarkOfTheChampionSpell   = 23207
+	MisplacedServoArm        = 23221
+	JomGabbar                = 23570
 )
 
 func init() {
@@ -174,7 +175,7 @@ func init() {
 	// 1 PPM from Armaments Discord but may be higher
 	itemhelpers.CreateWeaponProcSpell(Annihlator, "Annihlator", 1.0, func(character *core.Character) *core.Spell {
 		armorShatterAuras := character.NewEnemyAuraArray(ArmorShatterAuras)
-		
+
 		return character.GetOrRegisterSpell(core.SpellConfig{
 			ActionID:         core.ActionID{SpellID: 16928},
 			SpellSchool:      core.SpellSchoolPhysical,
@@ -186,9 +187,9 @@ func init() {
 				activateAura := armorShatterAuras.Get(target)
 				activateAura.Activate(sim)
 
-				if activateAura.IsActive(){
+				if activateAura.IsActive() {
 					activateAura.AddStack(sim)
-				}	
+				}
 			},
 		})
 	})
@@ -236,7 +237,7 @@ func init() {
 
 	// https://www.wowhead.com/classic/item=12791/barman-shanker
 	// Chance on hit: Wounds the target causing them to bleed for 100 damage over 30 sec.
-	// Assumed 1 PPM 
+	// Assumed 1 PPM
 	itemhelpers.CreateWeaponProcSpell(BarmanShanker, "Barman Shanker", 1.0, func(character *core.Character) *core.Spell {
 		return character.GetOrRegisterSpell(core.SpellConfig{
 			ActionID:         core.ActionID{SpellID: 13318},
@@ -336,7 +337,7 @@ func init() {
 	// 2 PPM from Armaments Discord - same proc as Rivenspike
 	itemhelpers.CreateWeaponProcSpell(Bashguuder, "Bashguuder", 2.0, func(character *core.Character) *core.Spell {
 		punctureArmorAuras := character.NewEnemyAuraArray(PunctureArmorAura)
-		
+
 		return character.GetOrRegisterSpell(core.SpellConfig{
 			ActionID:         core.ActionID{SpellID: 17315},
 			SpellSchool:      core.SpellSchoolPhysical,
@@ -348,9 +349,9 @@ func init() {
 				activateAura := punctureArmorAuras.Get(target)
 				activateAura.Activate(sim)
 
-				if activateAura.IsActive(){
+				if activateAura.IsActive() {
 					activateAura.AddStack(sim)
-				}	
+				}
 			},
 		})
 	})
@@ -641,7 +642,7 @@ func init() {
 
 	// https://www.wowhead.com/classic/item=12795/blood-talon
 	// Chance on hit: Wounds the target causing them to bleed for 100 damage over 30 sec.
-	// Assumed 1 PPM 
+	// Assumed 1 PPM
 	itemhelpers.CreateWeaponProcSpell(BloodTalon, "Blood Talon", 1.0, func(character *core.Character) *core.Spell {
 		return character.GetOrRegisterSpell(core.SpellConfig{
 			ActionID:         core.ActionID{SpellID: 13318},
@@ -820,7 +821,7 @@ func init() {
 	// Chance on hit: Blasts the enemy with acid for 87 to 105 Nature damage.
 	// Chance on Hit Assumed: 1 PPM
 	itemhelpers.CreateWeaponCoHProcDamage(EmeraldDragonfang, "Emerald Dragonfang", 1.0, 24993, core.SpellSchoolNature, 87, 18, 0, core.DefenseTypeMagic)
-	
+
 	// https://www.wowhead.com/classic/item=17112/empyrean-demolisher
 	// Chance on hit: Increases your attack speed by 20% for 10 sec.
 	itemhelpers.CreateWeaponProcAura(EmpyreanDemolisher, "Empyrean Demolisher", 1.0, func(character *core.Character) *core.Aura {
@@ -1070,7 +1071,7 @@ func init() {
 			},
 		})
 	})
-	
+
 	// PPM from Armaments discord
 	itemhelpers.CreateWeaponProcSpell(FlurryAxe, "Flurry Axe", 1.9, func(character *core.Character) *core.Spell {
 		return character.GetOrRegisterSpell(core.SpellConfig{
@@ -1342,7 +1343,7 @@ func init() {
 
 	// https://www.wowhead.com/classic/item=15814/hameyas-slayer
 	// Chance on hit: Wounds the target causing them to bleed for 80 damage over 30 sec.
-	// Assumed 1 PPM 
+	// Assumed 1 PPM
 	itemhelpers.CreateWeaponProcSpell(HameyasSlayer, "Hameya's Slayer", 1.0, func(character *core.Character) *core.Spell {
 		return character.GetOrRegisterSpell(core.SpellConfig{
 			ActionID:         core.ActionID{SpellID: 16406},
@@ -1531,7 +1532,7 @@ func init() {
 				OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
 					dot.CalcAndDealPeriodicSnapshotDamage(sim, target, dot.OutcomeTick)
 				},
-			},		
+			},
 		})
 	})
 
@@ -1568,7 +1569,7 @@ func init() {
 			DamageMultiplier: 1,
 			ThreatMultiplier: 1,
 			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-				damageRoll := sim.Roll(200,300)
+				damageRoll := sim.Roll(200, 300)
 				result := spell.CalcAndDealDamage(sim, target, damageRoll, spell.OutcomeMagicHitAndCrit)
 				if result.Landed() {
 					procAuras.Get(target).Activate(sim)
@@ -1661,10 +1662,10 @@ func init() {
 
 	// https://www.wowhead.com/classic/item=23221/misplaced-servo-arm
 	// Equip: Chance to discharge electricity causing 100 to 150 Nature damage to your target.
-	// If dual-wielding, your other weapon can proc the Misplaced Servo Arm when it strikes as well. 
-	// Chance-on-hit for the other weapon is determined by it's base weapon speed, set to 2PPM. 
+	// If dual-wielding, your other weapon can proc the Misplaced Servo Arm when it strikes as well.
+	// Chance-on-hit for the other weapon is determined by it's base weapon speed, set to 2PPM.
 	// Same interaction when dual-wielding two Misplaced Servo Arms, one melee from one Arm has a chance to proc both Arms.
-	
+
 	core.NewItemEffect(MisplacedServoArm, func(agent core.Agent) {
 		character := agent.GetCharacter()
 		actionID := core.ActionID{SpellID: 29150}
@@ -1890,9 +1891,9 @@ func init() {
 				activateAura := punctureArmorAuras.Get(target)
 				activateAura.Activate(sim)
 
-				if activateAura.IsActive(){
+				if activateAura.IsActive() {
 					activateAura.AddStack(sim)
-				}	
+				}
 			},
 		})
 	})
@@ -2222,7 +2223,7 @@ func init() {
 			},
 			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
 				character.PseudoStats.BonusPhysicalDamage -= 10
-				character.AddStatsDynamic(sim,stats.Stats{stats.Armor: -150})
+				character.AddStatsDynamic(sim, stats.Stats{stats.Armor: -150})
 			},
 		})
 	})
@@ -2277,7 +2278,7 @@ func init() {
 			},
 		})
 	})
-	
+
 	// https://www.wowhead.com/classic/item=9639/the-hand-of-antusul
 	itemhelpers.CreateWeaponProcSpell(TheHandOfAntusul, "The Hand of Antu'sul", 1.0, func(character *core.Character) *core.Spell {
 		debuffAuras := character.NewEnemyAuraArray(func(unit *core.Unit) *core.Aura {
@@ -3067,6 +3068,67 @@ func init() {
 	// Equip: +81 Attack Power when fighting Undead.
 	core.NewMobTypeAttackPowerEffect(SealOfTheDawn, []proto.MobType{proto.MobType_MobTypeUndead}, 81)
 
+	// https://www.wowhead.com/classic/item=237283/talisman-of-ascendance
+	// Use: Your next 5 damage or healing spells cast within 20 seconds will grant a bonus of up to 40 damage and up to 75 healing, stacking up to 5 times.
+	// Expires after 6 damage or healing spells or 20 seconds, whichever occurs first. (50 Sec Cooldown)
+	core.NewItemEffect(TalismanOfAscendance, func(agent core.Agent) {
+		character := agent.GetCharacter()
+
+		actionID := core.ActionID{ItemID: TalismanOfAscendance}
+		duration := time.Second * 20
+		bonusPerStack := stats.Stats{
+			stats.SpellDamage:  40,
+			stats.HealingPower: 75,
+		}
+
+		buffAura := character.GetOrRegisterAura(core.Aura{
+			ActionID:  actionID,
+			Label:     "Ascendance",
+			Duration:  duration,
+			MaxStacks: 5,
+			OnStacksChange: func(aura *core.Aura, sim *core.Simulation, oldStacks, newStacks int32) {
+				bonusStats := bonusPerStack.Multiply(float64(newStacks - oldStacks))
+				character.AddStatsDynamic(sim, bonusStats)
+			},
+			OnCastComplete: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell) {
+				if !spell.ProcMask.Matches(core.ProcMaskSpellDamage | core.ProcMaskSpellHealing) {
+					return
+				}
+
+				if aura.GetStacks() == 5 {
+					aura.Deactivate(sim)
+				} else {
+					aura.AddStack(sim)
+				}
+			},
+		})
+
+		cdSpell := character.GetOrRegisterSpell(core.SpellConfig{
+			ActionID: actionID,
+			Flags:    core.SpellFlagNoOnCastComplete | core.SpellFlagOffensiveEquipment,
+
+			Cast: core.CastConfig{
+				CD: core.Cooldown{
+					Timer:    character.NewTimer(),
+					Duration: time.Minute,
+				},
+				SharedCD: core.Cooldown{
+					Timer:    character.GetOffensiveTrinketCD(),
+					Duration: duration,
+				},
+			},
+
+			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+				buffAura.Activate(sim)
+			},
+		})
+
+		character.AddMajorCooldown(core.MajorCooldown{
+			Spell: cdSpell,
+			Type:  core.CooldownTypeDPS,
+		})
+	})
+
 	// https://www.wowhead.com/classic/item=18820/talisman-of-ephemeral-power
 	// Use: Increases damage and healing done by magical spells and effects by up to 175 for 15 sec. (1 Min, 30 Sec Cooldown)
 	core.NewSimpleStatOffensiveTrinketEffect(TalismanOfEphemeralPower, stats.Stats{stats.SpellPower: 175}, time.Second*15, time.Second*90)
@@ -3458,12 +3520,12 @@ var minorArmorReductionEffectCategory = "MinorArmorReduction"
 
 func PunctureArmorAura(target *core.Unit) *core.Aura {
 	arpen := float64(200)
-	
+
 	var effect *core.ExclusiveEffect
 	aura := target.GetOrRegisterAura(core.Aura{
-		Label: "Puncture Armor",
-		ActionID: core.ActionID{SpellID: 17315},
-		Duration: time.Second * 30,
+		Label:     "Puncture Armor",
+		ActionID:  core.ActionID{SpellID: 17315},
+		Duration:  time.Second * 30,
 		MaxStacks: 3,
 		OnStacksChange: func(aura *core.Aura, sim *core.Simulation, oldStacks int32, newStacks int32) {
 			effect.SetPriority(sim, arpen*float64(newStacks))
@@ -3485,12 +3547,12 @@ func PunctureArmorAura(target *core.Unit) *core.Aura {
 
 func ArmorShatterAuras(target *core.Unit) *core.Aura {
 	arpen := float64(200)
-	
+
 	var effect *core.ExclusiveEffect
 	aura := target.GetOrRegisterAura(core.Aura{
-		Label: "Armor Shatter",
-		ActionID: core.ActionID{SpellID: 16928},
-		Duration: time.Second * 45,
+		Label:     "Armor Shatter",
+		ActionID:  core.ActionID{SpellID: 16928},
+		Duration:  time.Second * 45,
 		MaxStacks: 3,
 		OnStacksChange: func(aura *core.Aura, sim *core.Simulation, oldStacks int32, newStacks int32) {
 			effect.SetPriority(sim, arpen*float64(newStacks))
