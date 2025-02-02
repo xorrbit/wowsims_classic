@@ -118,7 +118,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWarlock, {
 		BuffDebuffInputs.MajorArmorDebuff,
 		BuffDebuffInputs.CurseOfRecklessness,
 		BuffDebuffInputs.FaerieFire,
-		BuffDebuffInputs.PaladinPhysicalBuff,
+		BuffDebuffInputs.BlessingOfMight,
 		BuffDebuffInputs.StrengthBuffHorde,
 		BuffDebuffInputs.BattleShoutBuff,
 		BuffDebuffInputs.GraceOfAir,

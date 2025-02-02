@@ -7,7 +7,6 @@ import (
 )
 
 func (warlock *Warlock) registerSummonDemon() {
-	// All except for Summon Felguard have a cost of 100% of the Warlock's base mana
 	manaCost := core.ManaCostOptions{
 		FlatCost: warlock.BaseMana,
 	}

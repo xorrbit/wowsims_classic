@@ -121,10 +121,12 @@ export const DefaultRaidBuffs = RaidBuffs.create({
 	giftOfTheWild: TristateEffect.TristateEffectImproved,
 	leaderOfThePack: true,
 	manaSpringTotem: TristateEffect.TristateEffectRegular,
+	powerWordFortitude: TristateEffect.TristateEffectImproved,
 });
 
 export const DefaultIndividualBuffs = IndividualBuffs.create({
 	fengusFerocity: true,
+	moldarsMoxie: true,
 	rallyingCryOfTheDragonslayer: true,
 	// saygesFortune: SaygesFortune.SaygesDamage,
 	slipkiksSavvy: true,

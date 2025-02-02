@@ -139,28 +139,24 @@ export const StaminaBuff = InputHelpers.makeMultiIconInput({
 	label: 'Stamina',
 });
 
-export const BloodPactBuff = InputHelpers.makeMultiIconInput({
-	values: [
-		makeTristateRaidBuffInput({
-			actionId: () => ActionId.fromSpellId(11767),
-			impId: ActionId.fromSpellId(18696),
-			fieldName: 'bloodPact',
-		}),
-	],
-	label: 'Blood Pact',
-});
+export const BloodPactBuff = withLabel(
+	makeTristateRaidBuffInput({
+		actionId: () => ActionId.fromSpellId(11767),
+		impId: ActionId.fromSpellId(18696),
+		fieldName: 'bloodPact',
+	}),
+	'Blood Pact',
+);
 
-export const PaladinPhysicalBuff = InputHelpers.makeMultiIconInput({
-	values: [
-		makeTristateIndividualBuffInput({
-			actionId: () => ActionId.fromSpellId(25291),
-			impId: ActionId.fromSpellId(20048),
-			fieldName: 'blessingOfMight',
-			showWhen: player => player.getFaction() === Faction.Alliance,
-		}),
-	],
-	label: 'Paladin Physical',
-});
+export const BlessingOfMight = withLabel(
+	makeTristateIndividualBuffInput({
+		actionId: () => ActionId.fromSpellId(25291),
+		impId: ActionId.fromSpellId(20048),
+		fieldName: 'blessingOfMight',
+		showWhen: player => player.getFaction() === Faction.Alliance,
+	}),
+	'Blessing of Might',
+);
 
 export const StrengthBuffHorde = withLabel(
 	makeTristateRaidBuffInput({
@@ -562,12 +558,12 @@ export const RAID_BUFFS_CONFIG = [
 	{
 		config: StaminaBuff,
 		picker: MultiIconPicker,
-		stats: [Stat.StatStamina],
+		stats: [],
 	},
 	{
 		config: BloodPactBuff,
-		picker: MultiIconPicker,
-		stats: [Stat.StatStamina],
+		picker: IconPicker,
+		stats: [],
 	},
 	{
 		config: IntellectBuff,
@@ -604,8 +600,8 @@ export const RAID_BUFFS_CONFIG = [
 
 	// Physical Damage Buffs
 	{
-		config: PaladinPhysicalBuff,
-		picker: MultiIconPicker,
+		config: BlessingOfMight,
+		picker: IconPicker,
 		stats: [Stat.StatAttackPower, Stat.StatStrength, Stat.StatAgility],
 	},
 	{
@@ -626,7 +622,7 @@ export const RAID_BUFFS_CONFIG = [
 	{
 		config: TrueshotAuraBuff,
 		picker: IconPicker,
-		stats: [Stat.StatRangedAttackPower, Stat.StatAttackPower],
+		stats: [Stat.StatRangedAttackPower],
 	},
 	{
 		config: MeleeCritBuff,

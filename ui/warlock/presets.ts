@@ -97,13 +97,13 @@ export const DefaultConsumes = Consumes.create({
 	defaultPotion: Potions.MajorManaPotion,
 	defaultConjured: Conjured.ConjuredDemonicRune,
 	flask: Flask.FlaskOfSupremePower,
-	firePowerBuff: FirePowerBuff.ElixirOfGreaterFirepower,
-	food: Food.FoodTenderWolfSteak,
+	firePowerBuff: FirePowerBuff.ElixirOfFirepower,
+	food: Food.FoodRunnTumTuberSurprise,
 	// mainHandImbue: WeaponImbue.BrilliantWizardOil,
 	manaRegenElixir: ManaRegenElixir.MagebloodPotion,
 	spellPowerBuff: SpellPowerBuff.GreaterArcaneElixir,
 	shadowPowerBuff: ShadowPowerBuff.ElixirOfShadowPower,
-	zanzaBuff: ZanzaBuff.GizzardGum,
+	zanzaBuff: ZanzaBuff.CerebralCortexCompound,
 });
 
 export const DefaultRaidBuffs = RaidBuffs.create({
@@ -120,21 +120,23 @@ export const DefaultRaidBuffs = RaidBuffs.create({
 export const DefaultIndividualBuffs = IndividualBuffs.create({
 	blessingOfKings: true,
 	blessingOfWisdom: TristateEffect.TristateEffectImproved,
-	moldarsMoxie: false,
+	fengusFerocity: true,
+	moldarsMoxie: true,
 	rallyingCryOfTheDragonslayer: true,
-	saygesFortune: SaygesFortune.SaygesDamage,
-	slipkiksSavvy: false,
+	// saygesFortune: SaygesFortune.SaygesDamage,
+	slipkiksSavvy: true,
 	songflowerSerenade: true,
-	spiritOfZandalar: false,
-	warchiefsBlessing: false,
+	// spiritOfZandalar: true,
+	warchiefsBlessing: true,
 });
 
 export const DefaultDebuffs = Debuffs.create({
+	exposeArmor: TristateEffect.TristateEffectImproved,
 	faerieFire: true,
 	improvedScorch: true,
 	judgementOfWisdom: true,
 	shadowWeaving: true,
-	curseOfShadow: true,
+	sunderArmor: true,
 });
 
 export const OtherDefaults = {

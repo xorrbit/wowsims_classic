@@ -16,10 +16,6 @@ func (warlock *Warlock) getShadowBoltBaseConfig(rank int) core.SpellConfig {
 	level := [ShadowBoltRanks + 1]int{0, 1, 6, 12, 20, 28, 36, 44, 52, 60, 60}[rank]
 	castTime := [ShadowBoltRanks + 1]int32{0, 1700, 2200, 2800, 3000, 3000, 3000, 3000, 3000, 3000, 3000}[rank]
 
-	damageMulti := 1.0
-
-	results := make([]*core.SpellResult, 1, warlock.Env.GetNumTargets())
-
 	return core.SpellConfig{
 		SpellCode:     SpellCode_WarlockShadowBolt,
 		ActionID:      core.ActionID{SpellID: spellId},
@@ -40,40 +36,15 @@ func (warlock *Warlock) getShadowBoltBaseConfig(rank int) core.SpellConfig {
 			},
 		},
 
-		DamageMultiplier: damageMulti,
+		DamageMultiplier: 1,
 		ThreatMultiplier: 1,
 		BonusCoefficient: spellCoeff,
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			for idx := range results {
-				activeEffectMultiplier := 1.0
-
-				if warlock.shadowBoltActiveEffectMultiplierPer > 0 && warlock.shadowBoltActiveEffectMultiplierMax > 0 {
-					for _, spell := range warlock.DoTSpells {
-						if spell.Dot(warlock.CurrentTarget).IsActive() {
-							activeEffectMultiplier += warlock.shadowBoltActiveEffectMultiplierPer
-						}
-					}
-
-					for _, spell := range warlock.DebuffSpells {
-						if spell.RelatedAuras[0].Get(warlock.CurrentTarget).IsActive() {
-							activeEffectMultiplier += warlock.shadowBoltActiveEffectMultiplierPer
-						}
-					}
-
-					activeEffectMultiplier = min(warlock.shadowBoltActiveEffectMultiplierMax, activeEffectMultiplier)
-				}
-
-				spell.DamageMultiplier *= activeEffectMultiplier
-				results[idx] = spell.CalcDamage(sim, target, sim.Roll(baseDamage[0], baseDamage[1]), spell.OutcomeMagicHitAndCrit)
-				spell.DamageMultiplier /= activeEffectMultiplier
-
-				target = sim.Environment.NextTargetUnit(target)
-			}
-
-			for _, result := range results {
+			result := spell.CalcDamage(sim, target, sim.Roll(baseDamage[0], baseDamage[1]), spell.OutcomeMagicHitAndCrit)
+			spell.WaitTravelTime(sim, func(sim *core.Simulation) {
 				spell.DealDamage(sim, result)
-			}
+			})
 		},
 	}
 }

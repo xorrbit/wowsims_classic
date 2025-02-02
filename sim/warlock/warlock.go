@@ -86,23 +86,10 @@ type Warlock struct {
 	DebuffSpells      []*core.Spell
 	SummonDemonSpells []*core.Spell
 
-	ImmolationAura          *core.Spell
-	ShadowTranceAura        *core.Aura
 	AmplifyCurseAura        *core.Aura
 	ImprovedShadowBoltAuras core.AuraArray
 	SoulLinkAura            *core.Aura
 	MasterDemonologistAura  *core.Aura
-
-	// The sum total of demonic pact spell power * seconds.
-	DPSPAggregate float64
-
-	// Extra state and logic variables
-	masterDemonologistBonus              float64 // Bonus multiplier applied to the Master Demonologist talent
-	disableMasterDemonologistOnSacrifice bool    // Whether to disable the Master Demonologist buff after Sacrificing a pet. Used by TAQ 4pc
-	nightfallProcChance                  float64
-	// For effects that buff the damage of shadow bolt for each active Warlock effect on the target, e.g. 2pc DPS 6pc
-	shadowBoltActiveEffectMultiplierPer float64
-	shadowBoltActiveEffectMultiplierMax float64
 }
 
 func (warlock *Warlock) GetCharacter() *core.Character {

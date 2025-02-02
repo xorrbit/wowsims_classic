@@ -1,7 +1,6 @@
 package warlock
 
 import (
-	"math"
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
@@ -9,19 +8,21 @@ import (
 	"github.com/wowsims/classic/sim/core/stats"
 )
 
+type OnPetDisable func(sim *core.Simulation, isSacrifice bool)
+
 type WarlockPet struct {
 	core.Pet
+
+	OnPetDisable OnPetDisable
 
 	owner *Warlock
 
 	primaryAbility   *core.Spell
 	secondaryAbility *core.Spell
 
-	SoulLinkAura           *core.Aura
-	DemonicEmpowermentAura *core.Aura
+	SoulLinkAura *core.Aura
 
-	DanceOfTheWickedManaMetrics *core.ResourceMetrics
-	LifeTapManaMetrics          *core.ResourceMetrics
+	LifeTapManaMetrics *core.ResourceMetrics
 
 	manaPooling bool
 }
@@ -47,10 +48,8 @@ func (warlock *Warlock) setDefaultActivePet() {
 }
 
 func (warlock *Warlock) changeActivePet(sim *core.Simulation, newPet *WarlockPet, isSacrifice bool) {
-	hasMasterDemonologist := warlock.MasterDemonologistAura != nil
-
 	if warlock.ActivePet != nil {
-		warlock.ActivePet.Disable(sim)
+		warlock.ActivePet.Disable(sim, isSacrifice)
 
 		// Sacrificed pets lose all buffs
 		if isSacrifice {
@@ -59,7 +58,7 @@ func (warlock *Warlock) changeActivePet(sim *core.Simulation, newPet *WarlockPet
 			}
 		}
 
-		if hasMasterDemonologist && (!isSacrifice || warlock.disableMasterDemonologistOnSacrifice) {
+		if warlock.MasterDemonologistAura != nil {
 			warlock.MasterDemonologistAura.Deactivate(sim)
 		}
 	}
@@ -82,8 +81,9 @@ func (warlock *Warlock) registerPets() {
 
 func (warlock *Warlock) makePet(cfg PetConfig, enabledOnStart bool) *WarlockPet {
 	wp := &WarlockPet{
-		Pet:   core.NewPet(cfg.Name, &warlock.Character, cfg.Stats, warlock.makeStatInheritance(), enabledOnStart, false),
-		owner: warlock,
+		Pet:          core.NewPet(cfg.Name, &warlock.Character, cfg.Stats, warlock.makeStatInheritance(), enabledOnStart, false),
+		owner:        warlock,
+		OnPetDisable: func(sim *core.Simulation, isSacrifice bool) {},
 	}
 
 	wp.EnableManaBarWithModifier(cfg.PowerModifier)
@@ -136,6 +136,26 @@ func (wp *WarlockPet) Reset(_ *core.Simulation) {
 	wp.manaPooling = false
 }
 
+func (wp *WarlockPet) Disable(sim *core.Simulation, isSacrifice bool) {
+	wp.Pet.Disable(sim)
+
+	if wp.OnPetDisable != nil {
+		wp.OnPetDisable(sim, isSacrifice)
+	}
+}
+
+func (wp *WarlockPet) ApplyOnPetDisable(newOnPetDisable OnPetDisable) {
+	oldOnPetDisable := wp.OnPetDisable
+	if oldOnPetDisable == nil {
+		wp.OnPetDisable = oldOnPetDisable
+	} else {
+		wp.OnPetDisable = func(sim *core.Simulation, isSacrifice bool) {
+			oldOnPetDisable(sim, isSacrifice)
+			newOnPetDisable(sim, isSacrifice)
+		}
+	}
+}
+
 func (wp *WarlockPet) ExecuteCustomRotation(sim *core.Simulation) {
 	if !wp.IsEnabled() || wp.primaryAbility == nil {
 		return
@@ -175,45 +195,6 @@ func (wp *WarlockPet) ExecuteCustomRotation(sim *core.Simulation) {
 
 func (warlock *Warlock) makeStatInheritance() core.PetStatInheritance {
 	return func(ownerStats stats.Stats) stats.Stats {
-		// based on testing for WotLK Classic the following is true:
-		// - pets are meele hit capped if and only if the warlock has 210 (8%) spell hit rating or more
-		//   - this is unaffected by suppression and by magic hit debuffs like FF
-		// - pets gain expertise from 0% to 6.5% relative to the owners hit, reaching cap at 17% spell hit
-		//   - this is also unaffected by suppression and by magic hit debuffs like FF
-		//   - this is continious, i.e. not restricted to 0.25 intervals
-		// - pets gain spell hit from 0% to 17% relative to the owners hit, reaching cap at 12% spell hit
-		// spell hit rating is floor'd
-		//   - affected by suppression and ff, but in weird ways:
-		// 3/3 suppression => 262 hit  (9.99%) results in misses, 263 (10.03%) no misses
-		// 2/3 suppression => 278 hit (10.60%) results in misses, 279 (10.64%) no misses
-		// 1/3 suppression => 288 hit (10.98%) results in misses, 289 (11.02%) no misses
-		// 0/3 suppression => 314 hit (11.97%) results in misses, 315 (12.01%) no misses
-		// 3/3 suppression + FF => 209 hit (7.97%) results in misses, 210 (8.01%) no misses
-		// 2/3 suppression + FF => 222 hit (8.46%) results in misses, 223 (8.50%) no misses
-		//
-		// the best approximation of this behaviour is that we scale the warlock's spell hit by `1/12*17` floor
-		// the result and then add the hit percent from suppression/ff
-
-		// does correctly not include ff/misery
-		ownerHitChance := ownerStats[stats.SpellHit] / core.SpellHitRatingPerHitChance
-		highestSchoolPower := ownerStats[stats.SpellPower] + ownerStats[stats.SpellDamage] + max(ownerStats[stats.FirePower], ownerStats[stats.ShadowPower])
-
-		return stats.Stats{
-			stats.Stamina:          ownerStats[stats.Stamina] * 0.75,
-			stats.Intellect:        ownerStats[stats.Intellect] * 0.3,
-			stats.Armor:            ownerStats[stats.Armor] * 0.35,
-			stats.AttackPower:      highestSchoolPower * 0.565,
-			stats.MP5:              ownerStats[stats.Intellect] * 0.315,
-			stats.SpellPower:       ownerStats[stats.SpellPower] * 0.15,
-			stats.SpellDamage:      ownerStats[stats.SpellDamage] * 0.15,
-			stats.FirePower:        ownerStats[stats.FirePower] * 0.15,
-			stats.ShadowPower:      ownerStats[stats.ShadowPower] * 0.15,
-			stats.SpellPenetration: ownerStats[stats.SpellPenetration],
-			stats.MeleeHit:         ownerHitChance * core.MeleeHitRatingPerHitChance,
-			stats.SpellHit:         math.Floor(ownerHitChance / 12.0 * 17.0),
-			stats.MeleeCrit:        ownerStats[stats.MeleeCrit],
-			stats.SpellCrit:        ownerStats[stats.SpellCrit],
-			stats.Dodge:            ownerStats[stats.MeleeCrit],
-		}
+		return stats.Stats{}
 	}
 }
