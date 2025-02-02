@@ -25,7 +25,12 @@ import { SavedTalents } from '../core/proto/ui.js';
 import { Warrior_Options as WarriorOptions, WarriorShout, WarriorStance } from '../core/proto/warrior.js';
 import P1APL from './apls/p1.apl.json';
 import P0BISGear from './gear_sets/p0.bis.gear.json';
-import P1BISGear from './gear_sets/p1.bis.gear.json';
+import Phase1Gear from './gear_sets/phase_1.gear.json';
+import Phase2Gear from './gear_sets/phase_2.gear.json';
+import Phase3Gear from './gear_sets/phase_3.gear.json';
+import Phase4Gear from './gear_sets/phase_4.gear.json';
+import Phase5Gear from './gear_sets/phase_5.gear.json';
+import Phase6Gear from './gear_sets/phase_6.gear.json';
 
 // Preset options for this spec.
 // Eventually we will import these values for the raid sim too, so its good to
@@ -36,10 +41,20 @@ import P1BISGear from './gear_sets/p1.bis.gear.json';
 ///////////////////////////////////////////////////////////////////////////
 
 export const GearP0BIS = PresetUtils.makePresetGear('Pre-BiS', P0BISGear);
-export const GearP1BIS = PresetUtils.makePresetGear('P1 BiS', P1BISGear);
+export const GearPhase1 = PresetUtils.makePresetGear('P1 BiS', Phase1Gear);
+export const GearPhase2 = PresetUtils.makePresetGear('P2 BiS', Phase2Gear);
+export const GearPhase3 = PresetUtils.makePresetGear('P3 BiS', Phase3Gear);
+export const GearPhase4 = PresetUtils.makePresetGear('P4 BiS', Phase4Gear);
+export const GearPhase5 = PresetUtils.makePresetGear('P5 BiS', Phase5Gear);
+export const GearPhase6 = PresetUtils.makePresetGear('P6 BiS', Phase6Gear);
 
 export const GearPresets = {
-	[Phase.Phase1]: [GearP0BIS, GearP1BIS],
+	[Phase.Phase1]: [GearPhase1, GearP0BIS],
+	[Phase.Phase2]: [GearPhase2],
+	[Phase.Phase3]: [GearPhase3],
+	[Phase.Phase4]: [GearPhase4],
+	[Phase.Phase5]: [GearPhase5],
+	[Phase.Phase6]: [GearPhase6],
 };
 
 export const DefaultGear = GearP0BIS;
@@ -65,7 +80,7 @@ export const DefaultAPLs = [
 // Default talents. Uses the wowhead calculator format, make the talents on
 // https://wowhead.com/classic/talent-calc and copy the numbers in the url.
 
-export const TalentsP1DPS = PresetUtils.makePresetTalents('DPS', SavedTalents.create({ talentsString: '20305020302-05050005525010051' }));
+export const TalentsP1DPS = PresetUtils.makePresetTalents('DPS', SavedTalents.create({ talentsString: '30305001302-05050005525010051' }));
 
 export const TalentPresets = {
 	[Phase.Phase1]: [TalentsP1DPS],

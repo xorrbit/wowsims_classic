@@ -21,7 +21,7 @@ func TestP1DPSWarrior(t *testing.T) {
 			OtherRaces: []proto.Race{proto.Race_RaceHuman},
 
 			Talents:     P1Talents,
-			GearSet:     core.GetGearSet("../../../ui/warrior/gear_sets", "p0.bis"),
+			GearSet:     core.GetGearSet("../../../ui/warrior/gear_sets", "phase_1"),
 			Rotation:    core.GetAplRotation("../../../ui/warrior/apls", "p1"),
 			Buffs:       core.FullBuffs,
 			Consumes:    P1Consumes,
@@ -34,7 +34,7 @@ func TestP1DPSWarrior(t *testing.T) {
 	}))
 }
 
-var P1Talents = "20305020302-05050005525010051"
+var P1Talents = "30305001302-05050005525010051"
 
 var P1Consumes = core.ConsumesCombo{
 	Label: "P1-Consumes",

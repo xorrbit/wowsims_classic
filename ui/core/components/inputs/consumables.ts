@@ -234,7 +234,7 @@ export const FlaskOfChromaticResistance: ConsumableInputConfig<Flask> = {
 };
 
 export const FLASKS_CONFIG: ConsumableStatOption<Flask>[] = [
-	{ config: FlaskOfTheTitans, stats: [Stat.StatStamina] },
+	{ config: FlaskOfTheTitans, stats: [] },
 	{ config: FlaskOfDistilledWisdom, stats: [Stat.StatIntellect] },
 	{ config: FlaskOfSupremePower, stats: [Stat.StatMP5, Stat.StatSpellPower] },
 	{ config: FlaskOfChromaticResistance, stats: [] },

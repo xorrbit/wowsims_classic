@@ -119,6 +119,11 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWarrior, {
 		],
 		// Preset gear configurations that the user can quickly select.
 		gear: [
+			...Presets.GearPresets[Phase.Phase6],
+			...Presets.GearPresets[Phase.Phase5],
+			...Presets.GearPresets[Phase.Phase4],
+			...Presets.GearPresets[Phase.Phase3],
+			...Presets.GearPresets[Phase.Phase2],
 			...Presets.GearPresets[Phase.Phase1],
 		],
 		// Preset builds that the user can quickly select.

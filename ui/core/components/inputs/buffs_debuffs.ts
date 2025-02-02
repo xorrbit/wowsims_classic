@@ -31,16 +31,14 @@ export const AllStatsBuff = withLabel(
 );
 
 // Separate Strength buffs allow us to use a boolean pickers for Horde specifically
-export const AllStatsPercentBuff = InputHelpers.makeMultiIconInput({
-	values: [
-		makeBooleanIndividualBuffInput({
-			actionId: () => ActionId.fromSpellId(20217),
-			fieldName: 'blessingOfKings',
-			showWhen: player => player.getFaction() === Faction.Alliance,
-		}),
-	],
-	label: 'Stats %',
-});
+export const BlessingOfKings = withLabel(
+	makeBooleanIndividualBuffInput({
+		actionId: () => ActionId.fromSpellId(20217),
+		fieldName: 'blessingOfKings',
+		showWhen: player => player.getFaction() === Faction.Alliance,
+	}),
+	'Blessing of Kings',
+);
 
 export const ArmorBuff = withLabel(
 	makeTristateRaidBuffInput({
@@ -49,7 +47,7 @@ export const ArmorBuff = withLabel(
 		showWhen: player => player.getFaction() === Faction.Alliance,
 		fieldName: 'devotionAura',
 	}),
-	'Armor',
+	'Devotion Aura',
 );
 
 export const PhysDamReductionBuff = withLabel(
@@ -551,8 +549,8 @@ export const RAID_BUFFS_CONFIG = [
 		stats: [],
 	},
 	{
-		config: AllStatsPercentBuff,
-		picker: MultiIconPicker,
+		config: BlessingOfKings,
+		picker: IconPicker,
 		stats: [],
 	},
 	{
