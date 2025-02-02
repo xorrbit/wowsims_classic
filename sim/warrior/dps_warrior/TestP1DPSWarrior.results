@@ -20,7 +20,7 @@ character_stats_results: {
   final_stats: 0
   final_stats: 2026.7
   final_stats: 11
-  final_stats: 47.0775
+  final_stats: 49.0775
   final_stats: 0
   final_stats: 0
   final_stats: 0
@@ -50,8 +50,8 @@ character_stats_results: {
 stat_weights_results: {
  key: "TestP1DPSWarrior-Phase1-StatWeights-Default"
  value: {
-  weights: 1.19456
-  weights: 1.28551
+  weights: 1.04713
+  weights: 0.64263
   weights: 0
   weights: 0
   weights: 0
@@ -67,9 +67,9 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.49091
-  weights: 11.89367
-  weights: 9.20429
+  weights: 0.35979
+  weights: 13.21426
+  weights: 8.86459
   weights: 0
   weights: 0
   weights: 0
@@ -99,57 +99,57 @@ stat_weights_results: {
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-AllItems-BattlegearofHeroism"
  value: {
-  dps: 1352.74417
-  tps: 1185.75855
+  dps: 1346.11438
+  tps: 1179.64032
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-AllItems-BattlegearofMight"
  value: {
-  dps: 1270.65949
-  tps: 1113.64873
+  dps: 1276.99593
+  tps: 1120.17624
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-AllItems-BattlegearofWrath"
  value: {
-  dps: 1228.52299
-  tps: 1078.28697
+  dps: 1228.99669
+  tps: 1079.12092
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-AllItems-Champion'sBattlearmor"
  value: {
-  dps: 1382.6643
-  tps: 1209.5211
+  dps: 1394.12954
+  tps: 1220.13275
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-AllItems-Conqueror'sBattlegear"
  value: {
-  dps: 1584.31053
-  tps: 1384.49236
+  dps: 1589.58807
+  tps: 1389.64416
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-AllItems-Dreadnaught'sBattlegear"
  value: {
-  dps: 1301.02073
-  tps: 1143.17385
+  dps: 1300.85473
+  tps: 1142.64372
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-AllItems-FieldMarshal'sBattlegear"
  value: {
-  dps: 1475.93049
-  tps: 1290.71108
+  dps: 1472.82641
+  tps: 1288.99246
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-AllItems-LieutenantCommander'sBattlearmor"
  value: {
-  dps: 1382.6643
-  tps: 1209.5211
+  dps: 1394.12954
+  tps: 1220.13275
  }
 }
 dps_results: {
@@ -162,105 +162,105 @@ dps_results: {
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-AllItems-Warlord'sBattlegear"
  value: {
-  dps: 1475.93049
-  tps: 1290.71108
+  dps: 1472.82641
+  tps: 1288.99246
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Average-Default"
  value: {
-  dps: 1591.6611
-  tps: 1391.93684
+  dps: 1593.28118
+  tps: 1393.83386
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Human-phase_1-DPS-p1-FullBuffs-P1-Consumes-LongMultiTarget"
  value: {
-  dps: 69.08759
-  tps: 138.67737
+  dps: 68.64907
+  tps: 138.37765
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Human-phase_1-DPS-p1-FullBuffs-P1-Consumes-LongSingleTarget"
  value: {
-  dps: 65.96732
-  tps: 62.76737
+  dps: 65.56565
+  tps: 62.47243
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Human-phase_1-DPS-p1-FullBuffs-P1-Consumes-ShortSingleTarget"
  value: {
-  dps: 201.48485
-  tps: 178.5368
+  dps: 191.0797
+  tps: 170.02376
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Human-phase_1-DPS-p1-NoBuffs-P1-Consumes-LongMultiTarget"
  value: {
-  dps: 35.91909
-  tps: 110.25446
+  dps: 35.77533
+  tps: 110.16824
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Human-phase_1-DPS-p1-NoBuffs-P1-Consumes-LongSingleTarget"
  value: {
-  dps: 33.7736
-  tps: 35.16537
+  dps: 33.62817
+  tps: 35.07781
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Human-phase_1-DPS-p1-NoBuffs-P1-Consumes-ShortSingleTarget"
  value: {
-  dps: 88.02714
-  tps: 84.66513
+  dps: 82.74846
+  tps: 80.32911
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Orc-phase_1-DPS-p1-FullBuffs-P1-Consumes-LongMultiTarget"
  value: {
-  dps: 60.80628
-  tps: 127.37627
+  dps: 61.40642
+  tps: 127.85638
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Orc-phase_1-DPS-p1-FullBuffs-P1-Consumes-LongSingleTarget"
  value: {
-  dps: 58.95444
-  tps: 55.6691
+  dps: 59.64349
+  tps: 56.24805
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Orc-phase_1-DPS-p1-FullBuffs-P1-Consumes-ShortSingleTarget"
  value: {
-  dps: 195.85805
-  tps: 173.90859
+  dps: 188.61523
+  tps: 167.94258
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Orc-phase_1-DPS-p1-NoBuffs-P1-Consumes-LongMultiTarget"
  value: {
-  dps: 31.21694
-  tps: 102.30653
+  dps: 31.17506
+  tps: 102.27303
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Orc-phase_1-DPS-p1-NoBuffs-P1-Consumes-LongSingleTarget"
  value: {
-  dps: 29.83423
-  tps: 31.03591
+  dps: 29.79068
+  tps: 31.00106
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Orc-phase_1-DPS-p1-NoBuffs-P1-Consumes-ShortSingleTarget"
  value: {
-  dps: 89.58745
-  tps: 85.92302
+  dps: 85.50276
+  tps: 82.54219
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 1239.19439
-  tps: 1087.40493
+  dps: 1224.79991
+  tps: 1075.41884
  }
 }
