@@ -316,7 +316,7 @@ export class CharacterStats extends Component {
 						</div>
 					</div>,
 				);
-			} else if (stat.isStat() && stat.getStat() === Stat.StatMeleeCrit) {
+			} else if (stat.isStat() && stat.getStat() === Stat.StatMeleeCrit && this.shouldShowMeleeCritCap(player)) {
 				idx++;
 
 				const gear = player.getGear();
