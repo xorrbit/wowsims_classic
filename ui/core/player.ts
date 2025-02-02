@@ -688,7 +688,7 @@ export class Player<SpecType extends Spec> {
 	}
 
 	hasDualWieldPenalty(): boolean {
-		return (this.getClass() === Class.ClassWarrior || this.getClass() === Class.ClassHunter) && this.getGear().isDualWielding();
+		return this.getClass() === Class.ClassWarrior && this.getGear().isDualWielding();
 	}
 
 	getMeleeCritCapInfo(weapon: WeaponType, useDWPenality?: boolean): MeleeCritCapInfo {
