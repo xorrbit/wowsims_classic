@@ -474,7 +474,7 @@ export const SpellStormstrikeDebuff = withLabel(
 		fieldName: 'stormstrike',
 	}),
 	'Stormstrike',
-)
+);
 
 export const SpellShadowWeavingDebuff = withLabel(
 	makeBooleanDebuffInput({
@@ -620,7 +620,7 @@ export const RAID_BUFFS_CONFIG = [
 	{
 		config: TrueshotAuraBuff,
 		picker: IconPicker,
-		stats: [Stat.StatRangedAttackPower],
+		stats: [Stat.StatRangedAttackPower, Stat.StatAttackPower],
 	},
 	{
 		config: MeleeCritBuff,
