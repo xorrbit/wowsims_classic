@@ -687,11 +687,19 @@ export class Player<SpecType extends Spec> {
 		this.bonusStatsChangeEmitter.emit(eventID);
 	}
 
-	getMeleeCritCapInfo(weapon: WeaponType, has2hWeapon: boolean): MeleeCritCapInfo {
+	hasDualWieldPenalty(): boolean {
+		return (this.getClass() === Class.ClassWarrior || this.getClass() === Class.ClassHunter) && this.getGear().isDualWielding();
+	}
+
+	getMeleeCritCapInfo(weapon: WeaponType, useDWPenality?: boolean): MeleeCritCapInfo {
 		let targetLevel = 63; // Initializes at level 63 until UI is loaded
 		if (this.sim.encounter.targets) {
 			targetLevel = this.sim.encounter?.primaryTarget.level;
 		}
+
+		const has2hWeapon = this.getGear().hasTwoHandedWeapon();
+		const hasOffhandWeapon = this.getGear().hasOffHandWeapon();
+
 		const levelDiff = targetLevel - Mechanics.MAX_CHARACTER_LEVEL;
 		const defenderDefense = targetLevel * 5;
 		const glancing = (1 + levelDiff) * 10.0;
@@ -701,7 +709,6 @@ export class Player<SpecType extends Spec> {
 		const meleeCrit = (this.currentStats.finalStats?.stats[Stat.StatMeleeCrit] || 0.0) / Mechanics.MELEE_CRIT_RATING_PER_CRIT_CHANCE;
 		const meleeHit = (this.currentStats.finalStats?.stats[Stat.StatMeleeHit] || 0.0) / Mechanics.MELEE_HIT_RATING_PER_HIT_CHANCE;
 		const expertise = (this.currentStats.finalStats?.stats[Stat.StatExpertise] || 0.0) / Mechanics.EXPERTISE_PER_QUARTER_PERCENT_REDUCTION / 4;
-		const hasOffhandWeapon = this.getGear().getEquippedItem(ItemSlot.ItemSlotOffHand)?.item.weaponType !== undefined;
 
 		const getWeaponSkillForWeaponType = (skill: PseudoStat) => this.currentStats.talentsStats?.pseudoStats[skill] || 0.0;
 
@@ -745,7 +752,7 @@ export class Player<SpecType extends Spec> {
 		const skillDiff = defenderDefense - weaponSkill;
 		// Due to warrior HS bug, hit cap for crit cap calculation ignores the 19% penalty
 		let meleeHitCap = skillDiff <= 10 ? 5.0 + skillDiff * 0.1 : 5.0 + skillDiff * 0.2 + (skillDiff - 10) * 0.2;
-		meleeHitCap = hasOffhandWeapon && this.spec !== Spec.SpecWarrior ? meleeHitCap + 19.0 : meleeHitCap + 0.0;
+		meleeHitCap = !this.hasDualWieldPenalty() || useDWPenality ? meleeHitCap + 19.0 : meleeHitCap + 0.0;
 
 		const dodgeCap = 5.0 + skillDiff * 0.1;
 		let parryCap = 0.0;

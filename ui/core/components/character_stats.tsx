@@ -2,8 +2,9 @@ import tippy from 'tippy.js';
 import { ref } from 'tsx-vanilla';
 
 import * as Mechanics from '../constants/mechanics.js';
-import { Player } from '../player.js';
-import { HandType, ItemSlot, PseudoStat, Spec, Stat, WeaponType } from '../proto/common.js';
+import { MeleeCritCapInfo, Player } from '../player.js';
+import { ItemSlot, PseudoStat, Spec, Stat, WeaponType } from '../proto/common.js';
+import { slotNames } from '../proto_utils/names';
 import { Stats, UnitStat } from '../proto_utils/stats.js';
 import { EventID, TypedEvent } from '../typed_event.js';
 import { Component } from './component.js';
@@ -82,7 +83,6 @@ const statGroups = new Map<string, Array<UnitStat>>([
 export class CharacterStats extends Component {
 	readonly stats: Array<UnitStat>;
 	readonly valueElems: Array<HTMLTableCellElement>;
-	readonly meleeCritCapValueElem: HTMLTableCellElement | undefined;
 
 	private readonly player: Player<any>;
 	private readonly modifyDisplayStats?: (player: Player<any>) => StatMods;
@@ -118,22 +118,26 @@ export class CharacterStats extends Component {
 
 				const valueElem = row.getElementsByClassName('character-stats-table-value')[0] as HTMLTableCellElement;
 				this.valueElems.push(valueElem);
+
+				if (stat.isStat() && stat.getStat() === Stat.StatMeleeCrit && this.shouldShowMeleeCritCap(player)) {
+					const critCapRow = (
+						<tr className="character-stats-table-row">
+							<td className="character-stats-table-label">Melee Crit Cap</td>
+							<td className="character-stats-table-value">
+								{/* Hacky placeholder for spacing */}
+								<span className="px-2 border-start border-end border-body border-brand" style={{'--bs-border-opacity': '0'}} />
+							</td>
+						</tr>
+					);
+					body.appendChild(critCapRow);
+
+					const critCapValueElem = critCapRow.getElementsByClassName('character-stats-table-value')[0] as HTMLTableCellElement;
+					this.valueElems.push(critCapValueElem);
+				}
 			});
 
 			table.appendChild(body);
 		});
-
-		if (this.shouldShowMeleeCritCap(player)) {
-			const row = (
-				<tr className="character-stats-table-row">
-					<td className="character-stats-table-label">Melee Crit Cap</td>
-					<td className="character-stats-table-value"></td>
-				</tr>
-			);
-
-			table.appendChild(row);
-			this.meleeCritCapValueElem = row.getElementsByClassName('character-stats-table-value')[0] as HTMLTableCellElement;
-		}
 
 		this.updateStats(player);
 		TypedEvent.onAny([player.currentStatsEmitter, player.sim.changeEmitter, player.talentsChangeEmitter]).on(() => {
@@ -164,7 +168,8 @@ export class CharacterStats extends Component {
 
 		const finalStats = Stats.fromProto(playerStats.finalStats).add(statMods.talents).add(statMods.buffs).add(debuffStats);
 
-		this.stats.forEach((stat, idx) => {
+		let idx = 0;
+		this.stats.forEach(stat => {
 			const bonusStatValue = bonusStats.getUnitStat(stat);
 			let contextualClass: string;
 			if (bonusStatValue === 0) {
@@ -241,28 +246,12 @@ export class CharacterStats extends Component {
 							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatAxesSkill)}</span>
 						</div>
 						<div className="character-stats-tooltip-row">
-							<span>2H Axes</span>
-							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatTwoHandedAxesSkill)}</span>
-						</div>
-						<div className="character-stats-tooltip-row">
 							<span>Daggers</span>
 							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatDaggersSkill)}</span>
 						</div>
-						{/*  Commenting out feral combat skill since not present in Classic.
-						{player.spec === Spec.SpecFeralDruid && (
-							<div className="character-stats-tooltip-row">
-								<span>Feral Combat</span>
-								<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatFeralCombatSkill)}</span>
-							</div>
-						)}
-						*/}
 						<div className="character-stats-tooltip-row">
 							<span>Maces</span>
 							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatMacesSkill)}</span>
-						</div>
-						<div className="character-stats-tooltip-row">
-							<span>2H Maces</span>
-							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatTwoHandedMacesSkill)}</span>
 						</div>
 						<div className="character-stats-tooltip-row">
 							<span>Polearms</span>
@@ -277,12 +266,24 @@ export class CharacterStats extends Component {
 							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatSwordsSkill)}</span>
 						</div>
 						<div className="character-stats-tooltip-row">
-							<span>2H Swords</span>
-							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatTwoHandedSwordsSkill)}</span>
-						</div>
-						<div className="character-stats-tooltip-row">
 							<span>Unarmed</span>
 							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatUnarmedSkill)}</span>
+						</div>
+					</div>,
+				);
+				tooltipContent.appendChild(
+					<div className="ps-2">
+						<div className="character-stats-tooltip-row">
+							<span>2H Axes</span>
+							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatTwoHandedAxesSkill)}</span>
+						</div>
+						<div className="character-stats-tooltip-row">
+							<span>2H Maces</span>
+							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatTwoHandedMacesSkill)}</span>
+						</div>
+						<div className="character-stats-tooltip-row">
+							<span>2H Swords</span>
+							<span>{this.weaponSkillDisplayString(talentsStats, PseudoStat.PseudoStatTwoHandedSwordsSkill)}</span>
 						</div>
 					</div>,
 				);
@@ -315,139 +316,103 @@ export class CharacterStats extends Component {
 						</div>
 					</div>,
 				);
-			}
+			} else if (stat.isStat() && stat.getStat() === Stat.StatMeleeCrit) {
+				idx++;
 
-			tippy(statLinkElem, {
-				content: tooltipContent,
-			});
-		});
+				const gear = player.getGear();
+				const mhWeaponType = gear.getEquippedItem(ItemSlot.ItemSlotMainHand)?.item?.weaponType as WeaponType;
+				const ohWeaponType = gear.getEquippedItem(ItemSlot.ItemSlotOffHand)?.item?.weaponType as WeaponType;
+				const mhCritCapInfo = player.getMeleeCritCapInfo(mhWeaponType);
+				const ohCritCapInfo = player.getMeleeCritCapInfo(ohWeaponType);
 
-		if (this.meleeCritCapValueElem) {
-			const has2hWeapon = player.getGear().getEquippedItem(ItemSlot.ItemSlotMainHand)?.item.handType == HandType.HandTypeTwoHand;
-			const mhWeapon: WeaponType = player.getGear().getEquippedItem(ItemSlot.ItemSlotMainHand)?.item.weaponType as WeaponType;
-			const ohWeapon: WeaponType = player.getGear().getEquippedItem(ItemSlot.ItemSlotOffHand)?.item.weaponType as WeaponType;
-			const mhCritCapInfo = player.getMeleeCritCapInfo(mhWeapon, has2hWeapon);
-			const ohCritCapInfo = player.getMeleeCritCapInfo(ohWeapon, has2hWeapon);
+				const playerCritCapDelta = mhCritCapInfo.playerCritCapDelta;
+				const prefix = playerCritCapDelta === 0.0 ? 'Exact ' : playerCritCapDelta > 0 ? 'Over by ' : 'Under by ';
 
-			const playerCritCapDelta = mhCritCapInfo.playerCritCapDelta;
+				const mhCritCapLinkElem = (
+					<a href="javascript:void(0)" className="stat-value-link" attributes={{ role: 'button' }} ref={statLinkElemRef}>
+							{`${prefix} ${Math.abs(playerCritCapDelta).toFixed(2)}%`}
+					</a>
+				)
 
-			if (playerCritCapDelta === 0.0) {
-				const prefix = 'Exact';
-			}
+				const capDelta = mhCritCapInfo.playerCritCapDelta;
+				if (capDelta === 0) {
+					mhCritCapLinkElem.classList.add('text-white');
+				} else if (capDelta > 0) {
+					mhCritCapLinkElem.classList.add('text-danger');
+				} else if (capDelta < 0) {
+					mhCritCapLinkElem.classList.add('text-success');
+				}
 
-			const prefix = playerCritCapDelta > 0 ? 'Over by ' : 'Under by ';
-
-			const valueElem = (
-				<a href="javascript:void(0)" className="stat-value-link" attributes={{ role: 'button' }}>
-					{`${prefix} ${Math.abs(playerCritCapDelta).toFixed(2)}%`}
-				</a>
-			);
-
-			const capDelta = mhCritCapInfo.playerCritCapDelta;
-			if (capDelta === 0) {
-				valueElem.classList.add('text-white');
-			} else if (capDelta > 0) {
-				valueElem.classList.add('text-danger');
-			} else if (capDelta < 0) {
-				valueElem.classList.add('text-success');
-			}
-
-			this.meleeCritCapValueElem.querySelector('.stat-value-link')?.remove();
-			this.meleeCritCapValueElem.prepend(valueElem);
-
-			const tooltipContent = (
-				<div>
-					<div className="character-stats-tooltip-row">
-						<span>Main Hand</span>
-						<span></span>
+				this.valueElems[idx].querySelector('.stat-value-link-container')?.remove();
+				this.valueElems[idx].prepend(
+					<div className="stat-value-link-container">
+						{mhCritCapLinkElem}
 					</div>
-					<hr />
-					<div className="character-stats-tooltip-row">
-						<span>Glancing:</span>
-						<span>{`${mhCritCapInfo.glancing.toFixed(2)}%`}</span>
-					</div>
-					<div className="character-stats-tooltip-row">
-						<span>Suppression:</span>
-						<span>{`${mhCritCapInfo.suppression.toFixed(2)}%`}</span>
-					</div>
-					<div className="character-stats-tooltip-row">
-						<span>White Miss:</span>
-						<span>{`${mhCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
-					</div>
-					<div className="character-stats-tooltip-row">
-						<span>Dodge:</span>
-						<span>{`${mhCritCapInfo.dodgeCap.toFixed(2)}%`}</span>
-					</div>
-					<div className="character-stats-tooltip-row">
-						<span>Parry:</span>
-						<span>{`${mhCritCapInfo.parryCap.toFixed(2)}%`}</span>
-					</div>
-					{mhCritCapInfo.specSpecificOffset != 0 && (
-						<div className="character-stats-tooltip-row">
-							<span>Spec Offsets:</span>
-							<span>{`${mhCritCapInfo.specSpecificOffset.toFixed(2)}%`}</span>
-						</div>
-					)}
-					<div className="character-stats-tooltip-row">
-						<span>Final Crit Cap:</span>
-						<span>{`${mhCritCapInfo.baseCritCap.toFixed(2)}%`}</span>
-					</div>
-					<div className="character-stats-tooltip-row">
-						<span>Can Raise By:</span>
-						<span>{`${mhCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
-					</div>
-					{!has2hWeapon && (
-						<div>
-							<hr />
+				);
 
-							<div className="character-stats-tooltip-row">
-								<span>Off Hand</span>
-								<span></span>
-							</div>
-							<hr />
-							<div className="character-stats-tooltip-row">
-								<span>Glancing:</span>
-								<span>{`${ohCritCapInfo.glancing.toFixed(2)}%`}</span>
-							</div>
-							<div className="character-stats-tooltip-row">
-								<span>Suppression:</span>
-								<span>{`${ohCritCapInfo.suppression.toFixed(2)}%`}</span>
-							</div>
-							<div className="character-stats-tooltip-row">
-								<span>White Miss:</span>
-								<span>{`${ohCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
-							</div>
-							<div className="character-stats-tooltip-row">
-								<span>Dodge:</span>
-								<span>{`${ohCritCapInfo.dodgeCap.toFixed(2)}%`}</span>
-							</div>
-							<div className="character-stats-tooltip-row">
-								<span>Parry:</span>
-								<span>{`${ohCritCapInfo.parryCap.toFixed(2)}%`}</span>
-							</div>
-							{ohCritCapInfo.specSpecificOffset != 0 && (
-								<div className="character-stats-tooltip-row">
-									<span>Spec Offsets:</span>
-									<span>{`${ohCritCapInfo.specSpecificOffset.toFixed(2)}%`}</span>
+				tippy(mhCritCapLinkElem, {
+					content: (
+						<div className="d-grid gap-1">
+							{this.critCapTooltip(mhCritCapInfo, ohCritCapInfo)}
+							{player.hasDualWieldPenalty() && (
+								<div className="form-text">
+									<i className="fas fa-circle-exclamation fa-xl me-2"></i>
+									Crit cap assuming perfect Heroic Strike uptime.
 								</div>
 							)}
-							<div className="character-stats-tooltip-row">
-								<span>Final Crit Cap:</span>
-								<span>{`${ohCritCapInfo.baseCritCap.toFixed(2)}%`}</span>
-							</div>
-							<div className="character-stats-tooltip-row">
-								<span>Can Raise By:</span>
-								<span>{`${ohCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
-							</div>
 						</div>
-					)}
-				</div>
-			);
+					),
+					maxWidth: '90vw',
+				});
+				
+				if (player.hasDualWieldPenalty()) {
+					const mhCritCapInfoDWPenalty = player.getMeleeCritCapInfo(mhWeaponType, true);
+					const ohCritCapInfoDWPenalty = player.getMeleeCritCapInfo(ohWeaponType, true);
 
-			tippy(valueElem, {
+					const playerCritCapDelta = mhCritCapInfoDWPenalty.playerCritCapDelta;
+					const prefix = playerCritCapDelta === 0.0 ? 'Exact ' : playerCritCapDelta > 0 ? 'Over by ' : 'Under by ';
+
+					const ohCritCapLinkElem = (
+						<a href="javascript:void(0)" className="stat-value-link" attributes={{ role: 'button' }} ref={statLinkElemRef}>
+							{`${prefix} ${Math.abs(playerCritCapDelta).toFixed(2)}%`}
+						</a>
+					)
+
+					mhCritCapLinkElem.insertAdjacentElement('afterend', ohCritCapLinkElem)
+	
+					const capDelta = mhCritCapInfoDWPenalty.playerCritCapDelta;
+					if (capDelta === 0) {
+						ohCritCapLinkElem.classList.add('text-white');
+					} else if (capDelta > 0) {
+						ohCritCapLinkElem.classList.add('text-danger');
+					} else if (capDelta < 0) {
+						ohCritCapLinkElem.classList.add('text-success');
+					}
+
+					tippy(ohCritCapLinkElem, {
+						content: (
+							<div className="d-grid gap-1">
+								{this.critCapTooltip(mhCritCapInfoDWPenalty, ohCritCapInfoDWPenalty)}
+								<div className="form-text">
+									<i className="fas fa-circle-exclamation fa-xl me-2"></i>
+									Crit cap with dual-wield penalty.
+								</div>
+							</div>
+						),
+						maxWidth: '90vw',
+					});
+				}
+
+				
+			}
+			
+			tippy(statLinkElem, {
 				content: tooltipContent,
+				maxWidth: '90vw',
 			});
-		}
+
+			idx++;
+		});
 	}
 
 	private statDisplayString(player: Player<any>, stats: Stats, deltaStats: Stats, unitStat: UnitStat): string {
@@ -516,6 +481,93 @@ export class CharacterStats extends Component {
 
 	private spellSchoolHitDisplayString(stats: Stats, pseudoStat: PseudoStat): string {
 		return `${(stats.getPseudoStat(pseudoStat) + stats.getStat(Stat.StatSpellHit)).toFixed(2)}%`;
+	}
+
+	private critCapTooltip(mhCritCapInfo: MeleeCritCapInfo, ohCritCapInfo: MeleeCritCapInfo): JSX.Element {
+		return (
+			<div className="d-flex">
+				<div>
+					<div className="character-stats-tooltip-row">
+						<h6>{slotNames.get(ItemSlot.ItemSlotMainHand)}</h6>
+					</div>
+					<div className="character-stats-tooltip-row">
+						<span>Glancing:</span>
+						<span>{`${mhCritCapInfo.glancing.toFixed(2)}%`}</span>
+					</div>
+					<div className="character-stats-tooltip-row">
+						<span>Suppression:</span>
+						<span>{`${mhCritCapInfo.suppression.toFixed(2)}%`}</span>
+					</div>
+					<div className="character-stats-tooltip-row">
+						<span>White Miss:</span>
+						<span>{`${mhCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
+					</div>
+					<div className="character-stats-tooltip-row">
+						<span>Dodge:</span>
+						<span>{`${mhCritCapInfo.dodgeCap.toFixed(2)}%`}</span>
+					</div>
+					<div className="character-stats-tooltip-row">
+						<span>Parry:</span>
+						<span>{`${mhCritCapInfo.parryCap.toFixed(2)}%`}</span>
+					</div>
+					{mhCritCapInfo.specSpecificOffset != 0 && (
+						<div className="character-stats-tooltip-row">
+							<span>Spec Offsets:</span>
+							<span>{`${mhCritCapInfo.specSpecificOffset.toFixed(2)}%`}</span>
+						</div>
+					)}
+					<div className="character-stats-tooltip-row">
+						<span>Final Crit Cap:</span>
+						<span>{`${mhCritCapInfo.baseCritCap.toFixed(2)}%`}</span>
+					</div>
+					<div className="character-stats-tooltip-row">
+						<span>Can Raise By:</span>
+						<span>{`${mhCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
+					</div>
+				</div>
+				{this.player.getGear().hasOffHandWeapon() && (
+					<div className="ps-2">
+						<div className="character-stats-tooltip-row">
+							<h6>{slotNames.get(ItemSlot.ItemSlotOffHand)}</h6>
+						</div>
+						<div className="character-stats-tooltip-row">
+							<span>Glancing:</span>
+							<span>{`${ohCritCapInfo.glancing.toFixed(2)}%`}</span>
+						</div>
+						<div className="character-stats-tooltip-row">
+							<span>Suppression:</span>
+							<span>{`${ohCritCapInfo.suppression.toFixed(2)}%`}</span>
+						</div>
+						<div className="character-stats-tooltip-row">
+							<span>White Miss:</span>
+							<span>{`${ohCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
+						</div>
+						<div className="character-stats-tooltip-row">
+							<span>Dodge:</span>
+							<span>{`${ohCritCapInfo.dodgeCap.toFixed(2)}%`}</span>
+						</div>
+						<div className="character-stats-tooltip-row">
+							<span>Parry:</span>
+							<span>{`${ohCritCapInfo.parryCap.toFixed(2)}%`}</span>
+						</div>
+						{ohCritCapInfo.specSpecificOffset != 0 && (
+							<div className="character-stats-tooltip-row">
+								<span>Spec Offsets:</span>
+								<span>{`${ohCritCapInfo.specSpecificOffset.toFixed(2)}%`}</span>
+							</div>
+						)}
+						<div className="character-stats-tooltip-row">
+							<span>Final Crit Cap:</span>
+							<span>{`${ohCritCapInfo.baseCritCap.toFixed(2)}%`}</span>
+						</div>
+						<div className="character-stats-tooltip-row">
+							<span>Can Raise By:</span>
+							<span>{`${ohCritCapInfo.remainingMeleeHitCap.toFixed(2)}%`}</span>
+						</div>
+					</div>
+				)}
+			</div>
+		);
 	}
 
 	private getDebuffStats(): Stats {
