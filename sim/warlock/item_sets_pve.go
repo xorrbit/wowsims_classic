@@ -1,7 +1,6 @@
 package warlock
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
@@ -68,7 +67,6 @@ var ItemSetNemesisRaiment = core.NewItemSet(core.ItemSet{
 				OnInit: func(aura *core.Aura, sim *core.Simulation) {
 					for _, spell := range warlock.Spellbook {
 						if spell.Flags.Matches(WarlockFlagDestruction) {
-							fmt.Println(spell)
 							spell.ThreatMultiplier *= 0.80
 						}
 					}

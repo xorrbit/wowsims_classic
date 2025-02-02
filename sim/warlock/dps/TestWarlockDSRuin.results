@@ -113,8 +113,8 @@ dps_results: {
 dps_results: {
  key: "TestWarlockDSRuin-Phase1-AllItems-Demoniac'sThreads"
  value: {
-  dps: 1195.44387
-  tps: 1250.85679
+  dps: 812.24164
+  tps: 866.63628
  }
 }
 dps_results: {
@@ -141,8 +141,8 @@ dps_results: {
 dps_results: {
  key: "TestWarlockDSRuin-Phase1-AllItems-Hazza'rah'sCharmofDestruction-19957"
  value: {
-  dps: 1205.25055
-  tps: 1261.67258
+  dps: 830.4787
+  tps: 885.29701
  }
 }
 dps_results: {
