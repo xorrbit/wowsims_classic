@@ -357,7 +357,7 @@ export class CharacterStats extends Component {
 							{player.hasDualWieldPenalty() && (
 								<div className="form-text">
 									<i className="fas fa-circle-exclamation fa-xl me-2"></i>
-									Crit cap assuming perfect Heroic Strike uptime.
+									Crit cap assuming perfect queued ability uptime.
 								</div>
 							)}
 						</div>
