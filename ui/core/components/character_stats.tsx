@@ -324,6 +324,7 @@ export class CharacterStats extends Component {
 				const ohWeaponType = gear.getEquippedItem(ItemSlot.ItemSlotOffHand)?.item?.weaponType as WeaponType;
 				const mhCritCapInfo = player.getMeleeCritCapInfo(mhWeaponType);
 				const ohCritCapInfo = player.getMeleeCritCapInfo(ohWeaponType);
+				const isDWWarrior = player.getGear().isDualWielding() && player.spec === Spec.SpecWarrior
 
 				const playerCritCapDelta = mhCritCapInfo.playerCritCapDelta;
 				const prefix = playerCritCapDelta === 0.0 ? 'Exact ' : playerCritCapDelta > 0 ? 'Over by ' : 'Under by ';
@@ -354,7 +355,7 @@ export class CharacterStats extends Component {
 					content: (
 						<div className="d-grid gap-1">
 							{this.critCapTooltip(mhCritCapInfo, ohCritCapInfo)}
-							{player.hasDualWieldPenalty() && (
+							{isDWWarrior && (
 								<div className="form-text">
 									<i className="fas fa-circle-exclamation fa-xl me-2"></i>
 									Crit cap assuming perfect queued ability uptime.
@@ -365,7 +366,7 @@ export class CharacterStats extends Component {
 					maxWidth: '90vw',
 				});
 				
-				if (player.hasDualWieldPenalty()) {
+				if (isDWWarrior) {
 					const mhCritCapInfoDWPenalty = player.getMeleeCritCapInfo(mhWeaponType, true);
 					const ohCritCapInfoDWPenalty = player.getMeleeCritCapInfo(ohWeaponType, true);
 
