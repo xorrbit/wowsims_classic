@@ -409,6 +409,14 @@ func (unit *Unit) AddBonusRangedHitRating(amount float64) {
 	})
 }
 
+func (unit *Unit) AddBonusRangedCritRating(amount float64) {
+	unit.OnSpellRegistered(func(spell *Spell) {
+		if spell.CastType == proto.CastType_CastTypeRanged {
+			spell.BonusCritRating += amount
+		}
+	})
+}
+
 func (unit *Unit) SetCurrentPowerBar(bar PowerBarType) {
 	unit.currentPowerBar = bar
 }
