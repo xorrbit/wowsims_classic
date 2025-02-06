@@ -18,6 +18,8 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecElementalShaman, {
 
 	// All stats for which EP should be calculated.
 	epStats: [
+		// Primary
+		Stat.StatMana,
 		// Attributes
 		Stat.StatIntellect,
 		Stat.StatSpirit,
