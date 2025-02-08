@@ -611,6 +611,13 @@ func applyMiscConsumes(character *Character, miscConsumes *proto.MiscConsumes) {
 		character.PseudoStats.BonusPhysicalDamage += 1
 	}
 
+	if miscConsumes.RaptorPunch {
+		character.AddStats(stats.Stats{
+			stats.Intellect: 4,
+			stats.Stamina:   -5,
+		})
+	}
+
 	if miscConsumes.JujuEmber {
 		character.AddStat(stats.FireResistance, 15)
 	}

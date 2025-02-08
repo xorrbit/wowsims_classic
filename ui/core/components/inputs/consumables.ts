@@ -524,9 +524,14 @@ export const JujuFlurry = makeBooleanMiscConsumeInput({
 	fieldName: 'jujuFlurry',
 });
 export const BoglingRoot = makeBooleanMiscConsumeInput({ actionId: () => ActionId.fromItemId(5206), fieldName: 'boglingRoot' });
+export const RaptorPunch = makeBooleanMiscConsumeInput({
+	actionId: () => ActionId.fromItemId(5342),
+	fieldName: 'raptorPunch',
+});
 
 export const MISC_OFFENSIVE_CONSUMES_CONFIG: PickerStatOptions[] = [
 	{ config: JujuFlurry, picker: IconPicker, stats: [Stat.StatAttackPower] },
+	{ config: RaptorPunch, picker: IconPicker, stats: [Stat.StatIntellect] },
 	{ config: BoglingRoot, picker: IconPicker, stats: [Stat.StatAttackPower] },
 ];
 

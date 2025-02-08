@@ -471,6 +471,7 @@ message MiscConsumes {
 	bool juju_chill = 3;
 	bool juju_escape = 4;
 	bool juju_flurry = 5;
+	bool raptor_punch = 6;
 }
 
 message PetMiscConsumes {
