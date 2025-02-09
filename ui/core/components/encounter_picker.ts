@@ -2,7 +2,6 @@ import { BooleanPicker } from '../components/boolean_picker.js';
 import { EnumPicker } from '../components/enum_picker.js';
 import { ListItemPickerConfig, ListPicker } from '../components/list_picker.js';
 import { NumberPicker } from '../components/number_picker.js';
-import * as Mechanics from '../constants/mechanics.js';
 import { Encounter } from '../encounter.js';
 import { IndividualSimUI } from '../individual_sim_ui.js';
 import { InputType, MobType, SpellSchool, Stat, Target, Target as TargetProto, TargetInput } from '../proto/common.js';
@@ -123,7 +122,6 @@ export class EncounterPicker extends Component {
 			// Transfer Target Inputs from target Id if they dont match (possible when custom AI is selected)
 			const targetIndex = presetTargets.findIndex(pe => modEncounter.primaryTarget.id == pe.target?.id);
 			const targetInputs = presetTargets[targetIndex]?.target?.targetInputs || [];
-
 			if (
 				targetInputs.length != modEncounter.primaryTarget.targetInputs.length ||
 				modEncounter.primaryTarget.targetInputs.some((ti, i) => ti.label != targetInputs[i].label)
@@ -250,9 +248,9 @@ class TargetPicker extends Input<Encounter, TargetProto> {
 		this.targetIndex = targetIndex;
 
 		this.rootElem.innerHTML = `
-			<div class="target-picker-section target-picker-section1"></div>
-			<div class="target-picker-section target-picker-section2"></div>
-			<div class="target-picker-section target-picker-section3 threat-metrics"></div>
+			<div class="picker-group target-picker-section target-picker-section1"></div>
+			<div class="picker-group target-picker-section target-picker-section2"></div>
+			<div class="picker-group target-picker-section target-picker-section3 threat-metrics"></div>
 		`;
 
 		const section1 = this.rootElem.getElementsByClassName('target-picker-section1')[0] as HTMLElement;
@@ -320,6 +318,18 @@ class TargetPicker extends Input<Encounter, TargetProto> {
 				{ name: '62', value: 62 },
 				{ name: '61', value: 61 },
 				{ name: '60', value: 60 },
+				{ name: '53', value: 53 },
+				{ name: '52', value: 52 },
+				{ name: '51', value: 51 },
+				{ name: '50', value: 50 },
+				{ name: '43', value: 43 },
+				{ name: '42', value: 42 },
+				{ name: '41', value: 41 },
+				{ name: '40', value: 40 },
+				{ name: '28', value: 28 },
+				{ name: '27', value: 27 },
+				{ name: '26', value: 26 },
+				{ name: '25', value: 25 },
 			],
 			changedEvent: () => encounter.targetsChangeEmitter,
 			getValue: () => this.getTarget().level,
@@ -530,6 +540,7 @@ class TargetInputPicker extends Input<Encounter, TargetInput> {
 
 	private boolPicker: Input<null, boolean> | null;
 	private numberPicker: Input<null, number> | null;
+	private enumPicker: EnumPicker<null> | null;
 
 	private getTargetInput(): TargetInput {
 		return this.encounter.targets[this.targetIndex].targetInputs[this.targetInputIndex] || TargetInput.create();
@@ -543,6 +554,10 @@ class TargetInputPicker extends Input<Encounter, TargetInput> {
 		if (this.numberPicker) {
 			this.numberPicker.rootElem.remove();
 			this.numberPicker = null;
+		}
+		if (this.enumPicker) {
+			this.enumPicker.rootElem.remove();
+			this.enumPicker = null;
 		}
 	}
 
@@ -560,6 +575,7 @@ class TargetInputPicker extends Input<Encounter, TargetInput> {
 
 		this.boolPicker = null;
 		this.numberPicker = null;
+		this.enumPicker = null;
 		this.init();
 	}
 
@@ -570,16 +586,16 @@ class TargetInputPicker extends Input<Encounter, TargetInput> {
 		return TargetInput.create({
 			boolValue: this.boolPicker ? this.boolPicker.getInputValue() : undefined,
 			numberValue: this.numberPicker ? this.numberPicker.getInputValue() : undefined,
+			enumValue: this.enumPicker ? this.enumPicker.getInputValue() : undefined,
 		});
 	}
 	setInputValue(newValue: TargetInput) {
 		if (!newValue) {
 			return;
 		}
-		if (newValue.inputType == InputType.Number && !this.numberPicker) {
-			if (this.boolPicker) {
-				this.boolPicker.rootElem.remove();
-				this.boolPicker = null;
+		if (newValue.inputType == InputType.Number) {
+			if (this.numberPicker && this.numberPicker.inputConfig.label === newValue.label) {
+				return;
 			}
 
 			this.clearPickers();
@@ -594,20 +610,37 @@ class TargetInputPicker extends Input<Encounter, TargetInput> {
 					this.encounter.targetsChangeEmitter.emit(eventID);
 				},
 			});
-		} else if (newValue.inputType == InputType.Bool && !this.boolPicker) {
-			if (this.numberPicker) {
-				this.numberPicker.rootElem.remove();
-				this.numberPicker = null;
+		} else if (newValue.inputType == InputType.Bool) {
+			if (this.boolPicker && this.boolPicker.inputConfig.label === newValue.label) {
+				return;
 			}
+
 			this.clearPickers();
 			this.boolPicker = new BooleanPicker(this.rootElem, null, {
 				id: randomUUID(),
 				label: newValue.label,
 				labelTooltip: newValue.tooltip,
+				extraCssClasses: ['input-inline'],
 				changedEvent: () => this.encounter.targetsChangeEmitter,
 				getValue: () => this.getTargetInput().boolValue,
 				setValue: (eventID: EventID, _: null, newValue: boolean) => {
 					this.getTargetInput().boolValue = newValue;
+					this.encounter.targetsChangeEmitter.emit(eventID);
+				},
+			});
+		} else if (newValue.inputType == InputType.Enum) {
+			this.clearPickers();
+			this.enumPicker = new EnumPicker<null>(this.rootElem, null, {
+				id: randomUUID(),
+				label: newValue.label,
+				labelTooltip: newValue.tooltip,
+				values: newValue.enumOptions.map((option, index) => {
+					return { value: index, name: option };
+				}),
+				changedEvent: () => this.encounter.targetsChangeEmitter,
+				getValue: () => this.getTargetInput().enumValue,
+				setValue: (eventID: EventID, _: null, newValue: number) => {
+					this.getTargetInput().enumValue = newValue;
 					this.encounter.targetsChangeEmitter.emit(eventID);
 				},
 			});

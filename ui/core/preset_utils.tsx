@@ -6,19 +6,19 @@ import { APLRotation, APLRotation_Type as APLRotationType } from './proto/apl.js
 import {
 	Consumes,
 	Debuffs,
-	Encounter,
 	Encounter as EncounterProto,
 	EquipmentSpec,
 	Faction,
 	HealingModel,
 	IndividualBuffs,
+	Race,
 	RaidBuffs,
 	Spec,
 	UnitReference,
 } from './proto/common.js';
 import { SavedRotation, SavedTalents } from './proto/ui.js';
 import { Stats } from './proto_utils/stats.js';
-import { SpecRotation, specTypeFunctions } from './proto_utils/utils.js';
+import { SpecOptions, SpecRotation, specTypeFunctions } from './proto_utils/utils.js';
 
 interface PresetBase {
 	name: string;
@@ -85,8 +85,11 @@ export interface PresetBuild {
 	gear?: PresetGear;
 	talents?: PresetTalents;
 	rotation?: PresetRotation;
+	rotationType?: APLRotationType;
 	epWeights?: PresetEpWeights;
 	encounter?: PresetEncounter;
+	race?: Race;
+	options?: Partial<SpecOptions<any>>;
 }
 
 export interface PresetBuildOptions extends Omit<PresetBuild, 'name'> {}
@@ -224,8 +227,8 @@ export const makePresetEncounter = (name: string, encounter?: PresetEncounter['e
 	};
 };
 
-export const makePresetBuild = (name: string, { gear, talents, rotation, epWeights, encounter }: PresetBuildOptions): PresetBuild => {
-	return { name, gear, talents, rotation, epWeights, encounter };
+export const makePresetBuild = (name: string, { gear, talents, rotation, epWeights, encounter, race, options }: PresetBuildOptions): PresetBuild => {
+	return { name, gear, talents, rotation, epWeights, encounter, race, options };
 };
 
 export type SpecCheckWarning = {

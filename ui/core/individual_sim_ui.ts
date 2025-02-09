@@ -22,7 +22,7 @@ import { simLaunchStatuses } from './launched_sims';
 import { Player, PlayerConfig, registerSpecConfig as registerPlayerConfig } from './player';
 import { PresetBuild, PresetGear, PresetRotation } from './preset_utils';
 import { StatWeightsResult } from './proto/api';
-import { APLRotation_Type as APLRotationType } from './proto/apl';
+import { APLRotation, APLRotation_Type as APLRotationType } from './proto/apl';
 import {
 	Consumes,
 	Debuffs,
@@ -311,13 +311,18 @@ export abstract class IndividualSimUI<SpecType extends Spec> extends SimUI {
 
 	private addSidebarComponents() {
 		this.raidSimResultsManager = addRaidSimAction(this);
-		addStatWeightsAction(this, this.individualConfig.epStats.concat(GLOBAL_EP_STATS), this.individualConfig.epPseudoStats, this.individualConfig.epReferenceStat);
+		addStatWeightsAction(
+			this,
+			this.individualConfig.epStats.concat(GLOBAL_EP_STATS),
+			this.individualConfig.epPseudoStats,
+			this.individualConfig.epReferenceStat,
+		);
 
 		const displayStats: UnitStat[] = [];
 
 		this.individualConfig.displayStats.forEach(s => displayStats.push(UnitStat.fromStat(s)));
 		GLOBAL_DISPLAY_STATS.forEach(s => displayStats.push(UnitStat.fromStat(s)));
-		
+
 		this.individualConfig.displayPseudoStats.forEach(ps => displayStats.push(UnitStat.fromPseudoStat(ps)));
 		GLOBAL_DISPLAY_PSEUDO_STATS.forEach(ps => displayStats.push(UnitStat.fromPseudoStat(ps)));
 
@@ -381,6 +386,17 @@ export abstract class IndividualSimUI<SpecType extends Spec> extends SimUI {
 		this.simHeader.addExportLink('60U SoD EP', new Exporters.Individual60UEPExporter(this.rootElem, this), false);
 		this.simHeader.addExportLink('Pawn EP', new Exporters.IndividualPawnEPExporter(this.rootElem, this), false);
 		//this.simHeader.addExportLink("CLI", new Exporters.IndividualCLIExporter(this.rootElem, this), true);
+	}
+
+	applyEmptyAplRotation(eventID: EventID) {
+		TypedEvent.freezeAllAndDo(() => {
+			this.player.setAplRotation(
+				eventID,
+				APLRotation.create({
+					type: APLRotationType.TypeAPL,
+				}),
+			);
+		});
 	}
 
 	applyDefaults(eventID: EventID) {

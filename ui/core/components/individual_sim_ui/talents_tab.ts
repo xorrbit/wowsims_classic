@@ -32,7 +32,7 @@ export class TalentsTab extends SimTab {
 
 	protected buildTabContent() {
 		this.buildTalentsPicker(this.leftPanel);
-		
+
 		this.buildPresetConfigurationPicker();
 		this.buildSavedTalentsPicker();
 	}
@@ -51,7 +51,7 @@ export class TalentsTab extends SimTab {
 	}
 
 	private buildPresetConfigurationPicker() {
-		new PresetConfigurationPicker(this.rightPanel, this.simUI, 'talents');
+		new PresetConfigurationPicker(this.rightPanel, this.simUI, ['talents']);
 	}
 
 	private buildSavedTalentsPicker() {
