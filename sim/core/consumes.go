@@ -139,6 +139,7 @@ func addImbueStats(character *Character, imbue proto.WeaponImbue, isMh bool, sha
 			character.AddStats(stats.Stats{
 				stats.MeleeCrit: 2 * CritRatingPerCritChance,
 			})
+			character.AddBonusRangedCritRating(-2.0)
 
 		// Weightstones
 		case proto.WeaponImbue_SolidWeightstone:

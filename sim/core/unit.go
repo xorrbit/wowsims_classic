@@ -403,8 +403,16 @@ func (unit *Unit) MultiplyAttackSpeed(sim *Simulation, amount float64) {
 
 func (unit *Unit) AddBonusRangedHitRating(amount float64) {
 	unit.OnSpellRegistered(func(spell *Spell) {
-		if spell.ProcMask.Matches(ProcMaskRanged) {
+		if spell.CastType == proto.CastType_CastTypeRanged {
 			spell.BonusHitRating += amount
+		}
+	})
+}
+
+func (unit *Unit) AddBonusRangedCritRating(amount float64) {
+	unit.OnSpellRegistered(func(spell *Spell) {
+		if spell.CastType == proto.CastType_CastTypeRanged {
+			spell.BonusCritRating += amount
 		}
 	})
 }
