@@ -130,7 +130,7 @@ export const StaminaBuff = InputHelpers.makeMultiIconInput({
 			fieldName: 'powerWordFortitude',
 		}),
 		makeBooleanRaidBuffInput({
-			actionId: () => ActionId.fromSpellId(10307),
+			actionId: () => ActionId.fromItemId(10307),
 			fieldName: 'scrollOfStamina',
 		}),
 	],
@@ -183,7 +183,7 @@ export const IntellectBuff = InputHelpers.makeMultiIconInput({
 			fieldName: 'arcaneBrilliance',
 		}),
 		makeBooleanRaidBuffInput({
-			actionId: () => ActionId.fromSpellId(10308),
+			actionId: () => ActionId.fromItemId(10308),
 			fieldName: 'scrollOfIntellect',
 		}),
 	],
@@ -197,7 +197,7 @@ export const SpiritBuff = InputHelpers.makeMultiIconInput({
 			fieldName: 'divineSpirit',
 		}),
 		makeBooleanRaidBuffInput({
-			actionId: () => ActionId.fromSpellId(10306),
+			actionId: () => ActionId.fromItemId(10306),
 			fieldName: 'scrollOfSpirit',
 		}),
 	],
