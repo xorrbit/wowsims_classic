@@ -106,6 +106,7 @@ const (
 	ThrashBlade              = 17705
 	SatyrsLash               = 17752
 	MarkOfTheChosen          = 17774
+	BladeOfEternalDarkness   = 17780
 	ForceReactiveDisk        = 18168
 	EskhandarsLeftClaw       = 18202
 	EskhandarsRightClaw      = 18203
@@ -571,6 +572,44 @@ func init() {
 	// Chance on hit: Wounds the target for 324 to 540 damage.
 	// TODO: Proc rate based on the original item
 	itemhelpers.CreateWeaponCoHProcDamage(BlackhandDoomsaw, "Blackhand Doomsaw", 0.4, 16549, core.SpellSchoolPhysical, 324, 216, 0, core.DefenseTypeMelee)
+
+	// https://www.wowhead.com/classic/item=17780/blade-of-eternal-darkness
+	// Equip: Chance on landing a damaging spell to deal 100 Shadow damage and restore 100 mana to you. (Proc chance: 10%)
+	core.NewItemEffect(BladeOfEternalDarkness, func(agent core.Agent) {
+		character := agent.GetCharacter()
+
+		actionID := core.ActionID{SpellID: 27860}
+		manaMetrics := character.NewManaMetrics(actionID)
+
+		procSpell := character.RegisterSpell(core.SpellConfig{
+			ActionID:    actionID,
+			SpellSchool: core.SpellSchoolShadow,
+			DefenseType: core.DefenseTypeMagic,
+			ProcMask:    core.ProcMaskEmpty,
+
+			DamageMultiplier: 1,
+			ThreatMultiplier: 1,
+
+			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+				spell.CalcAndDealDamage(sim, target, 100, spell.OutcomeAlwaysHit)
+				character.AddMana(sim, 100, manaMetrics)
+			},
+		})
+
+		handler := func(sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
+			if result.Damage > 0 {
+				procSpell.Cast(sim, character.CurrentTarget)
+			}
+		}
+
+		core.MakeProcTriggerAura(&character.Unit, core.ProcTrigger{
+			Name:       "Engulfing Shadows",
+			Callback:   core.CallbackOnSpellHitDealt,
+			ProcMask:   core.ProcMaskSpellDamage,
+			ProcChance: .10,
+			Handler:    handler,
+		})
+	})
 
 	// https://www.wowhead.com/classic/item=12777/blazing-rapier
 	// Chance on hit: Burns the enemy for 100 damage over 30 sec.
