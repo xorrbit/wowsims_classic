@@ -250,7 +250,7 @@ var ClassBaseStats = map[proto.Class]stats.Stats{
 		stats.AttackPower: -10,
 	},
 	proto.Class_ClassShaman: {
-		stats.Health:      1423,
+		stats.Health:      1280,
 		stats.Mana:        1520,
 		stats.Agility:     55,
 		stats.Strength:    85,
