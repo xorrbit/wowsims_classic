@@ -22,9 +22,9 @@ import {
 } from '../core/proto/common.js';
 import { FeralDruid_Options as FeralDruidOptions, FeralDruid_Rotation as FeralDruidRotation } from '../core/proto/druid.js';
 import { SavedTalents } from '../core/proto/ui.js';
-import P1APL from './apls/p1.apl.json';
-import P0BISGear from './gear_sets/p0.bis.gear.json';
-import P1BISGear from './gear_sets/p1.bis.gear.json';
+import P2APL from './apls/p2.apl.json';
+import P2BISGear from './gear_sets/p2.bis.gear.json';
+import P2PreBISGear from './gear_sets/p2.pre-bis.gear.json';
 
 // Preset options for this spec.
 // Eventually we will import these values for the raid sim too, so its good to
@@ -34,32 +34,31 @@ import P1BISGear from './gear_sets/p1.bis.gear.json';
 //                                 Gear Presets
 ///////////////////////////////////////////////////////////////////////////
 
-export const GearP0BIS = PresetUtils.makePresetGear('Pre-BiS', P0BISGear);
-export const GearP1BIS = PresetUtils.makePresetGear('P1 BiS', P1BISGear);
+export const GearP2BIS = PresetUtils.makePresetGear('P2 BiS', P2BISGear);
+export const GearP2PreBIS = PresetUtils.makePresetGear('P2 BiS', P2PreBISGear);
 
 export const GearPresets = {
-	[Phase.Phase1]: [GearP0BIS, GearP1BIS],
+	[Phase.Phase2]: [GearP2BIS, GearP2PreBIS],
 };
 
-export const DefaultGear = GearP0BIS;
+export const DefaultGear = GearP2BIS;
 
 ///////////////////////////////////////////////////////////////////////////
 //                                 APL Presets
 ///////////////////////////////////////////////////////////////////////////
 
-export const APLP1Feral = PresetUtils.makePresetAPLRotation('Feral', P1APL);
+export const APLP2Feral = PresetUtils.makePresetAPLRotation('Feral', P2APL);
 
 export const APLPresets = {
-	[Phase.Phase1]: [APLP1Feral],
+	[Phase.Phase2]: [APLP2Feral],
 };
 
-export const DefaultAPL = APLPresets[Phase.Phase1][0];
+export const DefaultAPL = APLPresets[Phase.Phase2][0];
 
 export const DefaultRotation = FeralDruidRotation.create({
 	maintainFaerieFire: false,
 	minCombosForRip: 3,
 	maxWaitTime: 2.0,
-	preroarDuration: 26.0,
 	precastTigersFury: false,
 	useShredTrick: false,
 });
@@ -70,13 +69,13 @@ export const SIMPLE_ROTATION_DEFAULT = PresetUtils.makePresetSimpleRotation('Sim
 //                                 Talent Presets
 ///////////////////////////////////////////////////////////////////////////
 
-export const TalentsP1Feral = PresetUtils.makePresetTalents('Feral', SavedTalents.create({ talentsString: '500005301-5500020323202151-15' }));
+export const TalentsP2Feral = PresetUtils.makePresetTalents('Feral', SavedTalents.create({ talentsString: '500005301-5500021323202151-05' }));
 
 export const TalentPresets = {
-	[Phase.Phase1]: [TalentsP1Feral],
+	[Phase.Phase2]: [TalentsP2Feral],
 };
 
-export const DefaultTalents = TalentPresets[Phase.Phase1][0];
+export const DefaultTalents = TalentPresets[Phase.Phase2][0];
 
 ///////////////////////////////////////////////////////////////////////////
 //                                 Options
@@ -84,7 +83,6 @@ export const DefaultTalents = TalentPresets[Phase.Phase1][0];
 
 export const DefaultOptions = FeralDruidOptions.create({
 	latencyMs: 100,
-	assumeBleedActive: true,
 });
 
 export const DefaultConsumes = Consumes.create({
@@ -92,16 +90,11 @@ export const DefaultConsumes = Consumes.create({
 	attackPowerBuff: AttackPowerBuff.JujuMight,
 	defaultConjured: Conjured.ConjuredDemonicRune,
 	defaultPotion: Potions.MajorManaPotion,
-	dragonBreathChili: true,
+	dragonBreathChili: false,
 	flask: Flask.FlaskOfDistilledWisdom,
-	food: Food.FoodSmokedDesertDumpling,
-	mainHandImbue: WeaponImbue.ElementalSharpeningStone,
-	manaRegenElixir: ManaRegenElixir.MagebloodPotion,
-	miscConsumes: {
-		jujuEmber: true,
-	},
+	food: Food.FoodGrilledSquid,
 	strengthBuff: StrengthBuff.JujuPower,
-	zanzaBuff: ZanzaBuff.ROIDS,
+	zanzaBuff: ZanzaBuff.GroundScorpokAssay,
 });
 
 export const DefaultRaidBuffs = RaidBuffs.create({
@@ -123,7 +116,7 @@ export const DefaultIndividualBuffs = IndividualBuffs.create({
 	rallyingCryOfTheDragonslayer: true,
 	saygesFortune: SaygesFortune.SaygesDamage,
 	songflowerSerenade: true,
-	spiritOfZandalar: true,
+	spiritOfZandalar: false,
 	warchiefsBlessing: true,
 });
 
