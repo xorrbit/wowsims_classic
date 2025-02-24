@@ -22,7 +22,7 @@ var ItemSetFeralheartRaiment = core.NewItemSet(core.ItemSet{
 			rageMetrics := c.NewRageMetrics(actionID)
 
 			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
-				Name:       "Druid Nature's Bounty Trigger - Feralheart Raiment (Mana)",
+				Name:       "Nature's Bounty (Mana)",
 				Callback:   core.CallbackOnCastComplete,
 				ProcMask:   core.ProcMaskSpellDamage | core.ProcMaskSpellHealing,
 				ProcChance: 0.02,
@@ -31,7 +31,7 @@ var ItemSetFeralheartRaiment = core.NewItemSet(core.ItemSet{
 				},
 			})
 			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
-				Name:       "Druid Nature's Bounty Trigger - Feralheart Raiment (Energy)",
+				Name:       "Nature's Bounty (Energy)",
 				Callback:   core.CallbackOnSpellHitDealt,
 				Outcome:    core.OutcomeLanded,
 				ProcMask:   core.ProcMaskMeleeWhiteHit,
@@ -43,7 +43,7 @@ var ItemSetFeralheartRaiment = core.NewItemSet(core.ItemSet{
 				},
 			})
 			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
-				Name:       "Druid Nature's Bounty Trigger - Feralheart Raiment (Rage)",
+				Name:       "Nature's Bounty (Rage)",
 				Callback:   core.CallbackOnSpellHitTaken,
 				ProcMask:   core.ProcMaskMelee,
 				ProcChance: 0.02,
@@ -112,7 +112,7 @@ var ItemSetWildheartRaiment = core.NewItemSet(core.ItemSet{
 			rageMetrics := c.NewRageMetrics(actionID)
 
 			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
-				Name:       "Druid Nature's Bounty Trigger - Wildheart Raiment (Mana)",
+				Name:       "Nature's Bounty (Mana)",
 				Callback:   core.CallbackOnCastComplete,
 				ProcMask:   core.ProcMaskSpellDamage | core.ProcMaskSpellHealing,
 				ProcChance: 0.02,
@@ -121,7 +121,7 @@ var ItemSetWildheartRaiment = core.NewItemSet(core.ItemSet{
 				},
 			})
 			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
-				Name:       "Druid Nature's Bounty Trigger - Wildheart Raiment (Energy)",
+				Name:       "Nature's Bounty (Energy)",
 				Callback:   core.CallbackOnSpellHitDealt,
 				Outcome:    core.OutcomeLanded,
 				ProcMask:   core.ProcMaskMeleeWhiteHit,
@@ -133,7 +133,7 @@ var ItemSetWildheartRaiment = core.NewItemSet(core.ItemSet{
 				},
 			})
 			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
-				Name:       "Druid Nature's Bounty Trigger - Wildheart Raiment (Rage)",
+				Name:       "Nature's Bounty (Rage)",
 				Callback:   core.CallbackOnSpellHitTaken,
 				ProcMask:   core.ProcMaskMelee,
 				ProcChance: 0.02,
