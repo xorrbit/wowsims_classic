@@ -27,6 +27,7 @@ const (
 	SpellCode_DruidShred
 	SpellCode_DruidStarfire
 	SpellCode_DruidWrath
+	SpellCode_DruidClaw
 )
 
 type Druid struct {
@@ -64,6 +65,7 @@ type Druid struct {
 	Rake                 *DruidSpell
 	Rip                  *DruidSpell
 	Shred                *DruidSpell
+	Claw                 *DruidSpell
 	Starfire             []*DruidSpell
 	SwipeBear            *DruidSpell
 	TigersFury           *DruidSpell
@@ -180,6 +182,7 @@ func (druid *Druid) RegisterFeralCatSpells() {
 	druid.registerRakeSpell()
 	druid.registerRipSpell()
 	druid.registerShredSpell()
+	druid.registerClawSpell()
 	// druid.registerSwipeBearSpell()
 	druid.registerTigersFurySpell()
 }
