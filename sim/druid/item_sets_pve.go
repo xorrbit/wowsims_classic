@@ -15,15 +15,14 @@ var ItemSetFeralheartRaiment = core.NewItemSet(core.ItemSet{
 		},
 		// (4) Set : When struck in combat has a chance of returning 300 mana, 10 rage, or 40 energy to the wearer. (Proc chance: 2%)
 		4: func(agent core.Agent) {
-			/* TODO: check this sod stuff against vanilla
 			c := agent.GetCharacter()
-			actionID := core.ActionID{SpellID: 450608}
+			actionID := core.ActionID{SpellID: 27781}
 			manaMetrics := c.NewManaMetrics(actionID)
 			energyMetrics := c.NewEnergyMetrics(actionID)
 			rageMetrics := c.NewRageMetrics(actionID)
 
 			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
-				Name:       "S03 - Druid Energize Trigger - Wildheart Raiment (Mana)",
+				Name:       "Druid Nature's Bounty Trigger - Feralheart Raiment (Mana)",
 				Callback:   core.CallbackOnCastComplete,
 				ProcMask:   core.ProcMaskSpellDamage | core.ProcMaskSpellHealing,
 				ProcChance: 0.02,
@@ -32,11 +31,11 @@ var ItemSetFeralheartRaiment = core.NewItemSet(core.ItemSet{
 				},
 			})
 			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
-				Name:       "S03 - Druid Energize Trigger - Wildheart Raiment (Energy)",
+				Name:       "Druid Nature's Bounty Trigger - Feralheart Raiment (Energy)",
 				Callback:   core.CallbackOnSpellHitDealt,
 				Outcome:    core.OutcomeLanded,
 				ProcMask:   core.ProcMaskMeleeWhiteHit,
-				ProcChance: 0.06,
+				ProcChance: 0.02,
 				Handler: func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
 					if c.HasEnergyBar() {
 						c.AddEnergy(sim, 40, energyMetrics)
@@ -44,16 +43,16 @@ var ItemSetFeralheartRaiment = core.NewItemSet(core.ItemSet{
 				},
 			})
 			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
-				Name:       "S03 - Druid Energize Trigger - Wildheart Raiment (Rage)",
+				Name:       "Druid Nature's Bounty Trigger - Feralheart Raiment (Rage)",
 				Callback:   core.CallbackOnSpellHitTaken,
 				ProcMask:   core.ProcMaskMelee,
-				ProcChance: 0.03,
+				ProcChance: 0.02,
 				Handler: func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
 					if c.HasRageBar() {
 						c.AddRage(sim, 10, rageMetrics)
 					}
 				},
-			}) */
+			})
 		},
 		// (6) Set : Increases damage and healing done by magical spells and effects by up to 15.
 		// (6) Set : +26 Attack Power.
@@ -106,7 +105,44 @@ var ItemSetWildheartRaiment = core.NewItemSet(core.ItemSet{
 		},
 		// (6) Set : When struck in combat has a chance of returning 300 mana, 10 rage, or 40 energy to the wearer. (Proc chance: 2%)
 		6: func(agent core.Agent) {
-			// TODO
+			c := agent.GetCharacter()
+			actionID := core.ActionID{SpellID: 27781}
+			manaMetrics := c.NewManaMetrics(actionID)
+			energyMetrics := c.NewEnergyMetrics(actionID)
+			rageMetrics := c.NewRageMetrics(actionID)
+
+			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
+				Name:       "Druid Nature's Bounty Trigger - Wildheart Raiment (Mana)",
+				Callback:   core.CallbackOnCastComplete,
+				ProcMask:   core.ProcMaskSpellDamage | core.ProcMaskSpellHealing,
+				ProcChance: 0.02,
+				Handler: func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
+					c.AddMana(sim, 300, manaMetrics)
+				},
+			})
+			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
+				Name:       "Druid Nature's Bounty Trigger - Wildheart Raiment (Energy)",
+				Callback:   core.CallbackOnSpellHitDealt,
+				Outcome:    core.OutcomeLanded,
+				ProcMask:   core.ProcMaskMeleeWhiteHit,
+				ProcChance: 0.02,
+				Handler: func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
+					if c.HasEnergyBar() {
+						c.AddEnergy(sim, 40, energyMetrics)
+					}
+				},
+			})
+			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
+				Name:       "Druid Nature's Bounty Trigger - Wildheart Raiment (Rage)",
+				Callback:   core.CallbackOnSpellHitTaken,
+				ProcMask:   core.ProcMaskMelee,
+				ProcChance: 0.02,
+				Handler: func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
+					if c.HasRageBar() {
+						c.AddRage(sim, 10, rageMetrics)
+					}
+				},
+			})
 		},
 		// (8) Set : +8 All Resistances.
 		8: func(agent core.Agent) {
@@ -121,7 +157,8 @@ var ItemSetStormrageRaiment = core.NewItemSet(core.ItemSet{
 	Bonuses: map[int32]core.ApplyEffect{
 		// (3) Set : Allows 15% of your Mana regeneration to continue while casting.
 		3: func(agent core.Agent) {
-			// TODO
+			c := agent.GetCharacter()
+			c.PseudoStats.SpiritRegenRateCasting += .15
 		},
 		// (5) Set : Reduces the casting time of your Regrowth spell by 0.2 sec.
 		5: func(agent core.Agent) {
