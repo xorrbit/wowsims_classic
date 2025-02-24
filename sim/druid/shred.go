@@ -55,9 +55,11 @@ func (druid *Druid) registerShredSpell() {
 			baseDamage := flatDamageBonus + spell.Unit.MHWeaponDamage(sim, spell.MeleeAttackPower())
 
 			oldMultiplier := spell.DamageMultiplier
+			/* sod mangle buff?
 			if druid.BleedCategories.Get(target).AnyActive() {
 				spell.DamageMultiplier *= 1.3
 			}
+			*/
 
 			result := spell.CalcAndDealDamage(sim, target, baseDamage, spell.OutcomeMeleeSpecialHitAndCrit)
 			spell.DamageMultiplier = oldMultiplier
@@ -72,9 +74,11 @@ func (druid *Druid) registerShredSpell() {
 			baseDamage := flatDamageBonus + spell.Unit.AutoAttacks.MH().CalculateAverageWeaponDamage(spell.MeleeAttackPower())
 
 			oldMultiplier := spell.DamageMultiplier
+			/* sod mangle buff?
 			if druid.BleedCategories.Get(target).AnyActive() {
 				spell.DamageMultiplier *= 1.3
 			}
+			*/
 
 			baseres := spell.CalcDamage(sim, target, baseDamage, spell.OutcomeExpectedMagicAlwaysHit)
 			spell.DamageMultiplier = oldMultiplier
