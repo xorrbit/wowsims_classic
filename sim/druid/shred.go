@@ -15,11 +15,6 @@ func (druid *Druid) registerShredSpell() {
 		60: 80,
 	}[druid.Level]
 
-	// if druid.Ranged().ID == IdolOfTheDream {
-	// 	damageMultiplier *= 1.02
-	// 	flatDamageBonus *= 1.02
-	// }
-
 	druid.Shred = druid.RegisterSpell(Cat, core.SpellConfig{
 		SpellCode: SpellCode_DruidShred,
 		ActionID: core.ActionID{SpellID: map[int32]int32{
@@ -54,15 +49,7 @@ func (druid *Druid) registerShredSpell() {
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 			baseDamage := flatDamageBonus + spell.Unit.MHWeaponDamage(sim, spell.MeleeAttackPower())
 
-			oldMultiplier := spell.DamageMultiplier
-			/* sod mangle buff?
-			if druid.BleedCategories.Get(target).AnyActive() {
-				spell.DamageMultiplier *= 1.3
-			}
-			*/
-
 			result := spell.CalcAndDealDamage(sim, target, baseDamage, spell.OutcomeMeleeSpecialHitAndCrit)
-			spell.DamageMultiplier = oldMultiplier
 
 			if result.Landed() {
 				druid.AddComboPoints(sim, 1, target, spell.ComboPointMetrics())
@@ -73,15 +60,7 @@ func (druid *Druid) registerShredSpell() {
 		ExpectedInitialDamage: func(sim *core.Simulation, target *core.Unit, spell *core.Spell, _ bool) *core.SpellResult {
 			baseDamage := flatDamageBonus + spell.Unit.AutoAttacks.MH().CalculateAverageWeaponDamage(spell.MeleeAttackPower())
 
-			oldMultiplier := spell.DamageMultiplier
-			/* sod mangle buff?
-			if druid.BleedCategories.Get(target).AnyActive() {
-				spell.DamageMultiplier *= 1.3
-			}
-			*/
-
 			baseres := spell.CalcDamage(sim, target, baseDamage, spell.OutcomeExpectedMagicAlwaysHit)
-			spell.DamageMultiplier = oldMultiplier
 
 			attackTable := spell.Unit.AttackTables[target.UnitIndex][spell.CastType]
 			critChance := spell.PhysicalCritChance(attackTable)
