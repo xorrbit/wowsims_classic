@@ -35,7 +35,7 @@ import P2PreBISGear from './gear_sets/p2.pre-bis.gear.json';
 ///////////////////////////////////////////////////////////////////////////
 
 export const GearP2BIS = PresetUtils.makePresetGear('P2 BiS', P2BISGear);
-export const GearP2PreBIS = PresetUtils.makePresetGear('P2 BiS', P2PreBISGear);
+export const GearP2PreBIS = PresetUtils.makePresetGear('P2 Pre-BiS', P2PreBISGear);
 
 export const GearPresets = {
 	[Phase.Phase2]: [GearP2BIS, GearP2PreBIS],
