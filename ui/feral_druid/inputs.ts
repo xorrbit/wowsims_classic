@@ -10,13 +10,6 @@ export const LatencyMs = InputHelpers.makeSpecOptionsNumberInput<Spec.SpecFeralD
 	labelTooltip: 'Player latency, in milliseconds. Adds a delay to actions that cannot be spell queued.',
 });
 
-export const AssumeBleedActive = InputHelpers.makeSpecOptionsBooleanInput<Spec.SpecFeralDruid>({
-	fieldName: 'assumeBleedActive',
-	label: 'Assume Bleed Always Active',
-	labelTooltip: "Assume bleed always exists for 'Rend and Tear' calculations. Otherwise will only calculate based on own rip/rake/lacerate.",
-	extraCssClasses: ['within-raid-sim-hide'],
-});
-
 export const FeralDruidRotationConfig = {
 	inputs: [
 		InputHelpers.makeRotationNumberInput<Spec.SpecFeralDruid>({
@@ -30,13 +23,6 @@ export const FeralDruidRotationConfig = {
 			fieldName: 'maxWaitTime',
 			label: 'Max Wait Time',
 			labelTooltip: 'Max seconds to wait for an Energy tick to cast rather than powershifting',
-			float: true,
-			positive: true,
-		}),
-		InputHelpers.makeRotationNumberInput<Spec.SpecFeralDruid>({
-			fieldName: 'preroarDuration',
-			label: 'Pre-Roar Duration',
-			labelTooltip: 'Seconds remaining on a prior Savage Roar buff at the start of the pull',
 			float: true,
 			positive: true,
 		}),

@@ -97,6 +97,55 @@ stat_weights_results: {
  }
 }
 dps_results: {
+ key: "TestP1Feral-Phase1-AllItems-CenarionRaiment"
+ value: {
+  dps: 454.45218
+  tps: 322.66104
+ }
+}
+dps_results: {
+ key: "TestP1Feral-Phase1-AllItems-Champion'sRefuge"
+ value: {
+  dps: 530.97523
+  tps: 376.99241
+ }
+}
+dps_results: {
+ key: "TestP1Feral-Phase1-AllItems-FeralheartRaiment"
+ value: {
+  dps: 545.3867
+  tps: 387.22456
+ }
+}
+dps_results: {
+ key: "TestP1Feral-Phase1-AllItems-FieldMarshal'sSanctuary"
+ value: {
+  dps: 577.12266
+  tps: 409.75709
+ }
+}
+dps_results: {
+ key: "TestP1Feral-Phase1-AllItems-LieutenantCommander'sRefuge"
+ value: {
+  dps: 530.97523
+  tps: 376.99241
+ }
+}
+dps_results: {
+ key: "TestP1Feral-Phase1-AllItems-StormrageRaiment"
+ value: {
+  dps: 453.15536
+  tps: 321.74031
+ }
+}
+dps_results: {
+ key: "TestP1Feral-Phase1-AllItems-Warlord'sSanctuary"
+ value: {
+  dps: 577.12266
+  tps: 409.75709
+ }
+}
+dps_results: {
  key: "TestP1Feral-Phase1-Average-Default"
  value: {
   dps: 477.00991
