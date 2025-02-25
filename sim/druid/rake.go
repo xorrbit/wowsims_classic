@@ -54,10 +54,6 @@ func (druid *Druid) registerRakeSpell() {
 }
 
 func (druid *Druid) newRakeSpellConfig(rakeRank RakeRankInfo) core.SpellConfig {
-	// TODO: test if there is non-zero AP scaling on the initial rake hit and add it here
-	// might be 0.4
-	const RakeDamageCoef = 0.0
-
 	baseDamageInitial := rakeRank.initialDamage
 	baseDamageTick := rakeRank.dotTickDamage
 	energyCost := 40 - float64(druid.Talents.Ferocity)
@@ -100,7 +96,7 @@ func (druid *Druid) newRakeSpellConfig(rakeRank RakeRankInfo) core.SpellConfig {
 		},
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			baseDamage := baseDamageInitial + RakeDamageCoef*spell.MeleeAttackPower()
+			baseDamage := baseDamageInitial
 			result := spell.CalcAndDealDamage(sim, target, baseDamage, spell.OutcomeMeleeSpecialHitAndCrit)
 
 			if result.Landed() {
@@ -112,7 +108,7 @@ func (druid *Druid) newRakeSpellConfig(rakeRank RakeRankInfo) core.SpellConfig {
 		},
 
 		ExpectedInitialDamage: func(sim *core.Simulation, target *core.Unit, spell *core.Spell, _ bool) *core.SpellResult {
-			baseDamage := baseDamageInitial + RakeDamageCoef*spell.MeleeAttackPower()
+			baseDamage := baseDamageInitial
 			initial := spell.CalcPeriodicDamage(sim, target, baseDamage, spell.OutcomeExpectedMagicAlwaysHit)
 
 			attackTable := spell.Unit.AttackTables[target.UnitIndex][spell.CastType]
