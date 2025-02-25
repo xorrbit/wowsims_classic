@@ -7,23 +7,11 @@ import (
 )
 
 func (druid *Druid) registerClawSpell() {
-	flatDamageBonus := map[int32]float64{
-		20: 27,
-		28: 39,
-		38: 57,
-		48: 88,
-		60: 115,
-	}[druid.Level]
+	flatDamageBonus := 115.0
 
 	druid.Claw = druid.RegisterSpell(Cat, core.SpellConfig{
-		SpellCode: SpellCode_DruidClaw,
-		ActionID: core.ActionID{SpellID: map[int32]int32{
-			20: 1082,
-			28: 3029,
-			38: 5201,
-			48: 9849,
-			60: 9850,
-		}[druid.Level]},
+		SpellCode:   SpellCode_DruidClaw,
+		ActionID:    core.ActionID{SpellID: 9850},
 		SpellSchool: core.SpellSchoolPhysical,
 		DefenseType: core.DefenseTypeMelee,
 		ProcMask:    core.ProcMaskMeleeMHSpecial,
@@ -40,9 +28,10 @@ func (druid *Druid) registerClawSpell() {
 			IgnoreHaste: true,
 		},
 
-		DamageMultiplier: 1,
-		ThreatMultiplier: 1,
-		BonusCoefficient: 1,
+		DamageMultiplierAdditive: 1 + 0.1*float64(druid.Talents.SavageFury),
+		DamageMultiplier:         1,
+		ThreatMultiplier:         1,
+		BonusCoefficient:         1,
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 			baseDamage := flatDamageBonus + spell.Unit.MHWeaponDamage(sim, spell.MeleeAttackPower())
@@ -54,19 +43,6 @@ func (druid *Druid) registerClawSpell() {
 			} else {
 				spell.IssueRefund(sim)
 			}
-		},
-		ExpectedInitialDamage: func(sim *core.Simulation, target *core.Unit, spell *core.Spell, _ bool) *core.SpellResult {
-			baseDamage := flatDamageBonus + spell.Unit.AutoAttacks.MH().CalculateAverageWeaponDamage(spell.MeleeAttackPower())
-
-			baseres := spell.CalcDamage(sim, target, baseDamage, spell.OutcomeExpectedMagicAlwaysHit)
-
-			attackTable := spell.Unit.AttackTables[target.UnitIndex][spell.CastType]
-			critChance := spell.PhysicalCritChance(attackTable)
-			critMod := critChance * (spell.CritMultiplier(attackTable) - 1)
-
-			baseres.Damage *= 1 + critMod
-
-			return baseres
 		},
 	})
 }
