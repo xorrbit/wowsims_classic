@@ -12,7 +12,7 @@ func (druid *Druid) registerClawSpell() {
 		28: 39,
 		38: 57,
 		48: 88,
-		58: 115,
+		60: 115,
 	}[druid.Level]
 
 	druid.Claw = druid.RegisterSpell(Cat, core.SpellConfig{
@@ -22,7 +22,7 @@ func (druid *Druid) registerClawSpell() {
 			28: 3029,
 			38: 5201,
 			48: 9849,
-			58: 9850,
+			60: 9850,
 		}[druid.Level]},
 		SpellSchool: core.SpellSchoolPhysical,
 		DefenseType: core.DefenseTypeMelee,
