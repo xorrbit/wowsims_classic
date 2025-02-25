@@ -13,6 +13,7 @@ import {
 	Potions,
 	Profession,
 	RaidBuffs,
+	SapperExplosive,
 	SaygesFortune,
 	Spec,
 	StrengthBuff,
@@ -95,6 +96,7 @@ export const DefaultConsumes = Consumes.create({
 	food: Food.FoodGrilledSquid,
 	strengthBuff: StrengthBuff.JujuPower,
 	zanzaBuff: ZanzaBuff.GroundScorpokAssay,
+	sapperExplosive: SapperExplosive.SapperGoblinSapper,
 });
 
 export const DefaultRaidBuffs = RaidBuffs.create({
@@ -128,6 +130,6 @@ export const DefaultDebuffs = Debuffs.create({
 });
 
 export const OtherDefaults = {
-	profession1: Profession.Enchanting,
-	profession2: Profession.Alchemy,
+	profession1: Profession.Engineering,
+	profession2: Profession.Leatherworking,
 };
