@@ -72,7 +72,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecFeralDruid, {
 		epWeights: Stats.fromMap(
 			{
 				[Stat.StatStrength]: 2.40,
-				[Stat.StatAgility]: 2.39,
+				[Stat.StatAgility]: 2.43,
 				[Stat.StatIntellect]: 0.61,
 				[Stat.StatSpirit]: 0.38,
 				[Stat.StatMP5]: 0.79,
@@ -82,7 +82,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecFeralDruid, {
 				[Stat.StatMeleeHaste]: 16.50,
 				[Stat.StatExpertise]: 26.59,
 				[Stat.StatMana]: 0.03,
-				[Stat.StatFeralAttackPower]: 0.99,
+				[Stat.StatFeralAttackPower]: 1,
 				[PseudoStat.BonusPhysicalDamage]: 13.33
 			},
 			{},
