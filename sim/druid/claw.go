@@ -46,11 +46,3 @@ func (druid *Druid) registerClawSpell() {
 		},
 	})
 }
-
-func (druid *Druid) CanClaw() bool {
-	return druid.CurrentEnergy() >= druid.CurrentClawCost()
-}
-
-func (druid *Druid) CurrentClawCost() float64 {
-	return druid.Claw.Cost.GetCurrentCost()
-}
