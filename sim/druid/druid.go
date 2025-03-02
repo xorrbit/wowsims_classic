@@ -17,6 +17,7 @@ var TalentTreeSizes = [3]int{16, 16, 15}
 const (
 	SpellCode_DruidNone int32 = iota
 
+	SpellCode_DruidClaw
 	SpellCode_DruidFaerieFire
 	SpellCode_DruidFaerieFireFeral
 	SpellCode_DruidFerociousBite
@@ -27,7 +28,6 @@ const (
 	SpellCode_DruidShred
 	SpellCode_DruidStarfire
 	SpellCode_DruidWrath
-	SpellCode_DruidClaw
 )
 
 type Druid struct {
