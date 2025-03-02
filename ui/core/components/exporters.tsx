@@ -132,7 +132,7 @@ export class IndividualLinkExporter<SpecType extends Spec> extends Exporter {
 		this.exportCategories = exportCategories as Record<SimSettingCategories, boolean>;
 
 		const pickersContainer = document.createElement('div');
-		pickersContainer.classList.add('link-exporter-pickers');
+		pickersContainer.classList.add('exporter-category-pickers');
 		this.body.prepend(pickersContainer);
 
 		IndividualLinkExporter.exportPickerConfigs.forEach(exportConfig => {
