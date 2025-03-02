@@ -125,6 +125,7 @@ export class Timeline extends ResultComponent {
 				curve: 'straight',
 			},
 		});
+		this.addOnDisposeCallback(() => this.dpsResourcesPlot.destroy());
 
 		this.rotationPlotElem = this.rootElem.querySelector('.rotation-plot')!;
 		this.rotationLabels = this.rootElem.querySelector('.rotation-labels')!;
