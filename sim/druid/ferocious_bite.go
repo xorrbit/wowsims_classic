@@ -59,14 +59,10 @@ var ferociousBiteRanks = []FerociousBiteRankInfo{
 }
 
 func (druid *Druid) registerFerociousBiteSpell() {
-	// Add highest available rank for level.
-	for rank := len(ferociousBiteRanks) - 1; rank >= 0; rank-- {
-		if druid.Level >= ferociousBiteRanks[rank].level {
-			config := druid.newFerociousBiteSpellConfig(ferociousBiteRanks[rank])
-			druid.FerociousBite = druid.RegisterSpell(Cat, config)
-			return
-		}
-	}
+	// Ferocious Bite Rank V is not available until AQ release
+	rank := core.TernaryInt(core.IncludeAQ, 4, 3)
+	config := druid.newFerociousBiteSpellConfig(ferociousBiteRanks[rank])
+	druid.FerociousBite = druid.RegisterSpell(Cat, config)
 }
 
 func (druid *Druid) newFerociousBiteSpellConfig(rank FerociousBiteRankInfo) core.SpellConfig {
@@ -92,9 +88,10 @@ func (druid *Druid) newFerociousBiteSpellConfig(rank FerociousBiteRankInfo) core
 			return druid.ComboPoints() > 0
 		},
 
-		DamageMultiplier: 1 + 0.03*float64(druid.Talents.FeralAggression),
-		ThreatMultiplier: 1,
-		BonusCoefficient: 1,
+		DamageMultiplierAdditive: 1 + 0.03*float64(druid.Talents.FeralAggression),
+		DamageMultiplier:         1,
+		ThreatMultiplier:         1,
+		BonusCoefficient:         1,
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 			comboPoints := float64(druid.ComboPoints())
@@ -104,7 +101,7 @@ func (druid *Druid) newFerociousBiteSpellConfig(rank FerociousBiteRankInfo) core
 			baseDamage := rank.dmgBase + rank.dmgRange*sim.RandomFloat("Ferocious Bite") +
 				rank.dmgPerCombo*comboPoints +
 				attackPower*0.03*comboPoints +
-				rank.dmgPerEnergy * excessEnergy
+				rank.dmgPerEnergy*excessEnergy
 
 			result := spell.CalcAndDealDamage(sim, target, baseDamage, spell.OutcomeMeleeSpecialHitAndCrit)
 

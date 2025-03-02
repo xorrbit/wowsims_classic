@@ -71,24 +71,26 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecFeralDruid, {
 		// Default EP weights for sorting gear in the gear picker.
 		epWeights: Stats.fromMap(
 			{
-				[Stat.StatStrength]: 2.38,
-				[Stat.StatAgility]: 2.35,
+				[Stat.StatStrength]: 2.40,
+				[Stat.StatAgility]: 2.43,
+				[Stat.StatIntellect]: 0.61,
+				[Stat.StatSpirit]: 0.38,
+				[Stat.StatMP5]: 0.79,
 				[Stat.StatAttackPower]: 1,
+				[Stat.StatMeleeHit]: 26.59,
+				[Stat.StatMeleeCrit]: 28.68,
+				[Stat.StatMeleeHaste]: 16.50,
+				[Stat.StatExpertise]: 26.59,
+				[Stat.StatMana]: 0.03,
 				[Stat.StatFeralAttackPower]: 1,
-				[Stat.StatMeleeHit]: 24.46,
-				[Stat.StatMeleeCrit]: 16.67,
-				[Stat.StatMana]: 0.04,
-				[Stat.StatIntellect]: 0.67,
-				[Stat.StatSpirit]: 0.08,
-				[Stat.StatMP5]: 0.46,
-				[Stat.StatFireResistance]: 0.5,
+				[PseudoStat.BonusPhysicalDamage]: 13.33
 			},
 			{},
 		),
 		// Default consumes settings.
 		consumes: Presets.DefaultConsumes,
 		// Default rotation settings.
-		rotationType: APLRotationType.TypeSimple,
+		rotationType: APLRotationType.TypeAPL,
 		simpleRotation: Presets.DefaultRotation,
 		// Default talents.
 		talents: Presets.DefaultTalents.data,
@@ -135,14 +137,14 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecFeralDruid, {
 	presets: {
 		// Preset talents that the user can quickly select.
 		talents: [
-			...Presets.TalentPresets[Phase.Phase1],
+			...Presets.TalentPresets[Phase.Phase2],
 		],
 		rotations: [
-			...Presets.APLPresets[Phase.Phase1],
+			...Presets.APLPresets[Phase.Phase2],
 		],
 		// Preset gear configurations that the user can quickly select.
 		gear: [
-			...Presets.GearPresets[Phase.Phase1],
+			...Presets.GearPresets[Phase.Phase2],
 		],
 	},
 

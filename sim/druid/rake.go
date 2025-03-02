@@ -23,7 +23,7 @@ var rakeSpells = []RakeRankInfo{
 	{
 		id:            1823,
 		level:         34,
-		initialDamage: 29.0,
+		initialDamage: 28.0,
 		dotTickDamage: 19.0,
 	},
 	{
@@ -42,18 +42,6 @@ var rakeSpells = []RakeRankInfo{
 	},
 }
 
-// See https://www.wowhead.com/classic/spell=436895/s03-tuning-and-overrides-passive-druid
-// Mod Eff# should be base value only.
-// Modifies Effect #1's Value +126%:
-// Modifies Effect #2's Value +126%:
-const RakeBaseDmgMultiplier = 2.25
-
-// See https://www.wowhead.com/classic/news/development-notes-for-phase-4-ptr-season-of-discovery-new-runes-class-changes-342896
-// - Rake and Rip damage contributions from attack power increased by roughly 50%.
-// PTR testing comes out to .0993377 AP scaling
-// damageCoef := .04
-const RakeDamageCoef = 0.09
-
 func (druid *Druid) registerRakeSpell() {
 	// Add highest available rake rank for level.
 	for rank := len(rakeSpells) - 1; rank >= 0; rank-- {
@@ -66,8 +54,8 @@ func (druid *Druid) registerRakeSpell() {
 }
 
 func (druid *Druid) newRakeSpellConfig(rakeRank RakeRankInfo) core.SpellConfig {
-	baseDamageInitial := rakeRank.initialDamage * RakeBaseDmgMultiplier
-	baseDamageTick := rakeRank.dotTickDamage * RakeBaseDmgMultiplier
+	baseDamageInitial := rakeRank.initialDamage
+	baseDamageTick := rakeRank.dotTickDamage
 	energyCost := 40 - float64(druid.Talents.Ferocity)
 
 	return core.SpellConfig{
@@ -89,8 +77,9 @@ func (druid *Druid) newRakeSpellConfig(rakeRank RakeRankInfo) core.SpellConfig {
 			IgnoreHaste: true,
 		},
 
-		DamageMultiplier: 1 + 0.1*float64(druid.Talents.SavageFury),
-		ThreatMultiplier: 1,
+		DamageMultiplierAdditive: 1 + 0.1*float64(druid.Talents.SavageFury),
+		DamageMultiplier:         1,
+		ThreatMultiplier:         1,
 
 		Dot: core.DotConfig{
 			Aura: core.Aura{
@@ -99,7 +88,7 @@ func (druid *Druid) newRakeSpellConfig(rakeRank RakeRankInfo) core.SpellConfig {
 			NumberOfTicks: 3,
 			TickLength:    time.Second * 3,
 			OnSnapshot: func(sim *core.Simulation, target *core.Unit, dot *core.Dot, isRollover bool) {
-				damage := baseDamageTick + RakeDamageCoef*dot.Spell.MeleeAttackPower()
+				damage := baseDamageTick
 				dot.Snapshot(target, damage, isRollover)
 			},
 			OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
@@ -108,7 +97,7 @@ func (druid *Druid) newRakeSpellConfig(rakeRank RakeRankInfo) core.SpellConfig {
 		},
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-			baseDamage := baseDamageInitial + RakeDamageCoef*spell.MeleeAttackPower()
+			baseDamage := baseDamageInitial
 			result := spell.CalcAndDealDamage(sim, target, baseDamage, spell.OutcomeMeleeSpecialHitAndCrit)
 
 			if result.Landed() {
@@ -120,7 +109,7 @@ func (druid *Druid) newRakeSpellConfig(rakeRank RakeRankInfo) core.SpellConfig {
 		},
 
 		ExpectedInitialDamage: func(sim *core.Simulation, target *core.Unit, spell *core.Spell, _ bool) *core.SpellResult {
-			baseDamage := baseDamageInitial + RakeDamageCoef*spell.MeleeAttackPower()
+			baseDamage := baseDamageInitial
 			initial := spell.CalcPeriodicDamage(sim, target, baseDamage, spell.OutcomeExpectedMagicAlwaysHit)
 
 			attackTable := spell.Unit.AttackTables[target.UnitIndex][spell.CastType]
@@ -130,7 +119,7 @@ func (druid *Druid) newRakeSpellConfig(rakeRank RakeRankInfo) core.SpellConfig {
 			return initial
 		},
 		ExpectedTickDamage: func(sim *core.Simulation, target *core.Unit, spell *core.Spell, _ bool) *core.SpellResult {
-			tickBase := baseDamageTick + RakeDamageCoef*spell.MeleeAttackPower()
+			tickBase := baseDamageTick
 			ticks := spell.CalcPeriodicDamage(sim, target, tickBase, spell.OutcomeExpectedMagicAlwaysHit)
 			return ticks
 		},

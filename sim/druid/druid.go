@@ -17,6 +17,7 @@ var TalentTreeSizes = [3]int{16, 16, 15}
 const (
 	SpellCode_DruidNone int32 = iota
 
+	SpellCode_DruidClaw
 	SpellCode_DruidFaerieFire
 	SpellCode_DruidFaerieFireFeral
 	SpellCode_DruidFerociousBite
@@ -64,6 +65,7 @@ type Druid struct {
 	Rake                 *DruidSpell
 	Rip                  *DruidSpell
 	Shred                *DruidSpell
+	Claw                 *DruidSpell
 	Starfire             []*DruidSpell
 	SwipeBear            *DruidSpell
 	TigersFury           *DruidSpell
@@ -180,6 +182,7 @@ func (druid *Druid) RegisterFeralCatSpells() {
 	druid.registerRakeSpell()
 	druid.registerRipSpell()
 	druid.registerShredSpell()
+	druid.registerClawSpell()
 	// druid.registerSwipeBearSpell()
 	druid.registerTigersFurySpell()
 }

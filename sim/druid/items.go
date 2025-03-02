@@ -20,9 +20,8 @@ func init() {
 	core.NewItemEffect(IdolOfFerocity, func(agent core.Agent) {
 		druid := agent.(DruidAgent).GetDruid()
 
-		// TODO: Claw is not implemented
 		druid.OnSpellRegistered(func(spell *core.Spell) {
-			if spell.SpellCode == SpellCode_DruidRake {
+			if spell.SpellCode == SpellCode_DruidRake || spell.SpellCode == SpellCode_DruidClaw {
 				spell.Cost.FlatModifier -= 3
 			}
 		})
