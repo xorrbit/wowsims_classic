@@ -72,11 +72,3 @@ func (druid *Druid) registerShredSpell() {
 		},
 	})
 }
-
-func (druid *Druid) CanShred() bool {
-	return !druid.PseudoStats.InFrontOfTarget && druid.CurrentEnergy() >= druid.CurrentShredCost()
-}
-
-func (druid *Druid) CurrentShredCost() float64 {
-	return druid.Shred.Cost.GetCurrentCost()
-}
