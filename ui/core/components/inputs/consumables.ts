@@ -39,6 +39,7 @@ import { MultiIconPicker, MultiIconPickerConfig, MultiIconPickerItemConfig } fro
 import { DeadlyPoisonWeaponImbue, InstantPoisonWeaponImbue, WoundPoisonWeaponImbue } from './rogue_imbues';
 import { FlametongueWeaponImbue, FrostbrandWeaponImbue, RockbiterWeaponImbue, WindfuryWeaponImbue } from './shaman_imbues';
 import { ActionInputConfig, ItemStatOption, PickerStatOptions, StatOptions } from './stat_options';
+import { FeralDruid } from '../../proto/druid';
 
 export interface ConsumableInputConfig<T> extends ActionInputConfig<T> {
 	value: T;
@@ -806,7 +807,10 @@ export const makeMp5ConsumeInput = makeConsumeInputFactory({ consumesFieldName: 
 export const Windfury: ConsumableInputConfig<WeaponImbue> = {
 	actionId: () => ActionId.fromSpellId(10614),
 	value: WeaponImbue.Windfury,
-	showWhen: player => player.getFaction() === Faction.Horde,
+	showWhen: player => {
+		const isFeral = player.isSpec(Spec.SpecFeralDruid || Spec.SpecFeralTankDruid)
+		return (player.getFaction() === Faction.Horde) && !isFeral
+	},
 };
 
 // Other Imbues
@@ -893,7 +897,8 @@ export const ElementalSharpeningStone = (slot: ItemSlot): ConsumableInputConfig<
 		value: WeaponImbue.ElementalSharpeningStone,
 		showWhen: player => {
 			const weapon = player.getEquippedItem(slot);
-			return !weapon || isWeapon(weapon.item.weaponType);
+			const isFeral = player.isSpec(Spec.SpecFeralDruid || Spec.SpecFeralTankDruid)
+			return (!weapon || isWeapon(weapon.item.weaponType)) && !isFeral;
 		},
 	};
 };
@@ -903,7 +908,8 @@ export const DenseSharpeningStone = (slot: ItemSlot): ConsumableInputConfig<Weap
 		value: WeaponImbue.DenseSharpeningStone,
 		showWhen: player => {
 			const weapon = player.getEquippedItem(slot);
-			return !weapon || isSharpWeaponType(weapon.item.weaponType);
+			const isFeral = player.isSpec(Spec.SpecFeralDruid || Spec.SpecFeralTankDruid)
+			return (!weapon || isSharpWeaponType(weapon.item.weaponType)) && !isFeral;
 		},
 	};
 };
@@ -913,7 +919,8 @@ export const SolidSharpeningStone = (slot: ItemSlot): ConsumableInputConfig<Weap
 		value: WeaponImbue.SolidSharpeningStone,
 		showWhen: player => {
 			const weapon = player.getEquippedItem(slot);
-			return !weapon || isSharpWeaponType(weapon.item.weaponType);
+			const isFeral = player.isSpec(Spec.SpecFeralDruid || Spec.SpecFeralTankDruid)
+			return (!weapon || isSharpWeaponType(weapon.item.weaponType)) && !isFeral;
 		},
 	};
 };
@@ -925,7 +932,8 @@ export const DenseWeightstone = (slot: ItemSlot): ConsumableInputConfig<WeaponIm
 		value: WeaponImbue.DenseWeightstone,
 		showWhen: player => {
 			const weapon = player.getEquippedItem(slot);
-			return !weapon || isBluntWeaponType(weapon.item.weaponType);
+			const isFeral = player.isSpec(Spec.SpecFeralDruid || Spec.SpecFeralTankDruid)
+			return (!weapon || isBluntWeaponType(weapon.item.weaponType)) && !isFeral 
 		},
 	};
 };
@@ -935,7 +943,8 @@ export const SolidWeightstone = (slot: ItemSlot): ConsumableInputConfig<WeaponIm
 		value: WeaponImbue.SolidWeightstone,
 		showWhen: player => {
 			const weapon = player.getEquippedItem(slot);
-			return !weapon || isBluntWeaponType(weapon.item.weaponType);
+			const isFeral = player.isSpec(Spec.SpecFeralDruid || Spec.SpecFeralTankDruid)
+			return (!weapon || isBluntWeaponType(weapon.item.weaponType)) && !isFeral;
 		},
 	};
 };
@@ -947,7 +956,8 @@ export const ShadowOil = (slot: ItemSlot): ConsumableInputConfig<WeaponImbue> =>
 		value: WeaponImbue.ShadowOil,
 		showWhen: player => {
 			const weapon = player.getEquippedItem(slot);
-			return !weapon || isWeapon(weapon.item.weaponType);
+			const isFeral = player.isSpec(Spec.SpecFeralDruid || Spec.SpecFeralTankDruid)
+			return (!weapon || isWeapon(weapon.item.weaponType)) && !isFeral;
 		},
 	};
 };
@@ -957,7 +967,8 @@ export const FrostOil = (slot: ItemSlot): ConsumableInputConfig<WeaponImbue> => 
 		value: WeaponImbue.FrostOil,
 		showWhen: player => {
 			const weapon = player.getEquippedItem(slot);
-			return !weapon || isWeapon(weapon.item.weaponType);
+			const isFeral = player.isSpec(Spec.SpecFeralDruid || Spec.SpecFeralTankDruid)
+			return (!weapon || isWeapon(weapon.item.weaponType)) && !isFeral;
 		},
 	};
 };
