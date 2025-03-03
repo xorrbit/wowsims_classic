@@ -1,6 +1,7 @@
 import Toast from './components/toast';
 import { getLanguageCode } from './constants/lang.js';
 import * as Mechanics from './constants/mechanics.js';
+import { SimSettingCategories } from './constants/sim_settings';
 import { MAX_PARTY_SIZE, Party } from './party.js';
 import {
 	AuraStats as AuraStatsProto,
@@ -69,7 +70,7 @@ import {
 	withSpecProto,
 } from './proto_utils/utils.js';
 import { Raid } from './raid.js';
-import { Sim, SimSettingCategories } from './sim.js';
+import { Sim } from './sim.js';
 import { playerTalentStringToProto } from './talents/factory.js';
 import { EventID, TypedEvent } from './typed_event.js';
 import { stringComparator } from './utils.js';

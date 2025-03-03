@@ -1,3 +1,3 @@
-import { RaidSimUI } from './raid_sim_ui.js';
+import { RaidSimUI } from './components/raid_sim_ui.js';
 
 const ui = new RaidSimUI(document.body, {});
