@@ -1,20 +1,20 @@
 import tippy from 'tippy.js';
 import { ref } from 'tsx-vanilla';
 
-import { BaseModal } from '../core/components/base_modal.jsx';
-import { Component } from '../core/components/component.js';
-import { EnumPicker } from '../core/components/enum_picker.js';
-import { MAX_PARTY_SIZE, Party } from '../core/party.js';
-import { Player } from '../core/player.js';
-import { Player as PlayerProto } from '../core/proto/api.js';
-import { Class, Faction, Profession, Spec } from '../core/proto/common.js';
-import { BalanceDruid_Options as BalanceDruidOptions } from '../core/proto/druid.js';
-import { cssClassForClass, isTankSpec, newUnitReference, playerToSpec, specToClass } from '../core/proto_utils/utils.js';
-import { Raid } from '../core/raid.js';
-import { EventID, TypedEvent } from '../core/typed_event.js';
-import { formatDeltaTextElem, getEnumValues } from '../core/utils.js';
-import { playerPresets, specSimFactories } from './presets.js';
-import { RaidSimUI } from './raid_sim_ui.js';
+import { BaseModal } from '../../core/components/base_modal.jsx';
+import { Component } from '../../core/components/component.js';
+import { EnumPicker } from '../../core/components/enum_picker.js';
+import { MAX_PARTY_SIZE, Party } from '../../core/party.js';
+import { Player } from '../../core/player.js';
+import { Player as PlayerProto } from '../../core/proto/api.js';
+import { Class, Faction, Profession, Spec } from '../../core/proto/common.js';
+import { BalanceDruid_Options as BalanceDruidOptions } from '../../core/proto/druid.js';
+import { cssClassForClass, isTankSpec, newUnitReference, playerToSpec, specToClass } from '../../core/proto_utils/utils.js';
+import { Raid } from '../../core/raid.js';
+import { EventID, TypedEvent } from '../../core/typed_event.js';
+import { formatDeltaTextElem, getEnumValues } from '../../core/utils.js';
+import { playerPresets, specSimFactories } from '../presets.js';
+import { RaidSimUI } from './raid_sim_ui';
 
 const NEW_PLAYER = -1;
 

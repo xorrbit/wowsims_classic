@@ -47,17 +47,6 @@ export type StatWeightsData = {
 	result: StatWeightsResult;
 };
 
-export enum SimSettingCategories {
-	Gear = 0,
-	Talents,
-	Rotation,
-	Consumes,
-	Miscellaneous, // Spec-specific settings, Distance from target, tank status, etc
-	External, // Buffs and debuffs
-	Encounter,
-	UISettings, // # iterations, EP weights, filters, etc
-}
-
 const WASM_CONCURRENCY_STORAGE_KEY = `classic_wasmconcurrency`;
 
 // Core Sim module which deals only with api types, no UI-related stuff.
@@ -407,7 +396,7 @@ export class Sim {
 		epStats: Array<Stat>,
 		epPseudoStats: Array<PseudoStat>,
 		epReferenceStat: Stat,
-		onProgress: WorkerProgressCallback
+		onProgress: WorkerProgressCallback,
 	): Promise<StatWeightsResult> {
 		if (this.raid.isEmpty()) {
 			throw new Error('Raid is empty! Try adding some players first.');
@@ -444,7 +433,7 @@ export class Sim {
 				pseudoStatsToWeigh: epPseudoStats,
 				epReferenceStat: epReferenceStat,
 			});
-			
+
 			const signals = this.signalManager.registerRunning(RequestTypes.StatWeights);
 			try {
 				let result: StatWeightsResult;

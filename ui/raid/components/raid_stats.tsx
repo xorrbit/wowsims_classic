@@ -1,14 +1,14 @@
 import tippy from 'tippy.js';
 import { ref } from 'tsx-vanilla';
 
-import { Component } from '../core/components/component.js';
-import { Player } from '../core/player.js';
-import { Class, RaidBuffs, Spec } from '../core/proto/common.js';
-import { Hunter_Options_PetType as HunterPetType, Hunter_Rotation_StingType as HunterStingType } from '../core/proto/hunter.js';
-import { PaladinAura } from '../core/proto/paladin.js';
-import { WarlockOptions_Summon as WarlockSummon } from '../core/proto/warlock.js';
-import { WarriorShout } from '../core/proto/warrior.js';
-import { ActionId } from '../core/proto_utils/action_id.js';
+import { Component } from '../../core/components/component.js';
+import { Player } from '../../core/player.js';
+import { Class, RaidBuffs, Spec } from '../../core/proto/common.js';
+import { Hunter_Options_PetType as HunterPetType, Hunter_Rotation_StingType as HunterStingType } from '../../core/proto/hunter.js';
+import { PaladinAura } from '../../core/proto/paladin.js';
+import { WarlockOptions_Summon as WarlockSummon } from '../../core/proto/warlock.js';
+import { WarriorShout } from '../../core/proto/warrior.js';
+import { ActionId } from '../../core/proto_utils/action_id.js';
 import {
 	ClassSpecs,
 	isHealingSpec,
@@ -18,10 +18,10 @@ import {
 	SpecTalents,
 	specToClass,
 	textCssClassForClass,
-} from '../core/proto_utils/utils.js';
-import { Raid } from '../core/raid.js';
-import { sum } from '../core/utils.js';
-import { RaidSimUI } from './raid_sim_ui.js';
+} from '../../core/proto_utils/utils.js';
+import { Raid } from '../../core/raid.js';
+import { sum } from '../../core/utils.js';
+import { RaidSimUI } from './raid_sim_ui';
 
 interface RaidStatsOptions {
 	sections: Array<RaidStatsSectionOptions>;

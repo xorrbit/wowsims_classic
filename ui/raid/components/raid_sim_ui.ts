@@ -1,21 +1,22 @@
 import { default as pako } from 'pako';
 
-import { EmbeddedDetailedResults } from '../core/components/detailed_results.js';
-import { addRaidSimAction, RaidSimResultsManager, ReferenceData } from '../core/components/raid_sim_action.js';
-import { raidSimStatus } from '../core/launched_sims.js';
-import { Player } from '../core/player.js';
-import { Raid as RaidProto } from '../core/proto/api.js';
-import { Class, Encounter as EncounterProto, TristateEffect } from '../core/proto/common.js';
-import { Blessings } from '../core/proto/paladin.js';
-import { BlessingsAssignments, RaidSimSettings } from '../core/proto/ui.js';
-import { playerToSpec } from '../core/proto_utils/utils.js';
-import { Sim } from '../core/sim.js';
-import { SimUI } from '../core/sim_ui.js';
-import { EventID, TypedEvent } from '../core/typed_event.js';
+import { EmbeddedDetailedResults } from '../../core/components/detailed_results.jsx';
+import { addRaidSimAction, RaidSimResultsManager, ReferenceData } from '../../core/components/raid_sim_action.jsx';
+import { raidSimStatus } from '../../core/launched_sims.js';
+import { Player } from '../../core/player.js';
+import { Raid as RaidProto } from '../../core/proto/api.js';
+import { Class, Encounter as EncounterProto, TristateEffect } from '../../core/proto/common.js';
+import { Blessings } from '../../core/proto/paladin.js';
+import { BlessingsAssignments, RaidSimSettings } from '../../core/proto/ui.js';
+import { playerToSpec } from '../../core/proto_utils/utils.js';
+import { Sim } from '../../core/sim.js';
+import { SimUI } from '../../core/sim_ui.jsx';
+import { EventID, TypedEvent } from '../../core/typed_event.js';
+import { implementedSpecs } from '../presets.js';
 import { BlessingsPicker } from './blessings_picker.js';
-import * as ImportExport from './import_export.js';
-import { implementedSpecs } from './presets.js';
-import { RaidPicker } from './raid_picker.js';
+import { RaidJsonExporter } from './exporters';
+import { RaidJsonImporter, RaidWCLImporter } from './importers';
+import { RaidPicker } from './raid_picker.jsx';
 import { RaidTab } from './raid_tab.js';
 import { SettingsTab } from './settings_tab.js';
 
@@ -98,10 +99,10 @@ export class RaidSimUI extends SimUI {
 	}
 
 	private addTopbarComponents() {
-		this.simHeader.addImportLink('JSON', new ImportExport.RaidJsonImporter(this.rootElem, this));
-		this.simHeader.addImportLink('WCL', new ImportExport.RaidWCLImporter(this.rootElem, this));
+		this.simHeader.addImportLink('JSON', new RaidJsonImporter(this.rootElem, this));
+		this.simHeader.addImportLink('WCL', new RaidWCLImporter(this.rootElem, this));
 
-		this.simHeader.addExportLink('JSON', new ImportExport.RaidJsonExporter(this.rootElem, this));
+		this.simHeader.addExportLink('JSON', new RaidJsonExporter(this.rootElem, this));
 	}
 
 	private addRaidTab() {
