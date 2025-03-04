@@ -80,10 +80,6 @@ func init() {
 					Timer:    druid.NewTimer(),
 					Duration: cooldown,
 				},
-				SharedCD: core.Cooldown{
-					Timer:    druid.GetOffensiveTrinketCD(),
-					Duration: cooldown,
-				},
 			},
 			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 				buffAura.Activate(sim)
