@@ -91,7 +91,7 @@ export const DefaultConsumes = Consumes.create({
 	attackPowerBuff: AttackPowerBuff.JujuMight,
 	defaultConjured: Conjured.ConjuredDemonicRune,
 	defaultPotion: Potions.MajorManaPotion,
-	dragonBreathChili: false,
+	dragonBreathChili: true,
 	flask: Flask.FlaskOfDistilledWisdom,
 	food: Food.FoodGrilledSquid,
 	strengthBuff: StrengthBuff.JujuPower,
@@ -108,6 +108,7 @@ export const DefaultRaidBuffs = RaidBuffs.create({
 	leaderOfThePack: true,
 	manaSpringTotem: TristateEffect.TristateEffectRegular,
 	strengthOfEarthTotem: TristateEffect.TristateEffectImproved,
+	powerWordFortitude: TristateEffect.TristateEffectImproved,
 });
 
 export const DefaultIndividualBuffs = IndividualBuffs.create({
@@ -126,6 +127,7 @@ export const DefaultDebuffs = Debuffs.create({
 	curseOfRecklessness: true,
 	exposeArmor: TristateEffect.TristateEffectImproved,
 	faerieFire: false,
+	giftOfArthas: true,
 	sunderArmor: true,
 });
 
