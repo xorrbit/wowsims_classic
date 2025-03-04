@@ -856,6 +856,16 @@ export const MinorWizardOil = (slot: ItemSlot): ConsumableInputConfig<WeaponImbu
 		},
 	};
 };
+export const BlessedWizardOil = (slot: ItemSlot): ConsumableInputConfig<WeaponImbue> => {
+	return {
+		actionId: () => ActionId.fromItemId(23123),
+		value: WeaponImbue.BlessedWizardOil,
+		showWhen: player => {
+			const weapon = player.getEquippedItem(slot);
+			return !weapon || isWeapon(weapon.item.weaponType);
+		},
+	};
+};
 
 // Mana Oils
 // Original lvl 45 but not obtainable in Phase 3
@@ -891,6 +901,16 @@ export const MinorManaOil = (slot: ItemSlot): ConsumableInputConfig<WeaponImbue>
 };
 
 // Sharpening Stones
+export const ConsecratedSharpeningStone = (slot: ItemSlot): ConsumableInputConfig<WeaponImbue> => {
+	return {
+		actionId: () => ActionId.fromItemId(23122),
+		value: WeaponImbue.ConsecratedSharpeningStone,
+		showWhen: player => {
+			const weapon = player.getEquippedItem(slot);
+			return !weapon || isWeapon(weapon.item.weaponType);
+		},
+	};
+};
 export const ElementalSharpeningStone = (slot: ItemSlot): ConsumableInputConfig<WeaponImbue> => {
 	return {
 		actionId: () => ActionId.fromItemId(18262),
@@ -991,11 +1011,13 @@ const CONSUMABLES_IMBUES = (slot: ItemSlot): ConsumableStatOption<WeaponImbue>[]
 	{ config: WizardOil(slot), stats: [Stat.StatSpellPower] },
 	{ config: LesserWizardOil(slot), stats: [Stat.StatSpellPower] },
 	{ config: MinorWizardOil(slot), stats: [Stat.StatSpellPower] },
+	{ config: BlessedWizardOil(slot), stats: [Stat.StatHealingPower, Stat.StatSpellPower] },
 
 	{ config: BrilliantManaOil(slot), stats: [Stat.StatHealingPower, Stat.StatSpellPower] },
 	{ config: LesserManaOil(slot), stats: [Stat.StatHealingPower, Stat.StatSpellPower] },
 	{ config: MinorManaOil(slot), stats: [Stat.StatHealingPower, Stat.StatSpellPower] },
 
+	{ config: ConsecratedSharpeningStone(slot), stats: [Stat.StatAttackPower] },
 	{ config: ElementalSharpeningStone(slot), stats: [Stat.StatAttackPower] },
 	{ config: DenseSharpeningStone(slot), stats: [Stat.StatAttackPower] },
 	{ config: SolidSharpeningStone(slot), stats: [Stat.StatAttackPower] },
