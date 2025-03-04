@@ -104,6 +104,10 @@ func addImbueStats(character *Character, imbue proto.WeaponImbue, isMh bool, sha
 				stats.SpellPower: 36,
 				stats.SpellCrit:  1 * SpellCritRatingPerCritChance,
 			})
+		case proto.WeaponImbue_BlessedWizardOil:
+			if character.CurrentTarget.MobType == proto.MobType_MobTypeUndead {
+				character.PseudoStats.MobTypeSpellPower += 60
+			}
 
 		// Mana Oils
 		case proto.WeaponImbue_MinorManaOil:
@@ -140,6 +144,10 @@ func addImbueStats(character *Character, imbue proto.WeaponImbue, isMh bool, sha
 				stats.MeleeCrit: 2 * CritRatingPerCritChance,
 			})
 			character.AddBonusRangedCritRating(-2.0)
+		case proto.WeaponImbue_ConsecratedSharpeningStone:
+			if character.CurrentTarget.MobType == proto.MobType_MobTypeUndead {
+				character.PseudoStats.MobTypeAttackPower += 100
+			}
 
 		// Weightstones
 		case proto.WeaponImbue_SolidWeightstone:
