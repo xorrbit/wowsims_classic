@@ -57,7 +57,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWardenShaman, {
 		// Primary
 		Stat.StatMana,
 		// Attributes
-		Stat.StatStamina,
 		Stat.StatStrength,
 		Stat.StatAgility,
 		Stat.StatIntellect,
@@ -85,7 +84,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWardenShaman, {
 		Stat.StatShadowResistance,
 	],
 	displayPseudoStats: [],
-	
+
 	defaults: {
 		race: Race.RaceTroll,
 		// Default equipped gear.
@@ -143,11 +142,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWardenShaman, {
 	// IconInputs to include in the 'Player' section on the settings tab.
 	playerIconInputs: [],
 	// Buff and Debuff inputs to include/exclude, overriding the EP-based defaults.
-	includeBuffDebuffInputs: [
-		BuffDebuffInputs.SpellWintersChillDebuff,
-		BuffDebuffInputs.SpiritBuff,
-		ConsumesInputs.ElixirOfFrostPower,
-	],
+	includeBuffDebuffInputs: [BuffDebuffInputs.SpellWintersChillDebuff, BuffDebuffInputs.SpiritBuff, ConsumesInputs.ElixirOfFrostPower],
 	excludeBuffDebuffInputs: [],
 	// Inputs to include in the 'Other' section on the settings tab.
 	otherInputs: {

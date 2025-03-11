@@ -40,7 +40,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecFeralTankDruid, {
 	displayStats: [
 		Stat.StatArmor,
 		Stat.StatBonusArmor,
-		Stat.StatStamina,
 		Stat.StatStrength,
 		Stat.StatAgility,
 		Stat.StatAttackPower,
@@ -54,7 +53,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecFeralTankDruid, {
 		Stat.StatShadowResistance,
 	],
 	displayPseudoStats: [],
-	
+
 	defaults: {
 		// Default equipped gear.
 		gear: Presets.DefaultGear.gear,

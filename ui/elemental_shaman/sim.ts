@@ -33,9 +33,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecElementalShaman, {
 		Stat.StatSpellHaste,
 		Stat.StatMP5,
 	],
-	epPseudoStats: [
-		
-	],
+	epPseudoStats: [],
 	// Reference stat against which to calculate EP. I think all classes use either spell power or attack power.
 	epReferenceStat: Stat.StatSpellPower,
 	// Which stats to display in the Character Stats section, at the bottom of the left-hand sidebar.
@@ -43,7 +41,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecElementalShaman, {
 		// Primary
 		Stat.StatMana,
 		// Attributes
-		Stat.StatStamina,
 		Stat.StatIntellect,
 		Stat.StatSpirit,
 		// Spell
@@ -67,7 +64,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecElementalShaman, {
 			[Stat.StatSpellPower]: 1,
 			[Stat.StatSpellDamage]: 1,
 			[Stat.StatFirePower]: 0.1, // Eles don't really use Fire much except for Niche situations or AOE
-			[Stat.StatNaturePower]: 1.00,
+			[Stat.StatNaturePower]: 1.0,
 			[Stat.StatSpellHit]: 12.37,
 			[Stat.StatSpellCrit]: 7.57,
 			[Stat.StatSpellHaste]: 1.49,
@@ -92,10 +89,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecElementalShaman, {
 	// IconInputs to include in the 'Player' section on the settings tab.
 	playerIconInputs: [],
 	// Buff and Debuff inputs to include/exclude, overriding the EP-based defaults.
-	includeBuffDebuffInputs: [
-		BuffDebuffInputs.SpellWintersChillDebuff,
-		ConsumesInputs.ElixirOfFrostPower,
-	],
+	includeBuffDebuffInputs: [BuffDebuffInputs.SpellWintersChillDebuff, ConsumesInputs.ElixirOfFrostPower],
 	excludeBuffDebuffInputs: [],
 	// Inputs to include in the 'Other' section on the settings tab.
 	otherInputs: {
