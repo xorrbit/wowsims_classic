@@ -69,9 +69,7 @@ export const APLPresets = {
 	[Phase.Phase1]: [APLP1DPS],
 };
 
-export const DefaultAPLs = [
-	APLPresets[Phase.Phase1][0]
-];
+export const DefaultAPLs = [APLPresets[Phase.Phase1][0]];
 
 ///////////////////////////////////////////////////////////////////////////
 //                                 Talent Presets
@@ -93,6 +91,7 @@ export const DefaultTalents = TalentPresets[Phase.Phase1][0];
 ///////////////////////////////////////////////////////////////////////////
 
 export const DefaultOptions = WarriorOptions.create({
+	queueDelay: 250,
 	startingRage: 0,
 	shout: WarriorShout.WarriorShoutBattle,
 	stance: WarriorStance.WarriorStanceBerserker,
