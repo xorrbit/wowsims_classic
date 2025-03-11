@@ -20,9 +20,12 @@ func TestP1DPSWarrior(t *testing.T) {
 			Race:       proto.Race_RaceOrc,
 			OtherRaces: []proto.Race{proto.Race_RaceHuman},
 
-			Talents:     P1Talents,
-			GearSet:     core.GetGearSet("../../../ui/warrior/gear_sets", "phase_1"),
-			Rotation:    core.GetAplRotation("../../../ui/warrior/apls", "p1"),
+			Talents:  P1Talents,
+			GearSet:  core.GetGearSet("../../../ui/warrior/gear_sets", "phase_1"),
+			Rotation: core.GetAplRotation("../../../ui/warrior/apls", "dps_reck"),
+			OtherRotations: []core.RotationCombo{
+				core.GetAplRotation("../../../ui/warrior/apls", "dps_no_reck"),
+			},
 			Buffs:       core.FullBuffs,
 			Consumes:    P1Consumes,
 			SpecOptions: core.SpecOptionsCombo{Label: "DPS", SpecOptions: PlayerOptionsFury},
