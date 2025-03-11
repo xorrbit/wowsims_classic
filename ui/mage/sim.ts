@@ -38,7 +38,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecMage, {
 		// Primary
 		Stat.StatMana,
 		// Attributes
-		Stat.StatStamina,
 		Stat.StatIntellect,
 		Stat.StatSpirit,
 		// Spell
@@ -52,7 +51,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecMage, {
 		Stat.StatMP5,
 	],
 	displayPseudoStats: [],
-	
+
 	defaults: {
 		// Default equipped gear.
 		gear: Presets.DefaultGear.gear,
@@ -113,15 +112,9 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecMage, {
 	},
 
 	presets: {
-		rotations: [
-			...Presets.APLPresets[Phase.Phase1],
-		],
-		talents: [
-			...Presets.TalentPresets[Phase.Phase1],
-		],
-		gear: [
-			...Presets.GearPresets[Phase.Phase1],
-		],
+		rotations: [...Presets.APLPresets[Phase.Phase1]],
+		talents: [...Presets.TalentPresets[Phase.Phase1]],
+		gear: [...Presets.GearPresets[Phase.Phase1]],
 	},
 
 	autoRotation: player => {

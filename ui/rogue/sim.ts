@@ -67,7 +67,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecRogue, {
 	// Which stats to display in the Character Stats section, at the bottom of the left-hand sidebar.
 	displayStats: [
 		// Attributes
-		Stat.StatStamina,
 		Stat.StatAgility,
 		Stat.StatStrength,
 		// Physical
@@ -138,22 +137,12 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecRogue, {
 
 	presets: {
 		// Preset talents that the user can quickly select.
-		talents: [
-			...Presets.TalentPresets[Phase.Phase2],
-		],
+		talents: [...Presets.TalentPresets[Phase.Phase2]],
 		// Preset rotations that the user can quickly select.
-		rotations: [
-			...Presets.APLPresets[Phase.Phase2],
-		],
+		rotations: [...Presets.APLPresets[Phase.Phase2]],
 		// Preset gear configurations that the user can quickly select.
-		gear: [
-			...Presets.GearPresets[Phase.Phase2],
-		],
-		builds: [
-			Presets.PresetBuildBackstab,
-			Presets.PresetBuildSinisterStrike,
-			Presets.PresetBuildIEA,
-		],
+		gear: [...Presets.GearPresets[Phase.Phase2]],
+		builds: [Presets.PresetBuildBackstab, Presets.PresetBuildSinisterStrike, Presets.PresetBuildIEA],
 	},
 
 	autoRotation: player => {

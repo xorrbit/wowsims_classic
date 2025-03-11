@@ -76,7 +76,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecProtectionPaladin, {
 		Stat.StatMana,
 		// Attributes
 		Stat.StatStrength,
-		Stat.StatStamina,
 		Stat.StatAgility,
 		Stat.StatIntellect,
 		// Physical
@@ -104,7 +103,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecProtectionPaladin, {
 		Stat.StatArcaneResistance,
 	],
 	displayPseudoStats: [],
-	
+
 	defaults: {
 		// Default equipped gear.
 		gear: Presets.DefaultGear.gear,

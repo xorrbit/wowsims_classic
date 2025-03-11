@@ -38,7 +38,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecShadowPriest, {
 		// Primary
 		Stat.StatMana,
 		// Attributes
-		Stat.StatStamina,
 		Stat.StatIntellect,
 		Stat.StatSpirit,
 		// Spell
@@ -50,7 +49,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecShadowPriest, {
 		Stat.StatMP5,
 	],
 	displayPseudoStats: [],
-	
+
 	modifyDisplayStats: (player: Player<Spec.SpecShadowPriest>) => {
 		let stats = new Stats();
 		stats = stats.addPseudoStat(PseudoStat.PseudoStatSchoolHitShadow, player.getTalents().shadowFocus * 2 * Mechanics.SPELL_HIT_RATING_PER_HIT_CHANCE);
@@ -114,15 +113,9 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecShadowPriest, {
 	},
 
 	presets: {
-		talents: [
-			...Presets.TalentPresets[Phase.Phase1],
-		],
-		rotations: [
-			...Presets.APLPresets[Phase.Phase1],
-		],
-		gear: [
-			...Presets.GearPresets[Phase.Phase1],
-		],
+		talents: [...Presets.TalentPresets[Phase.Phase1]],
+		rotations: [...Presets.APLPresets[Phase.Phase1]],
+		gear: [...Presets.GearPresets[Phase.Phase1]],
 	},
 
 	autoRotation: player => {

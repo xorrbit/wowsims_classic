@@ -23,7 +23,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecRestorationShaman, {
 	displayStats: [
 		Stat.StatHealth,
 		Stat.StatMana,
-		Stat.StatStamina,
 		Stat.StatIntellect,
 		Stat.StatSpirit,
 		Stat.StatSpellPower,
@@ -32,7 +31,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecRestorationShaman, {
 		Stat.StatMP5,
 	],
 	displayPseudoStats: [],
-	
+
 	defaults: {
 		// Default equipped gear.
 		gear: Presets.DefaultGear.gear,

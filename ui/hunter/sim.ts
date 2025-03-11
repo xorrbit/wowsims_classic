@@ -52,7 +52,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecHunter, {
 		// Attributes
 		Stat.StatStrength,
 		Stat.StatAgility,
-		Stat.StatStamina,
 		Stat.StatIntellect,
 		// Physical
 		Stat.StatAttackPower,
@@ -69,7 +68,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecHunter, {
 		Stat.StatMP5,
 	],
 	displayPseudoStats: [],
-	
+
 	defaults: {
 		race: Presets.OtherDefaults.race,
 		// Default equipped gear.
@@ -139,27 +138,21 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecHunter, {
 
 	presets: {
 		// Preset talents that the user can quickly select.
-		talents: [
-			...Presets.TalentPresets[Phase.Phase1],
-		],
+		talents: [...Presets.TalentPresets[Phase.Phase1]],
 		// Preset rotations that the user can quickly select.
-		rotations: [
-			...Presets.APLPresets[Phase.Phase1],
-		],
+		rotations: [...Presets.APLPresets[Phase.Phase1]],
 		// Preset gear configurations that the user can quickly select.
-		gear: [
-			...Presets.GearPresets[Phase.Phase1],
-		],
+		gear: [...Presets.GearPresets[Phase.Phase1]],
 	},
 
 	autoRotation: player => {
 		const isMelee = false;
-			//player.hasRune(ItemSlot.ItemSlotWaist, HunterRune.RuneBeltMeleeSpecialist) ||
-			//player.hasRune(ItemSlot.ItemSlotFeet, HunterRune.RuneBootsDualWieldSpecialization) ||
-			//player.hasRune(ItemSlot.ItemSlotFeet, HunterRune.RuneBootsWyvernStrike);
-		
+		//player.hasRune(ItemSlot.ItemSlotWaist, HunterRune.RuneBeltMeleeSpecialist) ||
+		//player.hasRune(ItemSlot.ItemSlotFeet, HunterRune.RuneBootsDualWieldSpecialization) ||
+		//player.hasRune(ItemSlot.ItemSlotFeet, HunterRune.RuneBootsWyvernStrike);
+
 		return Presets.DefaultAPL.rotation.rotation!;
-		
+
 		// COMMENTING OUT TO SAVE FOR FUTURE IMPLEMENTATION.
 		// if (isMelee) {
 		// 	switch (level) {
