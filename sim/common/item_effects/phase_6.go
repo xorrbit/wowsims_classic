@@ -70,7 +70,7 @@ func init() {
 			ActionID:    actionID,
 			SpellSchool: core.SpellSchoolPhysical,
 			ProcMask:    core.ProcMaskEmpty,
-			Flags:       core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell,
+			Flags:       core.SpellFlagNoOnCastComplete,
 			Cast: core.CastConfig{
 				CD: core.Cooldown{
 					Timer:    character.NewTimer(),
@@ -117,7 +117,7 @@ func init() {
 			ActionID:    actionID,
 			SpellSchool: core.SpellSchoolPhysical,
 			ProcMask:    core.ProcMaskEmpty,
-			Flags:       core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell,
+			Flags:       core.SpellFlagNoOnCastComplete,
 			Cast: core.CastConfig{
 				CD: core.Cooldown{
 					Timer:    character.NewTimer(), // Doesn't share the trinket timer
