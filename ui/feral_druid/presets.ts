@@ -26,6 +26,7 @@ import { SavedTalents } from '../core/proto/ui.js';
 import P2APL from './apls/p2.apl.json';
 import P2BISGear from './gear_sets/p2.bis.gear.json';
 import P2PreBISGear from './gear_sets/p2.pre-bis.gear.json';
+import P3BISGear from './gear_sets/p3.bis.gear.json';
 
 // Preset options for this spec.
 // Eventually we will import these values for the raid sim too, so its good to
@@ -37,9 +38,10 @@ import P2PreBISGear from './gear_sets/p2.pre-bis.gear.json';
 
 export const GearP2BIS = PresetUtils.makePresetGear('P2 BiS', P2BISGear);
 export const GearP2PreBIS = PresetUtils.makePresetGear('P2 Pre-BiS', P2PreBISGear);
+export const GearP3BIS = PresetUtils.makePresetGear('P3 BiS', P3BISGear)
 
 export const GearPresets = {
-	[Phase.Phase2]: [GearP2BIS, GearP2PreBIS],
+	[Phase.Phase2]: [GearP2PreBIS, GearP2BIS, GearP3BIS],
 };
 
 export const DefaultGear = GearP2BIS;
