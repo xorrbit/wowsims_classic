@@ -269,3 +269,115 @@ func ApplyFixedUptimeAura(aura *Aura, uptime float64, tickLength time.Duration, 
 		})
 	})
 }
+
+// Attaches a StatDependency to a parent Aura
+// Note: Only use when parent aura is used through RegisterAura() not GetOrRegisterAura. Otherwise this might apply multiple times.
+func (parentAura *Aura) AttachStatDependency(statDep *stats.StatDependency) *Aura {
+	parentAura.ApplyOnGain(func(_ *Aura, sim *Simulation) {
+		parentAura.Unit.EnableBuildPhaseStatDep(sim, statDep)
+	}).ApplyOnExpire(func(aura *Aura, sim *Simulation) {
+		parentAura.Unit.DisableBuildPhaseStatDep(sim, statDep)
+	})
+
+	return parentAura
+}
+
+// Adds Stats to a parent Aura
+// Note: Only use when parent aura is used through RegisterAura() not GetOrRegisterAura. Otherwise this might apply multiple times.
+func (parentAura *Aura) AttachStatsBuff(stats stats.Stats) *Aura {
+	parentAura.ApplyOnGain(func(aura *Aura, sim *Simulation) {
+		aura.Unit.AddStatsDynamic(sim, stats)
+	}).ApplyOnExpire(func(aura *Aura, sim *Simulation) {
+		aura.Unit.AddStatsDynamic(sim, stats.Invert())
+	})
+
+	if parentAura.IsActive() {
+		parentAura.Unit.AddStats(stats)
+	}
+
+	return parentAura
+}
+
+// Attaches a multiplicative PseudoStat buff to a parent Aura
+func (parentAura *Aura) AttachMultiplicativePseudoStatBuff(fieldPointer *float64, multiplier float64) *Aura {
+	parentAura.ApplyOnGain(func(_ *Aura, _ *Simulation) {
+		*fieldPointer *= multiplier
+	}).ApplyOnExpire(func(_ *Aura, _ *Simulation) {
+		*fieldPointer /= multiplier
+	})
+
+	if parentAura.IsActive() {
+		*fieldPointer *= multiplier
+	}
+
+	return parentAura
+}
+
+// Attaches an additive PseudoStat buff to a parent Aura
+func (parentAura *Aura) AttachAdditivePseudoStatBuff(fieldPointer *float64, bonus float64) *Aura {
+	parentAura.ApplyOnGain(func(_ *Aura, _ *Simulation) {
+		*fieldPointer += bonus
+	}).ApplyOnExpire(func(_ *Aura, _ *Simulation) {
+		*fieldPointer -= bonus
+	})
+
+	if parentAura.IsActive() {
+		*fieldPointer += bonus
+	}
+
+	return parentAura
+}
+
+// Adds Stats to a parent Aura during build phase
+// Note: Only use when parent aura is used through RegisterAura() not GetOrRegisterAura. Otherwise this might apply multiple times.
+func (parentAura *Aura) AttachBuildPhaseStatsBuff(stats stats.Stats) *Aura {
+	parentAura.ApplyOnGain(func(aura *Aura, sim *Simulation) {
+		aura.Unit.AddBuildPhaseStatsDynamic(sim, stats)
+	}).ApplyOnExpire(func(aura *Aura, sim *Simulation) {
+		aura.Unit.AddBuildPhaseStatsDynamic(sim, stats.Invert())
+	})
+
+	return parentAura
+}
+
+// Adds a Stat to a parent Aura
+// Note: Only use when parent aura is used through RegisterAura() not GetOrRegisterAura. Otherwise this might apply multiple times.
+func (parentAura *Aura) AttachStatBuff(stat stats.Stat, value float64) *Aura {
+	statsToAdd := stats.Stats{}
+	statsToAdd[stat] = value
+	parentAura.AttachStatsBuff(statsToAdd)
+
+	return parentAura
+}
+
+// Adds a Stat to a parent Aura during build phase
+// Note: Only use when parent aura is used through RegisterAura() not GetOrRegisterAura. Otherwise this might apply multiple times.
+func (parentAura *Aura) AttachBuildPhaseStatBuff(stat stats.Stat, value float64) *Aura {
+	statsToAdd := stats.Stats{}
+	statsToAdd[stat] = value
+	parentAura.AttachBuildPhaseStatsBuff(statsToAdd)
+
+	return parentAura
+}
+
+// Adds a Attack Speed Multiplier to a parent Aura
+// Note: Only use when parent aura is used through RegisterAura() not GetOrRegisterAura. Otherwise this might apply multiple times.
+func (parentAura *Aura) AttachMultiplyAttackSpeed(unit *Unit, value float64) *Aura {
+	parentAura.ApplyOnGain(func(aura *Aura, sim *Simulation) {
+		unit.MultiplyAttackSpeed(sim, value)
+	}).ApplyOnExpire(func(aura *Aura, sim *Simulation) {
+		unit.MultiplyAttackSpeed(sim, 1/value)
+	})
+	return parentAura
+}
+
+// Adds a Cast Speed Multiplier Stat to a parent Aura
+// Note: Only use when parent aura is used through RegisterAura() not GetOrRegisterAura. Otherwise this might apply multiple times.
+func (parentAura *Aura) AttachMultiplyCastSpeed(unit *Unit, value float64) *Aura {
+	parentAura.ApplyOnGain(func(aura *Aura, sim *Simulation) {
+		unit.MultiplyCastSpeed(value)
+	}).ApplyOnExpire(func(aura *Aura, sim *Simulation) {
+		unit.MultiplyCastSpeed(1 / value)
+	})
+	return parentAura
+}

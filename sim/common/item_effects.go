@@ -433,26 +433,18 @@ func init() {
 		numFistOfShahramAuras := 8
 		fistOfShahramAuras := []*core.Aura{}
 		for i := 0; i < numFistOfShahramAuras; i++ {
-			fistOfShahramAuras = append(fistOfShahramAuras, character.GetOrRegisterAura(core.Aura{
+			fistOfShahramAuras = append(fistOfShahramAuras, character.RegisterAura(core.Aura{
 				ActionID: core.ActionID{SpellID: 16601},
 				Label:    fmt.Sprintf("Fist of Shahram (%d)", i),
 				Duration: time.Second * 8,
-				OnGain: func(aura *core.Aura, sim *core.Simulation) {
-					character.MultiplyAttackSpeed(sim, 1.3)
-				},
-				OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-					character.MultiplyAttackSpeed(sim, 1/(1.3))
-				},
-			}))
+			}).AttachMultiplyAttackSpeed(&character.Unit, 1.3))
 		}
 
-		fistOfShahram := character.GetOrRegisterSpell(core.SpellConfig{
+		fistOfShahram := character.RegisterSpell(core.SpellConfig{
 			ActionID:    core.ActionID{SpellID: 16601},
 			SpellSchool: core.SpellSchoolArcane,
 			DefenseType: core.DefenseTypeMagic,
 			ProcMask:    core.ProcMaskEmpty,
-			Flags:       core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell,
-
 			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 				for i := 0; i < numFistOfShahramAuras; i++ {
 					if aura := fistOfShahramAuras[i]; !aura.IsActive() {
@@ -884,13 +876,7 @@ func init() {
 			Label:    "Empyrean Demolisher Haste Aura",
 			ActionID: core.ActionID{SpellID: 21165},
 			Duration: time.Second * 10,
-			OnGain: func(aura *core.Aura, sim *core.Simulation) {
-				character.MultiplyAttackSpeed(sim, 1.2)
-			},
-			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-				character.MultiplyAttackSpeed(sim, 1/1.2)
-			},
-		})
+		}).AttachMultiplyAttackSpeed(&character.Unit, 1.2)
 	})
 
 	// https://www.wowhead.com/classic/item=10696/enchanted-azsharite-felbane-sword
@@ -945,13 +931,7 @@ func init() {
 			Label:    "Eskhandar's Rage",
 			ActionID: core.ActionID{SpellID: 22640},
 			Duration: time.Second * 5,
-			OnGain: func(aura *core.Aura, sim *core.Simulation) {
-				character.MultiplyAttackSpeed(sim, 1.3)
-			},
-			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-				character.MultiplyAttackSpeed(sim, 1/1.3)
-			},
-		})
+		}).AttachMultiplyAttackSpeed(&character.Unit, 1.3)
 	})
 
 	// https://www.wowhead.com/classic/item=13218/fang-of-the-crystal-spider
@@ -1859,13 +1839,11 @@ func init() {
 			Duration: time.Second * 15,
 			OnGain: func(aura *core.Aura, sim *core.Simulation) {
 				character.PseudoStats.BonusPhysicalDamage += 20
-				character.MultiplyAttackSpeed(sim, 1.05)
 			},
 			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
 				character.PseudoStats.BonusPhysicalDamage -= 20
-				character.MultiplyAttackSpeed(sim, 1/1.05)
 			},
-		})
+		}).AttachMultiplyAttackSpeed(&character.Unit, 1.05)
 	})
 
 	// https://www.wowhead.com/classic/item=7717/ravager
@@ -2376,13 +2354,7 @@ func init() {
 			Label:    "The Jackhammer Haste Aura",
 			ActionID: core.ActionID{SpellID: 13533},
 			Duration: time.Second * 10,
-			OnGain: func(aura *core.Aura, sim *core.Simulation) {
-				character.MultiplyAttackSpeed(sim, 1.3)
-			},
-			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-				character.MultiplyAttackSpeed(sim, 1/1.3)
-			},
-		})
+		}).AttachMultiplyAttackSpeed(&character.Unit, 1.3)
 	})
 
 	// https://www.wowhead.com/classic/item=13060/the-needler
@@ -2704,13 +2676,7 @@ func init() {
 			Label:    "Aura of the Blue Dragon",
 			ActionID: actionID,
 			Duration: time.Second * 15,
-			OnGain: func(aura *core.Aura, sim *core.Simulation) {
-				character.PseudoStats.SpiritRegenRateCasting += 1
-			},
-			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-				character.PseudoStats.SpiritRegenRateCasting -= 1
-			},
-		})
+		}).AttachAdditivePseudoStatBuff(&character.PseudoStats.SpiritRegenRateCasting, 1)
 
 		core.MakeProcTriggerAura(&character.Unit, core.ProcTrigger{
 			Name:       "Aura of the Blue Dragon Trigger",
