@@ -34,6 +34,8 @@ const statGroups = new Map<string, Array<UnitStat>>([
 			UnitStat.fromStat(Stat.StatExpertise),
 			UnitStat.fromStat(Stat.StatMeleeCrit),
 			UnitStat.fromStat(Stat.StatMeleeHaste),
+			UnitStat.fromPseudoStat(PseudoStat.PseudoStatMeleeSpeedMultiplier),
+			UnitStat.fromPseudoStat(PseudoStat.PseudoStatRangedSpeedMultiplier),
 			UnitStat.fromPseudoStat(PseudoStat.BonusPhysicalDamage),
 		],
 	],
@@ -50,7 +52,7 @@ const statGroups = new Map<string, Array<UnitStat>>([
 			UnitStat.fromStat(Stat.StatShadowPower),
 			UnitStat.fromStat(Stat.StatSpellHit),
 			UnitStat.fromStat(Stat.StatSpellCrit),
-			UnitStat.fromStat(Stat.StatSpellHaste),
+			UnitStat.fromPseudoStat(PseudoStat.PseudoStatCastSpeedMultiplier),
 			UnitStat.fromStat(Stat.StatSpellPenetration),
 			UnitStat.fromStat(Stat.StatMP5),
 		],
@@ -125,7 +127,7 @@ export class CharacterStats extends Component {
 							<td className="character-stats-table-label">Melee Crit Cap</td>
 							<td className="character-stats-table-value">
 								{/* Hacky placeholder for spacing */}
-								<span className="px-2 border-start border-end border-body border-brand" style={{'--bs-border-opacity': '0'}} />
+								<span className="px-2 border-start border-end border-body border-brand" style={{ '--bs-border-opacity': '0' }} />
 							</td>
 						</tr>
 					);
@@ -319,15 +321,14 @@ export class CharacterStats extends Component {
 						</div>
 					</div>,
 				);
-			} else if (stat.isStat() && stat.getStat() === Stat.StatMeleeHaste && (mainHandWeapon || offHandItem)) {
+			} else if (stat.isPseudoStat() && stat.getPseudoStat() === PseudoStat.PseudoStatMeleeSpeedMultiplier && (mainHandWeapon || offHandItem)) {
 				const speedStat = finalStats.getPseudoStat(PseudoStat.PseudoStatMeleeSpeedMultiplier);
-				const offHandWeapon = offHandItem &&
+				const offHandWeapon =
+					offHandItem &&
 					offHandItem.item.weaponType !== WeaponType.WeaponTypeShield &&
 					offHandItem.item.weaponType !== WeaponType.WeaponTypeOffHand &&
 					offHandItem.item.weaponType !== WeaponType.WeaponTypeUnknown;
-				const mainHandLabel = offHandWeapon
-					? 'Main-hand'
-					: 'Weapon';
+				const mainHandLabel = offHandWeapon ? 'Main-hand' : 'Weapon';
 				tooltipContent.appendChild(
 					<div className="ps-2">
 						{mainHandWeapon && (
@@ -343,7 +344,7 @@ export class CharacterStats extends Component {
 							</div>
 						)}
 					</div>,
-				);	
+				);
 			} else if (stat.isStat() && stat.getStat() === Stat.StatMeleeCrit && this.shouldShowMeleeCritCap(player)) {
 				idx++;
 
@@ -352,16 +353,16 @@ export class CharacterStats extends Component {
 				const ohWeaponType = gear.getEquippedItem(ItemSlot.ItemSlotOffHand)?.item?.weaponType as WeaponType;
 				const mhCritCapInfo = player.getMeleeCritCapInfo(mhWeaponType);
 				const ohCritCapInfo = player.getMeleeCritCapInfo(ohWeaponType);
-				const isDWWarrior = player.getGear().isDualWielding() && player.spec === Spec.SpecWarrior
+				const isDWWarrior = player.getGear().isDualWielding() && player.spec === Spec.SpecWarrior;
 
 				const playerCritCapDelta = mhCritCapInfo.playerCritCapDelta;
 				const prefix = playerCritCapDelta === 0.0 ? 'Exact ' : playerCritCapDelta > 0 ? 'Over by ' : 'Under by ';
 
 				const mhCritCapLinkElem = (
 					<a href="javascript:void(0)" className="stat-value-link" attributes={{ role: 'button' }} ref={statLinkElemRef}>
-							{`${prefix} ${Math.abs(playerCritCapDelta).toFixed(2)}%`}
+						{`${prefix} ${Math.abs(playerCritCapDelta).toFixed(2)}%`}
 					</a>
-				)
+				);
 
 				const capDelta = mhCritCapInfo.playerCritCapDelta;
 				if (capDelta === 0) {
@@ -373,11 +374,7 @@ export class CharacterStats extends Component {
 				}
 
 				this.valueElems[idx].querySelector('.stat-value-link-container')?.remove();
-				this.valueElems[idx].prepend(
-					<div className="stat-value-link-container">
-						{mhCritCapLinkElem}
-					</div>
-				);
+				this.valueElems[idx].prepend(<div className="stat-value-link-container">{mhCritCapLinkElem}</div>);
 
 				tippy(mhCritCapLinkElem, {
 					content: (
@@ -393,7 +390,7 @@ export class CharacterStats extends Component {
 					),
 					maxWidth: '90vw',
 				});
-				
+
 				if (isDWWarrior) {
 					const mhCritCapInfoDWPenalty = player.getMeleeCritCapInfo(mhWeaponType, true);
 					const ohCritCapInfoDWPenalty = player.getMeleeCritCapInfo(ohWeaponType, true);
@@ -405,10 +402,10 @@ export class CharacterStats extends Component {
 						<a href="javascript:void(0)" className="stat-value-link" attributes={{ role: 'button' }} ref={statLinkElemRef}>
 							{`${prefix} ${Math.abs(playerCritCapDelta).toFixed(2)}%`}
 						</a>
-					)
+					);
 
-					mhCritCapLinkElem.insertAdjacentElement('afterend', ohCritCapLinkElem)
-	
+					mhCritCapLinkElem.insertAdjacentElement('afterend', ohCritCapLinkElem);
+
 					const capDelta = mhCritCapInfoDWPenalty.playerCritCapDelta;
 					if (capDelta === 0) {
 						ohCritCapLinkElem.classList.add('text-white');
@@ -431,10 +428,8 @@ export class CharacterStats extends Component {
 						maxWidth: '90vw',
 					});
 				}
-
-				
 			}
-			
+
 			tippy(statLinkElem, {
 				content: tooltipContent,
 				maxWidth: '90vw',
@@ -496,6 +491,20 @@ export class CharacterStats extends Component {
 				displayStr = `${(rawValue / Mechanics.PARRY_RATING_PER_PARRY_CHANCE).toFixed(2)}%`;
 			} else if (stat === Stat.StatResilience) {
 				displayStr = `${rawValue} (${(rawValue / Mechanics.RESILIENCE_RATING_PER_CRIT_REDUCTION_CHANCE).toFixed(2)}%)`;
+			}
+		} else {
+			const pseudoStat = unitStat.getPseudoStat();
+
+			switch (pseudoStat) {
+				case PseudoStat.PseudoStatMeleeSpeedMultiplier:
+					displayStr = `${(100 * deltaStats.getPseudoStat(PseudoStat.PseudoStatMeleeSpeedMultiplier)).toFixed(2)}%`;
+					break;
+				case PseudoStat.PseudoStatRangedSpeedMultiplier:
+					displayStr = `${(100 * deltaStats.getPseudoStat(PseudoStat.PseudoStatRangedSpeedMultiplier)).toFixed(2)}%`;
+					break;
+				case PseudoStat.PseudoStatCastSpeedMultiplier:
+					displayStr = `${(100 * deltaStats.getPseudoStat(PseudoStat.PseudoStatCastSpeedMultiplier)).toFixed(2)}%`;
+					break;
 			}
 		}
 

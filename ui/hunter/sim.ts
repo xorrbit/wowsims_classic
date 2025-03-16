@@ -27,7 +27,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecHunter, {
 		Stat.StatRangedAttackPower,
 		Stat.StatMeleeHit,
 		Stat.StatMeleeCrit,
-		Stat.StatMeleeHaste,
 		Stat.StatExpertise,
 		// Spell
 		Stat.StatSpellPower,
@@ -42,6 +41,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecHunter, {
 		PseudoStat.PseudoStatOffHandDps,
 		PseudoStat.PseudoStatRangedDps,
 		PseudoStat.PseudoStatMeleeSpeedMultiplier,
+		PseudoStat.PseudoStatRangedSpeedMultiplier,
 	],
 	// Reference stat against which to calculate EP.
 	epReferenceStat: Stat.StatRangedAttackPower,
@@ -58,7 +58,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecHunter, {
 		Stat.StatRangedAttackPower,
 		Stat.StatMeleeHit,
 		Stat.StatMeleeCrit,
-		Stat.StatMeleeHaste,
 		Stat.StatExpertise,
 		// Spell
 		Stat.StatSpellDamage,
@@ -67,7 +66,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecHunter, {
 		Stat.StatSpellCrit,
 		Stat.StatMP5,
 	],
-	displayPseudoStats: [],
+	displayPseudoStats: [PseudoStat.PseudoStatMeleeSpeedMultiplier, PseudoStat.PseudoStatRangedSpeedMultiplier],
 
 	defaults: {
 		race: Presets.OtherDefaults.race,
@@ -96,6 +95,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecHunter, {
 				[PseudoStat.PseudoStatOffHandDps]: 1.39,
 				[PseudoStat.PseudoStatRangedDps]: 6.32,
 				[PseudoStat.PseudoStatMeleeSpeedMultiplier]: 1.39,
+				[PseudoStat.PseudoStatRangedSpeedMultiplier]: 6.32,
 			},
 		),
 		// Default consumes settings.

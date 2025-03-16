@@ -643,8 +643,7 @@ class EpWeightsMenu extends BaseModal {
 		const epDelta = epTotal - epCurrent;
 
 		const epAvgElem = template.content.querySelector('.type-ep .results-avg') as HTMLElement;
-		if (epDelta.toFixed(2) == '0.00')
-			epAvgElem; // no-op
+		if (epDelta.toFixed(2) == '0.00') epAvgElem; // no-op
 		else if (epDelta > 0) epAvgElem.classList.add('positive');
 		else if (epDelta < 0) epAvgElem.classList.add('negative');
 
@@ -750,10 +749,13 @@ class EpWeightsMenu extends BaseModal {
 			return true;
 		} else {
 			return [
-				PseudoStat.PseudoStatMainHandDps, 
-				PseudoStat.PseudoStatOffHandDps, 
-				PseudoStat.PseudoStatRangedDps, 
-				PseudoStat.BonusPhysicalDamage
+				PseudoStat.PseudoStatMainHandDps,
+				PseudoStat.PseudoStatOffHandDps,
+				PseudoStat.PseudoStatRangedDps,
+				PseudoStat.BonusPhysicalDamage,
+				PseudoStat.PseudoStatMeleeSpeedMultiplier,
+				PseudoStat.PseudoStatRangedSpeedMultiplier,
+				PseudoStat.PseudoStatCastSpeedMultiplier,
 			].includes(stat.getPseudoStat());
 		}
 	});

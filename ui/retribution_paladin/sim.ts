@@ -50,13 +50,9 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecRetributionPaladin, {
 		Stat.StatHolyPower,
 		Stat.StatSpellCrit,
 		Stat.StatSpellHit,
-		Stat.StatSpellHaste,
 		Stat.StatMP5,
 	],
-	epPseudoStats: [
-		PseudoStat.PseudoStatMainHandDps,
-		PseudoStat.PseudoStatMeleeSpeedMultiplier,
-	],
+	epPseudoStats: [PseudoStat.PseudoStatMainHandDps, PseudoStat.PseudoStatMeleeSpeedMultiplier],
 	// Reference stat against which to calculate EP. I think all classes use either spell power or attack power.
 	epReferenceStat: Stat.StatAttackPower,
 	// Which stats to display in the Character Stats section, at the bottom of the left-hand sidebar.
@@ -71,18 +67,16 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecRetributionPaladin, {
 		Stat.StatAttackPower,
 		Stat.StatMeleeHit,
 		Stat.StatMeleeCrit,
-		Stat.StatMeleeHaste,
 		Stat.StatExpertise,
 		// Spell
-		Stat.StatSpellHaste,
 		Stat.StatSpellPower,
 		Stat.StatHolyPower,
 		Stat.StatSpellCrit,
 		Stat.StatSpellHit,
 		Stat.StatMP5,
 	],
-	displayPseudoStats: [],
-	
+	displayPseudoStats: [PseudoStat.PseudoStatMeleeSpeedMultiplier],
+
 	defaults: {
 		// Default equipped gear.
 		gear: Presets.DefaultGear.gear,
@@ -95,7 +89,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecRetributionPaladin, {
 				[Stat.StatSpellPower]: 0.32,
 				[Stat.StatSpellHit]: 0.41,
 				[Stat.StatSpellCrit]: 0.01,
-				[Stat.StatSpellHaste]: 0.12,
 				[Stat.StatMP5]: 0.05,
 				[Stat.StatAttackPower]: 1,
 				[Stat.StatMeleeHit]: 1.96,
@@ -129,7 +122,13 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecRetributionPaladin, {
 	excludeBuffDebuffInputs: [],
 	// Inputs to include in the 'Other' section on the settings tab.
 	otherInputs: {
-		inputs: [OtherInputs.TankAssignment, OtherInputs.InFrontOfTarget, RetributionPaladinInputs.CrusaderStrikeStopAttack, RetributionPaladinInputs.JudgementStopAttack, RetributionPaladinInputs.DivineStormStopAttack],
+		inputs: [
+			OtherInputs.TankAssignment,
+			OtherInputs.InFrontOfTarget,
+			RetributionPaladinInputs.CrusaderStrikeStopAttack,
+			RetributionPaladinInputs.JudgementStopAttack,
+			RetributionPaladinInputs.DivineStormStopAttack,
+		],
 	},
 	encounterPicker: {
 		// Whether to include 'Execute Duration (%)' in the 'Encounter' section of the settings tab.
@@ -153,9 +152,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecRetributionPaladin, {
 			...Presets.TalentPresets[Phase.Phase1],
 		],
 		// Preset gear configurations that the user can quickly select.
-		gear: [
-			Presets.DefaultGear,
-		],
+		gear: [Presets.DefaultGear],
 	},
 
 	autoRotation: player => {

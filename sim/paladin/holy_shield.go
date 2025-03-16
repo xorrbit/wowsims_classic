@@ -26,7 +26,6 @@ func (paladin *Paladin) registerHolyShield() {
 	}
 
 	numCharges := int32(4)
-	defendersResolveSPAura := core.DefendersResolveSpellDamage(paladin.GetCharacter())
 	blockBonus := 30.0 * core.BlockRatingPerBlockChance
 
 	for i, values := range HolyShieldValues {
@@ -101,14 +100,6 @@ func (paladin *Paladin) registerHolyShield() {
 			},
 			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 				paladin.holyShieldAura[i].Activate(sim)
-
-				if stacks := int32(paladin.GetStat(stats.Defense)); stacks > 0 {
-					defendersResolveSPAura.Activate(sim)
-
-					if defendersResolveSPAura.GetStacks() != stacks {
-						defendersResolveSPAura.SetStacks(sim, stacks)
-					}
-				}
 			},
 		})
 	}

@@ -231,15 +231,6 @@ func init() {
 		})
 	})
 
-	// Gloves - Minor Haste
-	// Effect #931 explicitly does NOT affect ranged attack speed
-	core.NewEnchantEffect(931, func(agent core.Agent) {
-		character := agent.GetCharacter()
-
-		character.PseudoStats.MeleeSpeedMultiplier *= 1.01
-		character.PseudoStats.RangedSpeedMultiplier *= 1.01
-	})
-
 	// Weapon - Striking
 	core.AddWeaponEffect(943, func(agent core.Agent, slot proto.ItemSlot) {
 		w := agent.GetCharacter().AutoAttacks.MH()

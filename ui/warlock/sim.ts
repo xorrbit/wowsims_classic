@@ -4,7 +4,7 @@ import * as WarlockInputs from '../core/components/inputs/warlock_inputs';
 import * as OtherInputs from '../core/components/other_inputs.js';
 import { IndividualSimUI, registerSpecConfig } from '../core/individual_sim_ui.js';
 import { Player } from '../core/player.js';
-import { Class, Faction, ItemSlot, PartyBuffs, Race, Spec, Stat } from '../core/proto/common.js';
+import { Class, Faction, ItemSlot, PartyBuffs, PseudoStat, Race, Spec, Stat } from '../core/proto/common.js';
 import { Stats } from '../core/proto_utils/stats.js';
 import { getSpecIcon } from '../core/proto_utils/utils.js';
 import * as Presets from './presets.js';
@@ -30,7 +30,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWarlock, {
 		Stat.StatAttackPower,
 		Stat.StatMeleeCrit,
 		Stat.StatMeleeHit,
-		Stat.StatMeleeHaste,
 		// Spell
 		Stat.StatSpellPower,
 		Stat.StatSpellDamage,
@@ -41,6 +40,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWarlock, {
 		Stat.StatShadowPower,
 		Stat.StatMP5,
 	],
+	epPseudoStats: [PseudoStat.PseudoStatCastSpeedMultiplier],
 	// Reference stat against which to calculate EP. DPS classes use either spell power or attack power.
 	epReferenceStat: Stat.StatSpellPower,
 	// Which stats to display in the Character Stats section, at the bottom of the left-hand sidebar.
@@ -56,7 +56,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWarlock, {
 		Stat.StatAttackPower,
 		Stat.StatMeleeCrit,
 		Stat.StatMeleeHit,
-		Stat.StatMeleeHaste,
 		// Spell
 		Stat.StatSpellPower,
 		Stat.StatSpellDamage,
@@ -64,31 +63,35 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWarlock, {
 		Stat.StatShadowPower,
 		Stat.StatSpellHit,
 		Stat.StatSpellCrit,
-		Stat.StatSpellHaste,
 		Stat.StatMP5,
 	],
-	displayPseudoStats: [],
+	displayPseudoStats: [PseudoStat.PseudoStatCastSpeedMultiplier],
 
 	defaults: {
 		// Default equipped gear.
 		gear: Presets.DefaultGear.gear,
 
 		// Default EP weights for sorting gear in the gear picker.
-		epWeights: Stats.fromMap({
-			[Stat.StatMana]: 0.01,
-			[Stat.StatIntellect]: 0.23,
-			[Stat.StatSpirit]: 0.0,
-			[Stat.StatMP5]: 0.14,
-			[Stat.StatSpellPower]: 1,
-			[Stat.StatSpellDamage]: 1,
-			[Stat.StatFirePower]: 0.1,
-			[Stat.StatShadowPower]: 0.9,
-			[Stat.StatSpellHit]: 12.79,
-			[Stat.StatSpellCrit]: 7.92,
-			[Stat.StatSpellHaste]: 7.83,
-			[Stat.StatStamina]: 0.01,
-			[Stat.StatFireResistance]: 0.0,
-		}),
+		epWeights: Stats.fromMap(
+			{
+				[Stat.StatMana]: 0.01,
+				[Stat.StatIntellect]: 0.23,
+				[Stat.StatSpirit]: 0.0,
+				[Stat.StatMP5]: 0.14,
+				[Stat.StatSpellPower]: 1,
+				[Stat.StatSpellDamage]: 1,
+				[Stat.StatFirePower]: 0.1,
+				[Stat.StatShadowPower]: 0.9,
+				[Stat.StatSpellHit]: 12.79,
+				[Stat.StatSpellCrit]: 7.92,
+				[Stat.StatSpellHaste]: 7.83,
+				[Stat.StatStamina]: 0.01,
+				[Stat.StatFireResistance]: 0.0,
+			},
+			{
+				[PseudoStat.PseudoStatCastSpeedMultiplier]: 7.83,
+			},
+		),
 		// Default consumes settings.
 		consumes: Presets.DefaultConsumes,
 		// Default talents.

@@ -33,14 +33,11 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecFeralDruid, {
 		Stat.StatFeralAttackPower,
 		Stat.StatMeleeHit,
 		Stat.StatMeleeCrit,
-		Stat.StatMeleeHaste,
 		Stat.StatExpertise,
 		// Spell
 		Stat.StatMP5,
 	],
-	epPseudoStats: [
-		PseudoStat.BonusPhysicalDamage,
-	],
+	epPseudoStats: [PseudoStat.BonusPhysicalDamage, PseudoStat.PseudoStatMeleeSpeedMultiplier],
 	// Reference stat against which to calculate EP. I think all classes use either spell power or attack power.
 	epReferenceStat: Stat.StatAttackPower,
 	// Which stats to display in the Character Stats section, at the bottom of the left-hand sidebar.
@@ -61,9 +58,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecFeralDruid, {
 		// Spell
 		Stat.StatMP5,
 	],
-	displayPseudoStats: [
-		PseudoStat.BonusPhysicalDamage,
-	],
+	displayPseudoStats: [PseudoStat.BonusPhysicalDamage, PseudoStat.PseudoStatMeleeSpeedMultiplier],
 
 	defaults: {
 		// Default equipped gear.
@@ -71,7 +66,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecFeralDruid, {
 		// Default EP weights for sorting gear in the gear picker.
 		epWeights: Stats.fromMap(
 			{
-				[Stat.StatStrength]: 2.40,
+				[Stat.StatStrength]: 2.4,
 				[Stat.StatAgility]: 2.43,
 				[Stat.StatIntellect]: 0.61,
 				[Stat.StatSpirit]: 0.38,
@@ -79,13 +74,14 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecFeralDruid, {
 				[Stat.StatAttackPower]: 1,
 				[Stat.StatMeleeHit]: 26.59,
 				[Stat.StatMeleeCrit]: 28.68,
-				[Stat.StatMeleeHaste]: 16.50,
 				[Stat.StatExpertise]: 26.59,
 				[Stat.StatMana]: 0.03,
 				[Stat.StatFeralAttackPower]: 1,
-				[PseudoStat.BonusPhysicalDamage]: 13.33
 			},
-			{},
+			{
+				[PseudoStat.BonusPhysicalDamage]: 13.33,
+				[PseudoStat.PseudoStatMeleeSpeedMultiplier]: 16.5,
+			},
 		),
 		// Default consumes settings.
 		consumes: Presets.DefaultConsumes,
@@ -136,16 +132,10 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecFeralDruid, {
 
 	presets: {
 		// Preset talents that the user can quickly select.
-		talents: [
-			...Presets.TalentPresets[Phase.Phase2],
-		],
-		rotations: [
-			...Presets.APLPresets[Phase.Phase2],
-		],
+		talents: [...Presets.TalentPresets[Phase.Phase2]],
+		rotations: [...Presets.APLPresets[Phase.Phase2]],
 		// Preset gear configurations that the user can quickly select.
-		gear: [
-			...Presets.GearPresets[Phase.Phase2],
-		],
+		gear: [...Presets.GearPresets[Phase.Phase2]],
 	},
 
 	autoRotation: player => {

@@ -38,7 +38,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWardenShaman, {
 		Stat.StatNaturePower,
 		Stat.StatSpellCrit,
 		Stat.StatSpellHit,
-		Stat.StatSpellHaste,
 		Stat.StatMP5,
 		// Defense
 		Stat.StatArmor,
@@ -64,13 +63,11 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWardenShaman, {
 		Stat.StatAttackPower,
 		Stat.StatMeleeHit,
 		Stat.StatMeleeCrit,
-		Stat.StatMeleeHaste,
 		Stat.StatExpertise,
 		// Spell
 		Stat.StatSpellDamage,
 		Stat.StatSpellHit,
 		Stat.StatSpellCrit,
-		Stat.StatSpellHaste,
 		Stat.StatMP5,
 		// Defense
 		Stat.StatArmor,
@@ -83,7 +80,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWardenShaman, {
 		// Resistances
 		Stat.StatShadowResistance,
 	],
-	displayPseudoStats: [],
+	displayPseudoStats: [PseudoStat.PseudoStatMeleeSpeedMultiplier],
 
 	defaults: {
 		race: Race.RaceTroll,
@@ -101,7 +98,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWardenShaman, {
 				[Stat.StatNaturePower]: 0.48,
 				[Stat.StatSpellHit]: 0.03, //default EP assumes cap
 				[Stat.StatSpellCrit]: 1.94,
-				[Stat.StatSpellHaste]: 2.97,
 				[Stat.StatMP5]: 0.01,
 				[Stat.StatAttackPower]: 1.0,
 				[Stat.StatMeleeHit]: 9.62,

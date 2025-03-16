@@ -50,7 +50,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecTankWarrior, {
 		Stat.StatAttackPower,
 		Stat.StatMeleeHit,
 		Stat.StatMeleeCrit,
-		Stat.StatMeleeHaste,
 		Stat.StatExpertise,
 		// Defense
 		Stat.StatArmor,
@@ -63,7 +62,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecTankWarrior, {
 		// Resistances
 		Stat.StatShadowResistance,
 	],
-	displayPseudoStats: [],
+	displayPseudoStats: [PseudoStat.PseudoStatMeleeSpeedMultiplier],
 
 	defaults: {
 		// Default equipped gear.

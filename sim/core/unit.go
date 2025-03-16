@@ -354,7 +354,7 @@ func (unit *Unit) ApplyCastSpeedForSpell(dur time.Duration, spell *Spell) time.D
 }
 
 func (unit *Unit) SwingSpeed() float64 {
-	return unit.PseudoStats.MeleeSpeedMultiplier * (1 + (unit.stats[stats.MeleeHaste] / 100))
+	return unit.PseudoStats.MeleeSpeedMultiplier
 }
 
 func (unit *Unit) Armor() float64 {

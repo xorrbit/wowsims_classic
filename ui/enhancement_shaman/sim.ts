@@ -35,7 +35,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecEnhancementShaman, {
 		Stat.StatNaturePower,
 		Stat.StatSpellCrit,
 		Stat.StatSpellHit,
-		Stat.StatSpellHaste,
 		Stat.StatMP5,
 	],
 	epPseudoStats: [PseudoStat.PseudoStatMainHandDps, PseudoStat.PseudoStatOffHandDps, PseudoStat.PseudoStatMeleeSpeedMultiplier],
@@ -54,15 +53,13 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecEnhancementShaman, {
 		Stat.StatMeleeHit,
 		Stat.StatMeleeCrit,
 		Stat.StatExpertise,
-		Stat.StatMeleeHaste,
 		// Spell
 		Stat.StatSpellDamage,
 		Stat.StatSpellHit,
 		Stat.StatSpellCrit,
-		Stat.StatSpellHaste,
 		Stat.StatMP5,
 	],
-	displayPseudoStats: [],
+	displayPseudoStats: [PseudoStat.PseudoStatMeleeSpeedMultiplier],
 
 	defaults: {
 		race: Presets.OtherDefaults.race,
@@ -80,7 +77,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecEnhancementShaman, {
 				[Stat.StatNaturePower]: 0.48,
 				[Stat.StatSpellHit]: 0.03, //default EP assumes cap
 				[Stat.StatSpellCrit]: 1.94,
-				[Stat.StatSpellHaste]: 2.97,
 				[Stat.StatMP5]: 0.01,
 				[Stat.StatAttackPower]: 1.0,
 				[Stat.StatMeleeHit]: 9.62,
