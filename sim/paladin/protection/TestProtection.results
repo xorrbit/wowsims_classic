@@ -51,9 +51,9 @@ stat_weights_results: {
  key: "TestProtection-Phase4-StatWeights-Default"
  value: {
   weights: 0.26263
-  weights: 0.15213
+  weights: 0.15014
   weights: 0
-  weights: 0.00234
+  weights: 0.00227
   weights: 0
   weights: 0.4582
   weights: 0
@@ -63,14 +63,13 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 1.78656
-  weights: 0.29342
+  weights: 1.74144
+  weights: 0.28045
   weights: 0
   weights: 0
   weights: 0.10381
-  weights: 2.83515
-  weights: 2.44934
-  weights: 2.77437
+  weights: 2.75907
+  weights: 2.40246
   weights: 0
   weights: 0
   weights: 0
@@ -78,7 +77,8 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.9164
+  weights: 0
+  weights: 0
   weights: 0
   weights: 0
   weights: 0
@@ -99,105 +99,105 @@ stat_weights_results: {
 dps_results: {
  key: "TestProtection-Phase4-AllItems-SanctifiedOrb-20512"
  value: {
-  dps: 392.57184
-  tps: 728.03967
+  dps: 383.38443
+  tps: 707.71871
  }
 }
 dps_results: {
  key: "TestProtection-Phase4-Average-Default"
  value: {
-  dps: 393.06202
-  tps: 727.61732
+  dps: 383.84697
+  tps: 707.30431
  }
 }
 dps_results: {
  key: "TestProtection-Phase4-Settings-Dwarf-blank-P4 Prot-p4prot-FullBuffs-P4-Consumes-LongMultiTarget"
  value: {
-  dps: 48.22492
-  tps: 140.42146
+  dps: 47.7562
+  tps: 139.29654
  }
 }
 dps_results: {
  key: "TestProtection-Phase4-Settings-Dwarf-blank-P4 Prot-p4prot-FullBuffs-P4-Consumes-LongSingleTarget"
  value: {
-  dps: 48.22492
-  tps: 116.97388
+  dps: 47.7562
+  tps: 115.84896
  }
 }
 dps_results: {
  key: "TestProtection-Phase4-Settings-Dwarf-blank-P4 Prot-p4prot-FullBuffs-P4-Consumes-ShortSingleTarget"
  value: {
-  dps: 115.71551
-  tps: 279.61014
+  dps: 113.55847
+  tps: 274.43324
  }
 }
 dps_results: {
  key: "TestProtection-Phase4-Settings-Dwarf-blank-P4 Prot-p4prot-NoBuffs-P4-Consumes-LongMultiTarget"
  value: {
-  dps: 16.41623
-  tps: 39.39894
+  dps: 16.2396
+  tps: 38.97504
  }
 }
 dps_results: {
  key: "TestProtection-Phase4-Settings-Dwarf-blank-P4 Prot-p4prot-NoBuffs-P4-Consumes-LongSingleTarget"
  value: {
-  dps: 16.41623
-  tps: 39.39894
+  dps: 16.2396
+  tps: 38.97504
  }
 }
 dps_results: {
  key: "TestProtection-Phase4-Settings-Dwarf-blank-P4 Prot-p4prot-NoBuffs-P4-Consumes-ShortSingleTarget"
  value: {
-  dps: 46.82306
-  tps: 112.37534
+  dps: 45.93992
+  tps: 110.25581
  }
 }
 dps_results: {
  key: "TestProtection-Phase4-Settings-Human-blank-P4 Prot-p4prot-FullBuffs-P4-Consumes-LongMultiTarget"
  value: {
-  dps: 48.56657
-  tps: 141.33978
+  dps: 48.09786
+  tps: 140.21486
  }
 }
 dps_results: {
  key: "TestProtection-Phase4-Settings-Human-blank-P4 Prot-p4prot-FullBuffs-P4-Consumes-LongSingleTarget"
  value: {
-  dps: 48.56657
-  tps: 117.79878
+  dps: 48.09786
+  tps: 116.67386
  }
 }
 dps_results: {
  key: "TestProtection-Phase4-Settings-Human-blank-P4 Prot-p4prot-FullBuffs-P4-Consumes-ShortSingleTarget"
  value: {
-  dps: 115.71551
-  tps: 279.61014
+  dps: 113.55847
+  tps: 274.43324
  }
 }
 dps_results: {
  key: "TestProtection-Phase4-Settings-Human-blank-P4 Prot-p4prot-NoBuffs-P4-Consumes-LongMultiTarget"
  value: {
-  dps: 17.16121
-  tps: 41.18689
+  dps: 16.98458
+  tps: 40.76299
  }
 }
 dps_results: {
  key: "TestProtection-Phase4-Settings-Human-blank-P4 Prot-p4prot-NoBuffs-P4-Consumes-LongSingleTarget"
  value: {
-  dps: 17.16121
-  tps: 41.18689
+  dps: 16.98458
+  tps: 40.76299
  }
 }
 dps_results: {
  key: "TestProtection-Phase4-Settings-Human-blank-P4 Prot-p4prot-NoBuffs-P4-Consumes-ShortSingleTarget"
  value: {
-  dps: 46.82306
-  tps: 112.37534
+  dps: 45.93992
+  tps: 110.25581
  }
 }
 dps_results: {
  key: "TestProtection-Phase4-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 351.71045
-  tps: 658.41289
+  dps: 343.55156
+  tps: 640.54067
  }
 }
