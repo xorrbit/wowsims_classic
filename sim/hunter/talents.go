@@ -49,7 +49,7 @@ func (hunter *Hunter) ApplyTalents() {
 			Label: "Bestial Discipline",
 			OnInit: func(aura *core.Aura, sim *core.Simulation) {
 				if hunter.pet != nil {
-					hunter.pet.AddFocusRegenMultiplier(0.1*float64(hunter.Talents.BestialDiscipline))
+					hunter.pet.AddFocusRegenMultiplier(0.1 * float64(hunter.Talents.BestialDiscipline))
 				}
 			},
 		}))
@@ -61,7 +61,7 @@ func (hunter *Hunter) ApplyTalents() {
 	hunter.AddStat(stats.MeleeCrit, float64(hunter.Talents.KillerInstinct)*1*core.CritRatingPerCritChance)
 
 	if hunter.Talents.LethalShots > 0 {
-		lethalBonus := 1*float64(hunter.Talents.LethalShots)*core.CritRatingPerCritChance
+		lethalBonus := 1 * float64(hunter.Talents.LethalShots) * core.CritRatingPerCritChance
 		for _, spell := range hunter.Shots {
 			if spell != nil {
 				spell.BonusCritRating += lethalBonus
@@ -140,13 +140,7 @@ func (hunter *Hunter) registerBestialWrathCD() {
 		Label:    "Bestial Wrath Pet",
 		ActionID: actionID,
 		Duration: time.Second * 18,
-		OnGain: func(aura *core.Aura, sim *core.Simulation) {
-			aura.Unit.PseudoStats.DamageDealtMultiplier *= 1.5
-		},
-		OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-			aura.Unit.PseudoStats.DamageDealtMultiplier /= 1.5
-		},
-	})
+	}).AttachMultiplicativePseudoStatBuff(&hunter.pet.PseudoStats.DamageDealtMultiplier, 1.5)
 
 	bwSpell := hunter.RegisterSpell(core.SpellConfig{
 		ActionID: actionID,

@@ -59,13 +59,8 @@ func init() {
 			ActionID: actionID,
 			Label:    "Kiss of the Spider",
 			Duration: duration,
-			OnGain: func(aura *core.Aura, sim *core.Simulation) {
-				character.MultiplyAttackSpeed(sim, 1.20)
-			},
-			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-				character.MultiplyAttackSpeed(sim, 1/1.20)
-			},
-		})
+		}).AttachMultiplyAttackSpeed(&character.Unit, 1.20)
+
 		spell := character.RegisterSpell(core.SpellConfig{
 			ActionID:    actionID,
 			SpellSchool: core.SpellSchoolPhysical,

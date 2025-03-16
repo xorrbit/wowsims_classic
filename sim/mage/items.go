@@ -8,10 +8,10 @@ import (
 )
 
 const (
-	FireRuby = 20036
-	MindQuickeningGem        	    = 19339
-	HazzarahsCharmOfMagic 			= 19959
-	JewelOfKajaro                	= 19601
+	FireRuby              = 20036
+	MindQuickeningGem     = 19339
+	HazzarahsCharmOfMagic = 19959
+	JewelOfKajaro         = 19601
 )
 
 func init() {
@@ -65,7 +65,7 @@ func init() {
 	})
 
 	// https://www.wowhead.com/classic/item=19959/hazzarahs-charm-of-magic
-	// Increases the critical hit chance of your Arcane spells by 5%, and increases the critical hit damage of your Arcane spells by 50% for 20 sec. 
+	// Increases the critical hit chance of your Arcane spells by 5%, and increases the critical hit damage of your Arcane spells by 50% for 20 sec.
 	// (3 Min Cooldown)
 	core.NewItemEffect(HazzarahsCharmOfMagic, func(agent core.Agent) {
 		mage := agent.(MageAgent).GetMage()
@@ -149,13 +149,7 @@ func init() {
 			ActionID: core.ActionID{SpellID: 23723},
 			Label:    "Mind Quickening",
 			Duration: duration,
-			OnGain: func(aura *core.Aura, sim *core.Simulation) {
-				mage.MultiplyCastSpeed(1.33)
-			},
-			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-				mage.MultiplyCastSpeed(1 / 1.33)
-			},
-		})
+		}).AttachMultiplyCastSpeed(&mage.Unit, 1.33)
 
 		spell := mage.RegisterSpell(core.SpellConfig{
 			ActionID: actionID,

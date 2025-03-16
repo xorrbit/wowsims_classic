@@ -191,18 +191,10 @@ func makeExclusiveBuff(aura *Aura, config BuffConfig) {
 	aura.NewExclusiveEffect(config.Category, false, ExclusiveEffect{
 		Priority: totalStats,
 		OnGain: func(ee *ExclusiveEffect, sim *Simulation) {
-			if aura.Unit.Env.MeasuringStats && aura.Unit.Env.State != Finalized {
-				aura.Unit.AddStats(bonusStats)
-			} else {
-				aura.Unit.AddStatsDynamic(sim, bonusStats)
-			}
+			aura.Unit.AddBuildPhaseStatsDynamic(sim, bonusStats)
 
 			for _, dep := range statDeps {
-				if ee.Aura.Unit.Env.MeasuringStats && ee.Aura.Unit.Env.State != Finalized {
-					aura.Unit.StatDependencyManager.EnableDynamicStatDep(dep)
-				} else {
-					ee.Aura.Unit.EnableDynamicStatDep(sim, dep)
-				}
+				ee.Aura.Unit.EnableBuildPhaseStatDep(sim, dep)
 			}
 
 			if config.ExtraOnGain != nil {
@@ -210,18 +202,10 @@ func makeExclusiveBuff(aura *Aura, config BuffConfig) {
 			}
 		},
 		OnExpire: func(ee *ExclusiveEffect, sim *Simulation) {
-			if aura.Unit.Env.MeasuringStats && aura.Unit.Env.State != Finalized {
-				aura.Unit.AddStats(bonusStats.Multiply(-1))
-			} else {
-				aura.Unit.AddStatsDynamic(sim, bonusStats.Multiply(-1))
-			}
+			aura.Unit.AddBuildPhaseStatsDynamic(sim, bonusStats.Multiply(-1))
 
 			for _, dep := range statDeps {
-				if ee.Aura.Unit.Env.MeasuringStats && ee.Aura.Unit.Env.State != Finalized {
-					aura.Unit.StatDependencyManager.DisableDynamicStatDep(dep)
-				} else {
-					ee.Aura.Unit.DisableDynamicStatDep(sim, dep)
-				}
+				ee.Aura.Unit.DisableBuildPhaseStatDep(sim, dep)
 			}
 
 			if config.ExtraOnExpire != nil {
