@@ -295,16 +295,12 @@ stat_weights_results: {
 stat_weights_results: {
  key: "TestEnhancement-Phase3-StatWeights-Default"
  value: {
-  weights: 0.57734
-  weights: 0.52813
+  weights: 0.56684
+  weights: 0.45891
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.08508
-  weights: 0
-  weights: 0
-  weights: 0
-  weights: 0
+  weights: 0.08449
   weights: 0
   weights: 0
   weights: 0
@@ -312,9 +308,13 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.25102
   weights: 0
-  weights: 8.23669
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0.24645
+  weights: 0
+  weights: 8.3557
   weights: 0
   weights: 0
   weights: 0
@@ -344,16 +344,12 @@ stat_weights_results: {
 stat_weights_results: {
  key: "TestEnhancement-Phase5-StatWeights-Default"
  value: {
-  weights: 0.58299
-  weights: 0.37919
+  weights: 0.57297
+  weights: 0.51262
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.08632
-  weights: 0
-  weights: 0
-  weights: 0
-  weights: 0
+  weights: 0.08513
   weights: 0
   weights: 0
   weights: 0
@@ -361,9 +357,13 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.25347
-  weights: 11.41054
-  weights: 7.88724
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0
+  weights: 0.24912
+  weights: 10.25882
+  weights: 8.30461
   weights: 0
   weights: 0
   weights: 0
@@ -897,8 +897,8 @@ dps_results: {
 dps_results: {
  key: "TestEnhancement-Phase3-AllItems-GiftoftheGatheringStorm"
  value: {
-  dps: 698.352
-  tps: 722.00248
+  dps: 689.61297
+  tps: 713.6902
  }
 }
 dps_results: {
@@ -946,8 +946,8 @@ dps_results: {
 dps_results: {
  key: "TestEnhancement-Phase3-Average-Default"
  value: {
-  dps: 920.26456
-  tps: 932.94692
+  dps: 904.44812
+  tps: 916.78668
  }
 }
 dps_results: {
@@ -1121,8 +1121,8 @@ dps_results: {
 dps_results: {
  key: "TestEnhancement-Phase3-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 713.05908
-  tps: 721.74799
+  dps: 699.9359
+  tps: 709.42233
  }
 }
 dps_results: {
@@ -1142,8 +1142,8 @@ dps_results: {
 dps_results: {
  key: "TestEnhancement-Phase5-AllItems-GiftoftheGatheringStorm"
  value: {
-  dps: 721.1022
-  tps: 745.65963
+  dps: 702.39523
+  tps: 725.56688
  }
 }
 dps_results: {
@@ -1191,8 +1191,8 @@ dps_results: {
 dps_results: {
  key: "TestEnhancement-Phase5-Average-Default"
  value: {
-  dps: 963.62763
-  tps: 978.66576
+  dps: 946.78944
+  tps: 961.43368
  }
 }
 dps_results: {
@@ -1366,7 +1366,7 @@ dps_results: {
 dps_results: {
  key: "TestEnhancement-Phase5-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 718.1046
-  tps: 731.0277
+  dps: 712.80951
+  tps: 724.90678
  }
 }

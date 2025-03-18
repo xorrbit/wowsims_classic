@@ -337,15 +337,6 @@ func init() {
 		character.AddBonusRangedHitRating(3)
 	})
 
-	// Gloves - Libram of Rapidity
-	// Confirmed to mod both melee and ranged speed
-	core.NewEnchantEffect(2543, func(agent core.Agent) {
-		character := agent.GetCharacter()
-
-		character.PseudoStats.MeleeSpeedMultiplier *= 1.01
-		character.PseudoStats.RangedSpeedMultiplier *= 1.01
-	})
-
 	// Gloves - Threat
 	core.NewEnchantEffect(2613, func(agent core.Agent) {
 		character := agent.GetCharacter()
