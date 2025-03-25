@@ -5,10 +5,6 @@ import (
 	"github.com/wowsims/classic/sim/core/stats"
 )
 
-///////////////////////////////////////////////////////////////////////////
-//                            SoD Phase 4 Item Sets
-///////////////////////////////////////////////////////////////////////////
-
 var ItemSetChampionsRaiment = core.NewItemSet(core.ItemSet{
 	Name: "Champion's Raiment",
 	Bonuses: map[int32]core.ApplyEffect{
@@ -48,10 +44,6 @@ var ItemSetLieutenantCommandersRaiment = core.NewItemSet(core.ItemSet{
 		},
 	},
 })
-
-///////////////////////////////////////////////////////////////////////////
-//                            SoD Phase 5 Item Sets
-///////////////////////////////////////////////////////////////////////////
 
 var ItemSetWarlordsRaiment = core.NewItemSet(core.ItemSet{
 	Name: "Warlord's Raiment",
