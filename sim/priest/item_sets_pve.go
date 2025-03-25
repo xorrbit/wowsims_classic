@@ -65,7 +65,7 @@ var ItemSetConfessorsRaiment = core.NewItemSet(core.ItemSet{
 		// Increases healing done by spells and effects by up to 22.
 		2: func(agent core.Agent) {
 			c := agent.GetCharacter()
-			c.AddStat(stats.SpellPower, 22)
+			c.AddStat(stats.HealingPower, 22)
 		},
 		// Increase the range of your Smite and Holy Fire spells by 5 yds.
 		3: func(agent core.Agent) {
@@ -117,7 +117,18 @@ var ItemSetVestmentsOfFaith = core.NewItemSet(core.ItemSet{
 		},
 		// Each spell you cast can trigger an Epiphany, increasing your mana regeneration by 24 for 30 sec.
 		8: func(agent core.Agent) {
-			// Nothing to do
+			c := agent.GetCharacter()
+
+			procAura := c.NewTemporaryStatsAura("Epiphany", core.ActionID{SpellID: 28802}, stats.Stats{stats.SpellPower: 24}, time.Second*30)
+			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
+				Name:       "Item - Epiphany Proc (Spell Cast)",
+				Callback:   core.CallbackOnCastComplete,
+				ProcMask:   core.ProcMaskMP5,
+				ProcChance: 0.05,
+				Handler: func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
+					procAura.Activate(sim)
+				},
+			})
 		},
 	},
 })
