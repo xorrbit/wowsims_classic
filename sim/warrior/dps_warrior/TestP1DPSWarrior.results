@@ -198,21 +198,21 @@ dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Human-phase_1-DPS-dps_no_reck-NoBuffs-P1-Consumes-LongMultiTarget"
  value: {
   dps: 60.4652
-  tps: 188.97359
+  tps: 190.08292
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Human-phase_1-DPS-dps_no_reck-NoBuffs-P1-Consumes-LongSingleTarget"
  value: {
   dps: 30.60782
-  tps: 39.67215
+  tps: 40.78148
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Human-phase_1-DPS-dps_no_reck-NoBuffs-P1-Consumes-ShortSingleTarget"
  value: {
   dps: 65.82077
-  tps: 76.62995
+  tps: 79.40328
  }
 }
 dps_results: {
@@ -240,21 +240,21 @@ dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Human-phase_1-DPS-dps_reck-NoBuffs-P1-Consumes-LongMultiTarget"
  value: {
   dps: 60.8579
-  tps: 189.33993
+  tps: 190.44926
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Human-phase_1-DPS-dps_reck-NoBuffs-P1-Consumes-LongSingleTarget"
  value: {
   dps: 30.60782
-  tps: 39.67215
+  tps: 40.78148
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Human-phase_1-DPS-dps_reck-NoBuffs-P1-Consumes-ShortSingleTarget"
  value: {
   dps: 77.38684
-  tps: 87.57787
+  tps: 90.35121
  }
 }
 dps_results: {
@@ -282,21 +282,21 @@ dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Orc-phase_1-DPS-dps_no_reck-NoBuffs-P1-Consumes-LongMultiTarget"
  value: {
   dps: 62.49357
-  tps: 190.6049
+  tps: 191.71423
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Orc-phase_1-DPS-dps_no_reck-NoBuffs-P1-Consumes-LongSingleTarget"
  value: {
   dps: 32.59177
-  tps: 41.34674
+  tps: 42.45608
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Orc-phase_1-DPS-dps_no_reck-NoBuffs-P1-Consumes-ShortSingleTarget"
  value: {
   dps: 69.38982
-  tps: 79.60428
+  tps: 82.37761
  }
 }
 dps_results: {
@@ -324,21 +324,21 @@ dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Orc-phase_1-DPS-dps_reck-NoBuffs-P1-Consumes-LongMultiTarget"
  value: {
   dps: 63.53195
-  tps: 191.62036
+  tps: 192.72969
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Orc-phase_1-DPS-dps_reck-NoBuffs-P1-Consumes-LongSingleTarget"
  value: {
   dps: 32.73977
-  tps: 41.49475
+  tps: 42.60408
  }
 }
 dps_results: {
  key: "TestP1DPSWarrior-Phase1-Settings-Orc-phase_1-DPS-dps_reck-NoBuffs-P1-Consumes-ShortSingleTarget"
  value: {
   dps: 80.86236
-  tps: 90.47738
+  tps: 93.25071
  }
 }
 dps_results: {
