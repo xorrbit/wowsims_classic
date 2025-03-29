@@ -74,7 +74,6 @@ export const PresetBuildTanky = PresetUtils.makePresetBuild('Tanky', { gear: Def
 ///////////////////////////////////////////////////////////////////////////
 
 export const DefaultOptions = TankWarriorOptions.create({
-	queueDelay: 250,
 	startingRage: 0,
 	shout: WarriorShout.WarriorShoutBattle,
 	stance: WarriorStance.WarriorStanceDefensive,
