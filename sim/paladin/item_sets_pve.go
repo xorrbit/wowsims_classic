@@ -55,9 +55,10 @@ var ItemSetSoulforgeArmor = core.NewItemSet(core.ItemSet{
 			paladin.RegisterAura(core.Aura{
 				Label: "Judgement - T2 - Paladin - 8P Bonus",
 				SpellSchool: core.SpellSchoolHoly,
-				OnInit: func(aura *core.Aura, sim *core.Simulation) {
-					for _, judgeSpells := range paladin.allJudgeSpells {
-						for _, judgeRankSpell := range judgeSpells {
+				OnInit: func(aura *core.MakePermanent, sim *core.Simulation) {
+				OnSpellHitDealt: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
+					if (spell.SpellCode == SpellCode_PaladinJudgement) {
+						if result.Landed() {
 							spell.CalcAndDealDamage(sim, target, sim.Roll(60, 66), spell.OutcomeMagicCrit)
 						}
 					}
@@ -91,7 +92,7 @@ var ItemSetConfessorsRaiment = core.NewItemSet(core.ItemSet{
 })
 
 ///////////////////////////////////////////////////////////////////////////
-//                            SoD Phase 5 Item Sets
+//                            Classic Phase 5 Item Sets - AQ
 ///////////////////////////////////////////////////////////////////////////
 
 var ItemSetGarmentsOfTheOracle = core.NewItemSet(core.ItemSet{
@@ -110,11 +111,11 @@ var ItemSetGarmentsOfTheOracle = core.NewItemSet(core.ItemSet{
 })
 
 ///////////////////////////////////////////////////////////////////////////
-//                            SoD Phase 6 Item Sets
+//                            Classic Phase 6 Item Sets - Naxx
 ///////////////////////////////////////////////////////////////////////////
 
 var ItemSetVestmentsOfFaith = core.NewItemSet(core.ItemSet{
-	Name: "Vestments of Faith",
+	Name: "Redemption Armor",
 	Bonuses: map[int32]core.ApplyEffect{
 		// Increases the amount healed by your Judgement of Light by 20.
 		2: func(agent core.Agent) {
