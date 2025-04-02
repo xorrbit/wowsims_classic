@@ -57,10 +57,8 @@ var ItemSetSoulforgeArmor = core.NewItemSet(core.ItemSet{
 				SpellSchool: core.SpellSchoolHoly,
 				OnInit: func(aura *core.MakePermanent, sim *core.Simulation) {
 				OnSpellHitDealt: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
-					if (spell.SpellCode == SpellCode_PaladinJudgement) {
-						if result.Landed() {
-							spell.CalcAndDealDamage(sim, target, sim.Roll(60, 66), spell.OutcomeMagicCrit)
-						}
+					if spell.SpellCode == SpellCode_PaladinJudgement && result.Landed() {
+						spell.CalcAndDealDamage(sim, target, sim.Roll(60, 66), spell.OutcomeMagicCrit)
 					}
 				},
 			})
