@@ -119,7 +119,7 @@ var ItemSetVestmentsOfFaith = core.NewItemSet(core.ItemSet{
 		8: func(agent core.Agent) {
 			c := agent.GetCharacter()
 
-			procAura := c.NewTemporaryStatsAura("Epiphany", core.ActionID{SpellID: 28802}, stats.Stats{stats.SpellPower: 24}, time.Second*30)
+			procAura := c.NewTemporaryStatsAura("Epiphany", core.ActionID{SpellID: 28802}, stats.Stats{stats.MP5: 24}, time.Second*30)
 			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
 				Name:       "Item - Epiphany Proc (Spell Cast)",
 				Callback:   core.CallbackOnCastComplete,
