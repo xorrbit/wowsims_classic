@@ -123,7 +123,8 @@ var ItemSetVestmentsOfFaith = core.NewItemSet(core.ItemSet{
 			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{
 				Name:       "Item - Epiphany Proc (Spell Cast)",
 				Callback:   core.CallbackOnCastComplete,
-				ProcMask:   core.ProcMaskMP5,
+				ProcMask:   core.ProcMaskSpellDamage,
+				SpellFlags:   core.SpellFlagHelpful,
 				ProcChance: 0.05,
 				Handler: func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
 					procAura.Activate(sim)
