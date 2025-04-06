@@ -17,10 +17,7 @@ var StarshardsManaCost = [StarshardsRanks + 1]float64{0, 50, 85, 140, 190, 245, 
 var StarshardsLevel = [StarshardsRanks + 1]int{0, 10, 18, 26, 34, 42, 50, 58}
 
 func (priest *Priest) registerStarshards() {
-	if !priest.Race.NightElf {    //not sure, if this works.. can anyone confirm? xD
-		return
-	}
-
+	
 	priest.Starshards = make([][]*core.Spell, StarshardsRanks+1)
 
 	for rank := 1; rank <= StarshardsRanks; rank++ {
