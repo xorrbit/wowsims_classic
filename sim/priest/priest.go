@@ -51,7 +51,7 @@ type Priest struct {
 	ShadowWeavingProc *core.Spell
 	ShadowWordPain    []*core.Spell
 	Smite             []*core.Spell
-	Starshards        []*core.Spell
+	Starshards        [][]*core.Spell
 	VampiricEmbrace   *core.Spell
 
 	InnerFocusAura *core.Aura
