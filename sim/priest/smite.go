@@ -15,7 +15,7 @@ var SmiteCastTime = [SmiteRanks + 1]int{0, 1500, 2000, 2500, 2500, 2500, 2500, 2
 var SmiteManaCost = [SmiteRanks + 1]float64{0, 20, 30, 60, 95, 140, 185, 230, 280}
 var SmiteLevel = [SmiteRanks + 1]int{0, 1, 6, 14, 22, 30, 38, 46, 54}
 
-func (priest *Priest) RegisterSmiteSpell() {
+func (priest *Priest) registerSmiteSpell() {
 	priest.Smite = make([]*core.Spell, SmiteRanks+1)
 
 	for rank := 1; rank <= SmiteRanks; rank++ {
