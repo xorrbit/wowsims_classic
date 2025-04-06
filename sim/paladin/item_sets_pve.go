@@ -1,10 +1,8 @@
 package paladin
 
 import (
-	"time"
 
 	"github.com/wowsims/classic/sim/core"
-	"github.com/wowsims/classic/sim/core/proto"
 	"github.com/wowsims/classic/sim/core/stats"
 )
 
@@ -60,7 +58,8 @@ var ItemSetSoulforgeArmor = core.NewItemSet(core.ItemSet{
 					if spell.SpellCode == SpellCode_PaladinJudgement && result.Landed() {
 						spell.CalcAndDealDamage(sim, target, sim.Roll(60, 66), spell.OutcomeMagicCrit)
 					}
-				}},
+				},
+				},
 			})
 		},
 	},
