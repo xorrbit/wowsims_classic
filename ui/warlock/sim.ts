@@ -18,44 +18,30 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWarlock, {
 	// All stats for which EP should be calculated.
 	epStats: [
 		// Primary
-		Stat.StatHealth,
 		Stat.StatMana,
 		// Attributes
-		Stat.StatStrength,
-		Stat.StatStamina,
 		Stat.StatIntellect,
 		Stat.StatSpirit,
-		Stat.StatAgility,
-		// Physical
-		Stat.StatAttackPower,
-		Stat.StatMeleeCrit,
-		Stat.StatMeleeHit,
 		// Spell
 		Stat.StatSpellPower,
 		Stat.StatSpellDamage,
 		Stat.StatSpellHit,
 		Stat.StatSpellCrit,
-		Stat.StatSpellHaste,
 		Stat.StatFirePower,
 		Stat.StatShadowPower,
 		Stat.StatMP5,
 	],
-	epPseudoStats: [PseudoStat.PseudoStatCastSpeedMultiplier],
+	epPseudoStats: [],
 	// Reference stat against which to calculate EP. DPS classes use either spell power or attack power.
 	epReferenceStat: Stat.StatSpellPower,
 	// Which stats to display in the Character Stats section, at the bottom of the left-hand sidebar.
 	displayStats: [
 		// Primary
+		Stat.StatHealth,
 		Stat.StatMana,
 		// Attributes
-		Stat.StatStrength,
-		Stat.StatAgility,
 		Stat.StatIntellect,
 		Stat.StatSpirit,
-		// Physical
-		Stat.StatAttackPower,
-		Stat.StatMeleeCrit,
-		Stat.StatMeleeHit,
 		// Spell
 		Stat.StatSpellPower,
 		Stat.StatSpellDamage,
@@ -65,7 +51,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWarlock, {
 		Stat.StatSpellCrit,
 		Stat.StatMP5,
 	],
-	displayPseudoStats: [PseudoStat.PseudoStatCastSpeedMultiplier],
+	displayPseudoStats: [],
 
 	defaults: {
 		// Default equipped gear.
@@ -87,9 +73,6 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecWarlock, {
 				[Stat.StatSpellHaste]: 7.83,
 				[Stat.StatStamina]: 0.01,
 				[Stat.StatFireResistance]: 0.0,
-			},
-			{
-				[PseudoStat.PseudoStatCastSpeedMultiplier]: 7.83,
 			},
 		),
 		// Default consumes settings.
