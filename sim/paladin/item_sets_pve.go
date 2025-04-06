@@ -61,7 +61,7 @@ var ItemSetSoulforgeArmor = core.NewItemSet(core.ItemSet{
 						spell.CalcAndDealDamage(sim, target, sim.Roll(60, 66), spell.OutcomeMagicCrit)
 					}
 				},
-			})
+			)
 		},
 	},
 })
