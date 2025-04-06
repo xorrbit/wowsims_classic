@@ -15,7 +15,6 @@ const (
 const (
 	SpellCode_PriestNone int32 = iota
 
-	SpellCode_PriestStarshards
 	SpellCode_PriestDevouringPlague
 	SpellCode_PriestFlashHeal
 	SpellCode_PriestGreaterHeal
@@ -25,6 +24,7 @@ const (
 	SpellCode_PriestMindFlay
 	SpellCode_PriestShadowWordPain
 	SpellCode_PriestSmite
+	SpellCode_PriestStarshards
 	SpellCode_PriestVampiricTouch
 )
 
@@ -88,9 +88,7 @@ func (priest *Priest) Initialize() {
 	if priest.GetCharacter().Race == proto.Race_RaceUndead {
 		priest.registerDevouringPlagueSpell()
 	}
-	if priest.GetCharacter().Race == proto.Race_RaceNightElf {
-		priest.registerStarshardsSpell()
-	}
+	priest.registerStarshardsSpell()
 	priest.registerSmiteSpell()
 	priest.registerHolyFire()
 
