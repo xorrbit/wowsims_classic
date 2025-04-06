@@ -88,7 +88,9 @@ func (priest *Priest) Initialize() {
 	if priest.GetCharacter().Race == proto.Race_RaceUndead {
 		priest.registerDevouringPlagueSpell()
 	}
-	priest.registerStarshardsSpell()
+	if priest.GetCharacter().Race == proto.Race_NightElf {
+		priest.registerStarshardsSpell()
+	}
 	priest.registerSmiteSpell()
 	priest.registerHolyFire()
 
