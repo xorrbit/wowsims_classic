@@ -62,7 +62,7 @@ var ItemSetSoulforgeArmor = core.NewItemSet(core.ItemSet{
 					}
 				},
 				},
-			}),
+			})
 		},
 	},
 })
