@@ -6,7 +6,7 @@ import (
 
 func (warrior *Warrior) registerHamstringSpell() {
 	damage := 45.0
-	spellID := int32(27584)
+	spellID := int32(7373)
 	spell_level := 54.0
 
 	warrior.Hamstring = warrior.RegisterSpell(BattleStance|BerserkerStance, core.SpellConfig{
