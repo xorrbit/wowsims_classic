@@ -58,7 +58,7 @@ var ItemSetSoulforgeArmor = core.NewItemSet(core.ItemSet{
 					if spell.SpellCode == SpellCode_PaladinJudgement && result.Landed() {
 						spell.CalcAndDealDamage(sim, target, sim.Roll(60, 66), spell.OutcomeMagicCrit)
 					}
-				}
+				},
 				}
 			})
 		},
