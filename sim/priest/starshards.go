@@ -16,7 +16,7 @@ var StarshardsBaseDamage = [StarshardsRanks + 1]float64{0, 84, 162, 288, 414, 57
 var StarshardsManaCost = [StarshardsRanks + 1]float64{0, 50, 85, 140, 190, 245, 300, 350}
 var StarshardsLevel = [StarshardsRanks + 1]int{0, 10, 18, 26, 34, 42, 50, 58}
 
-func (priest *Priest) registerStarshards() {
+func (priest *Priest) registerStarshardsSpell() {
 	
 	priest.Starshards = make([][]*core.Spell, StarshardsRanks+1)
 
