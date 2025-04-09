@@ -457,7 +457,7 @@ export const SpellScorchDebuff = withLabel(
 		actionId: () => ActionId.fromSpellId(12873),
 		fieldName: 'improvedScorch',
 	}),
-	'Fire Damage',
+	'Scorch',
 );
 
 export const SpellWintersChillDebuff = withLabel(
@@ -465,7 +465,7 @@ export const SpellWintersChillDebuff = withLabel(
 		actionId: () => ActionId.fromSpellId(28595),
 		fieldName: 'wintersChill',
 	}),
-	'Frost Damage',
+	"Winter's Chill",
 );
 
 export const SpellStormstrikeDebuff = withLabel(
