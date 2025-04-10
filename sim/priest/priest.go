@@ -15,7 +15,6 @@ const (
 const (
 	SpellCode_PriestNone int32 = iota
 
-	SpellCode_PriestStarshards
 	SpellCode_PriestDevouringPlague
 	SpellCode_PriestFlashHeal
 	SpellCode_PriestGreaterHeal
@@ -25,6 +24,7 @@ const (
 	SpellCode_PriestMindFlay
 	SpellCode_PriestShadowWordPain
 	SpellCode_PriestSmite
+	SpellCode_PriestStarshards
 	SpellCode_PriestVampiricTouch
 )
 
@@ -51,7 +51,7 @@ type Priest struct {
 	ShadowWeavingProc *core.Spell
 	ShadowWordPain    []*core.Spell
 	Smite             []*core.Spell
-	Starshards        []*core.Spell
+	Starshards        [][]*core.Spell
 	VampiricEmbrace   *core.Spell
 
 	InnerFocusAura *core.Aura
