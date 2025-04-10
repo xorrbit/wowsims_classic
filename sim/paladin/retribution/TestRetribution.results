@@ -97,6 +97,55 @@ stat_weights_results: {
  }
 }
 dps_results: {
+ key: "TestRetribution-Phase5-AllItems-Avenger'sBattlegear"
+ value: {
+  dps: 356.24676
+  tps: 384.65577
+ }
+}
+dps_results: {
+ key: "TestRetribution-Phase5-AllItems-FieldMarshal'sAegis"
+ value: {
+  dps: 346.15915
+  tps: 374.55833
+ }
+}
+dps_results: {
+ key: "TestRetribution-Phase5-AllItems-Freethinker'sArmor"
+ value: {
+  dps: 298.76835
+  tps: 327.12328
+ }
+}
+dps_results: {
+ key: "TestRetribution-Phase5-AllItems-JudgementArmor"
+ value: {
+  dps: 336.38725
+  tps: 364.83559
+ }
+}
+dps_results: {
+ key: "TestRetribution-Phase5-AllItems-LawbringerArmor"
+ value: {
+  dps: 305.38632
+  tps: 333.82974
+ }
+}
+dps_results: {
+ key: "TestRetribution-Phase5-AllItems-LieutenantCommander'sRedoubt"
+ value: {
+  dps: 328.48675
+  tps: 356.84659
+ }
+}
+dps_results: {
+ key: "TestRetribution-Phase5-AllItems-RedemptionArmor"
+ value: {
+  dps: 277.17229
+  tps: 305.65504
+ }
+}
+dps_results: {
  key: "TestRetribution-Phase5-AllItems-SanctifiedOrb-20512"
  value: {
   dps: 274.93614

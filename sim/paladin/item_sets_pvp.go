@@ -5,7 +5,7 @@ import (
 	"github.com/wowsims/classic/sim/core/stats"
 )
 
-var KnightLieutenantsLamellarPlate = core.NewItemSet(core.ItemSet{
+var ItemSetLieutenantCommandersRedoubt = core.NewItemSet(core.ItemSet{
 	Name: "Lieutenant Commander's Redoubt",
 	Bonuses: map[int32]core.ApplyEffect{
 		// Increases damage and healing done by magical spells and effects by up to 23.
@@ -25,7 +25,7 @@ var KnightLieutenantsLamellarPlate = core.NewItemSet(core.ItemSet{
 	},
 })
 
-var KnightLieutenantsLamellarPlate = core.NewItemSet(core.ItemSet{
+var ItemSetFieldMarshalsAegis = core.NewItemSet(core.ItemSet{
 	Name: "Field Marshal's Aegis",
 	Bonuses: map[int32]core.ApplyEffect{
 		// +20 Stamina.

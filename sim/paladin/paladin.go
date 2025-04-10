@@ -20,6 +20,7 @@ const (
 	SpellCode_PaladinHolyShock
 	SpellCode_PaladinHolyWrath
 	SpellCode_PaladinJudgementOfCommand
+	SpellCode_PaladinJudgementOfRighteousness
 	SpellCode_PaladinConsecration
 	SpellCode_PaladinHolyShield
 	SpellCode_PaladinHolyShieldProc

@@ -97,10 +97,73 @@ stat_weights_results: {
  }
 }
 dps_results: {
+ key: "TestP1Shadow-Phase1-AllItems-Champion'sRaiment"
+ value: {
+  dps: 483.01744
+  tps: 476.64419
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-AllItems-Confessor'sRaiment"
+ value: {
+  dps: 486.84491
+  tps: 480.46488
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-AllItems-FieldMarshal'sRaiment"
+ value: {
+  dps: 525.83083
+  tps: 517.91497
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-AllItems-GarmentsoftheOracle"
+ value: {
+  dps: 548.69679
+  tps: 540.107
+ }
+}
+dps_results: {
  key: "TestP1Shadow-Phase1-AllItems-IronweaveBattlesuit"
  value: {
   dps: 426.23566
   tps: 422.0676
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-AllItems-LieutenantCommander'sRaiment"
+ value: {
+  dps: 483.01744
+  tps: 476.64419
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-AllItems-VestmentsofFaith"
+ value: {
+  dps: 511.16006
+  tps: 504.37854
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-AllItems-VestmentsofProphecy"
+ value: {
+  dps: 509.39125
+  tps: 502.50585
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-AllItems-VestmentsofTranscendence"
+ value: {
+  dps: 494.35785
+  tps: 488.02658
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-AllItems-Warlord'sRaiment"
+ value: {
+  dps: 525.83083
+  tps: 517.91497
  }
 }
 dps_results: {

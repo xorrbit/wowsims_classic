@@ -66,17 +66,15 @@ func (paladin *Paladin) registerSealOfCommand() {
 		maxDamage := rank.judge.maxDamage + float64(min(paladin.Level, rank.scaleLevel)-rank.level)*rank.judge.scale
 
 		judgeSpell := paladin.RegisterSpell(core.SpellConfig{
+			SpellCode:   SpellCode_PaladinJudgementOfCommand, // used in judgement.go
 			ActionID:    core.ActionID{SpellID: rank.judge.spellID},
 			SpellSchool: core.SpellSchoolHoly,
 			DefenseType: core.DefenseTypeMelee,
 			ProcMask:    core.ProcMaskMeleeMHSpecial,
 			Flags:       core.SpellFlagMeleeMetrics | core.SpellFlagNoOnCastComplete,
 
-			SpellCode: SpellCode_PaladinJudgementOfCommand, // used in judgement.go
-
 			DamageMultiplier: paladin.getWeaponSpecializationModifier(),
 			ThreatMultiplier: 1,
-
 			BonusCoefficient: 0.429,
 
 			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {

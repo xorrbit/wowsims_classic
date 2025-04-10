@@ -71,6 +71,7 @@ func (paladin *Paladin) registerSealOfRighteousness() {
 		maxDamage := rank.judge.maxDamage + rank.judge.scale*float64(min(paladin.Level, rank.scaleLevel)-rank.level)
 
 		judgeSpell := paladin.RegisterSpell(core.SpellConfig{
+			SpellCode:   SpellCode_PaladinJudgementOfRighteousness,
 			ActionID:    core.ActionID{SpellID: rank.judge.spellID},
 			SpellSchool: core.SpellSchoolHoly,
 			DefenseType: core.DefenseTypeMagic,

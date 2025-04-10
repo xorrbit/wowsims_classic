@@ -97,6 +97,55 @@ stat_weights_results: {
  }
 }
 dps_results: {
+ key: "TestShockadin-Phase5-AllItems-Avenger'sBattlegear"
+ value: {
+  dps: 584.26757
+  tps: 626.62516
+ }
+}
+dps_results: {
+ key: "TestShockadin-Phase5-AllItems-FieldMarshal'sAegis"
+ value: {
+  dps: 571.32779
+  tps: 613.88696
+ }
+}
+dps_results: {
+ key: "TestShockadin-Phase5-AllItems-Freethinker'sArmor"
+ value: {
+  dps: 471.0435
+  tps: 513.31751
+ }
+}
+dps_results: {
+ key: "TestShockadin-Phase5-AllItems-JudgementArmor"
+ value: {
+  dps: 588.35511
+  tps: 630.99787
+ }
+}
+dps_results: {
+ key: "TestShockadin-Phase5-AllItems-LawbringerArmor"
+ value: {
+  dps: 482.22967
+  tps: 524.80852
+ }
+}
+dps_results: {
+ key: "TestShockadin-Phase5-AllItems-LieutenantCommander'sRedoubt"
+ value: {
+  dps: 544.31168
+  tps: 586.60043
+ }
+}
+dps_results: {
+ key: "TestShockadin-Phase5-AllItems-RedemptionArmor"
+ value: {
+  dps: 478.46205
+  tps: 521.3654
+ }
+}
+dps_results: {
  key: "TestShockadin-Phase5-AllItems-SanctifiedOrb-20512"
  value: {
   dps: 442.81796

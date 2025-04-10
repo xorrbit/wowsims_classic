@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/wowsims/classic/sim/core"
+	"github.com/wowsims/classic/sim/core/proto"
 )
 
 const StarshardsRanks = 7
@@ -17,7 +18,10 @@ var StarshardsManaCost = [StarshardsRanks + 1]float64{0, 50, 85, 140, 190, 245, 
 var StarshardsLevel = [StarshardsRanks + 1]int{0, 10, 18, 26, 34, 42, 50, 58}
 
 func (priest *Priest) registerStarshardsSpell() {
-	
+	if priest.Race != proto.Race_RaceNightElf {
+		return
+	}
+
 	priest.Starshards = make([][]*core.Spell, StarshardsRanks+1)
 
 	for rank := 1; rank <= StarshardsRanks; rank++ {

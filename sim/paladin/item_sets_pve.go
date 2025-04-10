@@ -1,6 +1,7 @@
 package paladin
 
 import (
+	"slices"
 
 	"github.com/wowsims/classic/sim/core"
 	"github.com/wowsims/classic/sim/core/stats"
@@ -50,16 +51,15 @@ var ItemSetSoulforgeArmor = core.NewItemSet(core.ItemSet{
 		// Inflicts 60 to 66 additional Holy damage on the target of a Paladin's Judgement.
 		8: func(agent core.Agent) {
 			paladin := agent.(PaladinAgent).GetPaladin()
+
+			spellCodes := []int32{SpellCode_PaladinJudgementOfCommand, SpellCode_PaladinJudgementOfRighteousness}
 			paladin.RegisterAura(core.Aura{
 				Label: "Judgement - T2 - Paladin - 8P Bonus",
-				SpellSchool: core.SpellSchoolHoly,
-				OnInit: func(aura *core.MakePermanent, sim *core.Simulation) {
 				OnSpellHitDealt: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
-					if spell.SpellCode == SpellCode_PaladinJudgement && result.Landed() {
-						spell.CalcAndDealDamage(sim, target, sim.Roll(60, 66), spell.OutcomeMagicCrit)
+					if slices.Contains(spellCodes, spell.SpellCode) && result.Landed() {
+						spell.CalcAndDealDamage(sim, result.Target, sim.Roll(60, 66), spell.OutcomeMagicCrit)
 					}
 				},
-				}
 			})
 		},
 	},
