@@ -650,7 +650,7 @@ func applyMiscConsumes(character *Character, miscConsumes *proto.MiscConsumes) {
 		character.AddStat(stats.FrostResistance, 15)
 	}
 
-	if miscConsumes.JujuFlurry {
+	if miscConsumes.JujuFlurry && character.AutoAttacks.enabled {
 		actionID := ActionID{SpellID: 16322}
 		// In Vanilla Juju Flurry was bugged to act like Seal of the Crusader where it gave attack speed but also reduced damage done.
 		jujuFlurryAura := character.RegisterAura(Aura{
