@@ -97,6 +97,9 @@ func (priest *Priest) newStarshardsSpellConfig(rank int, tickIdx int32) core.Spe
 
 		ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 			result := spell.CalcOutcome(sim, target, spell.OutcomeMagicHit)
+			if result.Landed() {
+				spell.Dot(target).Apply(sim)
+			}
 			spell.DealOutcome(sim, result)
 		},
 
