@@ -738,15 +738,10 @@ export const ArcaneElixir: ConsumableInputConfig<SpellPowerBuff> = {
 	actionId: () => ActionId.fromItemId(9155),
 	value: SpellPowerBuff.ArcaneElixir,
 };
-export const LesserArcaneElixir: ConsumableInputConfig<SpellPowerBuff> = {
-	actionId: () => ActionId.fromItemId(217398),
-	value: SpellPowerBuff.LesserArcaneElixir,
-};
 
 export const SPELL_POWER_CONFIG: ConsumableStatOption<SpellPowerBuff>[] = [
 	{ config: GreaterArcaneElixir, stats: [Stat.StatSpellPower] },
 	{ config: ArcaneElixir, stats: [Stat.StatSpellPower] },
-	{ config: LesserArcaneElixir, stats: [Stat.StatSpellPower] },
 ];
 
 export const makeSpellPowerConsumeInput = makeConsumeInputFactory({ consumesFieldName: 'spellPowerBuff' });
