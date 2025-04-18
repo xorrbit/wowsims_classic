@@ -8,10 +8,12 @@ import (
 )
 
 const (
-	DiamondFlask = 20130
-	GrileksCharmOfMight = 19951
-	RageOfMugamba = 19577
-	LifegivingGem = 19341
+	MarshalsPlateGauntlets = 16484
+	GeneralsPlateGauntlets = 16548
+	LifegivingGem          = 19341
+	RageOfMugamba          = 19577
+	GrileksCharmOfMight    = 19951
+	DiamondFlask           = 20130
 )
 
 func init() {
@@ -49,11 +51,21 @@ func init() {
 		})
 	})
 
+	core.NewItemEffect(GeneralsPlateGauntlets, func(agent core.Agent) {
+		warrior := agent.(WarriorAgent).GetWarrior()
+
+		warrior.RegisterAura(core.Aura{
+			Label: "Hamstring Rage Reduction",
+			OnInit: func(aura *core.Aura, sim *core.Simulation) {
+				warrior.Hamstring.Cost.FlatModifier -= 2
+			},
+		})
+	})
+
 	core.NewItemEffect(GrileksCharmOfMight, func(agent core.Agent) {
 		warrior := agent.(WarriorAgent).GetWarrior()
 		actionID := core.ActionID{ItemID: GrileksCharmOfMight}
 		rageMetrics := warrior.NewRageMetrics(actionID)
-
 
 		spell := warrior.Character.RegisterSpell(core.SpellConfig{
 			ActionID:    actionID,
@@ -94,7 +106,7 @@ func init() {
 		warrior := agent.(WarriorAgent).GetWarrior()
 		actionID := core.ActionID{ItemID: LifegivingGem}
 		healthMetrics := warrior.NewHealthMetrics(actionID)
-	
+
 		var bonusHealth float64
 		lifegivingGemAura := warrior.RegisterAura(core.Aura{
 			Label:    "Gift of Life",
@@ -109,25 +121,36 @@ func init() {
 				warrior.AddStatsDynamic(sim, stats.Stats{stats.Health: -bonusHealth})
 			},
 		})
-	
+
 		lifegivingGemSpell := warrior.RegisterSpell(AnyStance, core.SpellConfig{
 			ActionID: actionID,
-	
+
 			Cast: core.CastConfig{
 				CD: core.Cooldown{
 					Timer:    warrior.NewTimer(),
 					Duration: time.Minute * 5,
 				},
 			},
-	
+
 			ApplyEffects: func(sim *core.Simulation, _ *core.Unit, spell *core.Spell) {
 				lifegivingGemAura.Activate(sim)
 			},
 		})
-	
+
 		warrior.AddMajorCooldown(core.MajorCooldown{
 			Spell: lifegivingGemSpell.Spell,
 			Type:  core.CooldownTypeSurvival,
+		})
+	})
+
+	core.NewItemEffect(MarshalsPlateGauntlets, func(agent core.Agent) {
+		warrior := agent.(WarriorAgent).GetWarrior()
+
+		warrior.RegisterAura(core.Aura{
+			Label: "Hamstring Rage Reduction",
+			OnInit: func(aura *core.Aura, sim *core.Simulation) {
+				warrior.Hamstring.Cost.FlatModifier -= 2
+			},
 		})
 	})
 
