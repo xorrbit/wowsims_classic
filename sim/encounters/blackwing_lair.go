@@ -86,7 +86,7 @@ func (ai *VaelastraszTheCorruptAI) registerSpells() {
 		},
 		Dot: core.DotConfig{
 			Aura: core.Aura{
-				Label: "Essemce of the Red",
+				Label: "Essence of the Red",
 			},
 			NumberOfTicks: 240,
 			TickLength:    time.Second * 1,
@@ -107,6 +107,185 @@ func (ai *VaelastraszTheCorruptAI) registerSpells() {
 			spell.Dot(target).Apply(sim)
 		},
 	})
+
+	/*
+		 below is all copied from SoD and not verified to be correct for vanilla
+
+		    multiplierBonus := 1.0
+			inverseMultiplierBonus := 1.0
+
+			ai.burningAdrenalineSpell = ai.Target.RegisterSpell(core.SpellConfig{
+				ActionID: burningAdrenalineActionID,
+				ProcMask: core.ProcMaskEmpty,
+
+				Cast: core.CastConfig{
+					CD: core.Cooldown{
+						Timer:    ai.Target.NewTimer(),
+						Duration: time.Minute * 4,
+					},
+				},
+				Dot: core.DotConfig{
+					Aura: core.Aura{
+						Label:     "Burning Adrenaline",
+						MaxStacks: 100,
+						OnStacksChange: func(aura *core.Aura, sim *core.Simulation, oldStacks int32, newStacks int32) {
+							inverseMultiplierBonus = 1 / (1.0 + float64(oldStacks)*0.1)
+							target.MultiplyMeleeSpeed(sim, inverseMultiplierBonus)
+							target.MultiplyCastSpeed(inverseMultiplierBonus)
+							target.PseudoStats.DamageDealtMultiplier *= inverseMultiplierBonus
+							multiplierBonus = 1.0 + float64(newStacks)*0.1
+							target.MultiplyMeleeSpeed(sim, multiplierBonus)
+							target.MultiplyCastSpeed(multiplierBonus)
+							target.PseudoStats.DamageDealtMultiplier *= multiplierBonus
+						},
+					},
+					NumberOfTicks: 240,
+					TickLength:    time.Second * 2,
+					OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
+						dot.AddStack(sim)
+					},
+				},
+				ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+					spell.Dot(target).Apply(sim)
+					spell.Dot(target).AddStack(sim)
+				},
+			})
+
+			ai.burningAdrenalineTankSpell = ai.Target.RegisterSpell(core.SpellConfig{
+				ActionID:         burningAdrenalineTankActionID,
+				SpellSchool:      core.SpellSchoolFire,
+				DefenseType:      core.DefenseTypeMagic,
+				ProcMask:         core.ProcMaskSpellDamage,
+				Flags:            core.SpellFlagIgnoreResists,
+				DamageMultiplier: 1,
+
+				Cast: core.CastConfig{
+					CD: core.Cooldown{
+						Timer:    ai.Target.NewTimer(),
+						Duration: time.Minute * 4,
+					},
+				},
+				Dot: core.DotConfig{
+					Aura: core.Aura{
+						Label:     "Burning Adrenaline (Tank)",
+						MaxStacks: 100,
+						OnStacksChange: func(aura *core.Aura, sim *core.Simulation, oldStacks int32, newStacks int32) {
+							inverseMultiplierBonus = 1 / (1.0 + float64(oldStacks)*0.1)
+							target.MultiplyMeleeSpeed(sim, inverseMultiplierBonus)
+							target.MultiplyCastSpeed(inverseMultiplierBonus)
+							target.PseudoStats.DamageDealtMultiplier *= inverseMultiplierBonus
+							multiplierBonus = 1.0 + float64(newStacks)*0.1
+							target.MultiplyMeleeSpeed(sim, multiplierBonus)
+							target.MultiplyCastSpeed(multiplierBonus)
+							target.PseudoStats.DamageDealtMultiplier *= multiplierBonus
+						},
+					},
+					NumberOfTicks: 240,
+					TickLength:    time.Second * 2,
+					OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
+						burningAdrenalineTickDamage := target.MaxHealth() * 0.01 * float64(dot.GetStacks())
+						dot.Spell.CalcAndDealPeriodicDamage(sim, target, burningAdrenalineTickDamage, dot.OutcomeTick)
+						if !(dot.GetStacks() == 0) {
+							dot.AddStack(sim)
+						}
+					},
+				},
+				ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+					spell.Dot(target).Apply(sim)
+					spell.Dot(target).AddStack(sim)
+				},
+			})
+
+			ai.cleaveSpell = ai.Target.RegisterSpell(core.SpellConfig{
+				ActionID:         cleaveActionID,
+				SpellSchool:      core.SpellSchoolPhysical,
+				DefenseType:      core.DefenseTypeMelee,
+				ProcMask:         core.ProcMaskEmpty,
+				DamageMultiplier: 1,
+
+				Cast: core.CastConfig{
+					CD: core.Cooldown{
+						Timer:    ai.Target.NewTimer(),
+						Duration: time.Second * 8,
+					},
+				},
+				ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+					baseDamage := sim.Roll(5000, 8000)
+					spell.CalcAndDealDamage(sim, target, baseDamage, spell.OutcomeEnemyMeleeWhite)
+				},
+			})
+
+			ai.fireNovaSpell = ai.Target.RegisterSpell(core.SpellConfig{
+				ActionID:         fireNovaActionID,
+				SpellSchool:      core.SpellSchoolFire,
+				DefenseType:      core.DefenseTypeMagic,
+				ProcMask:         core.ProcMaskSpellDamage,
+				DamageMultiplier: 1,
+
+				Cast: core.CastConfig{
+					CD: core.Cooldown{
+						Timer:    ai.Target.NewTimer(),
+						Duration: time.Second * 3,
+					},
+				},
+				ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+					baseDamage := sim.Roll(555.0, 645.0)
+					spell.CalcAndDealDamage(sim, target, baseDamage, spell.OutcomeMagicHit)
+				},
+			})
+
+			flameBreathTickDamage := 0.0
+
+			ai.flameBreathSpell = ai.Target.RegisterSpell(core.SpellConfig{
+				ActionID:         flameBreathActionID,
+				SpellSchool:      core.SpellSchoolFire,
+				DefenseType:      core.DefenseTypeMagic,
+				ProcMask:         core.ProcMaskSpellDamage,
+				DamageMultiplier: 1,
+
+				Cast: core.CastConfig{
+					DefaultCast: core.Cast{
+						GCD:      time.Millisecond * 3240, // Next server tick after cast complete
+						CastTime: time.Millisecond * 2000,
+					},
+					CD: core.Cooldown{
+						Timer:    ai.Target.NewTimer(),
+						Duration: time.Second * 9,
+					},
+					ModifyCast: func(sim *core.Simulation, spell *core.Spell, cast *core.Cast) {
+						spell.Unit.AutoAttacks.StopMeleeUntil(sim, sim.CurrentTime+cast.CastTime, false)
+					},
+				},
+				Dot: core.DotConfig{
+					Aura: core.Aura{
+						Label:     "Flame Breath",
+						MaxStacks: 100,
+						ActionID:  flameBreathActionID,
+						Duration:  time.Second * 15,
+						OnReset: func(aura *core.Aura, sim *core.Simulation) {
+							flameBreathTickDamage = 0.0
+						},
+					},
+					NumberOfTicks: 5,
+					TickLength:    time.Second * 3,
+					OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
+						dot.Spell.CalcAndDealPeriodicDamage(sim, target, flameBreathTickDamage, dot.OutcomeTick)
+					},
+				},
+
+				ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+					baseDamage := sim.Roll(3500, 4500)
+					result := spell.CalcDamage(sim, target, baseDamage, spell.OutcomeMagicHit)
+
+					if result.Landed() {
+						flameBreathTickDamage += sim.Roll(938, 1062)
+						spell.Dot(target).Activate(sim)
+						spell.Dot(target).AddStack(sim)
+					}
+					spell.DealDamage(sim, result)
+				},
+			})
+	*/
 }
 
 func (ai *VaelastraszTheCorruptAI) Reset(*core.Simulation) {
@@ -132,4 +311,31 @@ func (ai *VaelastraszTheCorruptAI) ExecuteCustomRotation(sim *core.Simulation) {
 		ai.Target.WaitUntil(sim, sim.CurrentTime+BossGCD)
 		return
 	}
+
+	/*
+		 below all copied from SoD and not verified to be correct for vanillla
+			if isTank {
+				if ai.burningAdrenalineTankSpell.CanCast(sim, target) && (sim.CurrentTime >= (time.Second * 10)) {
+					ai.burningAdrenalineTankSpell.Cast(sim, target)
+				}
+				if ai.fireNovaSpell.CanCast(sim, target) {
+					ai.fireNovaSpell.Cast(sim, target)
+				}
+				if ai.flameBreathSpell.CanCast(sim, target) {
+					ai.flameBreathSpell.Cast(sim, target)
+					return
+				}
+				if ai.cleaveSpell.CanCast(sim, target) {
+					ai.cleaveSpell.Cast(sim, target)
+					return
+				}
+			} else {
+				//Do not cast if player input is 0 for BA Time
+				if ai.burningAdrenalineTime == 0 {
+					return
+				} else if ai.burningAdrenalineSpell.CanCast(sim, target) && (sim.CurrentTime >= (time.Second * time.Duration(ai.burningAdrenalineTime))) {
+					ai.burningAdrenalineSpell.Cast(sim, target)
+				}
+			}
+	*/
 }
