@@ -125,7 +125,7 @@ func applyDebuffEffects(target *Unit, targetIdx int, debuffs *proto.Debuffs, rai
 			// Sunder Armor
 			aura := SunderArmorAura(target)
 			SchedulePeriodicDebuffApplication(aura, PeriodicActionOptions{
-				Period:          time.Millisecond * 1500,
+				Period:          time.Millisecond * 200,
 				NumTicks:        5,
 				TickImmediately: true,
 				Priority:        ActionPriorityDOT, // High prio so it comes before actual warrior sunders.
