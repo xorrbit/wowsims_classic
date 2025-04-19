@@ -97,6 +97,13 @@ stat_weights_results: {
  }
 }
 dps_results: {
+ key: "TestP1Shadow-Phase1-AllItems-Champion'sInvestiture"
+ value: {
+  dps: 503.6593
+  tps: 496.63029
+ }
+}
+dps_results: {
  key: "TestP1Shadow-Phase1-AllItems-Champion'sRaiment"
  value: {
   dps: 483.01744
@@ -129,6 +136,13 @@ dps_results: {
  value: {
   dps: 426.23566
   tps: 422.0676
+ }
+}
+dps_results: {
+ key: "TestP1Shadow-Phase1-AllItems-LieutenantCommander'sInvestiture"
+ value: {
+  dps: 503.6593
+  tps: 496.63029
  }
 }
 dps_results: {
