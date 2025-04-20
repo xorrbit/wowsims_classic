@@ -125,6 +125,13 @@ dps_results: {
  }
 }
 dps_results: {
+ key: "TestP1Hunter-Phase1-AllItems-Champion'sPursuit"
+ value: {
+  dps: 431.83843
+  tps: 285.71901
+ }
+}
+dps_results: {
  key: "TestP1Hunter-Phase1-AllItems-CryptstalkerArmor"
  value: {
   dps: 485.48205
@@ -192,6 +199,13 @@ dps_results: {
  value: {
   dps: 451.15084
   tps: 305.03142
+ }
+}
+dps_results: {
+ key: "TestP1Hunter-Phase1-AllItems-LieutenantCommander'sPursuit"
+ value: {
+  dps: 431.83843
+  tps: 285.71901
  }
 }
 dps_results: {
