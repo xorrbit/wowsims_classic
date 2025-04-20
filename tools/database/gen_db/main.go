@@ -673,7 +673,7 @@ func GetPhaseData(item *proto.UIItem) int32 {
 
 	// Dungeon 2
 	if slices.Contains([]int32{512, 516, 515, 514, 513, 518, 511, 517, 519}, item.SetId) {
-		return 5
+		return 4
 	}
 
 	// ZG Class+Crafted Sets
