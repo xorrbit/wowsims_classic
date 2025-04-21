@@ -671,7 +671,7 @@ export const MISC_BUFFS_CONFIG = [
 	{
 		config: PowerInfusion,
 		picker: IconPicker,
-		stats: [Stat.StatMP5, Stat.StatSpellPower],
+		stats: [Stat.StatMP5, Stat.StatSpellPower, Stat.StatSpellDamage],
 	},
 	{
 		config: BattleSquawkBuff,
@@ -798,7 +798,7 @@ export const DEBUFFS_CONFIG = [
 	{
 		config: WarlockCursesConfig,
 		picker: MultiIconPicker,
-		stats: [Stat.StatSpellPower],
+		stats: [Stat.StatSpellPower, Stat.StatSpellDamage],
 	},
 
 	// Defensive

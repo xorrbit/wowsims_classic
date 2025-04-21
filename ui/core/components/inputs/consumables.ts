@@ -28,6 +28,7 @@ import {
 	WeaponImbue,
 	ZanzaBuff,
 } from '../../proto/common';
+import { FeralDruid } from '../../proto/druid';
 import { ActionId } from '../../proto_utils/action_id';
 import { isBluntWeaponType, isSharpWeaponType, isWeapon } from '../../proto_utils/utils';
 import { EventID, TypedEvent } from '../../typed_event';
@@ -39,7 +40,6 @@ import { MultiIconPicker, MultiIconPickerConfig, MultiIconPickerItemConfig } fro
 import { DeadlyPoisonWeaponImbue, InstantPoisonWeaponImbue, WoundPoisonWeaponImbue } from './rogue_imbues';
 import { FlametongueWeaponImbue, FrostbrandWeaponImbue, RockbiterWeaponImbue, WindfuryWeaponImbue } from './shaman_imbues';
 import { ActionInputConfig, ItemStatOption, PickerStatOptions, StatOptions } from './stat_options';
-import { FeralDruid } from '../../proto/druid';
 
 export interface ConsumableInputConfig<T> extends ActionInputConfig<T> {
 	value: T;
@@ -237,7 +237,7 @@ export const FlaskOfChromaticResistance: ConsumableInputConfig<Flask> = {
 export const FLASKS_CONFIG: ConsumableStatOption<Flask>[] = [
 	{ config: FlaskOfTheTitans, stats: [] },
 	{ config: FlaskOfDistilledWisdom, stats: [Stat.StatIntellect] },
-	{ config: FlaskOfSupremePower, stats: [Stat.StatMP5, Stat.StatSpellPower] },
+	{ config: FlaskOfSupremePower, stats: [Stat.StatMP5, Stat.StatSpellPower, Stat.StatSpellDamage] },
 	{ config: FlaskOfChromaticResistance, stats: [] },
 ];
 
@@ -740,8 +740,8 @@ export const ArcaneElixir: ConsumableInputConfig<SpellPowerBuff> = {
 };
 
 export const SPELL_POWER_CONFIG: ConsumableStatOption<SpellPowerBuff>[] = [
-	{ config: GreaterArcaneElixir, stats: [Stat.StatSpellPower] },
-	{ config: ArcaneElixir, stats: [Stat.StatSpellPower] },
+	{ config: GreaterArcaneElixir, stats: [Stat.StatSpellPower, Stat.StatSpellDamage] },
+	{ config: ArcaneElixir, stats: [Stat.StatSpellPower, Stat.StatSpellDamage] },
 ];
 
 export const makeSpellPowerConsumeInput = makeConsumeInputFactory({ consumesFieldName: 'spellPowerBuff' });
@@ -994,11 +994,11 @@ const ROGUE_IMBUES: ConsumableStatOption<WeaponImbue>[] = [
 ];
 
 const CONSUMABLES_IMBUES = (slot: ItemSlot): ConsumableStatOption<WeaponImbue>[] => [
-	{ config: BrilliantWizardOil(slot), stats: [Stat.StatSpellPower] },
-	{ config: WizardOil(slot), stats: [Stat.StatSpellPower] },
-	{ config: LesserWizardOil(slot), stats: [Stat.StatSpellPower] },
-	{ config: MinorWizardOil(slot), stats: [Stat.StatSpellPower] },
-	{ config: BlessedWizardOil(slot), stats: [Stat.StatHealingPower, Stat.StatSpellPower] },
+	{ config: BrilliantWizardOil(slot), stats: [Stat.StatSpellPower, Stat.StatSpellDamage] },
+	{ config: WizardOil(slot), stats: [Stat.StatSpellPower, Stat.StatSpellDamage] },
+	{ config: LesserWizardOil(slot), stats: [Stat.StatSpellPower, Stat.StatSpellDamage] },
+	{ config: MinorWizardOil(slot), stats: [Stat.StatSpellPower, Stat.StatSpellDamage] },
+	{ config: BlessedWizardOil(slot), stats: [Stat.StatHealingPower, Stat.StatSpellPower, Stat.StatSpellDamage] },
 
 	{ config: BrilliantManaOil(slot), stats: [Stat.StatMP5, Stat.StatHealingPower] },
 	{ config: LesserManaOil(slot), stats: [Stat.StatMP5] },
