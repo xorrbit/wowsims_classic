@@ -146,7 +146,7 @@ func init() {
 		duration := time.Second * 20
 
 		buffAura := mage.RegisterAura(core.Aura{
-			ActionID: core.ActionID{SpellID: 23723},
+			ActionID: actionID,
 			Label:    "Mind Quickening",
 			Duration: duration,
 		}).AttachMultiplyCastSpeed(&mage.Unit, 1.33)
