@@ -27,7 +27,7 @@ func (mage *Mage) applyIgnite() {
 				return
 			}
 			if spell.SpellSchool.Matches(core.SpellSchoolFire) && result.DidCrit() {
-				newIgniteDamage = result.Damage * 0.08 * float64(mage.Talents.Ignite)
+				newIgniteDamage = result.Damage * 0.08 * float64(mage.Talents.Ignite) / IgniteTicks
 				mage.Ignite.Cast(sim, result.Target)
 			}
 		},
